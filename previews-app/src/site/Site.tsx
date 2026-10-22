@@ -669,11 +669,7 @@ export function Site({ path = "/" }: { path?: string }) {
     })),
   }
   return (
-    <div
-      data-theme="bento-swiss"
-      data-palette="forest"
-      className="min-h-screen"
-    >
+    <div data-theme="bento-swiss" className="min-h-screen">
       <a
         href="#turinys"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:p-4"

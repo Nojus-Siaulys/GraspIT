@@ -16,7 +16,7 @@ The website opens at `/`. The homepage introduces the offer and links to full pa
 - `/kainos/`, `/procesas/`, `/apie-mus/`, `/darbai/`
 - `/duk/` — 22 questions grouped by topic
 - `/kontaktai/`
-- `/stiliai/` — original design gallery; existing hash preview links still work
+- Bento × Swiss is the only design. The old gallery and alternative previews have been removed; old hash preview URLs open the main website.
 
 ## Build and verify
 
@@ -38,7 +38,7 @@ SITE_URL=https://your-confirmed-domain.lt npm run build
 
 This generates absolute canonical URLs, `sitemap.xml` and the sitemap reference in `robots.txt`. No domain is assumed while the GraspIT domain decision is pending. FAQ markup does not guarantee rich results or search rankings.
 
-Serve `dist` as a static directory with directory index support. Redirect `/duk` to `/duk/` (and likewise for the other page directories), and serve the corresponding `index.html`. Vite development and preview handle those redirects. Configure your production host to return `404.html` with HTTP 404 for unknown URLs; do not configure a universal SPA fallback to the homepage. The older design gallery is client-rendered and marked noindex.
+Serve `dist` as a static directory with directory index support. Redirect `/duk` to `/duk/` (and likewise for the other page directories), and serve the corresponding `index.html`. Vite development and preview handle those redirects. Configure your production host to return `404.html` with HTTP 404 for unknown URLs; do not configure a universal SPA fallback to the homepage.
 
 ## Content and launch requirements
 

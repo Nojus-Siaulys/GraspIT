@@ -1,7 +1,8 @@
-// Lithuanian draft copy for the Bento × Swiss preview (COPY-PLAN.md).
+// Lithuanian studio copy and confirmed commitments (COPY-PLAN.md).
 // Only commitments the old site already makes are written as facts.
 // Anything in [square brackets] is a placeholder waiting for the owner.
-export { img } from "@/content"
+// Stock hero image: confirm usage rights before publication.
+export const img = { hero: `${import.meta.env.BASE_URL}img/handshake.webp` }
 
 export const lt = {
   brand: "GraspIT",

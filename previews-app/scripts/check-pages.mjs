@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { readFile } from "node:fs/promises"
+import { readFile, access } from "node:fs/promises"
 import { pages } from "../dist-ssr/prerender.js"
 const titles = new Set()
 for (const path of Object.keys(pages)) {
@@ -9,6 +9,12 @@ for (const path of Object.keys(pages)) {
   )
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1, `${path}: one h1`)
   assert.ok(html.includes('<html lang="lt">'), `${path}: Lithuanian language`)
+  assert.deepEqual(
+    [...html.matchAll(/data-theme="([^"]+)"/g)].map(match => match[1]),
+    ["bento-swiss"],
+    `${path}: only the main Bento × Swiss design`
+  )
+  assert.ok(!html.includes("<iframe"), `${path}: no embedded design previews`)
   const title = html.match(/<title>(.*?)<\/title>/s)?.[1]
   assert.ok(title && !titles.has(title), `${path}: unique title`)
   titles.add(title)
@@ -58,6 +64,7 @@ assert.match(
   await readFile("dist/404.html", "utf8"),
   /name="robots" content="noindex"/
 )
+await assert.rejects(access("dist/stiliai/index.html"), { code: "ENOENT" })
 console.log(
-  `PASS: ${titles.size} prerendered pages, unique titles, Lithuanian metadata, internal directory links, 22 visible FAQ answers matching JSON-LD, noindex 404.`
+  `PASS: ${titles.size} prerendered pages, unique titles, Lithuanian metadata, internal directory links, 22 visible FAQ answers matching JSON-LD, noindex 404, no alternative designs or gallery.`
 )

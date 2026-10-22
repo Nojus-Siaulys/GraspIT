@@ -12,10 +12,7 @@ function directoryUrls(
   next: () => void
 ) {
   const url = new URL(req.url ?? "/", "http://localhost")
-  if (
-    url.pathname !== "/" &&
-    (pages[url.pathname] || url.pathname === "/stiliai")
-  ) {
+  if (url.pathname !== "/" && pages[url.pathname]) {
     res.writeHead(308, { Location: `${url.pathname}/${url.search}` })
     res.end()
     return

@@ -68,11 +68,6 @@ const notFound = template
     () => `<div id="root">${render("/404")}</div>`
   )
 await writeFile("dist/404.html", notFound)
-await mkdir("dist/stiliai", { recursive: true })
-await writeFile(
-  "dist/stiliai/index.html",
-  template.replace("</head>", '<meta name="robots" content="noindex" /></head>')
-)
 await writeFile(
   "dist/robots.txt",
   `User-agent: *\nAllow: /\n${origin ? `Sitemap: ${origin}/sitemap.xml\n` : ""}`
