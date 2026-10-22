@@ -1,0 +1,92 @@
+// Lithuanian draft copy for the Bento × Swiss preview (COPY-PLAN.md).
+// Only commitments the old site already makes are written as facts.
+// Anything in [square brackets] is a placeholder waiting for the owner.
+export { img } from "@/content"
+
+export const lt = {
+  brand: "WebGenas",
+  nav: ["Paslaugos", "Darbai", "Procesas", "Kainos", "Komanda", "DUK"],
+  cta: "Gauti pasiūlymą",
+  eyebrow: "Svetainių studija Lietuvoje",
+  title: "Svetainių kūrimas verslui: fiksuota kaina, nuo €350",
+  sub: "Esame dviejų žmonių studija. Kuriame svetaines ir el. parduotuves smulkiam ir vidutiniam verslui: per 7–14 dienų, su 30 dienų pagalba po paleidimo.",
+  cta1: "Gauti pasiūlymą",
+  cta2: "Žiūrėti darbus",
+  micro: "Nemokama konsultacija. Fiksuotą pasiūlymą atsiunčiame per 24 val. po pokalbio.",
+  from: "nuo",
+  days: "7 dienos",
+  price: "€350",
+  photo: "Nuotrauka",
+  trustTitle: "Kodėl pasitikėti",
+  trust: [
+    { t: "Fiksuota kaina", d: "Kaina žinoma prieš pradedant, jokių valandinių sąskaitų." },
+    { t: "Nuoroda peržiūrai", d: "Darbą matote viso kūrimo metu, ne tik pabaigoje." },
+    { t: "Kodas jūsų", d: "Paleidimo metu perduodame visą kodą ir turinį." },
+    { t: "30 dienų pagalbos", d: "Po paleidimo esame šalia ir padedame." },
+  ],
+  stats: [
+    { n: "24 val.", l: "Fiksuotas pasiūlymas po pirmo pokalbio" },
+    { n: "7 d.", l: "Pradinė svetainė paruošta" },
+    { n: "30 d.", l: "Pagalba po paleidimo" },
+    { n: "100 %", l: "Svetainės kodas ir turinys jūsų" },
+  ],
+  workTitle: "Darbai, kuriais didžiuojamės",
+  work: [
+    { t: "[Projekto pavadinimas]", k: "Svetainė" },
+    { t: "[Projekto pavadinimas]", k: "El. parduotuvė" },
+    { t: "[Projekto pavadinimas]", k: "Svetainė" },
+  ],
+  servicesTitle: "Trys būdai pradėti",
+  servicesIntro:
+    "Kiek kainuoja svetainė? Pradinė svetainė iki 4 puslapių kainuoja nuo €350, svetainė su parduotuve ir turinio valdymu – nuo €700. Kaina fiksuota prieš pradedant darbą.",
+  services: [
+    { t: "Svetainė", d: "Iki 4 puslapių, pritaikyta telefonui, paruošta per 7 dienas.", p: "nuo €350" },
+    { t: "Svetainė ar parduotuvė", d: "Neribotas puslapių skaičius, el. parduotuvė, turinio valdymas, paruošta per 14 dienų.", p: "nuo €700" },
+    { t: "Priežiūros planas", d: "Talpinimas, atnaujinimai ir smulkūs pakeitimai, kad svetainė liktų sveika.", p: "€[__]/mėn." },
+  ],
+  aiLine: "Reikia automatizuoti laiškus ar procesus? Kuriame ir dirbtinio intelekto automatizacijas, nuo €950.",
+  processTitle: "Kaip tai vyksta",
+  process: [
+    { t: "Pokalbis", d: "30 min, nemokamas." },
+    { t: "Pasiūlymas", d: "Fiksuota kaina per 24 val." },
+    { t: "Kūrimas", d: "Nuoroda peržiūrai viso darbo metu." },
+    { t: "Pastabos", d: "Peržiūrite ir pateikiate pastabas." },
+    { t: "Paleidimas", d: "Perduodame kodą ir turinį." },
+  ],
+  whyTitle: "Kuo skiriamės nuo šabloninės svetainės",
+  whyCols: ["Be aiškaus susitarimo", "Su mumis"],
+  why: [
+    ["Kaina keičiasi darbo metu", "Fiksuota kaina prieš pradedant"],
+    ["Rezultatą matote tik pabaigoje", "Nuoroda peržiūrai viso kūrimo metu"],
+    ["Kodas lieka kūrėjo rankose", "Visas kodas ir turinys perduodami jums"],
+    ["Po paleidimo lieka vienas", "30 dienų pagalbos po paleidimo"],
+  ],
+  teamTitle: "Mes dviese",
+  people: [
+    { n: "[Vardas Pavardė]", r: "[Pareigos]" },
+    { n: "[Vardas Pavardė]", r: "[Pareigos]" },
+  ],
+  quotes: [
+    { q: "[Kliento atsiliepimas: vienas ar du sakiniai apie rezultatą.]", n: "[Vardas Pavardė]", o: "[Įmonė]" },
+    { q: "[Kliento atsiliepimas: vienas ar du sakiniai apie rezultatą.]", n: "[Vardas Pavardė]", o: "[Įmonė]" },
+    { q: "[Kliento atsiliepimas: vienas ar du sakiniai apie rezultatą.]", n: "[Vardas Pavardė]", o: "[Įmonė]" },
+  ],
+  faqTitle: "Dažniausiai užduodami klausimai",
+  faq: [
+    { q: "Kiek kainuoja svetainė?", a: "Pradinė svetainė kainuoja nuo €350, svetainė su parduotuve ir turinio valdymu – nuo €700. Kaina fiksuota prieš pradedant darbą, jokių valandinių sąskaitų." },
+    { q: "Kiek laiko trunka kūrimas?", a: "Pradinė svetainė paruošiama per 7 dienas, didesnė – per 14 dienų. Tikslų terminą nurodome pasiūlyme." },
+    { q: "Ar svetainės kodas priklauso man?", a: "Taip. Paleidimo metu perduodame visą svetainės kodą ir turinį." },
+    { q: "Kas bus po paleidimo?", a: "30 dienų po paleidimo esame šalia ir padedame. Vėliau galite pasirinkti mėnesinį priežiūros planą." },
+    { q: "Ar galite sukurti el. parduotuvę?", a: "Taip. Svetainė su el. parduotuve kainuoja nuo €700 ir paruošiama per 14 dienų." },
+    { q: "Ar dirbate ne tik Vilniuje?", a: "Dirbame su verslais visoje Lietuvoje. [Patvirtinti: pokalbiai nuotoliu ar gyvai.]" },
+  ],
+  closeTitle: "Papasakokite apie savo svetainę",
+  closeSub: "Parašykite el. paštą ir atsakysime per [N] val. Arba užsisakykite 30 min pokalbį.",
+  booking: "Užsisakyti 30 min pokalbį",
+  emailPh: "jusu@pastas.lt",
+  send: "Siųsti",
+  online: "Atsakome per [N] val.",
+  phone: "[+370 000 00000]",
+  email: "[el. paštas]",
+  footer: { rights: "© WebGenas", note: "[Įmonės pavadinimas, kodas, PVM kodas]", privacy: "Privatumo politika", terms: "Taisyklės" },
+}
