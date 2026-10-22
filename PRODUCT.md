@@ -1,4 +1,4 @@
-# Product context — web studio (working title: WebGenas / WebGenius)
+# Product context — web studio (brand: GraspIT; old names WebGenas / WebGenius)
 
 Status: draft 2026-10-22. Facts below come from the existing site repo `Nojus-Siaulys/Portfolio1` and from the owner's answers. Anything marked **[confirm]** is not decided.
 
@@ -32,6 +32,7 @@ The existing site is a one-person portfolio ("I", Nojus). The new site becomes a
 - Contact channels: email, phone, 30-minute booking link.
 - English: same offer, translated after the Lithuanian launch.
 - Homepage keeps the Procesas (5 steps) and DUK (FAQ) chapters; the Bento × Swiss preview carries the Lithuanian draft copy.
+- Brand renamed to **GraspIT** (from "grasp": to understand). The homepage gains an **Apie mus** chapter: how we think, what we know (competence), how we work (work ethic). **Domain [confirm]:** the live domain is still webgenas.com, which no longer matches the brand; decide whether to buy a GraspIT domain and redirect.
 
 ## Still open **[confirm]** (decisions 2, 3 partly, 5 and 7 are settled above)
 1. Second team member: name, role, what each person owns (design / development / AI), photo and short bio. The About page needs real people.
@@ -41,3 +42,4 @@ The existing site is a one-person portfolio ("I", Nojus). The new site becomes a
 5. Contact channels: email, phone, Messenger (already used), WhatsApp, booking link for a 30-minute call.
 6. Legal entity and invoicing details for the footer and terms (MB / IĮ / other).
 7. English market: same offers and prices, or a separate English proposition?
+8. Company story for Apie mus: how the studio started, the real origin of the name GraspIT, one project or result you are proud of, whether the tech stack (Next.js, React, TypeScript) and the four work principles are accurate.

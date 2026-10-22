@@ -76,4 +76,5 @@ export const img = {
   team: `${base}img/team.png`,
   sites: `${base}img/websites.jpg`,
   trust: `${base}img/trust.jpg`,
+  logo: `${base}img/logo.png`,
 }

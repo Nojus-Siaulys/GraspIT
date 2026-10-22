@@ -29,13 +29,14 @@ Chapter order follows rule 28, plus two additions: **Procesas** (the 5-step proc
 | 4 | Paslaugos | Three offers with price | pricing above |
 | 5 | Procesas | Remove fear of the unknown | 5-step process |
 | 6 | Kodėl mes | Without / with table | commitments |
-| 7 | Komanda ir atsiliepimai | Faces and real quotes | **[confirm: people, quotes]** |
-| 8 | DUK | Answer objections, feed AI answers | below |
-| 9 | Kontaktai | One field, one promise | email, booking link |
+| 7 | Apie mus | Story, competence, work ethic | below; **[confirm: story facts]** |
+| 8 | Komanda ir atsiliepimai | Faces and real quotes | **[confirm: people, quotes]** |
+| 9 | DUK | Answer objections, feed AI answers | below |
+| 10 | Kontaktai | One field, one promise | email, booking link |
 
 ### 1 Hero
 - Eyebrow: Svetainių studija Lietuvoje
-- H1 (keyword-led, recommended): **Svetainių kūrimas verslui: fiksuota kaina, nuo €350**
+- H1 (keyword-led, recommended; changed in the 2026-10-22 review so the lowest price is not the first thing a serious buyer reads): **Svetainių kūrimas verslui: fiksuota kaina ir aiškus terminas**. The €350 stays in the price block, services and FAQ.
 - H1 (brand-led alternative): Svetainės, kurios atneša užklausas
 - Sub: Esame dviejų žmonių studija. Kuriame svetaines ir el. parduotuves smulkiam ir vidutiniam verslui: per 7–14 dienų, su 30 dienų pagalba po paleidimo.
 - Primary CTA: Gauti pasiūlymą · Secondary: Žiūrėti darbus
@@ -77,22 +78,30 @@ Swap in real numbers (projects shipped, years) only when the owner confirms them
 
 Heading: Kuo skiriamės nuo šabloninės svetainės. Keep it about practices we can prove, not about competitors.
 
-### 7 Komanda ir atsiliepimai
+### 7 Apie mus (preview chapter 06, white band)
+- Heading: Pirmiausia suprantame jūsų verslą, tada kuriame
+- Lead: GraspIT – dviejų žmonių studija. Pavadinimas kilo iš žodžio „grasp“ – suvokti, suprasti. **[confirm: name story]**
+- Story (3 short paragraphs): (1) we learn how your business works before we design; (2) **[confirm: how it started, what we do differently]**; (3) **[confirm: one project or result we are proud of]**
+- Ką išmanome (3 columns): Dizainas ir aiškumas · Kūrimas (Next.js, React, TypeScript **[confirm]**) · Paieška ir automatizacija (Google and AI answers, automations)
+- Kaip dirbame (4 ruled rows, all commitments we control): Kalbame paprastai · Kainą sakome pirmiausia · Rodome, ką darome · Nepaliekame po paleidimo
+- Keep the story to facts we can stand behind; no invented years, client counts or awards.
+
+### 8 Komanda ir atsiliepimai
 - Heading: Mes dviese. **[confirm: two names, roles, who owns design / development, one-sentence bio, photo]**
 - Quotes: only real, with name, role, company. Until then, hide the quote row rather than show placeholders.
 
-### 8 DUK (also FAQPage JSON-LD)
+### 9 DUK (also FAQPage JSON-LD)
 - Kiek kainuoja svetainė? · Kiek laiko trunka kūrimas? · Ar kodas man priklauso? · Kas bus po paleidimo? · Ar galite sukurti el. parduotuvę? · Ar dirbate ne Vilniuje?
 - Each answer starts with the direct answer in one sentence, then detail.
 
-### 9 Kontaktai
+### 10 Kontaktai
 - Heading: Papasakokite apie savo svetainę
 - Sub: Parašykite el. paštą ir atsakysime per **[confirm: N]** val. Arba užsisakykite 30 min pokalbį.
 - Form: one field (el. paštas) + Siųsti. Reassurance: Be įsipareigojimų.
 - Footer: legal name and entity **[confirm: MB / IĮ / other, code, VAT]**, Privatumo politika, Taisyklės.
 
 ## SEO and AIO hooks for the homepage
-- Title: Svetainių kūrimas verslui nuo €350 | {brand}. Description: price, days, 30-day support in under 160 characters.
+- Title: Svetainių kūrimas verslui nuo €350 | GraspIT. Description: price, days, 30-day support in under 160 characters.
 - One `<h1>`; chapter headings are `<h2>`; the without/with table and DUK are real HTML so they can be quoted.
 - JSON-LD: `ProfessionalService` (both people as `Person` once named), `FAQPage`, `Offer` for the three prices. Keep `llms.txt` and `hreflang` (lt default, en later).
 - City pages (Vilnius, Kaunas, Klaipėda) stay as separate pages and link from Paslaugos.
@@ -104,3 +113,5 @@ Heading: Kuo skiriamės nuo šabloninės svetainės. Keep it about practices we 
 4. Legal entity and company details for the footer.
 5. Reply-time promise (hours) and the booking link tool (Cal.com, Calendly, other).
 6. ~~OK to add the Procesas and DUK chapters~~ — done, confirmed.
+7. The company story: how it started, why the name GraspIT, one project to be proud of, confirm tech stack and work principles.
+8. Domain: keep webgenas.com or register a GraspIT domain.
