@@ -4,6 +4,7 @@ import Apple from "@/pages/Apple"
 import Bento from "@/pages/Bento"
 import BentoApple from "@/pages/BentoApple"
 import BentoIos from "@/pages/BentoIos"
+import { Site } from "@/site/Site"
 import BentoSwiss from "@/pages/BentoSwiss"
 import Constructivism from "@/pages/Constructivism"
 import Flat from "@/pages/Flat"
@@ -31,7 +32,9 @@ function FullView({ id }: { id: string }) {
   const frame = useRef<HTMLIFrameElement>(null)
   const [height, setHeight] = useState(2400)
   // Optional "?w=760" fixes the target width in px (for small panes); default is the window width.
-  const target = () => Number(new URLSearchParams(window.location.hash.split("?")[1]).get("w")) || window.innerWidth
+  const target = () =>
+    Number(new URLSearchParams(window.location.hash.split("?")[1]).get("w")) ||
+    window.innerWidth
   const [scale, setScale] = useState(target() / 1280)
   useEffect(() => {
     const onResize = () => setScale(target() / 1280)
@@ -52,7 +55,13 @@ function FullView({ id }: { id: string }) {
           measure()
           setTimeout(measure, 800)
         }}
-        style={{ width: 1280, height, border: 0, transform: `scale(${scale})`, transformOrigin: "top left" }}
+        style={{
+          width: 1280,
+          height,
+          border: 0,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        }}
       />
     </div>
   )
@@ -63,12 +72,16 @@ export default function App() {
   useEffect(() => {
     const onChange = () => {
       setRoute(current())
-      window.scrollTo(0, 0)
+      if (window.location.hash.startsWith("#/")) window.scrollTo(0, 0)
     }
     window.addEventListener("hashchange", onChange)
     return () => window.removeEventListener("hashchange", onChange)
   }, [])
-  if (route.startsWith("full/")) return <FullView key={window.location.hash} id={route.slice(5)} />
+  const path = window.location.pathname.replace(/\/+$/, "") || "/"
+  if (path !== "/stiliai" && !routes[route] && !route.startsWith("full/"))
+    return <Site path={path} />
+  if (route.startsWith("full/"))
+    return <FullView key={window.location.hash} id={route.slice(5)} />
   const Page = routes[route]
   return Page ? <Page /> : <Gallery />
 }

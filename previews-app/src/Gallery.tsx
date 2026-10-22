@@ -17,7 +17,7 @@ const hybrids = [
   {
     id: "bento-swiss",
     name: "Bento × Swiss",
-    note: "Bento tiles with hairline borders, tight type, numbered labels and greyscale photos. One red tile carries the price. Sharp and editorial.",
+    note: "Pasirinkta GraspIT svetainė: Forest + sand, 11 atskirų puslapių, trumpas pradinis puslapis ir išsamus DUK.",
   },
 ]
 
@@ -100,8 +100,8 @@ function Section({ title, list }: { title: string; list: { id: string; name: str
               </CardHeader>
               <CardContent className="mt-auto px-1">
                 <Button asChild>
-                  <a href={`#/${s.id}`}>
-                    Open <ArrowRight />
+                  <a href={s.id === "bento-swiss" ? "/" : `#/${s.id}`}>
+                    {s.id === "bento-swiss" ? "Atverti svetainę" : "Open"} <ArrowRight />
                   </a>
                 </Button>
               </CardContent>
@@ -118,8 +118,8 @@ export default function Gallery() {
       <div className="mx-auto max-w-6xl px-5 py-12">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Front page previews</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          The same front page in seven styles plus three Bento hybrids, built from the same shadcn/ui components. Only the tokens and the composition change.
-          All text is placeholder; the studio copy is written later. Open one to see it full size, and narrow the window to check mobile.
+          Pasirinkta „Bento × Swiss“ kryptis jau išplėtota į kelių puslapių GraspIT svetainę.
+          Kitos kortelės – ankstesni vieno puslapio dizaino eskizai.
         </p>
         <Section title="Bento hybrids" list={hybrids} />
         <Section title="All styles" list={styles} />

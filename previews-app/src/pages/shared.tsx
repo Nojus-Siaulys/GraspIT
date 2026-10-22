@@ -38,7 +38,7 @@ export function PreviewShell({
       {!isEmbed() && (
         <div className="flex items-center justify-between gap-3 bg-[#111] px-4 py-1.5 text-xs font-medium text-white">
           <span>
-            <a href="#/" className="underline underline-offset-4">
+            <a href="/stiliai" className="underline underline-offset-4">
               ← All styles
             </a>
             {"  ·  "}

@@ -1,25 +1,51 @@
 # GraspIT
 
-Planning and front-page previews for a two-person website studio (Lithuania first, English later).
+Lithuanian website for a two-person web studio. The chosen direction is **Bento × Swiss**, with the Forest + sand palette.
 
-- `PRODUCT.md` — facts, decisions and open questions
-- `STRUCTURE.md` — sitemap, home page chapters, SEO and AI-answer plan
-- `DESIGN-RULES.md` — design rules, page structure, trust and colour palettes
-- `COPY-PLAN.md` — Lithuanian homepage copy plan and drafts
-- `previews-app/` — Vite + React + shadcn/ui previews of the front page in several styles
-
-Chosen direction: **Bento × Swiss**, palette **Forest + sand**. Text in the previews is placeholder; items in [square brackets] wait for the owner.
-
-## Run the previews
+## Development
 
 ```bash
 cd previews-app
-npm install
+npm ci
 npm run dev
 ```
 
-Open http://localhost:5173/#/bento-swiss (other styles are listed at `#/`).
+The website opens at `/`. The homepage introduces the offer and links to full pages, rather than showing every section in full.
 
-## Images
+- `/paslaugos/` and individual website, shop and AI service pages
+- `/kainos/`, `/procesas/`, `/apie-mus/`, `/darbai/`
+- `/duk/` — 22 questions grouped by topic
+- `/kontaktai/`
+- `/stiliai/` — original design gallery; existing hash preview links still work
 
-The four photos in `previews-app/public/img` are stock images supplied for layout only. Check their licence or replace them with owned photography before launch.
+## Build and verify
+
+```bash
+cd previews-app
+npm run build
+npm run check:pages
+npm run lint
+npm run preview
+```
+
+The build generates HTML for all 11 website pages in `previews-app/dist`, including visible content without JavaScript. Each page has a unique title, description and Open Graph metadata. The DUK page includes FAQPage JSON-LD generated from the same data as its visible answers. Native question disclosure widgets also work without JavaScript. `check:pages` checks the generated HTML, internal links and FAQ markup.
+
+For publication, set the confirmed production origin at build time:
+
+```bash
+SITE_URL=https://your-confirmed-domain.lt npm run build
+```
+
+This generates absolute canonical URLs, `sitemap.xml` and the sitemap reference in `robots.txt`. No domain is assumed while the GraspIT domain decision is pending. FAQ markup does not guarantee rich results or search rankings.
+
+Serve `dist` as a static directory with directory index support. Redirect `/duk` to `/duk/` (and likewise for the other page directories), and serve the corresponding `index.html`. Vite development and preview handle those redirects. Configure your production host to return `404.html` with HTTP 404 for unknown URLs; do not configure a universal SPA fallback to the homepage. The older design gallery is client-rendered and marked noindex.
+
+## Content and launch requirements
+
+- `previews-app/src/site/content.ts` — page metadata, services, shared FAQ answers.
+- `previews-app/src/site/Site.tsx` — page layouts and shared navigation.
+- `PRODUCT.md`, `STRUCTURE.md`, `DESIGN-RULES.md`, `COPY-PLAN.md` — source planning notes. The latest multi-page structure supersedes the original full homepage plan.
+
+Contact details are still placeholders in `src/content-lt.ts`. The contact page intentionally shows that requests are unavailable until real contact details are supplied; it does not pretend to send a form. Add a real email/phone before launch. Booking, legal details, privacy policy, care plan price, team biographies, client work and testimonials still need owner-confirmed information. Client results and team identities have not been invented. The work page currently identifies its visual as a studio design demonstration.
+
+The stock hero photo is supplied for layout. Confirm its licence or replace it with owned photography before publication.
