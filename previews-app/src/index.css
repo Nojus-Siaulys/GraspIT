@@ -146,7 +146,7 @@ html { scroll-padding-top: 7rem; }
 @media (max-width: 639px) { .studio-scene { min-height: 32rem; background-position: 42% center; } .studio-scene-copy { padding: 3rem 1.25rem; } }
 
 /* One continuous hero: text over the photograph, no content cards. */
-.home-hero { padding: clamp(4rem, 8vw, 7rem) 0; min-height: min(850px, 88svh); display: flex; align-items: center; color: #fff; background-color: var(--foreground); background-image: linear-gradient(90deg, rgb(5 19 15 / .83), rgb(5 19 15 / .62) 40%, rgb(5 19 15 / .12) 78%, transparent), url('/img/generated/active-theory-kalvita-hero.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; }
+.home-hero { padding: clamp(4rem, 8vw, 7rem) 0; min-height: min(850px, 88svh); display: flex; align-items: center; color: #fff; background-color: var(--foreground); background-image: linear-gradient(90deg, rgb(5 19 15 / .83), rgb(5 19 15 / .62) 40%, rgb(5 19 15 / .12) 78%, transparent), url('/img/generated/forest-typography-hero-v2.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; }
 .home-hero > div { width: 100%; }
 .home-hero .hero-copy { max-width: 780px; }
 .home-hero .hero-copy > p { color: rgb(255 255 255 / .87); }
@@ -157,3 +157,31 @@ html { scroll-padding-top: 7rem; }
 .home-hero .hero-price:hover { color: #fff; }
 @media (prefers-reduced-motion: no-preference) { .home-hero { background-attachment: fixed; } }
 @media (max-width: 639px) { .home-hero { min-height: 0; background-position: 58% center; } }
+/* Project library: coloured tiles, tactile buttons, story dialog. Each project sets --tone-bg / --tone-ink / --tone-accent inline. */
+.lib-tile { background: var(--tone-bg); color: var(--tone-ink); transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s; }
+.lib-tile:focus-within { outline: 3px solid var(--signal); outline-offset: 4px; }
+.lib-icon { background: var(--tone-accent); color: var(--tone-icon, #fff); transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.lib-chip { background: color-mix(in srgb, var(--tone-ink) 12%, transparent); color: inherit; transition: background-color .15s, color .15s; }
+.lib-chip:hover, .lib-chip[aria-pressed="true"] { background: var(--tone-ink); color: var(--tone-bg); }
+.lib-peek { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .3s ease, opacity .3s ease; }
+.lib-peek > div { overflow: hidden; }
+.lib-tile:hover .lib-peek, .lib-tile:focus-within .lib-peek { grid-template-rows: 1fr; opacity: 1; }
+@media (hover: none) { .lib-peek { display: none; } }
+.lib-arrow { transition: transform .2s; }
+.lib-tile:hover .lib-arrow { transform: translateX(6px); }
+.lib-press { transition: transform .15s, background-color .15s; }
+.lib-press:active:not(:disabled) { transform: scale(.95); }
+.lib-dialog::backdrop { background: rgb(16 55 43 / .6); backdrop-filter: blur(4px); }
+.lib-dialog-head { background: var(--tone-bg); color: var(--tone-ink); }
+@media (prefers-reduced-motion: no-preference) {
+  .lib-tile:hover { box-shadow: 0 18px 36px -18px rgb(16 55 43 / .5); }
+  .lib-tilt-left:hover { transform: translateY(-6px) rotate(-.6deg); }
+  .lib-tilt-right:hover { transform: translateY(-6px) rotate(.6deg); }
+  .lib-tile:hover .lib-icon { transform: rotate(-10deg) scale(1.12); }
+  .lib-dialog[open] { animation: lib-pop .35s cubic-bezier(.2, .9, .3, 1.2); }
+  .lib-dialog[open]::backdrop { animation: lib-fade .25s ease; }
+  .lib-step { animation: lib-step-in .35s cubic-bezier(.2, .8, .2, 1); }
+}
+@keyframes lib-pop { from { opacity: 0; transform: translateY(24px) scale(.96); } }
+@keyframes lib-fade { from { opacity: 0; } }
+@keyframes lib-step-in { from { opacity: 0; transform: translateX(18px); } }
