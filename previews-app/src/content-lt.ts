@@ -1,0 +1,121 @@
+import { prices } from "./site/pricing"
+// Lithuanian studio copy and confirmed commitments (COPY-PLAN.md).
+// Only commitments the old site already makes are written as facts.
+// Anything in [square brackets] is a placeholder waiting for the owner.
+// Stock hero image: confirm usage rights before publication.
+export const img = { hero: `${import.meta.env.BASE_URL}img/handshake.webp` }
+
+export const lt = {
+  brand: "GraspIT",
+  nav: ["Paslaugos", "Darbai", "Procesas", "Kainos", "Apie mus", "DUK"],
+  cta: "Gauti pasiūlymą",
+  eyebrow: "Svetainių studija Lietuvoje",
+  title: "Svetainių kūrimas verslui: fiksuota kaina ir aiškus terminas",
+  sub: "Esame dviejų žmonių studija, todėl su jumis dirba tie, kurie ir kuria. Kuriame svetaines ir el. parduotuves smulkiam bei vidutiniam verslui: per 7–14 dienų ir su 30 dienų pagalba po paleidimo.",
+  cta1: "Gauti pasiūlymą",
+  cta2: "Žiūrėti darbus",
+  micro: "Pirmas pokalbis nemokamas. Fiksuotą pasiūlymą atsiųsime per 24 val. po jo.",
+  from: "nuo",
+  days: "7 dienos",
+  price: `${prices.website}`,
+  photo: "Nuotrauka",
+  trustTitle: "Kodėl pasitikėti",
+  trust: [
+    { t: "Fiksuota kaina", d: "Kainą sutariame prieš pradėdami darbą. Jokių valandinių sąskaitų." },
+    { t: "Matote darbą kuriant", d: "Nuorodą peržiūrai gaunate jau kūrimo metu, o ne tik pabaigoje." },
+    { t: "Kodas ir turinys jūsų", d: "Paleidę perduodame visą svetainės kodą ir turinį." },
+    { t: "30 dienų pagalbos", d: "Po paleidimo esame šalia ir padedame." },
+  ],
+  stats: [
+    { n: "24 val.", l: "Fiksuotas pasiūlymas po pirmo pokalbio" },
+    { n: "7 d.", l: "Pradinė svetainė paruošiama" },
+    { n: "30 d.", l: "Pagalba po paleidimo" },
+    { n: "100 %", l: "Kodas ir turinys priklauso jums" },
+  ],
+  workTitle: "Mūsų darbai",
+  work: [
+    { t: "[Projekto pavadinimas]", k: "Svetainė" },
+    { t: "[Projekto pavadinimas]", k: "El. parduotuvė" },
+    { t: "[Projekto pavadinimas]", k: "Svetainė" },
+  ],
+  servicesTitle: "Ką siūlome ir kiek tai kainuoja",
+  servicesIntro:
+    `Kiek kainuoja svetainė? Pradinė svetainė iki 4 puslapių kainuoja nuo ${prices.website}, o svetainė su parduotuve ir turinio valdymu – nuo ${prices.shop}. Kaina fiksuojama prieš pradedant darbą.`,
+  services: [
+    { t: "Pradinė svetainė", d: "Iki 4 puslapių, pritaikyta telefonams ir planšetėms, paruošiama per 7 dienas.", p: `nuo ${prices.website}` },
+    { t: "Verslo svetainė ar parduotuvė", d: "Neribotas puslapių skaičius, el. parduotuvė ir turinio valdymas. Paruošiama per 14 dienų.", p: `nuo ${prices.shop}` },
+    { t: "Priežiūros planas", d: "Talpinimas, atnaujinimai ir smulkūs pakeitimai, kad svetainė veiktų be rūpesčių.", p: `€[__]/mėn.` },
+  ],
+  aiLine: `Reikia automatizuoti laiškus ar kasdienius procesus? Taip pat kuriame automatizacijas su dirbtiniu intelektu, nuo ${prices.email}.`,
+  processTitle: "Kaip vyksta projektas",
+  process: [
+    { t: "Pokalbis", d: "30 min, nemokamas." },
+    { t: "Pasiūlymas", d: "Fiksuota kaina per 24 val." },
+    { t: "Kūrimas", d: "Dizainas ir kūrimas, nuoroda peržiūrai visą laiką." },
+    { t: "Pastabos", d: "Peržiūrite ir pateikiate pastabas." },
+    { t: "Paleidimas", d: "Perduodame kodą ir turinį." },
+  ],
+  whyTitle: "Kuo skiriasi darbas su mumis",
+  whyCols: ["Kaip dažnai būna", "Su mumis"],
+  why: [
+    ["Kaina keičiasi darbo metu", "Kaina fiksuota prieš pradedant"],
+    ["Rezultatą matote tik pabaigoje", "Matote darbą viso kūrimo metu"],
+    ["Kodas lieka kūrėjo rankose", "Kodas ir turinys perduodami jums"],
+    ["Po paleidimo sunku su kuo nors susisiekti", "30 dienų pagalbos po paleidimo"],
+  ],
+  about: {
+    title: "Pirmiausia suprantame jūsų verslą, tada kuriame",
+    lead: "GraspIT – dviejų žmonių studija. Pavadinimas kilo iš žodžio „grasp“ – suprasti, suvokti. [Patvirtinti pavadinimo istoriją.]",
+    story: [
+      "Prieš piešdami ar programuodami, išsiaiškiname, kaip veikia jūsų verslas, kas yra jūsų klientai ir ko tikitės iš svetainės. Tik tada siūlome sprendimą ir kainą.",
+      "[Kaip prasidėjo: vienas–du sakiniai apie tai, kodėl įkūrėte studiją ir ką norite daryti kitaip nei šabloninių svetainių kūrėjai.]",
+      "[Kuo didžiuojatės: vienas projektas ar rezultatas, kurį galite įvardyti.]",
+    ],
+    competenceTitle: "Ką išmanome",
+    competence: [
+      { t: "Dizainas ir aiškumas", d: "Svetainė, kurioje lankytojas per kelias sekundes supranta, ką siūlote ir ką daryti toliau." },
+      { t: "Kūrimas", d: "Greitos ir saugios svetainės bei parduotuvės, kuriamos su Next.js, React ir TypeScript. [Patvirtinti technologijas.]" },
+      { t: "Paieška ir automatizacija", d: "Svetainę pritaikome „Google“ paieškai ir dirbtinio intelekto atsakymams, o pasikartojančius darbus automatizuojame." },
+    ],
+    ethicTitle: "Kaip dirbame",
+    ethic: [
+      { t: "Kalbame paprastai", d: "Be techninio žargono. Jei ko nors nereikia, sakome tiesiai." },
+      { t: "Kainą sakome pirmiausia", d: "Fiksuota kaina prieš pradedant, jokių valandinių sąskaitų." },
+      { t: "Rodome, ką darome", d: "Nuorodą peržiūrai gaunate dar kūrimo metu, ne tik pabaigoje." },
+      { t: "Nepaliekame po paleidimo", d: "30 dienų pagalbos, o vėliau – priežiūros planas, jei jo prireiks." },
+    ],
+  },
+  teamTitle: "Žmonės, kurie kurs jūsų svetainę",
+  people: [
+    { n: "[Vardas Pavardė]", r: "[Pareigos]" },
+    { n: "[Vardas Pavardė]", r: "[Pareigos]" },
+  ],
+  quotes: [
+    { q: "[Kliento atsiliepimas: vienas ar du sakiniai apie rezultatą.]", n: "[Vardas Pavardė]", o: "[Įmonė]" },
+    { q: "[Kliento atsiliepimas: vienas ar du sakiniai apie rezultatą.]", n: "[Vardas Pavardė]", o: "[Įmonė]" },
+    { q: "[Kliento atsiliepimas: vienas ar du sakiniai apie rezultatą.]", n: "[Vardas Pavardė]", o: "[Įmonė]" },
+  ],
+  faqTitle: "Dažniausiai užduodami klausimai",
+  faq: [
+    { q: "Kiek kainuoja svetainė?", a: `Pradinė svetainė kainuoja nuo ${prices.website}, svetainė su parduotuve ir turinio valdymu – nuo ${prices.shop}. Kaina fiksuojama prieš pradedant darbą, jokių valandinių sąskaitų.` },
+    { q: "Kiek laiko trunka kūrimas?", a: "Pradinė svetainė paruošiama per 7 dienas, didesnė – per 14 dienų. Tikslų terminą nurodome pasiūlyme." },
+    { q: "Ar svetainė ir jos kodas priklausys man?", a: "Taip. Paleidimo metu perduodame visą svetainės kodą ir turinį." },
+    { q: "Kas bus po paleidimo?", a: "30 dienų po paleidimo esame šalia ir padedame. Vėliau galite pasirinkti mėnesinį priežiūros planą." },
+    { q: "Ar galite sukurti el. parduotuvę?", a: `Taip. Svetainė su el. parduotuve kainuoja nuo ${prices.shop} ir paruošiama per 14 dienų.` },
+    { q: "Kaip vyksta apmokėjimas?", a: "[Patvirtinti: avansas ir mokėjimo etapai, pavyzdžiui, dalis pradžioje, likutis paleidus svetainę.]" },
+    { q: "Kas parašo tekstus ir parenka nuotraukas?", a: "[Patvirtinti: ar tekstus ir nuotraukas pateikia klientas, ar padedate jūs.]" },
+    { q: "Ar dirbate ne tik Vilniuje?", a: "Taip, dirbame su verslais visoje Lietuvoje. [Patvirtinti: pokalbiai nuotoliu ar gyvai.]" },
+  ],
+  closeTitle: "Papasakokite apie savo projektą",
+  closeSub: "Palikite el. paštą ir susisieksime per [N] val. Arba užsisakykite 30 min pokalbį.",
+  booking: "Užsisakyti 30 min pokalbį",
+  bookingUrl: "[pokalbio rezervavimo nuoroda]",
+  interestLabel: "Domina",
+  sent: "Ačiū! Gavome jūsų el. paštą ir susisieksime per [N] val.",
+  emailPh: "vardas@imone.lt",
+  send: "Siųsti",
+  online: "Atsakome per [N] val.",
+  phone: "[+370 000 00000]",
+  email: "[el. paštas]",
+  footer: { rights: "© GraspIT", note: "[Įmonės pavadinimas, kodas, PVM kodas]", privacy: "Privatumo politika", terms: "Taisyklės" },
+}
