@@ -2,11 +2,15 @@ import { ProjectLibrary } from "./ProjectLibrary"
 import { About } from "./About"
 import { ProjectGallery } from "./ProjectGallery"
 import { StudioScene, TrustPhoto } from "./Photography"
-import { contact, siteCopy } from "./settings"
+import { contact, phoneHref, phoneLabel, siteCopy } from "./settings"
+import { MobileCallBar, Testimonials, TrustStrip } from "./Trust"
+import { Media } from "./Media"
+import { hasMedia, type MediaId } from "./mediaSlots"
+import { PackageFinder } from "./PackageFinder"
 import { prices, pricingPackages } from "./pricing"
 import { ContactBrief } from "./ContactBrief"
 import { useEffect, useState, type ReactNode } from "react"
-import { ArrowDown, ArrowRight, Check, Menu, X } from "lucide-react"
+import { ArrowDown, ArrowRight, Check, Menu, Phone, X } from "lucide-react"
 import { lt } from "@/content-lt"
 import { allFaq, faqGroups, navigation, pages, services } from "./content"
 
@@ -87,49 +91,59 @@ function FaqItems({ items }: { items: typeof allFaq }) {
   )
 }
 function Home() {
+  const cards: { id: MediaId; title: string; text: string; href: string; link: string; note: string }[] = [
+    { id: "homeNew", title: "Reikia naujos svetainės", text: "Sukursime vietą jūsų paslaugoms, darbams ir kontaktams.", href: "/paslaugos/svetaines/", link: "Apie svetainių kūrimą", note: "Nuo " + prices.website },
+    { id: "homeRedesign", title: "Noriu atnaujinti turimą", text: "Atnaujinsime dizainą ir pritaikysime telefonams, taip pat WordPress svetainėms.", href: "/paslaugos/svetainiu-atnaujinimas/", link: "Apie svetainės atnaujinimą", note: "Kaina pagal apimtį" },
+  ]
   return <>
     <section className="home-hero">
-      <div className={wrap}>
-        <div className="hero-copy">
+      <div className={`${wrap} grid items-center gap-10 lg:grid-cols-12`}>
+        <div className={`hero-copy ${hasMedia("heroVideo") ? "lg:col-span-7" : "lg:col-span-12"}`}>
           <p className={eyebrow}>GraspIT · Svetainės vietiniam verslui</p>
           <h1 className="mt-8 max-w-[16ch] text-[clamp(2.8rem,5.8vw,5.6rem)] font-bold leading-[1.03] tracking-[-.05em]">Kuriame ir atnaujiname svetaines verslui.</h1>
-          <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Padedame vietiniams verslams pristatyti paslaugas internete. Kuriame naujas svetaines ir atnaujiname jau turimas.</p>
+          <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Padedame vietiniams verslams aiškiai pristatyti paslaugas internete.</p>
           <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
             <a href="/kontaktai/" className="hero-primary inline-flex min-h-[52px] items-center justify-center gap-3 rounded-md px-6 py-3 font-semibold">{siteCopy.cta}<ArrowRight className="size-4" /></a>
             <Link href="/darbai/">Peržiūrėti darbus</Link>
           </div>
-          <a href="/kainos/" className="hero-price mt-7 inline-flex min-h-11 items-center gap-3 text-sm"><span>Svetainės nuo <strong>{prices.website}</strong></span><span aria-hidden="true">·</span><span>Kainos ir sąlygos</span><ArrowRight className="size-4" /></a>
+          <p className="hero-price mt-6 max-w-[48ch] text-sm leading-relaxed">{siteCopy.note}</p>
+          <a href="/kainos/" className="hero-price mt-3 inline-flex min-h-11 items-center gap-3 text-sm"><span>Svetainės nuo <strong>{prices.website}</strong></span><span aria-hidden="true">·</span><span>Kainos ir sąlygos</span><ArrowRight className="size-4" /></a>
         </div>
+        {hasMedia("heroVideo") && <div className="lg:col-span-5"><Media id="heroVideo" className="shadow-2xl" /></div>}
       </div>
     </section>
+    <TrustStrip />
     <Section number="01" label="Paslaugos" title="Ko reikia jūsų verslui?" sand>
       <div className="grid gap-6 md:grid-cols-2">
-        {[
-          { title: "Reikia naujos svetainės", text: "Sukursime vietą jūsų paslaugoms, darbų nuotraukoms ir kontaktams. Kartu aptarsime, kokių puslapių ir funkcijų reikia.", href: "/paslaugos/svetaines/", link: "Apie svetainių kūrimą", note: "Nuo " + prices.website },
-          { title: "Noriu atnaujinti turimą", text: "Peržiūrėsime esamą svetainę. Galime pakeisti dizainą, sutvarkyti turinį ir pritaikyti ją telefonams.", href: "/paslaugos/svetainiu-atnaujinimas/", link: "Apie svetainės dizaino atnaujinimą", note: "Kaina pagal darbus" },
-        ].map((item, i) => <article key={item.title} className="flex flex-col rounded-lg border border-foreground/20 bg-background p-7 md:p-9">
-          <p className={eyebrow}>0{i+1} / {item.note}</p><h3 className="mt-7 text-3xl font-bold tracking-tight">{item.title}</h3><p className="my-6 max-w-[45ch] text-lg leading-relaxed text-muted-foreground">{item.text}</p><div className="mt-auto"><Link href={item.href}>{item.link}</Link></div>
+        {cards.map((item, i) => <article key={item.title} className="flex flex-col overflow-hidden rounded-lg border border-foreground/20 bg-background">
+          {hasMedia(item.id) && <Media id={item.id} className="rounded-none" />}
+          <div className="flex flex-1 flex-col p-7 md:p-9">
+            <p className={eyebrow}>0{i + 1} / {item.note}</p>
+            <h3 className="mt-5 text-3xl font-bold tracking-tight">{item.title}</h3>
+            <p className="my-5 max-w-[40ch] text-lg leading-relaxed text-muted-foreground">{item.text}</p>
+            <div className="mt-auto"><Link href={item.href}>{item.link}</Link></div>
+          </div>
         </article>)}
       </div>
-      <aside className="mt-6 rounded-lg border border-foreground/20 bg-background p-7 md:p-9"><h3 className="text-2xl font-bold tracking-tight">Netenkina dabartinis WordPress svetainės dizainas?</h3><p className="mt-3 mb-5 max-w-[65ch] text-lg leading-relaxed text-muted-foreground">Taip pat galite kreiptis į mus. Peržiūrėsime jūsų WordPress svetainę ir aptarsime, kaip atnaujinti jos išvaizdą, turinio išdėstymą bei patogumą naudotis.</p><Link href="/kontaktai/">Aptarti WordPress dizaino atnaujinimą</Link></aside><div className="mt-7"><Link href="/paslaugos/">Visos paslaugos</Link></div>
+      <div className="mt-7"><Link href="/paslaugos/">Visos paslaugos</Link></div>
     </Section>
     <Section number="02" label="Atlikti darbai" title="Kelios mūsų kurtos svetainės.">
       <ProjectGallery />
-      <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3"><Link href="/darbai/">Visi trys projektai</Link><Link href="/biblioteka/">Asmeninių projektų biblioteka</Link></div>
+      <div className="mt-9"><Link href="/darbai/">Visi darbai</Link></div>
     </Section>
-    <Section number="03" label="Kaina" title="Ką gaunate už pradinę kainą?" sand>
-      <div className="grid gap-8 lg:grid-cols-12">
-        <div className="lg:col-span-4"><p className="text-5xl font-bold tracking-tight">Nuo {prices.website}</p><p className="mt-5 leading-relaxed text-muted-foreground">Pradinis pasiūlymas nedidelei verslo svetainei. Papildomas funkcijas ir darbus aptariame atskirai.</p></div>
-        <div className="lg:col-span-7 lg:col-start-6">
-          <ul className="space-y-4">{pricingPackages[0].features.map(feature => <li key={feature} className="flex gap-4 border-t border-foreground/20 pt-4 text-lg"><Check className="mt-1 size-5 shrink-0" />{feature}</li>)}</ul>
-          <p className="mt-6 text-sm text-muted-foreground">Domenas, talpinimas ir papildomas turinio rengimas skaičiuojami atskirai, jei neįtraukti į pasiūlymą.</p>
-          <div className="mt-5"><Link href="/kainos/">Visos kainos ir sąlygos</Link></div>
-        </div>
-      </div>
+    <Section number="03" label="Pasirinkimas" title="Kokia svetainė jums tinka?" sand>
+      <div className="lg:ml-[25%]"><PackageFinder /></div>
     </Section>
+    <Testimonials />
     <StudioScene />
     <Section number="04" label="Apie mus" title="Kas kuria GraspIT?">
-      <div className="grid gap-8 lg:grid-cols-2"><p className="text-2xl leading-relaxed">Esame dviejų žmonių komanda. Kuriame naujas svetaines ir atnaujiname esamų svetainių dizainą.</p><div><p className="mb-6 text-lg leading-relaxed text-muted-foreground">Su mumis galite aptarti ir naują svetainę, ir nedidelius turimos svetainės pakeitimus. Pasakysime, ką galime padaryti, kiek tai kainuos ir kiek laiko užtruks.</p><Link href="/apie-mus/">Daugiau apie mus</Link></div></div>
+      <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
+        <img src="/img/team/team-professional.webp" alt="Abu GraspIT komandos nariai prie šviesios sienos" width={1086} height={1448} loading="lazy" decoding="async" className="aspect-[4/5] w-full max-w-[360px] rounded-lg object-cover lg:col-span-4" />
+        <div className="lg:col-span-8">
+          <p className="max-w-[30ch] text-3xl leading-snug font-semibold tracking-tight">Esame dviejų žmonių komanda. Su jumis kalbasi tie, kurie ir kuria.</p>
+          <div className="mt-7"><Link href="/apie-mus/">Susipažinkite su mumis</Link></div>
+        </div>
+      </div>
     </Section>
     <Section number="05" label="Klausimai" title="Prieš užsakant svetainę." sand>
       <div className="lg:ml-[25%]"><FaqItems items={[allFaq[0], allFaq[5], allFaq[19]]} /><div className="mt-6"><Link href="/duk/">Visi klausimai ir atsakymai</Link></div></div>
@@ -178,49 +192,30 @@ function Pricing() {
           </article>
         ))}
       </div>
-<div className="mt-12 overflow-x-auto rounded-lg border border-foreground/30" role="region" aria-label="Paketų palyginimas" tabIndex={0}>
-<table className="w-full min-w-[36rem] text-left text-sm md:text-base">
-<caption className="p-5 text-left text-xl font-bold">Kas įeina į pasirinktą sprendimą?</caption>
-<thead className="bg-foreground text-background"><tr><th scope="col" className="p-4">Apimtis</th>{pricingPackages.map(p => <th key={p.t} scope="col" className="p-4">{p.t}<span className="mt-2 block font-normal">nuo {p.p}</span></th>)}</tr></thead>
-<tbody>{[
-["Puslapiai", "Iki 4", "Pagal sutartą struktūrą"],
-["Turinio valdymas", "Derinama atskirai", "Įtrauktas pagal apimtį"],
-["El. parduotuvė", "Neįtraukta", "Pagal sutartą apimtį"],
-["Orientacinis terminas", "7 dienos", "14 dienų"],
-["Kodas ir turinys", "Perduodami jums", "Perduodami jums"],
-["Pagalba po paleidimo", "30 dienų", "30 dienų"],
-["Domenas ir talpinimas", "Atskirai", "Atskirai"],
-].map(([label, starter, business]) => <tr key={label} className="border-t border-foreground/20"><th scope="row" className="p-4 font-medium">{label}</th><td className="p-4">{starter}</td><td className="p-4">{business}</td></tr>)}</tbody>
-</table></div>      <div className="mt-12 grid gap-8 md:grid-cols-2">
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
         <div>
-          <h3 className="mb-3 text-2xl font-bold">
-            Kas skaičiuojama atskirai?
-          </h3>
-          <p className="leading-relaxed text-muted-foreground">
-            Domenas, talpinimas, mokamų paslaugų mokesčiai ir papildomas turinio
-            rengimas, jei jie neįvardyti pasiūlyme. Prieš pradėdami atskiriame
-            vienkartines ir periodines išlaidas. Mokesčių taikymą ir galutinę
-            mokėtiną sumą nurodome individualiame pasiūlyme.
-          </p>
+          <h3 className="mb-3 text-2xl font-bold">Kas skaičiuojama atskirai?</h3>
+          <p className="leading-relaxed text-muted-foreground">Domenas, talpinimas, mokamų paslaugų mokesčiai ir papildomas turinio rengimas, jei jie neįvardyti pasiūlyme.</p>
         </div>
         <div>
           <h3 className="mb-3 text-2xl font-bold">Priežiūra po paleidimo</h3>
-          <p className="leading-relaxed text-muted-foreground">
-            Galime aptarti talpinimo, atnaujinimų ir smulkių pakeitimų planą. Jo
-            kaina priklauso nuo apimties ir derinama individualiai.
-          </p>
+          <p className="leading-relaxed text-muted-foreground">Talpinimo, atnaujinimų ir smulkių pakeitimų planą derinome individualiai.</p>
           <Link href="/duk/#prieziura">Apie pagalbą ir priežiūrą</Link>
         </div>
+      </div>
+      <div className="mt-16">
+        <h3 className="mb-6 text-2xl font-bold tracking-tight md:text-3xl">Nežinote, kuris variantas tinka?</h3>
+        <PackageFinder />
       </div>
     </Section>
   )
 }
 const processDetails = [
-  "Išsiaiškiname veiklą, auditoriją, svetainės tikslą ir turimas priemones. Aptariame, kas svarbiausia lankytojui, ir kokio rezultato tikitės.",
-  "Pasiūlyme apibrėžiame puslapius, funkcijas, darbų apimtį, mokėjimo sąlygas ir terminą. Fiksuotos kainos pasiūlymą pateikiame per 24 val. po pokalbio.",
-  "Paruošiame struktūrą ir dizainą, kuriame sutartus puslapius. Jūs gaunate privačią nuorodą ir matote, kaip juda darbas.",
-  "Kartu peržiūrime turinį, navigaciją ir pagrindinius veiksmus. Surenkame pastabas, atskiriame sutartus pataisymus nuo naujų funkcijų.",
-  "Patikriname svetainę, paleidžiame ir perduodame kodą bei turinį. Aptariame prieigas ir naudojamas paslaugas. Toliau teikiame 30 dienų pagalbą.",
+  "Aptariame veiklą, auditoriją ir tai, ką svetainė turi pasiekti.",
+  "Fiksuotą kainą, apimtį ir terminą atsiunčiame per 24 val. po pokalbio.",
+  "Kuriame sutartus puslapius. Jūs gaunate privačią nuorodą ir matote, kaip juda darbas.",
+  "Kartu peržiūrime turinį, surenkame pastabas ir jas įgyvendiname.",
+  "Patikriname, paleidžiame ir perduodame kodą bei turinį. Toliau 30 dienų padedame.",
 ]
 function Process() {
   return (
@@ -229,7 +224,7 @@ function Process() {
       label="Projekto eiga"
       title="Kaip vyksta darbas?"
     >
-<div className="mb-12 grid items-center gap-8 lg:grid-cols-2"><div><p className="text-2xl font-semibold leading-snug">Pirmiausia susitariame. Tada kuriame.</p><p className="mt-5 max-w-[48ch] text-lg leading-relaxed text-muted-foreground">Aptariame jūsų tikslą, darbų apimtį ir kainą. Viso projekto metu žinote, kas vyksta ir koks kitas žingsnis.</p></div><div className="aspect-[3/2] overflow-hidden rounded-lg"><TrustPhoto /></div></div>
+<div className="mb-12 grid items-center gap-8 lg:grid-cols-2"><div><p className="text-2xl font-semibold leading-snug">Pirmiausia susitariame. Tada kuriame.</p><p className="mt-5 max-w-[40ch] text-lg leading-relaxed text-muted-foreground">Viso projekto metu žinote, kas vyksta ir koks kitas žingsnis.</p></div>{hasMedia("processWork") ? <Media id="processWork" /> : <div className="aspect-[3/2] overflow-hidden rounded-lg"><TrustPhoto /></div>}</div>
       <ol>
         {lt.process.map((p, i) => (
           <li
@@ -247,16 +242,16 @@ function Process() {
         ))}
       </ol>
       <p className="border-t border-foreground pt-6 text-muted-foreground">
-        Terminą skaičiuojame pagal sutartą grafiką ir turinio paruošimą. Apie
-        pasikeitusią apimtį ar vėluojančius sprendimus kalbamės iš karto.
+        Apie pasikeitusią apimtį ar terminą kalbamės iš karto.
       </p>
     </Section>
   )
 }
 function WebsiteRedesign() {
 return <><Section number="01" label="Svetainės dizaino atnaujinimas" title="Geresnė svetainė. Išlaikant tai, kas veikia." sand>
-<div className="grid gap-8 lg:grid-cols-2"><p className="text-2xl leading-relaxed">Turite svetainę, bet ji nebeatspindi jūsų verslo? Atnaujiname svetainių dizainą, struktūrą ir pritaikymą telefonams. Pirmiausia įvertiname dabartinę svetainę ir jos technines galimybes.</p><div className="space-y-6">{[["WordPress dizaino atnaujinimas","Jei nesate patenkinti dabartiniu WordPress svetainės dizainu, taip pat galite kreiptis į mus. Aptarsime, ką norite pakeisti, ir pasiūlysime atnaujinimo sprendimą."],["Dizainas ir struktūra","Aiškiau pristatome paslaugas, sutvarkome navigaciją ir svarbiausius veiksmus."],["Mobilioji versija","Peržiūrime teksto skaitomumą, mygtukus ir turinio išdėstymą mažame ekrane."],["Esamos svetainės įvertinimas","Prieš siūlydami kainą įvertiname svetainės platformą, techninę būklę ir tai, ką verta išlaikyti."]].map(([t,d])=><div key={t} className="border-t border-foreground/30 pt-4"><h3 className="text-xl font-bold">{t}</h3><p className="mt-2 leading-relaxed text-muted-foreground">{d}</p></div>)}</div></div>
-</Section><Section number="02" label="Prieš pasiūlymą" title="Pradėkime nuo jūsų dabartinės svetainės."><p className="mb-6 max-w-[65ch] text-xl leading-relaxed">Parodykite svetainės adresą ir pasakykite, kas joje nebetenkina. Aptarsime norimus pakeitimus, reikalingą turinį ir suderinsime atnaujinimo kainą pagal apimtį.</p><Link href="/kontaktai/">Aptarti svetainės atnaujinimą</Link></Section></>
+{hasMedia("serviceRedesign") && <Media id="serviceRedesign" className="mb-10" />}
+<div className="grid gap-8 lg:grid-cols-2"><p className="text-2xl leading-relaxed">Turite svetainę, bet ji nebeatspindi jūsų verslo? Pirmiausia įvertiname, ką verta išlaikyti.</p><div className="space-y-6">{[["Dizainas ir struktūra","Aiškiau pristatome paslaugas ir sutvarkome navigaciją."],["Mobilioji versija","Pritaikome tekstą, mygtukus ir išdėstymą mažam ekranui."],["WordPress svetainės","Netenkina dabartinis dizainas? Aptarsime, ką keisti."]].map(([t,d])=><div key={t} className="border-t border-foreground/30 pt-4"><h3 className="text-xl font-bold">{t}</h3><p className="mt-2 leading-relaxed text-muted-foreground">{d}</p></div>)}</div></div>
+</Section><Section number="02" label="Pirmas žingsnis" title="Pradėkime nuo jūsų dabartinės svetainės."><p className="mb-6 max-w-[55ch] text-xl leading-relaxed">Parodykite svetainės adresą ir pasakykite, kas netenkina. Kainą suderinsime pagal apimtį.</p><Link href="/kontaktai/">Aptarti svetainės atnaujinimą</Link></Section></>
 }
 
 function Services({ path }: { path: string }) {
@@ -296,48 +291,49 @@ function Services({ path }: { path: string }) {
     )
   const store = path.endsWith("el-parduotuves")
   const ai = path.endsWith("ai-agentai")
+  const slot: MediaId = ai ? "serviceAutomation" : store ? "serviceShop" : "serviceWebsites"
   const rows = ai
     ? [
         [
           "Pasikartojantys laiškai",
-          `Aptariame laiškų rūšiavimą, informacijos ištraukimą ir atsakymų ruošimą. El. pašto automatizacija – nuo ${prices.email}.`,
+          `Laiškų rūšiavimas ir atsakymų ruošimas. Nuo ${prices.email}.`,
         ],
         [
           "Darbo procesai",
-          `Sujungiame aiškiai apibrėžtus žingsnius ir įvertiname naudojamas sistemas. Procesų automatizacija – nuo ${prices.workflow}.`,
+          `Sujungiame aiškius žingsnius į vieną procesą. Nuo ${prices.workflow}.`,
         ],
         [
           "Kontrolė ir patikra",
-          "Sutariame, kur sprendimą patvirtina žmogus, kokie duomenys naudojami ir kaip vertinamas rezultatas.",
+          "Sutariame, kur sprendimą patvirtina žmogus ir kokie duomenys naudojami.",
         ],
       ]
     : store
       ? [
           [
             "Prekių katalogas",
-            "Suplanuojame kategorijas, prekių informaciją ir pasirinkimus, kad pirkėjui būtų lengva rasti tai, ko reikia.",
+            "Suplanuojame kategorijas ir prekių informaciją, kad pirkėjui būtų lengva rasti reikiamą.",
           ],
           [
             "Pirkimo kelias",
-            "Aptariame krepšelį, mokėjimo ir pristatymo būdus. Konkrečios integracijos ir jų mokesčiai įvardijami atskirai.",
+            "Aptariame krepšelį, mokėjimo ir pristatymo būdus. Integracijų mokesčiai nurodomi atskirai.",
           ],
           [
             "Turinio valdymas",
-            "Iš anksto sutariame, kokias prekes, tekstus ir informaciją norėsite tvarkyti savarankiškai.",
+            "Sutariame, ką norėsite tvarkyti savarankiškai.",
           ],
         ]
       : [
           [
             "Aiški struktūra",
-            "Atskirai pristatome tai, ką lankytojas nori sužinoti: paslaugas, kainas, jūsų požiūrį ir kitą žingsnį.",
+            "Lankytojas greitai randa paslaugas, kainas ir kaip susisiekti.",
           ],
           [
             "Dizainas visiems ekranams",
-            "Pritaikome išdėstymą telefonams, planšetėms ir kompiuteriams, išlaikydami aiškią teksto ir veiksmų hierarchiją.",
+            "Išdėstymas pritaikomas telefonams, planšetėms ir kompiuteriams.",
           ],
           [
             "Pagrindas paieškai",
-            "Suplanuojame puslapių adresus, antraštes ir aprašymus. Sutartą SEO darbų apimtį įvardijame pasiūlyme.",
+            "Suplanuojame adresus, antraštes ir aprašymus paieškai.",
           ],
         ]
   return (
@@ -352,6 +348,7 @@ function Services({ path }: { path: string }) {
         }
         sand
       >
+        {hasMedia(slot) && <Media id={slot} className="mb-10" />}
         <div className="grid gap-8 md:grid-cols-3">
           {rows.map(([t, d], i) => (
             <article key={t} className="border-t border-foreground pt-5">
@@ -374,8 +371,8 @@ function Services({ path }: { path: string }) {
         <div className="lg:ml-[25%]">
           <p className="mb-6 max-w-[65ch] text-xl leading-relaxed">
             {ai
-              ? "Aptariame dabartinį procesą, naudojamas priemones ir duomenų prieigas. Paslaugų tiekėjų mokesčiai bei priežiūra vertinami atskirai. Slaptažodžių ar jautrių duomenų per viešą formą nesiųskite."
-              : "Išsiaiškiname reikalingus puslapius, funkcijas ir turinį. Tuomet pateikiame kainą ir terminą. Domeno, talpinimo ir papildomų paslaugų išlaidas aptariame atskirai."}
+              ? "Aptariame dabartinį procesą ir naudojamas priemones. Paslaugų tiekėjų mokesčiai vertinami atskirai. Slaptažodžių per viešą formą nesiųskite."
+              : "Išsiaiškiname puslapius, funkcijas ir turinį, tada pateikiame kainą ir terminą. Domenas ir talpinimas aptariami atskirai."}
           </p>
           <Link href={ai ? "/kontaktai/" : "/kainos/"}>
             {ai ? "Aptarti automatizaciją" : "Palyginti paketus ir kainas"}
@@ -388,6 +385,11 @@ function Services({ path }: { path: string }) {
 function Contact() {
   const readyEmail = contact.email.length > 0
   const readyPhone = contact.phone.length > 0
+  const next = [
+    ["Pokalbis", "Pirmas 30 minučių pokalbis nemokamas. Išsiaiškiname jūsų veiklą, tikslą ir ko reikia."],
+    ["Pasiūlymas", "Per 24 val. po pokalbio atsiunčiame fiksuotos kainos pasiūlymą su apimtimi ir terminu."],
+    ["Jūsų sprendimas", "Darbus pradedame tik jums patvirtinus pasiūlymą. Iki tol niekas jūsų neįpareigoja."],
+  ]
   return (
     <Section
       number="01"
@@ -397,48 +399,56 @@ function Contact() {
     >
       <div className="grid gap-10 lg:grid-cols-2">
         <div>
-          <ol className="space-y-6">
+          {hasMedia("contactPhoto") && <Media id="contactPhoto" className="mb-10" />}
+          <h2 className="text-2xl font-bold tracking-tight">Kas bus toliau?</h2>
+          <ol className="mt-6 space-y-6">
+            {next.map(([t, d], i) => (
+              <li key={t} className="flex gap-5 border-t border-foreground pt-4">
+                <span className="text-sm text-[var(--signal)]">0{i + 1}</span>
+                <div><h3 className="text-xl font-bold">{t}</h3><p className="mt-1 max-w-[48ch] leading-relaxed text-muted-foreground">{d}</p></div>
+              </li>
+            ))}
+          </ol>
+          <h2 className="mt-12 text-xl font-bold tracking-tight">Pokalbiui nereikia ruoštis</h2>
+          <p className="mt-2 max-w-[48ch] leading-relaxed text-muted-foreground">Jei norite, pagalvokite apie tai. Į visa tai atsakysime kartu.</p>
+          <ul className="mt-4 space-y-3 text-lg">
             {[
               "Kokia jūsų veikla ir kas yra jūsų klientas?",
               "Reikia naujos svetainės, parduotuvės ar atnaujinimo?",
               "Ką turite: domeną, tekstus, nuotraukas?",
               "Koks numatytas biudžetas ir norimas terminas?",
-            ].map((t, i) => (
-              <li
-                key={t}
-                className="flex gap-5 border-t border-foreground pt-4 text-xl"
-              >
-                <span className="text-sm text-[var(--signal)]">0{i + 1}</span>
-                {t}
-              </li>
+            ].map((t) => (
+              <li key={t} className="border-t border-foreground/25 pt-3">{t}</li>
             ))}
-          </ol>
+          </ul>
         </div>
         <div className="rounded-lg bg-background p-7 md:p-10">
-          <h2 className="mb-5 text-3xl font-bold tracking-tight">
-            Aptarkime, ko jums reikia.
+          <h2 className="mb-3 text-3xl font-bold tracking-tight">
+            Paprasčiausia – pakalbėti.
           </h2>
           <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-            Pirmas 30 minučių pokalbis nemokamas. Po jo paruošiame fiksuotos
-            kainos pasiūlymą pagal aptartą apimtį.
+            Skambutis – paprasčiausias būdas pradėti: trumpai papasakojate apie veiklą, o mes pasakome, ar ir kaip galime padėti.
           </p>
-          {readyEmail && (
-            <a className={linkStyle} href={`mailto:${contact.email}`}>
-              {contact.email}
-              <ArrowRight className="size-4" />
-            </a>
-          )}
-          {readyPhone && (
+          <a
+            href={phoneHref}
+            style={{ color: "var(--background)" }}
+            className="inline-flex min-h-[52px] items-center gap-3 rounded-md bg-foreground px-6 py-3 text-lg font-semibold text-background"
+          >
+            <Phone className="size-5" aria-hidden="true" />
+            {siteCopy.call}: {phoneLabel}
+          </a>
+          {!readyPhone && <p className="mt-2 text-sm text-muted-foreground">Pavyzdinis numeris. Tikras numeris bus nurodytas prieš paskelbiant svetainę.</p>}
+          {readyEmail ? (
             <p className="mt-5">
-              <a
-                className={linkStyle}
-                href={`tel:${contact.phone.replace(/\s/g, "")}`}
-              >
-                {contact.phone}
+              <a className={linkStyle} href={`mailto:${contact.email}`}>
+                {siteCopy.write}: {contact.email}
+                <ArrowRight className="size-4" />
               </a>
             </p>
+          ) : (
+            <p className="mt-4 text-sm text-muted-foreground">El. paštas: <span className="font-medium">hello@graspit.example</span> · pavyzdys, neveikiantis adresas</p>
           )}
-          {!readyEmail && <p className="mb-5 text-sm text-muted-foreground">El. paštas: <span className="font-medium">hello@graspit.example</span> · pavyzdys, neveikiantis adresas</p>}
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{siteCopy.note}</p>
           <ContactBrief />
           {!readyEmail && !readyPhone && (
             <p className="border-t border-foreground pt-5 text-muted-foreground">
@@ -501,7 +511,7 @@ export function Site({ path = "/" }: { path?: string }) {
     })),
   }
   return (
-    <div data-theme="bento-swiss" className="min-h-screen">
+    <div data-theme="bento-swiss" className={`min-h-screen ${contact.phone ? "pb-[4.5rem] md:pb-0" : ""}`}>
       <a
         href="#turinys"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:p-4"
@@ -541,12 +551,15 @@ export function Site({ path = "/" }: { path?: string }) {
             ))}
           </nav>
           <div className="flex items-center gap-3">
+            {contact.phone && (
+              <a href={phoneHref} className="hidden min-h-11 items-center gap-2 px-2 text-sm font-semibold xl:inline-flex"><Phone className="size-4" aria-hidden="true" />{contact.phone}</a>
+            )}
             <a
               href="/kontaktai/"
               style={{ color: "var(--background)" }}
               className="hidden min-h-11 items-center rounded-md bg-foreground px-5 text-sm font-semibold text-background sm:inline-flex"
             >
-              {siteCopy.cta} <ArrowRight className="ml-3 size-4" />
+              {siteCopy.ctaShort} <ArrowRight className="ml-3 size-4" />
             </a>
             <button
               type="button"
@@ -687,20 +700,22 @@ export function Site({ path = "/" }: { path?: string }) {
               <div className="lg:col-span-8">
                 <p className={`${eyebrow} mb-6`}>Susisiekime</p>
                 <h2 className="max-w-[18ch] text-[clamp(2.5rem,6vw,5rem)] leading-none font-bold tracking-[-.045em]">
-                  Reikia svetainės?
+                  Pakalbėkime apie jūsų svetainę.
                 </h2>
               </div>
               <div className="lg:col-span-4">
-                <p className="mb-6 text-lg text-white/80">
-                  Parašykite, kokia jūsų veikla ir kokios svetainės reikia. Aptarsime darbus ir kainą.
+                <p className="mb-6 text-lg text-white/85">
+                  Papasakokite apie savo veiklą. Pasakysime, ką galime padaryti, kiek tai kainuos ir kiek laiko užtruks.
                 </p>
-                <a
-                  href="/kontaktai/"
-                  style={{ color: "var(--foreground)" }}
-                  className="inline-flex min-h-[52px] items-center gap-4 rounded-md bg-white px-6 py-3 font-semibold text-foreground"
-                >
-                  {siteCopy.cta} <ArrowRight className="size-4" />
-                </a>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                  {contact.phone ? (
+                    <a href={phoneHref} style={{ color: "var(--foreground)" }} className="inline-flex min-h-[52px] items-center gap-3 rounded-md bg-white px-6 py-3 font-semibold text-foreground"><Phone className="size-4" aria-hidden="true" />{contact.phone}</a>
+                  ) : (
+                    <a href="/kontaktai/" style={{ color: "var(--foreground)" }} className="inline-flex min-h-[52px] items-center gap-4 rounded-md bg-white px-6 py-3 font-semibold text-foreground">{siteCopy.cta} <ArrowRight className="size-4" /></a>
+                  )}
+                  {contact.phone && <a href="/kontaktai/" className="inline-flex min-h-12 items-center gap-2 border-b border-current py-2 font-semibold text-white">{siteCopy.write}<ArrowRight className="size-4" aria-hidden="true" /></a>}
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-white/80">{siteCopy.note}</p>
               </div>
             </div>
           </section>
@@ -714,6 +729,12 @@ export function Site({ path = "/" }: { path?: string }) {
               <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-background/65">
                 Svetainės, el. parduotuvės ir aiškūs sprendimai jūsų verslui.
               </p>
+              {(contact.phone || contact.email) && (
+                <p className="mt-5 grid gap-1 text-sm">
+                  {contact.phone && <a href={phoneHref} className="inline-flex min-h-11 items-center gap-2 font-semibold hover:underline"><Phone className="size-4" aria-hidden="true" />{contact.phone}</a>}
+                  {contact.email && <a href={`mailto:${contact.email}`} className="inline-flex min-h-11 items-center hover:underline">{contact.email}</a>}
+                </p>
+              )}
             </div>
             <nav
               aria-label="Poraštės meniu"
@@ -732,6 +753,7 @@ export function Site({ path = "/" }: { path?: string }) {
           </div>
         </div>
       </footer>
+      {path !== "/kontaktai" && <MobileCallBar />}
     </div>
   )
 }

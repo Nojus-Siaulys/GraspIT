@@ -185,3 +185,6 @@ html { scroll-padding-top: 7rem; }
 @keyframes lib-pop { from { opacity: 0; transform: translateY(24px) scale(.96); } }
 @keyframes lib-fade { from { opacity: 0; } }
 @keyframes lib-step-in { from { opacity: 0; transform: translateX(18px); } }
+
+/* Photo/video placeholders: dashed sand slots, shown only while building the site. */
+.media-slot { border: 2px dashed color-mix(in srgb, var(--foreground) 40%, transparent); border-radius: var(--radius); color: var(--foreground); background-color: var(--secondary); background-image: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--foreground) 5%, transparent) 14px 28px); }
