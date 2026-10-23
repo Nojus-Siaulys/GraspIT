@@ -28,6 +28,10 @@ for (const path of Object.keys(pages)) {
     /<main id="turinys">.+<\/main>/s,
     `${path}: prerendered main content`
   )
+  const card = `og/${path === "/" ? "home" : path.slice(1).replaceAll("/", "-")}.png`
+  await access(`public/${card}`)
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image"/, `${path}: twitter card`)
+  if (process.env.SITE_URL) assert.ok(html.includes(`/${card}"`), `${path}: absolute og:image`)
   for (const [, href] of html.matchAll(/href="(\/[^"?#]*)(?:#[^"]*)?"/g)) {
     if (
       href.startsWith("/assets/") ||

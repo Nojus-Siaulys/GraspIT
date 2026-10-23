@@ -10,7 +10,8 @@
     "check:pages": "node scripts/check-pages.mjs",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc -b",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "og": "node scripts/make-og.mjs"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.3.0",

@@ -27,7 +27,7 @@ const linkStyle =
 
 function Brand() {
   return (
-    <span className="font-display inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight"><img src="/img/logo.png" alt="" width="36" height="36" className="size-9 rounded bg-background p-0.5 object-contain" />
+    <span className="font-display inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight"><img src="/img/logo-96.png" alt="" width="36" height="36" className="size-9 rounded bg-background p-0.5 object-contain" />
       <span>GraspIT</span>
     </span>
   )
@@ -608,15 +608,15 @@ export function Site({ path = "/" }: { path?: string }) {
               <div className={wrap}>
                 <nav
                   aria-label="Naršymo kelias"
-                  className="mb-10 flex flex-wrap gap-2 text-sm text-muted-foreground"
+                  className="mb-6 flex flex-wrap items-center gap-2 text-sm text-muted-foreground"
                 >
-                  <a href="/" className="hover:underline">
+                  <a href="/" className="inline-flex min-h-11 items-center hover:underline">
                     Pradžia
                   </a>
                   <span aria-hidden="true">/</span>
                   {path.startsWith("/paslaugos/") && (
                     <>
-                      <a href="/paslaugos/" className="hover:underline">
+                      <a href="/paslaugos/" className="inline-flex min-h-11 items-center hover:underline">
                         Paslaugos
                       </a>
                       <span aria-hidden="true">/</span>
@@ -725,7 +725,7 @@ export function Site({ path = "/" }: { path?: string }) {
         <div className={wrap}>
           <div className="grid gap-10 border-b border-background/25 pb-10 md:grid-cols-2">
             <div>
-              <a href="/" className="text-2xl font-bold tracking-tight"><Brand /></a>
+              <a href="/" className="inline-flex min-h-11 items-center text-2xl font-bold tracking-tight"><Brand /></a>
               <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-background/65">
                 Svetainės, el. parduotuvės ir aiškūs sprendimai jūsų verslui.
               </p>
@@ -741,7 +741,7 @@ export function Site({ path = "/" }: { path?: string }) {
               className="grid grid-cols-2 gap-4 text-sm"
             >
               {[...navigation, ["/kontaktai", "Kontaktai"]].map(([href, t]) => (
-                <a key={href} href={pageUrl(href)} className="hover:underline">
+                <a key={href} href={pageUrl(href)} className="inline-flex min-h-11 items-center hover:underline">
                   {t}
                 </a>
               ))}

@@ -146,7 +146,7 @@ html { scroll-padding-top: 7rem; }
 @media (max-width: 639px) { .studio-scene { min-height: 32rem; background-position: 42% center; } .studio-scene-copy { padding: 3rem 1.25rem; } }
 
 /* One continuous hero: text over the photograph, no content cards. */
-.home-hero { padding: clamp(4rem, 8vw, 7rem) 0; min-height: min(850px, 88svh); display: flex; align-items: center; color: #fff; background-color: var(--foreground); background-image: linear-gradient(90deg, rgb(5 19 15 / .83), rgb(5 19 15 / .62) 40%, rgb(5 19 15 / .12) 78%, transparent), url('/img/generated/forest-typography-hero-v2.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; }
+.home-hero { padding: clamp(4rem, 8vw, 7rem) 0; min-height: min(850px, 88svh); display: flex; align-items: center; color: #fff; background-color: var(--foreground); background-image: linear-gradient(90deg, rgb(5 19 15 / .83), rgb(5 19 15 / .62) 40%, rgb(5 19 15 / .12) 78%, transparent), url('/img/generated/hero-real-websites-v3.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; }
 .home-hero > div { width: 100%; }
 .home-hero .hero-copy { max-width: 780px; }
 .home-hero .hero-copy > p { color: rgb(255 255 255 / .87); }
@@ -188,3 +188,9 @@ html { scroll-padding-top: 7rem; }
 
 /* Photo/video placeholders: dashed sand slots, shown only while building the site. */
 .media-slot { border: 2px dashed color-mix(in srgb, var(--foreground) 40%, transparent); border-radius: var(--radius); color: var(--foreground); background-color: var(--secondary); background-image: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--foreground) 5%, transparent) 14px 28px); }
+
+/* The photo band sits mid-page: skip rendering it, and fetching its background, until it is near the viewport. */
+.studio-scene { content-visibility: auto; contain-intrinsic-size: auto 40rem; }
+
+/* Phones get a 828px copy of the hero photo (about a fifth of the bytes). prerender.mjs preloads whichever one applies. */
+@media (max-width: 639px) { .home-hero { background-image: linear-gradient(90deg, rgb(5 19 15 / .83), rgb(5 19 15 / .62) 40%, rgb(5 19 15 / .12) 78%, transparent), url('/img/generated/hero-real-websites-v3-mobile.webp'); } }

@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from "node:fs/promises"
+import { readFile, readdir, writeFile, mkdir } from "node:fs/promises"
 import { render, pages } from "../dist-ssr/prerender.js"
 
 const template = await readFile("dist/index.html", "utf8")
@@ -10,6 +10,23 @@ const escape = (value) =>
         char
       ]
   )
+// The home hero photo is a CSS background, so the browser finds it late and it becomes the largest paint.
+// Read its URL from the built stylesheet and preload it on the home page only.
+let heroImage
+for (const file of (await readdir("dist/assets")).filter((name) => name.endsWith(".css"))) {
+  const css = await readFile(`dist/assets/${file}`, "utf8")
+  heroImage ??= css.match(/\.home-hero\{[^}]*url\(["']?([^"')]+\.webp)["']?\)/)?.[1]
+}
+// index.css swaps in a "-mobile" copy of the hero on phones (max-width 639px); preload only the one the browser will use.
+const mobileHero = heroImage?.replace(/\.webp$/, "-mobile.webp")
+const hasMobileHero = Boolean(mobileHero) && (await readdir(`dist${mobileHero.replace(/[^/]+$/, "")}`).catch(() => [])).includes(mobileHero.split("/").pop())
+const preload = (href, media) =>
+  `\n    <link rel="preload" as="image" href="${escape(href)}"${media ? ` media="${media}"` : ""} fetchpriority="high" />`
+const heroPreload = heroImage
+  ? hasMobileHero
+    ? preload(heroImage, "(min-width: 640px)") + preload(mobileHero, "(max-width: 639px)")
+    : preload(heroImage)
+  : ""
 const configuredUrl = process.env.SITE_URL
 let origin
 if (configuredUrl) {
@@ -38,10 +55,16 @@ for (const [path, page] of Object.entries(pages)) {
     `<meta property="og:site_name" content="GraspIT" />`,
     `<meta property="og:title" content="${escape(page.title)}" />`,
     `<meta property="og:description" content="${escape(page.intro)}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
     ...(canonical
       ? [
           `<link rel="canonical" href="${escape(canonical)}" />`,
           `<meta property="og:url" content="${escape(canonical)}" />`,
+          // Share cards are made by `npm run og`. Crawlers need an absolute URL, so they are linked only once SITE_URL is set.
+          `<meta property="og:image" content="${escape(`${origin}/og/${path === "/" ? "home" : path.slice(1).replaceAll("/", "-")}.png`)}" />`,
+          `<meta property="og:image:width" content="1200" />`,
+          `<meta property="og:image:height" content="630" />`,
+          `<meta property="og:image:alt" content="${escape(page.heading)}" />`,
         ]
       : []),
   ].join("\n    ")
@@ -51,7 +74,10 @@ for (const [path, page] of Object.entries(pages)) {
       /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,
       `<meta name="description" content="${escape(page.intro)}" />`
     )
-    .replace("</head>", `    ${metadata}\n  </head>`)
+    .replace(
+      "</head>",
+      `    ${metadata}${path === "/" && heroImage ? heroPreload : ""}\n  </head>`
+    )
     .replace(
       '<div id="root"></div>',
       () => `<div id="root">${render(path)}</div>`
