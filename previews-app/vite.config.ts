@@ -22,6 +22,7 @@ function directoryUrls(
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: { host: "::", port: 5173, strictPort: true },
   plugins: [
     react(),
     tailwindcss(),

@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Original browser captures; optimized WebP versions are used by the site.
+public/img/projects/*.png

@@ -23,8 +23,8 @@
   --ring: #1f6b4f;
   --radius: 0.375rem;
   --signal: #1f6b4f;
-  --font-display: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
 }
 [data-theme="bento-swiss"] h1,
 [data-theme="bento-swiss"] h2,

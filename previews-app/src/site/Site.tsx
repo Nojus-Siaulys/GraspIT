@@ -1,6 +1,11 @@
+import { ProjectGallery } from "./ProjectGallery"
+import { StudioScene, TrustPhoto, EditorialPhoto } from "./Photography"
+import { contact, siteCopy } from "./settings"
+import { prices, pricingPackages } from "./pricing"
+import { ContactBrief } from "./ContactBrief"
 import { useEffect, useState, type ReactNode } from "react"
 import { ArrowDown, ArrowRight, Check, Menu, X } from "lucide-react"
-import { lt, img } from "@/content-lt"
+import { lt } from "@/content-lt"
 import { allFaq, faqGroups, navigation, pages, services } from "./content"
 
 const pageUrl = (path: string) =>
@@ -17,8 +22,8 @@ const buttonStyle =
 
 function Brand() {
   return (
-    <span className="font-display text-2xl font-extrabold tracking-tight">
-      Grasp<span className="text-[var(--signal)]">IT</span>
+    <span className="font-display inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight"><img src="/img/logo.png" alt="" width="36" height="36" className="size-9 rounded bg-background p-0.5 object-contain" />
+      <span>GraspIT</span>
     </span>
   )
 }
@@ -58,31 +63,6 @@ function Section({
     </section>
   )
 }
-function ServiceList() {
-  return (
-    <div className="border-b border-foreground">
-      {services.map((s) => (
-        <a
-          href={pageUrl(s.href)}
-          key={s.href}
-          className="group grid items-baseline gap-3 border-t border-foreground py-7 lg:grid-cols-12"
-        >
-          <span className={`${eyebrow} text-[var(--signal)] lg:col-span-1`}>
-            {s.number}
-          </span>
-          <h3 className="text-2xl font-bold tracking-tight lg:col-span-4">
-            {s.title}
-          </h3>
-          <p className="max-w-[40ch] text-muted-foreground lg:col-span-4">
-            {s.text}
-          </p>
-          <span className="font-semibold lg:col-span-2">{s.price}</span>
-          <ArrowRight className="size-5 transition-transform group-hover:translate-x-1 lg:justify-self-end" />
-        </a>
-      ))}
-    </div>
-  )
-}
 function FaqItems({ items }: { items: typeof allFaq }) {
   return (
     <div className="border-b border-foreground">
@@ -106,174 +86,69 @@ function FaqItems({ items }: { items: typeof allFaq }) {
   )
 }
 function Home() {
-  return (
-    <>
-      <section className={`${band} bg-background`}>
-        <div className={wrap}>
-          <p className={`${eyebrow} text-[var(--signal)]`}>
-            Svetainių kūrimas verslui · Lietuva
-          </p>
-          <h1 className="mt-6 max-w-[16ch] text-[clamp(3rem,8.5vw,7.4rem)] leading-[.96] font-bold tracking-[-.055em]">
-            Pirmiausia suprantame.
-            <br />
-            <span className="text-[var(--signal)]">Tada kuriame.</span>
-          </h1>
-          <div className="mt-10 grid gap-8 border-t border-foreground pt-6 lg:grid-cols-12">
-            <p className="max-w-[43ch] text-xl leading-relaxed lg:col-span-6">
-              {pages["/"].intro}
-            </p>
-            <div className="flex flex-col items-start gap-4 lg:col-span-5 lg:col-start-8">
-              <a
-                className={buttonStyle}
-                style={{ color: "var(--background)" }}
-                href="/kontaktai/"
-              >
-                Aptarkime jūsų projektą <ArrowRight className="size-4" />
-              </a>
-              <p className="text-sm text-muted-foreground">
-                Svetainės nuo €350 · kodas ir turinys jūsų
-              </p>
-            </div>
+  return <>
+    <section className={band}>
+      <div className={wrap}>
+        <p className={eyebrow}>GraspIT · Svetainės vietiniam verslui</p>
+        <div className="mt-8 grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <h1 className="max-w-[18ch] text-[clamp(2.8rem,6.5vw,6rem)] font-bold leading-[1.03] tracking-[-.05em]">Kuriame ir atnaujiname svetaines verslui.</h1>
+            <p className="mt-7 max-w-[48ch] text-xl leading-relaxed">Padedame vietiniams verslams pristatyti paslaugas internete. Kuriame naujas svetaines ir atnaujiname jau turimas WordPress svetaines.</p>
+            <div className="mt-8 flex flex-wrap gap-5"><a href="/kontaktai/" className={buttonStyle} style={{color:"var(--background)"}}>{siteCopy.cta}<ArrowRight className="size-4" /></a><Link href="/darbai/">Peržiūrėti darbus</Link></div>
           </div>
-          <div className="relative mt-12 overflow-hidden">
-            <img
-              src={img.hero}
-              alt="Pokalbis apie būsimą projektą prie bendro stalo"
-              fetchPriority="high"
-              className="aspect-[4/3] w-full object-cover grayscale md:aspect-[21/7]"
-            />
-            <span className="absolute bottom-4 left-4 bg-background px-4 py-2 text-sm font-medium">
-              Aiškumas nuo pirmo pokalbio.
-            </span>
-          </div>
+          <aside className="flex flex-col justify-between rounded-lg bg-secondary p-7 lg:col-span-4">
+            <span className={eyebrow}>Svetainių kūrimas</span>
+            <div className="py-8"><p className="text-sm">Nuo</p><p className="mt-2 text-7xl font-bold tracking-tight">{prices.website}</p><p className="mt-5 leading-relaxed text-muted-foreground">Kaina priklauso nuo puslapių, funkcijų ir reikalingų darbų. Ją sutariame prieš pradėdami.</p></div>
+            <a href="/kainos/" className="inline-flex min-h-12 items-center justify-between border-t border-foreground/25 pt-4 font-semibold">Kas įeina į kainą?<ArrowRight className="size-5" /></a>
+          </aside>
         </div>
-      </section>
-      <div className="bg-foreground py-8 text-background">
-        <div className={`${wrap} grid gap-6 sm:grid-cols-3`}>
-          {[
-            ["01", "Fiksuota kaina prieš pradedant"],
-            ["02", "Matote darbą kūrimo metu"],
-            ["03", "30 dienų pagalbos po paleidimo"],
-          ].map(([n, t]) => (
-            <p key={n} className="border-t border-background/30 pt-3 text-sm">
-              <span className="mr-4 opacity-60">{n}</span>
-              {t}
-            </p>
-          ))}
+        <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 border-t border-foreground/20 pt-5 text-sm text-muted-foreground"><span>Paslaugų įmonėms</span><span>Meistrams ir specialistams</span><span>Pradedantiems savo veiklą</span></div>
+      </div>
+    </section>
+    <Section number="01" label="Paslaugos" title="Ko reikia jūsų verslui?" sand>
+      <div className="grid gap-6 md:grid-cols-2">
+        {[
+          { title: "Reikia naujos svetainės", text: "Sukursime vietą jūsų paslaugoms, darbų nuotraukoms ir kontaktams. Kartu aptarsime, kokių puslapių ir funkcijų reikia.", href: "/paslaugos/svetaines/", link: "Apie svetainių kūrimą", note: "Nuo " + prices.website },
+          { title: "Noriu atnaujinti turimą", text: "Peržiūrėsime esamą WordPress svetainę. Galime pakeisti dizainą, sutvarkyti turinį ir pritaikyti ją telefonams.", href: "/paslaugos/wordpress-atnaujinimas/", link: "Apie WordPress atnaujinimą", note: "Kaina pagal darbus" },
+        ].map((item, i) => <article key={item.title} className="flex flex-col rounded-lg border border-foreground/20 bg-background p-7 md:p-9">
+          <p className={eyebrow}>0{i+1} / {item.note}</p><h3 className="mt-7 text-3xl font-bold tracking-tight">{item.title}</h3><p className="my-6 max-w-[45ch] text-lg leading-relaxed text-muted-foreground">{item.text}</p><div className="mt-auto"><Link href={item.href}>{item.link}</Link></div>
+        </article>)}
+      </div>
+      <div className="mt-7"><Link href="/paslaugos/">Visos paslaugos</Link></div>
+    </Section>
+    <Section number="02" label="Atlikti darbai" title="Kelios mūsų kurtos svetainės.">
+      <ProjectGallery featured />
+      <div className="mt-9"><Link href="/darbai/">Visi trys projektai</Link></div>
+    </Section>
+    <Section number="03" label="Kaina" title="Ką gaunate už pradinę kainą?" sand>
+      <div className="grid gap-8 lg:grid-cols-12">
+        <div className="lg:col-span-4"><p className="text-5xl font-bold tracking-tight">Nuo {prices.website}</p><p className="mt-5 leading-relaxed text-muted-foreground">Pradinis pasiūlymas nedidelei verslo svetainei. Papildomas funkcijas ir darbus aptariame atskirai.</p></div>
+        <div className="lg:col-span-7 lg:col-start-6">
+          <ul className="space-y-4">{pricingPackages[0].features.map(feature => <li key={feature} className="flex gap-4 border-t border-foreground/20 pt-4 text-lg"><Check className="mt-1 size-5 shrink-0" />{feature}</li>)}</ul>
+          <p className="mt-6 text-sm text-muted-foreground">Domenas, talpinimas ir papildomas turinio rengimas skaičiuojami atskirai, jei neįtraukti į pasiūlymą.</p>
+          <div className="mt-5"><Link href="/kainos/">Visos kainos ir sąlygos</Link></div>
         </div>
       </div>
-      <Section
-        number="01"
-        label="Ką kuriame"
-        title="Jūsų tikslui. Ne dėl funkcijų skaičiaus."
-        sand
-      >
-        <ServiceList />
-        <div className="mt-6">
-          <Link href="/paslaugos/">Plačiau apie paslaugas</Link>
-        </div>
-      </Section>
-      <Section
-        number="02"
-        label="Kaip dirbame"
-        title="Nuo „reikia svetainės“ iki aiškaus plano."
-      >
-        <div className="grid gap-8 md:grid-cols-3 lg:ml-[25%]">
-          {[
-            [
-              "Išgirstame",
-              "Išsiaiškiname, kas jūsų klientas ir ką jis turėtų padaryti svetainėje.",
-            ],
-            [
-              "Sutariame",
-              "Apibrėžiame puslapius, funkcijas, kainą ir terminą.",
-            ],
-            [
-              "Sukuriame",
-              "Rodome peržiūrą, aptariame pastabas ir pasiruošiame paleidimui.",
-            ],
-          ].map(([t, d], i) => (
-            <div key={t} className="border-t border-foreground pt-4">
-              <span className="text-sm text-[var(--signal)]">0{i + 1}</span>
-              <h3 className="mt-5 mb-3 text-2xl font-bold">{t}</h3>
-              <p className="text-muted-foreground">{d}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-8 lg:ml-[25%]">
-          <Link href="/procesas/">Visi penki projekto etapai</Link>
-        </div>
-      </Section>
-      <Section
-        number="03"
-        label="Studija"
-        title="Dirbame dviese. Mąstome kartu."
-        sand
-      >
-        <div className="grid gap-8 lg:grid-cols-12">
-          <p className="text-2xl leading-snug font-semibold lg:col-span-5">
-            Už svetainės – žmonės, kurie nori suprasti jūsų verslą.
-          </p>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-              Bendraujate tiesiogiai su kūrėjais. Pirmiausia išklausome, tada
-              siūlome struktūrą ir dizainą. Kad lankytojas suprastų jūsų vertę
-              ir žinotų, ką daryti toliau.
-            </p>
-            <Link href="/apie-mus/">Susipažinkite su mūsų požiūriu</Link>
-          </div>
-        </div>
-      </Section>
-      <Section
-        number="04"
-        label="Prieš pradedant"
-        title="Turbūt jau turite klausimų."
-      >
-        <div className="lg:ml-[25%]">
-          <FaqItems items={[allFaq[0], allFaq[5], allFaq[19]]} />
-          <div className="mt-6">
-            <Link href="/duk/">Visi klausimai ir atsakymai</Link>
-          </div>
-        </div>
-      </Section>
-    </>
-  )
+    </Section>
+    <StudioScene />
+    <Section number="04" label="Apie mus" title="Kas kuria GraspIT?">
+      <div className="grid gap-8 lg:grid-cols-2"><p className="text-2xl leading-relaxed">Esame dviejų žmonių komanda. Kuriame svetaines ir dirbame su WordPress.</p><div><p className="mb-6 text-lg leading-relaxed text-muted-foreground">Su mumis galite aptarti ir naują svetainę, ir nedidelius turimos svetainės pakeitimus. Pasakysime, ką galime padaryti, kiek tai kainuos ir kiek laiko užtruks.</p><Link href="/apie-mus/">Daugiau apie mus</Link></div></div>
+    </Section>
+    <Section number="05" label="Klausimai" title="Prieš užsakant svetainę." sand>
+      <div className="lg:ml-[25%]"><FaqItems items={[allFaq[0], allFaq[5], allFaq[19]]} /><div className="mt-6"><Link href="/duk/">Visi klausimai ir atsakymai</Link></div></div>
+    </Section>
+  </>
 }
 function Pricing() {
   return (
     <Section
       number="01"
       label="Paketai"
-      title="Pasirinkite tinkamą pradžią."
+      title="Svetainių kūrimo kainos"
       sand
     >
       <div className="grid gap-6 md:grid-cols-2">
-        {[
-          {
-            t: "Pradinė svetainė",
-            p: "€350",
-            d: "Aiškus jūsų verslo pristatymas.",
-            features: [
-              "Iki 4 puslapių",
-              "Pritaikymas telefonams ir planšetėms",
-              "Orientacinis terminas – 7 dienos",
-              "Kodo ir turinio perdavimas",
-              "30 dienų pagalbos po paleidimo",
-            ],
-          },
-          {
-            t: "Verslo svetainė / el. parduotuvė",
-            p: "€700",
-            d: "Kai reikia daugiau turinio ar pardavimo internetu.",
-            features: [
-              "Puslapių skaičius pagal sutartą struktūrą",
-              "Turinio valdymas",
-              "El. parduotuvė pagal sutartą apimtį",
-              "Orientacinis terminas – 14 dienų",
-              "Kodo perdavimas ir 30 dienų pagalbos",
-            ],
-          },
-        ].map((p, i) => (
+        {pricingPackages.map((p, i) => (
           <article
             key={p.t}
             className={`flex flex-col rounded-lg border border-foreground p-6 md:p-9 ${i ? "bg-foreground text-background" : "bg-background"}`}
@@ -306,7 +181,20 @@ function Pricing() {
           </article>
         ))}
       </div>
-      <div className="mt-12 grid gap-8 md:grid-cols-2">
+<div className="mt-12 overflow-x-auto rounded-lg border border-foreground/30" role="region" aria-label="Paketų palyginimas" tabIndex={0}>
+<table className="w-full min-w-[36rem] text-left text-sm md:text-base">
+<caption className="p-5 text-left text-xl font-bold">Kas įeina į pasirinktą sprendimą?</caption>
+<thead className="bg-foreground text-background"><tr><th scope="col" className="p-4">Apimtis</th>{pricingPackages.map(p => <th key={p.t} scope="col" className="p-4">{p.t}<span className="mt-2 block font-normal">nuo {p.p}</span></th>)}</tr></thead>
+<tbody>{[
+["Puslapiai", "Iki 4", "Pagal sutartą struktūrą"],
+["Turinio valdymas", "Derinama atskirai", "Įtrauktas pagal apimtį"],
+["El. parduotuvė", "Neįtraukta", "Pagal sutartą apimtį"],
+["Orientacinis terminas", "7 dienos", "14 dienų"],
+["Kodas ir turinys", "Perduodami jums", "Perduodami jums"],
+["Pagalba po paleidimo", "30 dienų", "30 dienų"],
+["Domenas ir talpinimas", "Atskirai", "Atskirai"],
+].map(([label, starter, business]) => <tr key={label} className="border-t border-foreground/20"><th scope="row" className="p-4 font-medium">{label}</th><td className="p-4">{starter}</td><td className="p-4">{business}</td></tr>)}</tbody>
+</table></div>      <div className="mt-12 grid gap-8 md:grid-cols-2">
         <div>
           <h3 className="mb-3 text-2xl font-bold">
             Kas skaičiuojama atskirai?
@@ -342,8 +230,9 @@ function Process() {
     <Section
       number="01"
       label="Projekto eiga"
-      title="Penki žingsniai. Be spėliojimo."
+      title="Kaip vyksta darbas?"
     >
+<div className="mb-12 grid items-center gap-8 lg:grid-cols-2"><div><p className="text-2xl font-semibold leading-snug">Pirmiausia susitariame. Tada kuriame.</p><p className="mt-5 max-w-[48ch] text-lg leading-relaxed text-muted-foreground">Aptariame jūsų tikslą, darbų apimtį ir kainą. Viso projekto metu žinote, kas vyksta ir koks kitas žingsnis.</p></div><div className="aspect-[3/2] overflow-hidden rounded-lg"><TrustPhoto /></div></div>
       <ol>
         {lt.process.map((p, i) => (
           <li
@@ -373,26 +262,29 @@ function About() {
       <Section
         number="01"
         label="Mūsų požiūris"
-        title="Ne nuo šablono. Nuo supratimo."
+        title="Apie mūsų komandą"
       >
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <EditorialPhoto subject="workspace" />
+          <div className="space-y-6">
           <p className="text-2xl leading-snug font-semibold">
             Gera svetainė turi aiškiai atsakyti: ką siūlote, kam tai skirta ir
             kodėl verta kreiptis.
           </p>
           <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
-            <p>{lt.about.story[0]}</p>
+            <p>{lt.about.story[0]}</p><p>Turime patirties dirbant su WordPress svetainėmis. Galime atnaujinti esamą dizainą ir struktūrą arba suplanuoti naują svetainę jūsų paslaugoms.</p>
             <p>
               Maža komanda leidžia išlaikyti tiesioginį ryšį. Sprendimus
               aiškiname paprastai, o darbą rodome dar kūrimo metu.
             </p>
+          </div>
           </div>
         </div>
       </Section>
       <Section
         number="02"
         label="Darbo principai"
-        title="Aiškūs susitarimai yra gero darbo dalis."
+        title="Kaip dirbame"
         sand
       >
         <div className="lg:ml-[25%]">
@@ -410,22 +302,35 @@ function About() {
     </>
   )
 }
+function WordPress() {
+return <><Section number="01" label="WordPress atnaujinimas" title="Geresnė svetainė. Išlaikant tai, kas veikia." sand>
+<div className="grid gap-8 lg:grid-cols-2"><p className="text-2xl leading-relaxed">Turite WordPress svetainę, bet ji nebeatspindi jūsų verslo? Turime darbo su WordPress patirties ir galime atnaujinti jos dizainą, struktūrą bei pritaikymą telefonams.</p><div className="space-y-6">{[["Dizainas ir struktūra","Aiškiau pristatome paslaugas, sutvarkome navigaciją ir svarbiausius veiksmus."],["Mobilioji versija","Peržiūrime teksto skaitomumą, mygtukus ir turinio išdėstymą mažame ekrane."],["Esamos svetainės įvertinimas","Prieš siūlydami kainą įvertiname temą, įskiepius ir tai, ką verta išlaikyti."]].map(([t,d])=><div key={t} className="border-t border-foreground/30 pt-4"><h3 className="text-xl font-bold">{t}</h3><p className="mt-2 leading-relaxed text-muted-foreground">{d}</p></div>)}</div></div>
+</Section><Section number="02" label="Prieš pasiūlymą" title="Pradėkime nuo jūsų dabartinės svetainės."><p className="mb-6 max-w-[65ch] text-xl leading-relaxed">Parodykite svetainės adresą ir pasakykite, kas joje nebetenkina. Aptarsime norimus pakeitimus, reikalingą turinį ir suderinsime atnaujinimo kainą pagal apimtį.</p><Link href="/kontaktai/">Aptarti svetainės atnaujinimą</Link></Section></>
+}
+
 function Services({ path }: { path: string }) {
+  if (path === "/paslaugos/wordpress-atnaujinimas") return <WordPress />
   if (path === "/paslaugos")
     return (
       <>
         <Section
           number="01"
           label="Pasirinkimas"
-          title="Ką turėtų padėti padaryti jūsų svetainė?"
+          title="Mūsų paslaugos"
           sand
         >
-          <ServiceList />
+          <div className="grid gap-5 md:grid-cols-2">
+{services.map((service, index) => (
+<a key={service.href} href={pageUrl(service.href)} className={`group flex min-h-64 flex-col justify-between rounded-lg border border-foreground p-6 md:p-9 ${index === 0 ? "bg-foreground text-background md:col-span-2" : "bg-background"}`}>
+<div className="flex items-center justify-between gap-5"><span className={eyebrow}>{service.number} / {index === 0 ? "Aiškus pristatymas" : index === 1 ? "Pardavimas internetu" : index === 2 ? "Mažiau rankinio darbo" : "WordPress atnaujinimas"}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
+<div className="mt-9 grid gap-6 lg:grid-cols-2"><div><h3 className="text-3xl font-bold tracking-tight md:text-4xl">{service.title}</h3><p className="mt-4 max-w-[45ch] text-lg leading-relaxed">{service.text}</p></div><div className="flex flex-col justify-end lg:items-end"><span className="text-3xl font-bold">{service.price}</span><span className="mt-2 text-sm">Pagal sutartą darbų apimtį</span></div></div>
+</a>))}
+</div>
         </Section>
         <Section
           number="02"
           label="Pirmas žingsnis"
-          title="Nežinote, ko tiksliai reikia?"
+          title="Nežinote, nuo ko pradėti?"
         >
           <div className="lg:ml-[25%]">
             <p className="mb-5 max-w-[60ch] text-xl leading-relaxed">
@@ -444,11 +349,11 @@ function Services({ path }: { path: string }) {
     ? [
         [
           "Pasikartojantys laiškai",
-          "Aptariame laiškų rūšiavimą, informacijos ištraukimą ir atsakymų ruošimą. El. pašto automatizacija – nuo €950.",
+          `Aptariame laiškų rūšiavimą, informacijos ištraukimą ir atsakymų ruošimą. El. pašto automatizacija – nuo ${prices.email}.`,
         ],
         [
           "Darbo procesai",
-          "Sujungiame aiškiai apibrėžtus žingsnius ir įvertiname naudojamas sistemas. Procesų automatizacija – nuo €1 500.",
+          `Sujungiame aiškiai apibrėžtus žingsnius ir įvertiname naudojamas sistemas. Procesų automatizacija – nuo ${prices.workflow}.`,
         ],
         [
           "Kontrolė ir patikra",
@@ -530,13 +435,13 @@ function Services({ path }: { path: string }) {
   )
 }
 function Contact() {
-  const readyEmail = !lt.email.startsWith("[")
-  const readyPhone = !lt.phone.startsWith("[")
+  const readyEmail = contact.email.length > 0
+  const readyPhone = contact.phone.length > 0
   return (
     <Section
       number="01"
       label="Jūsų projektas"
-      title="Keli sakiniai, nuo kurių pradėsime."
+      title="Papasakokite, ko reikia"
       sand
     >
       <div className="grid gap-10 lg:grid-cols-2">
@@ -567,8 +472,8 @@ function Contact() {
             kainos pasiūlymą pagal aptartą apimtį.
           </p>
           {readyEmail && (
-            <a className={linkStyle} href={`mailto:${lt.email}`}>
-              {lt.email}
+            <a className={linkStyle} href={`mailto:${contact.email}`}>
+              {contact.email}
               <ArrowRight className="size-4" />
             </a>
           )}
@@ -576,12 +481,14 @@ function Contact() {
             <p className="mt-5">
               <a
                 className={linkStyle}
-                href={`tel:${lt.phone.replace(/\s/g, "")}`}
+                href={`tel:${contact.phone.replace(/\s/g, "")}`}
               >
-                {lt.phone}
+                {contact.phone}
               </a>
             </p>
           )}
+          {!readyEmail && <p className="mb-5 text-sm text-muted-foreground">El. paštas: <span className="font-medium">hello@graspit.example</span> · pavyzdys, neveikiantis adresas</p>}
+          <ContactBrief />
           {!readyEmail && !readyPhone && (
             <p className="border-t border-foreground pt-5 text-muted-foreground">
               Tiesioginiai studijos kontaktai dar ruošiami. Užklausų priėmimas
@@ -594,60 +501,39 @@ function Contact() {
   )
 }
 function Work() {
-  return (
-    <Section
-      number="01"
-      label="Vizualinė kryptis"
-      title="Daugiau aiškumo. Mažiau triukšmo."
-      sand
-    >
-      <div className="grid gap-10 lg:grid-cols-2">
-        <div
-          className="overflow-hidden rounded-lg border border-foreground bg-background p-6 md:p-10"
-          aria-label="GraspIT dizaino principų demonstracija"
-        >
-          <span className={eyebrow}>GraspIT / Dizaino studija</span>
-          <p className="my-10 text-5xl leading-none font-bold tracking-tight">
-            Svarbu tai,
-            <br />
-            kas padeda
-            <br />
-            <span className="text-[var(--signal)]">suprasti.</span>
-          </p>
-          <div className="grid grid-cols-3 gap-3">
-            {["#10372b", "#1f6b4f", "#f3efe6"].map((color) => (
-              <div
-                key={color}
-                className="aspect-square rounded-md border border-foreground/20"
-                style={{ background: color }}
-              />
-            ))}
-          </div>
-          <p className="mt-5 text-sm text-muted-foreground">
-            Miško žalia · smėlis · aiški tipografija
-          </p>
-        </div>
-        <div>
-          <h2 className="mb-5 text-3xl font-bold">
-            Šios svetainės dizaino kryptis
-          </h2>
-          <p className="mb-5 text-lg leading-relaxed text-muted-foreground">
-            „Bento × Swiss“ jungia tvarkingą tinklelio struktūrą, ryškią
-            antraščių hierarchiją ir saikingai naudojamus informacijos blokus.
-            Šis maketas yra studijos dizaino demonstracija.
-          </p>
-          <p className="mb-5 text-muted-foreground">
-            Patvirtintus klientų projektus ir jų rezultatus pristatysime
-            atskirai. Demonstracijos nepateikiame kaip kliento darbo.
-          </p>
-          <Link href="/paslaugos/">Ką galime sukurti jūsų verslui</Link>
-        </div>
-      </div>
+  return <>
+    <Section number="01" label="Projektai" title="Atlikti darbai">
+      <ProjectGallery />
     </Section>
-  )
+    <div className={wrap + " pb-16"}>
+      <details className="border-t border-foreground/25 pt-5">
+        <summary className="flex min-h-12 cursor-pointer items-center text-lg font-semibold">Dizaino įkvėpimas</summary>
+        <div className="mt-8 grid items-center gap-8 lg:grid-cols-2"><EditorialPhoto subject="brand" /><p className="text-lg leading-relaxed text-muted-foreground">Čia – spalvos ir kitų kūrėjų svetainės, iš kurių semiamės idėjų.</p></div>
+<Section number="02" label="Svetainės, kuriomis žavimės" title="Įkvėpimas iš interaktyvaus dizaino." sand>
+<p className="mb-8 max-w-[65ch] text-lg leading-relaxed text-muted-foreground">Trys Awwwards įvertinti 3D ir interaktyvių patirčių pavyzdžiai. Tai kitų kūrėjų darbai, kuriais žavimės. Jie nėra GraspIT projektai ar pradinio paketo pavyzdžiai.</p>
+<div className="grid gap-5 md:grid-cols-3">{[
+["Bruno’s Portfolio","Bruno Simon","Interaktyvus 3D pasaulis ir žaismingas naršymas.","https://www.awwwards.com/sites/brunos-portfolio"],
+["Lusion v3","Lusion","Eksperimentinis interaktyvus dizainas ir 3D vizualika.","https://www.awwwards.com/sites/lusion-v3"],
+["Immersive Garden","Immersive Garden","Įtraukiantis skaitmeninės studijos pristatymas.","https://www.awwwards.com/sites/immersive-garden-website"]
+].map(([name,creator,description,url],i)=><article key={name} className="flex flex-col border-t border-foreground py-6"><p className={eyebrow}>0{i+1} / Awwwards</p><h3 className="mt-7 text-2xl font-bold">{name}</h3><p className="mt-2 text-sm text-muted-foreground">{creator}</p><p className="my-5 leading-relaxed">{description}</p><a href={url} target="_blank" rel="noopener noreferrer" className={linkStyle}>Peržiūrėti Awwwards<span className="sr-only">: {name} (naujame lange)</span><ArrowRight aria-hidden="true" className="size-4" /></a></article>)}</div>
+</Section>
+      </details>
+    </div>
+  </>
 }
 export function Site({ path = "/" }: { path?: string }) {
   const [menu, setMenu] = useState(false)
+  useEffect(() => {
+    if (!menu) return
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenu(false)
+        document.querySelector<HTMLButtonElement>('[aria-controls="mobilus-meniu"]')?.focus()
+      }
+    }
+    document.addEventListener("keydown", close)
+    return () => document.removeEventListener("keydown", close)
+  }, [menu])
   const page = pages[path]
   useEffect(() => {
     document.documentElement.lang = "lt"
@@ -714,7 +600,7 @@ export function Site({ path = "/" }: { path?: string }) {
               style={{ color: "var(--background)" }}
               className="hidden min-h-11 items-center rounded-md bg-foreground px-5 text-sm font-semibold text-background sm:inline-flex"
             >
-              Aptarkime projektą <ArrowRight className="ml-3 size-4" />
+              {siteCopy.cta} <ArrowRight className="ml-3 size-4" />
             </a>
             <button
               type="button"
@@ -852,22 +738,21 @@ export function Site({ path = "/" }: { path?: string }) {
           <section className={`${band} bg-[var(--signal)] text-white`}>
             <div className={`${wrap} grid items-end gap-8 lg:grid-cols-12`}>
               <div className="lg:col-span-8">
-                <p className={`${eyebrow} mb-6`}>Kitas žingsnis</p>
+                <p className={`${eyebrow} mb-6`}>Susisiekime</p>
                 <h2 className="max-w-[18ch] text-[clamp(2.5rem,6vw,5rem)] leading-none font-bold tracking-[-.045em]">
-                  Jūsų verslas turi ką papasakoti.
+                  Reikia svetainės?
                 </h2>
               </div>
               <div className="lg:col-span-4">
                 <p className="mb-6 text-lg text-white/80">
-                  Padėkime klientams tai suprasti. Pradėkime nuo pokalbio apie
-                  jūsų svetainę.
+                  Parašykite, kokia jūsų veikla ir kokios svetainės reikia. Aptarsime darbus ir kainą.
                 </p>
                 <a
                   href="/kontaktai/"
-                  style={{ color: "#10372b" }}
-                  className="inline-flex min-h-[52px] items-center gap-4 rounded-md bg-white px-6 py-3 font-semibold text-[#10372b]"
+                  style={{ color: "var(--foreground)" }}
+                  className="inline-flex min-h-[52px] items-center gap-4 rounded-md bg-white px-6 py-3 font-semibold text-foreground"
                 >
-                  Aptarkime projektą <ArrowRight className="size-4" />
+                  {siteCopy.cta} <ArrowRight className="size-4" />
                 </a>
               </div>
             </div>
@@ -878,9 +763,7 @@ export function Site({ path = "/" }: { path?: string }) {
         <div className={wrap}>
           <div className="grid gap-10 border-b border-background/25 pb-10 md:grid-cols-2">
             <div>
-              <a href="/" className="text-2xl font-bold tracking-tight">
-                GraspIT
-              </a>
+              <a href="/" className="text-2xl font-bold tracking-tight"><Brand /></a>
               <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-background/65">
                 Svetainės, el. parduotuvės ir aiškūs sprendimai jūsų verslui.
               </p>
@@ -898,7 +781,7 @@ export function Site({ path = "/" }: { path?: string }) {
           </div>
           <div className="mt-6 flex flex-wrap justify-between gap-4 text-xs text-background/60">
             <span>© GraspIT</span>
-            <span>Pirmiausia suprantame. Tada kuriame.</span>
+            <span>Svetainių kūrimas ir atnaujinimas</span>
           </div>
         </div>
       </footer>

@@ -129,3 +129,18 @@
     @apply font-sans;
     }
 }
+/* Keyboard access and document rhythm apply to every page. */
+[data-theme="bento-swiss"] :where(a, button, input, select, textarea, summary):focus-visible { outline: 3px solid var(--signal); outline-offset: 4px; }
+[data-theme="bento-swiss"] :where(input, select, textarea) { max-width: 100%; }
+[data-theme="bento-swiss"] :where(h1, h2, h3, p, a) { overflow-wrap: anywhere; }
+html { scroll-padding-top: 7rem; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
+
+
+/* Photo sections: fixed scenery on desktop, static on mobile. */
+.studio-scene { position: relative; isolation: isolate; overflow: hidden; min-height: clamp(30rem, 68vh, 46rem); display: flex; align-items: flex-end; background-color: var(--foreground); background-image: url('/img/generated/studio-scene.webp'); background-size: cover; background-position: center; color: var(--background); }
+.studio-scene-shade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgb(0 0 0 / .73), rgb(0 0 0 / .12)); }
+.studio-scene-copy { width: 100%; max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
+.editorial-photo { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) { .studio-scene { background-attachment: fixed; } }
+@media (max-width: 639px) { .studio-scene { min-height: 32rem; background-position: 42% center; } .studio-scene-copy { padding: 3rem 1.25rem; } }

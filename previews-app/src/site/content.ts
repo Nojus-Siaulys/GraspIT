@@ -1,3 +1,4 @@
+import { prices } from "./pricing.js"
 export const navigation = [
   ["/paslaugos", "Paslaugos"],
   ["/darbai", "Darbai"],
@@ -12,78 +13,83 @@ export const pages: Record<
   { title: string; heading: string; intro: string; label: string }
 > = {
   "/": {
-    title: "Svetainių kūrimas verslui nuo €350 | GraspIT",
-    heading: "Pirmiausia suprantame. Tada kuriame.",
+    title: `Svetainių kūrimas verslui nuo ${prices.website} | GraspIT`,
+    heading: "Kuriame ir atnaujiname svetaines verslui.",
     intro:
-      "Kuriame svetaines ir el. parduotuves smulkiam bei vidutiniam verslui. Aiški struktūra, apgalvotas dizainas ir fiksuota kaina prieš pradedant.",
+      `Kuriame svetaines vietiniam paslaugų verslui nuo ${prices.website}. Padedame aiškiai pristatyti jūsų veiklą ir atnaujiname esamas WordPress svetaines. Galutinę kainą sutariame pagal poreikius.`,
     label: "Svetainių studija Lietuvoje",
   },
   "/paslaugos": {
     title: "Svetainių, el. parduotuvių kūrimas ir automatizacija | GraspIT",
-    heading: "Sprendimas prasideda nuo jūsų tikslo.",
+    heading: "Svetainių kūrimas ir atnaujinimas",
     intro:
       "Pristatyti paslaugas, parduoti internetu ar sutrumpinti kasdienius darbus? Parenkame tai, ko reikia jūsų verslui, ir iš anksto sutariame darbų apimtį.",
     label: "Paslaugos",
   },
   "/paslaugos/svetaines": {
-    title: "Interneto svetainių kūrimas nuo €350 | GraspIT",
-    heading: "Svetainė, kurioje aišku, ką siūlote.",
+    title: `Interneto svetainių kūrimas nuo ${prices.website} | GraspIT`,
+    heading: "Svetainė jūsų verslui",
     intro:
-      "Kuriame verslo svetaines nuo €350. Pradinį iki 4 puslapių sprendimą paruošiame per 7 dienas pagal sutartą apimtį ir gavę reikalingą turinį.",
+      `Kuriame verslo svetaines nuo ${prices.website}. Pradinį iki 4 puslapių sprendimą paruošiame per 7 dienas pagal sutartą apimtį ir gavę reikalingą turinį.`,
     label: "Svetainių kūrimas",
   },
   "/paslaugos/el-parduotuves": {
-    title: "Elektroninių parduotuvių kūrimas nuo €700 | GraspIT",
-    heading: "Nuo pirmos prekės iki aiškaus užsakymo.",
+    title: `Elektroninių parduotuvių kūrimas nuo ${prices.shop} | GraspIT`,
+    heading: "El. parduotuvių kūrimas",
     intro:
-      "Kuriame el. parduotuves su turinio valdymu nuo €700. Katalogą, mokėjimus, pristatymą ir integracijas aptariame prieš fiksuodami kainą.",
+      `Kuriame el. parduotuves su turinio valdymu nuo ${prices.shop}. Katalogą, mokėjimus, pristatymą ir integracijas aptariame prieš fiksuodami kainą.`,
     label: "El. parduotuvių kūrimas",
   },
   "/paslaugos/ai-agentai": {
-    title: "AI automatizacija verslui nuo €950 | GraspIT",
-    heading: "Mažiau pasikartojimo. Daugiau laiko darbui.",
+    title: `AI automatizacija verslui nuo ${prices.email} | GraspIT`,
+    heading: "Darbo procesų automatizavimas",
     intro:
       "Automatizuojame laiškų ir darbo procesus pasitelkdami dirbtinį intelektą. Pradedame nuo vienos aiškios užduoties ir sutariame, kaip tikrinsime rezultatą.",
     label: "AI automatizacija",
   },
+  "/paslaugos/wordpress-atnaujinimas": {
+    title: "WordPress svetainių dizaino atnaujinimas | GraspIT",
+    heading: "WordPress svetainių atnaujinimas",
+    intro: "Atnaujiname esamų WordPress svetainių dizainą, struktūrą ir pritaikymą telefonams. Pirmiausia įvertiname dabartinę svetainę, tada suderiname darbų apimtį ir kainą.",
+    label: "WordPress atnaujinimas",
+  },
   "/kainos": {
-    title: "Svetainių kūrimo kainos: nuo €350 ir €700 | GraspIT",
-    heading: "Aiški apimtis. Fiksuota kaina.",
+    title: `Svetainių kūrimo kainos: nuo ${prices.website} ir ${prices.shop} | GraspIT`,
+    heading: "Svetainių kūrimas nuo 350 €",
     intro:
-      "Pradinė svetainė – nuo €350, verslo svetainė ar el. parduotuvė – nuo €700. Galutinę kainą sutariame prieš pradėdami; papildomi darbai aptariami atskirai.",
+      `Pradinė svetainė – nuo ${prices.website}, verslo svetainė ar el. parduotuvė – nuo ${prices.shop}. Galutinę kainą sutariame prieš pradėdami; papildomi darbai aptariami atskirai.`,
     label: "Kainos",
   },
   "/procesas": {
     title: "Kaip vyksta svetainės kūrimas: 5 etapai | GraspIT",
-    heading: "Žinote, kas vyksta. Kiekviename etape.",
+    heading: "Nuo pirmo pokalbio iki svetainės paleidimo",
     intro:
       "Nuo pirmo pokalbio iki svetainės perdavimo – penki aiškūs žingsniai. Kūrybos metu matote peržiūrą ir galite pateikti pastabas.",
     label: "Procesas",
   },
   "/apie-mus": {
     title: "Apie GraspIT – dviejų žmonių svetainių studija",
-    heading: "Maža komanda. Tiesioginis ryšys.",
+    heading: "Apie GraspIT",
     intro:
       "Esame dviejų žmonių studija. Su jumis kalbasi tie patys žmonės, kurie planuoja, kuria ir paleidžia jūsų svetainę.",
     label: "Apie mus",
   },
   "/darbai": {
-    title: "Svetainių dizaino kryptis ir darbai | GraspIT",
-    heading: "Dizainas turi padėti suprasti.",
-    intro:
-      "Aiški hierarchija, lengvai randama informacija ir vienas suprantamas kitas žingsnis. Taip žiūrime į kiekvieną svetainę.",
+    title: "Atlikti darbai – Colorlisse, IriVitam ir Kalvita | GraspIT",
+    heading: "Atlikti darbai",
+    intro: "Trys mūsų projektai: dvi el. parduotuvės ir paslaugų svetainė. Peržiūrėkite jų pristatymus.",
     label: "Darbai",
   },
   "/duk": {
     title: "DUK apie svetainių kūrimą, kainas ir priežiūrą | GraspIT",
-    heading: "Geri klausimai. Aiškūs atsakymai.",
+    heading: "Dažniausi klausimai",
     intro:
       "Kiek kainuoja svetainė, ko reikia pradžiai ir kas vyksta po paleidimo? Čia rasite atsakymus apie kūrimą, el. parduotuves, SEO ir priežiūrą.",
     label: "Dažniausiai užduodami klausimai",
   },
   "/kontaktai": {
     title: "Aptarkime jūsų svetainę | GraspIT kontaktai",
-    heading: "Pradėkime nuo jūsų verslo.",
+    heading: "Susisiekime",
     intro:
       "Ką siūlote, kam parduodate ir ką turėtų padėti pasiekti svetainė? Trumpas projekto aprašymas – gera pokalbio pradžia.",
     label: "Kontaktai",
@@ -95,23 +101,24 @@ export const services = [
     href: "/paslaugos/svetaines",
     title: "Verslo svetainės",
     text: "Kai svarbu aiškiai pristatyti paslaugas ir padėti klientui kreiptis.",
-    price: "nuo €350",
+    price: `nuo ${prices.website}`,
     number: "01",
   },
   {
     href: "/paslaugos/el-parduotuves",
     title: "El. parduotuvės",
     text: "Kai norite prekiauti internetu ir patogiai valdyti turinį.",
-    price: "nuo €700",
+    price: `nuo ${prices.shop}`,
     number: "02",
   },
   {
     href: "/paslaugos/ai-agentai",
     title: "AI automatizacija",
     text: "Kai pasikartojantys laiškai ar procesai atima per daug laiko.",
-    price: "nuo €950",
+    price: `nuo ${prices.email}`,
     number: "03",
   },
+  { href: "/paslaugos/wordpress-atnaujinimas", title: "WordPress atnaujinimas", text: "Esamos svetainės dizaino ir struktūros atnaujinimas pagal jūsų veiklą.", price: "Kaina pagal apimtį", number: "04" }
 ]
 
 export const faqGroups = [
@@ -121,7 +128,7 @@ export const faqGroups = [
     items: [
       {
         q: "Kiek kainuoja interneto svetainės kūrimas?",
-        a: "Pradinė iki 4 puslapių svetainė kainuoja nuo €350. Verslo svetainė su turinio valdymu ar el. parduotuvė – nuo €700. Galutinė kaina priklauso nuo funkcijų, dizaino ir sutartos darbų apimties. Ją fiksuojame pasiūlyme prieš pradėdami kūrimą.",
+        a: `Pradinė iki 4 puslapių svetainė kainuoja nuo ${prices.website}. Verslo svetainė su turinio valdymu ar el. parduotuvė – nuo ${prices.shop}. Galutinė kaina priklauso nuo funkcijų, dizaino ir sutartos darbų apimties. Ją fiksuojame pasiūlyme prieš pradėdami kūrimą.`,
       },
       {
         q: "Kas įskaičiuota į svetainės kainą?",
@@ -177,7 +184,7 @@ export const faqGroups = [
     items: [
       {
         q: "Kiek kainuoja sukurti el. parduotuvę?",
-        a: "El. parduotuvės su turinio valdymu kaina prasideda nuo €700. Tiksli suma priklauso nuo katalogo, prekių variantų, mokėjimo ir pristatymo būdų bei integracijų. Šiuos poreikius aptariame prieš pateikdami fiksuotos kainos pasiūlymą.",
+        a: `El. parduotuvės su turinio valdymu kaina prasideda nuo ${prices.shop}. Tiksli suma priklauso nuo katalogo, prekių variantų, mokėjimo ir pristatymo būdų bei integracijų. Šiuos poreikius aptariame prieš pateikdami fiksuotos kainos pasiūlymą.`,
       },
       {
         q: "Ar galėsiu pats keisti svetainės turinį?",

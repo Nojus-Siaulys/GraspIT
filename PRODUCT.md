@@ -43,3 +43,15 @@ The existing site is a one-person portfolio ("I", Nojus). The new site becomes a
 6. Legal entity and invoicing details for the footer and terms (MB / IĮ / other).
 7. English market: same offers and prices, or a separate English proposition?
 8. Company story for Apie mus: how the studio started, the real origin of the name GraspIT, one project or result you are proud of, whether the tech stack (Next.js, React, TypeScript) and the four work principles are accurate.
+
+## Confirmed 2026-10-23
+- Audience: local service businesses.
+- Website creation starts at EUR 350; final price depends on requested scope.
+- Experience working with WordPress websites; offer design restyling and structure updates.
+- Real projects and team photos will be supplied later.
+- No production domain yet. Placeholder contact email is explicitly nonfunctional.
+- Existing green G/cursor logo in public/img/logo.png anchors the identity.
+- Awwwards references are inspiration, never client work or an implied EUR 350 deliverable.
+
+## Portfolio scope confirmed 2026-10-23
+Only Colorlisse, IriVitam (user wrote Iravitam), and Kalvita.lt are approved portfolio projects. Exclude work completed at the internship employer, including previously proposed GO BETTER. Do not infer the user's exact role or claim measured outcomes. Colorlisse and Kalvita have real homepage captures. IriVitam has no confirmed public URL or screenshot yet. Keep public copy plain and practical.

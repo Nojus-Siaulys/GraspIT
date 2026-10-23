@@ -1,3 +1,4 @@
+import { prices } from "./site/pricing"
 // Lithuanian studio copy and confirmed commitments (COPY-PLAN.md).
 // Only commitments the old site already makes are written as facts.
 // Anything in [square brackets] is a placeholder waiting for the owner.
@@ -16,7 +17,7 @@ export const lt = {
   micro: "Pirmas pokalbis nemokamas. Fiksuotą pasiūlymą atsiųsime per 24 val. po jo.",
   from: "nuo",
   days: "7 dienos",
-  price: "€350",
+  price: `${prices.website}`,
   photo: "Nuotrauka",
   trustTitle: "Kodėl pasitikėti",
   trust: [
@@ -39,13 +40,13 @@ export const lt = {
   ],
   servicesTitle: "Ką siūlome ir kiek tai kainuoja",
   servicesIntro:
-    "Kiek kainuoja svetainė? Pradinė svetainė iki 4 puslapių kainuoja nuo €350, o svetainė su parduotuve ir turinio valdymu – nuo €700. Kaina fiksuojama prieš pradedant darbą.",
+    `Kiek kainuoja svetainė? Pradinė svetainė iki 4 puslapių kainuoja nuo ${prices.website}, o svetainė su parduotuve ir turinio valdymu – nuo ${prices.shop}. Kaina fiksuojama prieš pradedant darbą.`,
   services: [
-    { t: "Pradinė svetainė", d: "Iki 4 puslapių, pritaikyta telefonams ir planšetėms, paruošiama per 7 dienas.", p: "nuo €350" },
-    { t: "Verslo svetainė ar parduotuvė", d: "Neribotas puslapių skaičius, el. parduotuvė ir turinio valdymas. Paruošiama per 14 dienų.", p: "nuo €700" },
-    { t: "Priežiūros planas", d: "Talpinimas, atnaujinimai ir smulkūs pakeitimai, kad svetainė veiktų be rūpesčių.", p: "€[__]/mėn." },
+    { t: "Pradinė svetainė", d: "Iki 4 puslapių, pritaikyta telefonams ir planšetėms, paruošiama per 7 dienas.", p: `nuo ${prices.website}` },
+    { t: "Verslo svetainė ar parduotuvė", d: "Neribotas puslapių skaičius, el. parduotuvė ir turinio valdymas. Paruošiama per 14 dienų.", p: `nuo ${prices.shop}` },
+    { t: "Priežiūros planas", d: "Talpinimas, atnaujinimai ir smulkūs pakeitimai, kad svetainė veiktų be rūpesčių.", p: `€[__]/mėn.` },
   ],
-  aiLine: "Reikia automatizuoti laiškus ar kasdienius procesus? Taip pat kuriame automatizacijas su dirbtiniu intelektu, nuo €950.",
+  aiLine: `Reikia automatizuoti laiškus ar kasdienius procesus? Taip pat kuriame automatizacijas su dirbtiniu intelektu, nuo ${prices.email}.`,
   processTitle: "Kaip vyksta projektas",
   process: [
     { t: "Pokalbis", d: "30 min, nemokamas." },
@@ -96,11 +97,11 @@ export const lt = {
   ],
   faqTitle: "Dažniausiai užduodami klausimai",
   faq: [
-    { q: "Kiek kainuoja svetainė?", a: "Pradinė svetainė kainuoja nuo €350, svetainė su parduotuve ir turinio valdymu – nuo €700. Kaina fiksuojama prieš pradedant darbą, jokių valandinių sąskaitų." },
+    { q: "Kiek kainuoja svetainė?", a: `Pradinė svetainė kainuoja nuo ${prices.website}, svetainė su parduotuve ir turinio valdymu – nuo ${prices.shop}. Kaina fiksuojama prieš pradedant darbą, jokių valandinių sąskaitų.` },
     { q: "Kiek laiko trunka kūrimas?", a: "Pradinė svetainė paruošiama per 7 dienas, didesnė – per 14 dienų. Tikslų terminą nurodome pasiūlyme." },
     { q: "Ar svetainė ir jos kodas priklausys man?", a: "Taip. Paleidimo metu perduodame visą svetainės kodą ir turinį." },
     { q: "Kas bus po paleidimo?", a: "30 dienų po paleidimo esame šalia ir padedame. Vėliau galite pasirinkti mėnesinį priežiūros planą." },
-    { q: "Ar galite sukurti el. parduotuvę?", a: "Taip. Svetainė su el. parduotuve kainuoja nuo €700 ir paruošiama per 14 dienų." },
+    { q: "Ar galite sukurti el. parduotuvę?", a: `Taip. Svetainė su el. parduotuve kainuoja nuo ${prices.shop} ir paruošiama per 14 dienų.` },
     { q: "Kaip vyksta apmokėjimas?", a: "[Patvirtinti: avansas ir mokėjimo etapai, pavyzdžiui, dalis pradžioje, likutis paleidus svetainę.]" },
     { q: "Kas parašo tekstus ir parenka nuotraukas?", a: "[Patvirtinti: ar tekstus ir nuotraukas pateikia klientas, ar padedate jūs.]" },
     { q: "Ar dirbate ne tik Vilniuje?", a: "Taip, dirbame su verslais visoje Lietuvoje. [Patvirtinti: pokalbiai nuotoliu ar gyvai.]" },
