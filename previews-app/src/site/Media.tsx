@@ -39,6 +39,18 @@ export function Media({ id, className = "" }: { id: MediaId; className?: string 
   if (!showPlaceholders) return null
 
   const Icon = item.kind === "video" ? Video : Camera
+  if (item.brief) return <div role="group" aria-label={`Turinio planas: ${item.label}`} className={`media-slot p-6 text-left md:p-7 ${className}`}>
+    <div className="flex items-center gap-3">
+      <span className="grid size-10 shrink-0 place-items-center rounded-full bg-foreground text-background"><Icon className="size-5" aria-hidden="true" /></span>
+      <p className="text-xs font-bold uppercase tracking-[.12em]">Planuojamas {item.kind === "video" ? "video" : "vaizdas"} · tik kuriant</p>
+    </div>
+    <p className="mt-4 text-xl font-bold leading-snug">{item.label}</p>
+    <dl className="mt-5 space-y-4 text-sm leading-relaxed">
+      {[["Kam ši vieta skirta?", item.brief.purpose], ["Ką čia parodysime?", item.brief.shows], ["Ką reikia paruošti?", item.brief.prepare]].map(([title, text]) => <div key={title}><dt className="font-semibold">{title}</dt><dd className="mt-1 text-muted-foreground">{text}</dd></div>)}
+    </dl>
+    <p className="mt-5 border-t border-foreground/25 pt-4 text-xs leading-relaxed text-muted-foreground"><strong className="font-semibold text-foreground">Formatas: </strong>{item.brief.format}</p>
+    <p className="mt-3 text-xs leading-relaxed text-muted-foreground">Tai pasiruošimo pastabos. Įdėjus nuotrauką ar video, šį bloką pakeis pats turinys.</p>
+  </div>
   return <div role="img" aria-label={`Vieta ${item.kind === "video" ? "video" : "nuotraukai"}: ${item.label}`} className={`media-slot flex flex-col items-center justify-center gap-3 p-6 text-center ${className}`} style={style}>
     <span className="grid size-12 place-items-center rounded-full bg-foreground text-background"><Icon className="size-5" aria-hidden="true" /></span>
     <p className="text-sm font-bold uppercase tracking-[.12em]">Vieta {item.kind === "video" ? "video" : "nuotraukai"}</p>
