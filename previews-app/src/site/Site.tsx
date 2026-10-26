@@ -7,6 +7,7 @@ import { ProjectGallery } from "./ProjectGallery"
 import { StudioScene, TrustPhoto } from "./Photography"
 import { contact, phoneHref, siteCopy } from "./settings"
 import { MobileCallBar, Testimonials, TrustStrip } from "./Trust"
+import { BackToTop } from "./BackToTop"
 import { Media } from "./Media"
 import { hasMedia, type MediaId } from "./mediaSlots"
 import { PackageFinder } from "./PackageFinder"
@@ -733,6 +734,7 @@ export function Site({ path = "/" }: { path?: string }) {
           </div>
         </div>
       </footer>
+      <BackToTop />
       {path !== "/kontaktai" && <MobileCallBar />}
     </div>
   )
