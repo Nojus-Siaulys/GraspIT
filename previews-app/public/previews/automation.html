@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AI automatizacijos peržiūra</title>
+<link rel="stylesheet" href="player.css?v=3">
+<link rel="stylesheet" href="kopa.css?v=3">
+<style>
+.app{display:grid;grid-template-rows:auto 1fr;height:100%;background:#f3f5f7}
+.top{display:flex;align-items:center;justify-content:space-between;padding:1em 2em;background:#fff;border-bottom:.08em solid #e3e8ee}
+.top .logo{font-size:1.4em}
+.top .who{font-weight:700;color:#4b5f74}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.4em;padding:1.6em 2em;min-height:0;align-content:start}
+.list{display:grid;gap:.6em;align-content:start}
+.em{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.3em .8em;background:#fff;border-radius:1em;padding:.9em 1.1em;opacity:0;translate:0 .6em;transition:opacity .35s,translate .35s,box-shadow .2s}
+.em.on{opacity:1;translate:0 0}
+.em.sel{box-shadow:inset 0 0 0 .16em var(--k-ink)}
+.em b{font-weight:800}.em span.s{grid-column:1;color:#4b5f74;font-size:.95em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tg{grid-row:1/3;grid-column:2;align-self:center;font-size:.78em;font-weight:800;letter-spacing:.04em;padding:.4em .8em;border-radius:99em;opacity:0;scale:.8;transition:opacity .3s,scale .3s;white-space:nowrap}
+.tg.on{opacity:1;scale:1}
+.t-price{background:var(--k-sun)}.t-status{background:var(--k-mint)}.t-sub{background:#d6e4ff}.t-other{background:#e3e8ee}
+.detail{background:#fff;border-radius:1.2em;padding:1.3em 1.4em;display:grid;gap:.8em;align-content:start;opacity:.0;transition:opacity .4s}
+.detail.on{opacity:1}
+.detail h3{font-size:1.3em;font-weight:900;letter-spacing:-.02em}
+.detail .meta{color:#4b5f74;font-size:.9em;font-weight:600}
+.detail .msg{color:#33475d}
+.draft{background:#f3f5f7;border-radius:.9em;padding:1em 1.1em;min-height:8em;box-shadow:inset 0 0 0 .1em #d5dde5}
+.draft small,.dlabel{display:block;font-size:.78em;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#6b7d8f;margin-bottom:.5em}
+.caret::after{content:"";display:inline-block;width:.1em;height:1.05em;background:var(--k-ink);vertical-align:-.15em;margin-left:.08em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Process */
+.flow{padding:2.2em 2.4em;display:grid;gap:2em;align-content:start;height:100%}
+.flow h2{font-size:2.2em;font-weight:900;letter-spacing:-.03em;line-height:1.05;max-width:16em}
+.chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;align-items:start;position:relative}
+.fn{position:relative;padding-right:1.2em;opacity:.35;transition:opacity .4s}
+.fn.on{opacity:1}
+.fn .dot{width:3.2em;height:3.2em;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1.1em;background:#fff;box-shadow:inset 0 0 0 .14em #c3ccd6;transition:background .3s,box-shadow .3s;position:relative;z-index:1}
+.fn.on .dot{background:var(--k-sun);box-shadow:inset 0 0 0 .14em var(--k-ink)}
+.fn h3{margin-top:.9em;font-size:1.15em;font-weight:800}
+.fn p{margin-top:.3em;color:#4b5f74;font-size:.95em}
+.cn{position:absolute;left:3.2em;right:0;top:1.6em;height:.18em;background:#d5dde5;transform-origin:left}
+.cn i{display:block;height:100%;width:0;background:var(--k-ink)}
+.flow .note{color:#4b5f74;font-weight:600}
+
+/* Control */
+.ctrl{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.4em;padding:1.6em 2em;align-content:start;height:100%}
+.card2{background:#fff;border-radius:1.2em;padding:1.3em 1.4em;display:grid;gap:.8em;align-content:start}
+.card2 h3{font-size:1.2em;font-weight:900;letter-spacing:-.02em}
+.status{justify-self:start;font-size:.8em;font-weight:800;letter-spacing:.04em;padding:.4em .9em;border-radius:99em;background:#ffe08a;transition:background .3s}
+.status.sent{background:var(--k-mint)}
+.btns{display:flex;gap:.7em;flex-wrap:wrap}
+.rules{display:grid;gap:.5em}
+.rule{display:grid;grid-template-columns:1fr auto;gap:.8em;align-items:center;padding:.7em .9em;border-radius:.8em;background:#f3f5f7;opacity:0;translate:0 .5em;transition:opacity .35s,translate .35s}
+.rule.on{opacity:1;translate:0 0}
+.rule b{font-weight:700}
+.who2{font-size:.78em;font-weight:800;padding:.35em .8em;border-radius:99em;white-space:nowrap}
+.who2.auto{background:var(--k-mint)}.who2.human{background:var(--k-sun)}
+.data{opacity:0;transition:opacity .4s}.data.on{opacity:1}
+.data li{list-style:none;display:flex;gap:.6em;font-weight:600}
+.data li::before{content:"✓";font-weight:900}
+.data ul{margin:0;padding:0;display:grid;gap:.4em}
+
+@container screen (min-width:561px){
+  .site{font-size:1.85cqw}
+}
+@container screen (max-width:560px){
+  .cols,.ctrl{grid-template-columns:1fr;padding:1.2em 1.2em}.chain{grid-template-columns:1fr;gap:1.2em}.cn{display:none}.flow{padding:1.4em 1.2em}.top{padding:.9em 1.2em}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" data-device="desktop" data-chrome="app">
+  <div class="view">
+    <div class="wm"><img src="/img/logo-96.png" alt="" width="18" height="18"><span>GraspIT</span></div>
+    <div class="device">
+      <div class="bar"><i></i><i></i><i></i><div class="url" id="url">Gautieji laiškai</div></div>
+      <div class="screen">
+
+        <!-- 1. Inbox -->
+        <div class="pane site on" id="p-inbox">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Gautieji · 5 nauji</span></div>
+            <div class="cols">
+              <div class="list">
+                <div class="em" id="em-1"><b>Jonas P.</b><span class="s">Kiek kainuotų 5 kg mišinio kavinei?</span><span class="tg t-price">Kainos užklausa</span></div>
+                <div class="em"><b>Rūta M.</b><span class="s">Kur mano užsakymas Nr. 1042?</span><span class="tg t-status">Užsakymo būsena</span></div>
+                <div class="em"><b>Tomas B.</b><span class="s">Noriu pristabdyti prenumeratą</span><span class="tg t-sub">Prenumerata</span></div>
+                <div class="em"><b>Reklamos agentūra</b><span class="s">Pasiūlymas jūsų socialiniams tinklams</span><span class="tg t-other">Kita</span></div>
+                <div class="em"><b>Eglė K.</b><span class="s">Ar galima užsakyti rytojaus pristatymui?</span><span class="tg t-status">Užsakymo būsena</span></div>
+              </div>
+              <div class="detail" id="detail">
+                <h3>Kiek kainuotų 5 kg mišinio kavinei?</h3>
+                <div class="meta">Jonas P. · Kainos užklausa</div>
+                <p class="msg">Sveiki, kavinėje ieškome tiekėjo. Kokia kaina 5 kg mišinio ir ar galima išbandyti mėginį?</p>
+                <div class="draft"><small>Atsakymo juodraštis</small><span id="draft-text"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Process -->
+        <div class="pane site" id="p-flow">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Darbo eiga</span></div>
+            <div class="flow">
+              <h2>Vienas procesas nuo laiško iki įrašo.</h2>
+              <div class="chain">
+                <div class="fn" data-i="0"><div class="dot">1</div><h3>Gautas laiškas</h3><p>Laiškas patenka į jūsų pašto dėžutę.</p><div class="cn"><i></i></div></div>
+                <div class="fn" data-i="1"><div class="dot">2</div><h3>Atpažinta užklausa</h3><p>Nustatoma, ko klientas prašo.</p><div class="cn"><i></i></div></div>
+                <div class="fn" data-i="2"><div class="dot">3</div><h3>Paruoštas atsakymas</h3><p>Sukuriamas atsakymo juodraštis.</p><div class="cn"><i></i></div></div>
+                <div class="fn" data-i="3"><div class="dot">4</div><h3>Įrašas lentelėje</h3><p>Užklausa užfiksuojama, kad niekas nepasimestų.</p></div>
+              </div>
+              <p class="note">Žingsnius ir naudojamas priemones aptariame prieš pradedant.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Control -->
+        <div class="pane site" id="p-ctrl">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Patvirtinimas</span></div>
+            <div class="ctrl">
+              <div class="card2">
+                <h3>Atsakymas Jonui P.</h3>
+                <span class="status" id="status">Laukia jūsų patvirtinimo</span>
+                <div class="draft"><small>Juodraštis</small>Sveiki, Jonai! Ačiū už žinutę. Siunčiame kainoraštį kavinėms ir 5 kg užsakymo pasiūlymą. Ar patogu šią savaitę gauti mėginį?</div>
+                <div class="btns"><span class="btn sun" id="approve">Patvirtinti ir siųsti</span><span class="btn ghost">Taisyti</span></div>
+              </div>
+              <div class="card2">
+                <h3>Kas tvirtina</h3>
+                <div class="rules">
+                  <div class="rule"><b>Standartiniai atsakymai</b><span class="who2 auto">Siunčiama automatiškai</span></div>
+                  <div class="rule"><b>Kainos ir sutartys</b><span class="who2 human">Tvirtina žmogus</span></div>
+                  <div class="rule"><b>Skundai</b><span class="who2 human">Tvirtina žmogus</span></div>
+                </div>
+                <div class="data" id="data"><span class="dlabel">Naudojami duomenys</span><ul><li>Laiško tekstas</li><li>Jūsų paslaugų ir kainų sąrašas</li></ul></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="segs" id="segs"></div>
+  <div class="caption">
+    <span class="no" id="cno"></span>
+    <div class="tx" id="ctx"><b></b><span></span></div>
+    <span class="ex">Pavyzdys</span>
+    <button class="pbtn" id="play" type="button"></button>
+  </div>
+  <div class="cursor" id="cursor"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M3 2l15 8.2-6.6 1.6L8.6 19z" fill="#fff" stroke="#10233a" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+</div>
+
+<script src="player.js?v=3"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s) }
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)) }
+  var ems = $$("#p-inbox .em"), fns = $$("#p-flow .fn"), rules = $$("#p-ctrl .rule")
+  var DRAFT = "Sveiki, Jonai! Ačiū už žinutę. Siunčiame kainoraštį kavinėms ir 5 kg užsakymo pasiūlymą. Ar patogu šią savaitę gauti mėginį?"
+  var clamp = function (v) { return Math.min(1, Math.max(0, v)) }
+
+  Player.start({
+    groups: [
+      { title: "Pasikartojantys laiškai", line: "Laiškų rūšiavimas ir atsakymų ruošimas." },
+      { title: "Darbo procesai", line: "Sujungiame aiškius žingsnius į vieną procesą." },
+      { title: "Kontrolė ir patikra", line: "Sutariame, kur sprendimą patvirtina žmogus ir kokie duomenys naudojami." }
+    ],
+    steps: [
+      { g: 0, pane: "#p-inbox", url: "Gautieji laiškai", hold: 9200,
+        cursor: [{ at: 2700, sel: "#em-1", click: 3400 }, { at: 4200, sel: null }],
+        tick: function (t) {
+          ems.forEach(function (e, i) {
+            e.classList.toggle("on", t >= 200 + i * 260)
+            e.querySelector(".tg").classList.toggle("on", t >= 1700 + i * 320)
+            e.classList.toggle("sel", i === 0 && t >= 3400)
+          })
+          $("#detail").classList.toggle("on", t >= 3400)
+          var n = t >= 4000 ? Math.min(DRAFT.length, Math.floor((t - 4000) / 1000 * 36)) : 0
+          var txt = $("#draft-text")
+          txt.textContent = DRAFT.slice(0, n)
+          txt.classList.toggle("caret", t >= 3400 && n < DRAFT.length)
+        } },
+      { g: 1, pane: "#p-flow", url: "Darbo eiga", hold: 6600,
+        tick: function (t) {
+          fns.forEach(function (f, i) {
+            f.classList.toggle("on", t >= 500 + i * 1100)
+            var c = f.querySelector(".cn i")
+            if (c) c.style.width = clamp((t - (900 + i * 1100)) / 800) * 100 + "%"
+          })
+        } },
+      { g: 2, pane: "#p-ctrl", url: "Patvirtinimas", hold: 7600,
+        cursor: [{ at: 3300, sel: "#approve", click: 4200 }, { at: 5200, sel: null }],
+        tick: function (t) {
+          rules.forEach(function (r, i) { r.classList.toggle("on", t >= 500 + i * 700) })
+          $("#data").classList.toggle("on", t >= 2700)
+          var sent = t >= 4300, st = $("#status")
+          st.classList.toggle("sent", sent)
+          var label = sent ? "Išsiųsta" : "Laukia jūsų patvirtinimo"
+          if (st.textContent !== label) st.textContent = label
+        } }
+    ]
+  })
+})()
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>El. parduotuvės peržiūra</title>
+<link rel="stylesheet" href="player.css?v=3">
+<link rel="stylesheet" href="kopa.css?v=3">
+<style>
+/* Shop catalogue */
+.nav .search{flex:1;max-width:22em;background:#fff;border-radius:99em;padding:.65em 1.1em;color:#6b7d8f;font-size:.95em;box-shadow:inset 0 0 0 .1em #d5dde5}
+.cartpill{display:flex;align-items:center;gap:.6em;font-weight:800;font-size:.95em;background:var(--k-ink);color:#fff;border-radius:99em;padding:.55em 1.1em}
+.cartpill b{display:grid;place-items:center;min-width:1.6em;height:1.6em;border-radius:99em;background:var(--k-sun);color:var(--k-ink);font-size:.9em;transition:transform .25s}
+.cartpill b.bump{transform:scale(1.35)}
+.shop-head{padding:2.2em 3em 0}
+.shop-head h1{font-size:3em;font-weight:900;letter-spacing:-.035em;line-height:1}
+.shop-head p{margin-top:.5em;color:#4b5f74;font-size:1.1em;max-width:36em}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:.6em;padding:1.4em 3em 0}
+.toolbar .lab{font-weight:700;font-size:.85em;color:#6b7d8f;letter-spacing:.08em;text-transform:uppercase;margin-right:.4em}
+.fchip{border-radius:99em;padding:.55em 1.1em;font-weight:700;font-size:.95em;background:#fff;box-shadow:inset 0 0 0 .1em #cbd5df;transition:background .2s,color .2s}
+.fchip.act{background:var(--k-ink);color:#fff;box-shadow:none}
+.fchip.pressed{transform:scale(.94)}
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4em;padding:1.6em 3em 1em}
+.grid6 .card{transition:opacity .35s}
+.grid6 .card.dim{opacity:.22}
+.var{display:flex;gap:.4em;margin-top:.2em}
+.var span{font-size:.85em;font-weight:700;padding:.3em .8em;border-radius:99em;box-shadow:inset 0 0 0 .1em #cbd5df}
+.var span.on{background:var(--k-mint);box-shadow:none}
+.stock{font-size:.85em;font-weight:600;color:#1f6b4f;display:flex;align-items:center;gap:.4em}
+.stock::before{content:"";width:.6em;height:.6em;border-radius:50%;background:#1f9d6f}
+.count{padding:.6em 3em 4em;color:#4b5f74;font-weight:600}
+
+/* Checkout */
+.co{padding:2.4em 3em;display:grid;grid-template-columns:1.3fr 1fr;gap:2.4em;align-items:start}
+.co h2{font-size:2.2em;font-weight:900;letter-spacing:-.03em;line-height:1;margin-bottom:1em}
+.co h3{font-size:1.05em;font-weight:800;margin:1.4em 0 .6em}
+.opt{display:flex;align-items:center;gap:.9em;background:#fff;border-radius:1em;padding:.9em 1.1em;margin-bottom:.6em;box-shadow:inset 0 0 0 .12em #d5dde5;transition:box-shadow .2s,background .2s}
+.opt i{flex:none;width:1.2em;height:1.2em;border-radius:50%;box-shadow:inset 0 0 0 .14em #9fb1c4;position:relative}
+.opt.sel{box-shadow:inset 0 0 0 .16em var(--k-ink);background:#fff}
+.opt.sel i{box-shadow:inset 0 0 0 .14em var(--k-ink)}
+.opt.sel i::after{content:"";position:absolute;inset:.28em;border-radius:50%;background:var(--k-ink)}
+.opt span{flex:1;font-weight:700}.opt small{color:#4b5f74;font-weight:600}
+.sum{background:#fff;border-radius:1.4em;padding:1.5em;display:grid;gap:.7em;position:relative}
+.sum .line{display:flex;justify-content:space-between;gap:1em}.sum .line small{color:#4b5f74}
+.sum .tot{border-top:.1em solid #e3e8ee;padding-top:.8em;font-size:1.3em;font-weight:900}
+.sum .btn{text-align:center;margin-top:.4em}
+.sum .thumb-s{width:3.2em;height:3.2em;border-radius:.8em;background:var(--k-mint);display:grid;place-items:center;flex:none}
+.sum .thumb-s .mini{height:70%}
+.item{display:flex;gap:.9em;align-items:center}.item b{display:block}
+.done{position:absolute;inset:0;z-index:3;background:rgba(243,245,247,.97);display:grid;place-content:center;justify-items:center;gap:.6em;text-align:center;opacity:0;transition:opacity .4s}
+.done.on{opacity:1}
+.done .tick{width:3.6em;height:3.6em;border-radius:50%;background:var(--k-mint);display:grid;place-items:center;font-weight:900;font-size:1.1em}
+.done h3{font-size:2em;font-weight:900;letter-spacing:-.03em;margin:0}.done p{color:#4b5f74}
+
+/* Admin */
+.adm{display:grid;grid-template-columns:13em 1fr;height:100%;background:#f3f5f7}
+.adm aside{background:var(--k-ink);color:#fff;padding:1.6em 1.2em;display:grid;align-content:start;gap:.4em}
+.adm aside .logo{margin-bottom:1.2em;color:#fff}
+.adm aside span{padding:.7em .9em;border-radius:.7em;font-weight:600;color:#b7c4d2}
+.adm aside span.cur{background:rgba(255,255,255,.12);color:#fff}
+.adm main{padding:1.8em 2em;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1.6em;align-content:start;position:relative}
+.adm h2{grid-column:1/-1;font-size:1.9em;font-weight:900;letter-spacing:-.03em;line-height:1}
+.tbl{background:#fff;border-radius:1.2em;padding:.4em 1.2em;align-self:start}
+.tr{display:grid;grid-template-columns:1.7fr 1fr .8fr;gap:1em;align-items:center;padding:.9em 0;border-top:.08em solid #e3e8ee}
+.tr:first-child{border-top:0;color:#6b7d8f;font-size:.8em;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.tr b{font-weight:700}
+.field{display:inline-block;min-width:5.6em;padding:.45em .8em;border-radius:.6em;box-shadow:inset 0 0 0 .1em #d5dde5;font-weight:700;background:#fff;transition:box-shadow .2s}
+.field.edit{box-shadow:inset 0 0 0 .16em var(--k-ink),0 0 0 .3em rgba(255,200,61,.55)}
+.tog{width:2.8em;height:1.55em;border-radius:99em;background:#1f9d6f;position:relative;transition:background .25s}
+.tog::after{content:"";position:absolute;top:.2em;right:.2em;width:1.15em;height:1.15em;border-radius:50%;background:#fff;transition:right .25s}
+.tog.off{background:#c3ccd6}.tog.off::after{right:1.45em}
+.panel{background:#fff;border-radius:1.2em;padding:1.2em 1.3em;display:grid;gap:.7em;align-self:start}
+.panel h3{font-size:1.05em;font-weight:800}
+.panel li{list-style:none;display:flex;gap:.6em;align-items:flex-start;font-weight:600}
+.panel ul{margin:0;padding:0;display:grid;gap:.6em}
+.panel li::before{content:"✓";flex:none;display:grid;place-items:center;width:1.4em;height:1.4em;border-radius:50%;background:var(--k-mint);font-size:.8em;font-weight:900}
+.panel small{color:#4b5f74;font-weight:500;display:block}
+.save{grid-column:1/-1;justify-self:start}
+.toast{position:absolute;right:2em;bottom:1.6em;background:var(--k-ink);color:#fff;border-radius:.9em;padding:.8em 1.2em;font-weight:700;opacity:0;translate:0 .6em;transition:opacity .3s,translate .3s}
+.toast.on{opacity:1;translate:0 0}
+
+@container screen (max-width:560px){
+  .nav .search{display:none}.shop-head{padding:1.6em 1.2em 0}.shop-head h1{font-size:2.4em}.toolbar{padding:1.1em 1.2em 0}.grid6{grid-template-columns:1fr;padding:1.2em 1.2em 1em}.count{padding:.6em 1.2em 3em}
+  .co{grid-template-columns:1fr;padding:1.6em 1.2em}.adm{grid-template-columns:1fr}.adm aside{display:none}.adm main{grid-template-columns:1fr;padding:1.4em 1.2em}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" data-device="desktop">
+  <div class="view">
+    <div class="wm"><img src="/img/logo-96.png" alt="" width="18" height="18"><span>GraspIT</span></div>
+    <div class="device">
+      <div class="bar"><i></i><i></i><i></i><div class="url" id="url">jusu-svetaine.lt/kava</div></div>
+      <div class="screen">
+
+        <!-- 1. Catalogue -->
+        <div class="pane site on" id="p-shop">
+          <nav class="nav" id="nav">
+            <div class="logo">GraspIT</div>
+            <div class="search">Ieškoti kavos</div>
+            <div class="cartpill">Krepšelis <b id="cart-n">0</b></div>
+          </nav>
+          <div class="shop-head"><h1>Kava</h1><p>Šviežiai skrudinti rinkiniai ir pupelės. Pasirinkite pagal skrudinimą ir skonį.</p></div>
+          <div class="toolbar">
+            <span class="lab">Skrudinimas</span>
+            <span class="fchip act" id="chip-a">Visi</span><span class="fchip" id="chip-b">Šviesus</span><span class="fchip">Vidutinis</span><span class="fchip">Tamsus</span>
+          </div>
+          <div class="grid6" id="grid">
+            <div class="card" data-roast="light"><div class="thumb" style="--c:#bfe8d8"><div class="mini"></div></div><h3>Etiopija Guji</h3><p class="notes">žemuogė · jazminas · citrina</p><div class="var"><span class="on">250 g</span><span>1 kg</span></div><div class="stock">Yra sandėlyje</div><div class="row"><span class="price">12,90 €</span><span class="btn sm" id="add-1">Į krepšelį</span></div></div>
+            <div class="card" data-roast="medium"><div class="thumb" style="--c:#ffe08a"><div class="mini"></div></div><h3>Kolumbija Huila</h3><p class="notes">karamelė · raudonas obuolys</p><div class="var"><span class="on">250 g</span><span>1 kg</span></div><div class="stock">Yra sandėlyje</div><div class="row"><span class="price">11,50 €</span><span class="btn sm">Į krepšelį</span></div></div>
+            <div class="card" data-roast="dark"><div class="thumb" style="--c:#ffc1b2"><div class="mini"></div></div><h3>Brazilija Santos</h3><p class="notes">riešutai · juodasis šokoladas</p><div class="var"><span class="on">250 g</span><span>1 kg</span></div><div class="stock">Yra sandėlyje</div><div class="row"><span class="price">9,90 €</span><span class="btn sm">Į krepšelį</span></div></div>
+            <div class="card" data-roast="light"><div class="thumb" style="--c:#d6e4ff"><div class="mini"></div></div><h3>Kenija Nyeri</h3><p class="notes">juodieji serbentai · greipfrutas</p><div class="var"><span class="on">250 g</span><span>1 kg</span></div><div class="stock">Yra sandėlyje</div><div class="row"><span class="price">14,20 €</span><span class="btn sm">Į krepšelį</span></div></div>
+            <div class="card" data-roast="medium"><div class="thumb" style="--c:#f6d6ff"><div class="mini"></div></div><h3>Gvatemala Antigua</h3><p class="notes">kakava · apelsinų žievelė</p><div class="var"><span class="on">250 g</span><span>1 kg</span></div><div class="stock">Yra sandėlyje</div><div class="row"><span class="price">12,40 €</span><span class="btn sm">Į krepšelį</span></div></div>
+            <div class="card" data-roast="light"><div class="thumb" style="--c:#ffd9a8"><div class="mini"></div></div><h3>Salvadoras Pacamara</h3><p class="notes">persikas · medus</p><div class="var"><span class="on">250 g</span><span>1 kg</span></div><div class="stock">Yra sandėlyje</div><div class="row"><span class="price">13,60 €</span><span class="btn sm">Į krepšelį</span></div></div>
+          </div>
+          <div class="count" id="s-end">Rodoma <span id="cnt">6</span> iš 6 prekių</div>
+        </div>
+
+        <!-- 2. Cart and checkout -->
+        <div class="pane site" id="p-cart">
+          <nav class="nav"><div class="logo">GraspIT</div><div class="cartpill">Krepšelis <b>1</b></div></nav>
+          <div class="co">
+            <div>
+              <h2>Užsakymas</h2>
+              <h3>Pristatymo būdas</h3>
+              <div class="opt sel" id="d-1"><i></i><span>Kurjeris į namus</span><small>4,50 €</small></div>
+              <div class="opt" id="d-2"><i></i><span>Paštomatas</span><small>2,90 €</small></div>
+              <div class="opt" id="d-3"><i></i><span>Atsiėmimas skrudykloje</span><small>0,00 €</small></div>
+              <h3>Mokėjimo būdas</h3>
+              <div class="opt" id="pay-1"><i></i><span>Mokėjimo kortelė</span></div>
+              <div class="opt" id="pay-2"><i></i><span>Bankinis pavedimas</span></div>
+            </div>
+            <div class="sum" id="sum">
+              <div class="item"><div class="thumb-s"><div class="mini"></div></div><div><b>Etiopija Guji</b><small>250 g · 1 vnt.</small></div></div>
+              <div class="line"><small>Prekės</small><span>12,90 €</span></div>
+              <div class="line"><small>Pristatymas</small><span id="ship">4,50 €</span></div>
+              <div class="line tot"><span>Iš viso</span><span id="total">17,40 €</span></div>
+              <span class="btn sun" id="place">Užsakyti</span>
+              <div class="done" id="done"><div class="tick">✓</div><h3>Užsakymas priimtas</h3><p>Patvirtinimą atsiųsime el. paštu.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Content management -->
+        <div class="pane site" id="p-admin">
+          <div class="adm">
+            <aside><div class="logo">GraspIT</div><span class="cur">Prekės</span><span>Užsakymai</span><span>Puslapiai</span><span>Nuotraukos</span></aside>
+            <main>
+              <h2>Prekės</h2>
+              <div class="tbl">
+                <div class="tr"><span>Prekė</span><span>Kaina</span><span>Rodoma</span></div>
+                <div class="tr"><b>Etiopija Guji</b><span><span class="field" id="price-1">12,90 €</span></span><span><i class="tog" id="tog-1" style="display:block"></i></span></div>
+                <div class="tr"><b>Kolumbija Huila</b><span><span class="field">11,50 €</span></span><span><i class="tog" style="display:block"></i></span></div>
+                <div class="tr"><b>Brazilija Santos</b><span><span class="field">9,90 €</span></span><span><i class="tog" id="tog-3" style="display:block"></i></span></div>
+              </div>
+              <div class="panel">
+                <h3>Ką tvarkote patys</h3>
+                <ul><li><span>Prekes ir kainas</span></li><li><span>Aprašymus ir nuotraukas</span></li><li><span>Pristatymo kainas<small>Pavyzdys. Tikrą sąrašą sutariame prieš kūrimą.</small></span></li></ul>
+              </div>
+              <span class="btn save" id="save">Išsaugoti</span>
+              <div class="toast" id="toast">Išsaugota. Pakeitimas matomas parduotuvėje.</div>
+            </main>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="segs" id="segs"></div>
+  <div class="caption">
+    <span class="no" id="cno"></span>
+    <div class="tx" id="ctx"><b></b><span></span></div>
+    <span class="ex">Pavyzdys</span>
+    <button class="pbtn" id="play" type="button"></button>
+  </div>
+  <div class="cursor" id="cursor"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M3 2l15 8.2-6.6 1.6L8.6 19z" fill="#fff" stroke="#10233a" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+</div>
+
+<script src="player.js?v=3"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s) }
+  var cards = Array.prototype.slice.call(document.querySelectorAll("#grid .card"))
+  var chipA = $("#chip-a"), chipB = $("#chip-b"), cartN = $("#cart-n")
+
+  function select(group, on) { group.forEach(function (id) { $(id).classList.toggle("sel", id === on) }) }
+
+  Player.start({
+    groups: [
+      { title: "Prekių katalogas", line: "Suplanuojame kategorijas ir prekių informaciją, kad pirkėjui būtų lengva rasti reikiamą." },
+      { title: "Pirkimo kelias", line: "Aptariame krepšelį, mokėjimo ir pristatymo būdus. Integracijų mokesčiai nurodomi atskirai." },
+      { title: "Turinio valdymas", line: "Sutariame, ką norėsite tvarkyti savarankiškai." }
+    ],
+    steps: [
+      { g: 0, pane: "#p-shop", top: true, to: "#s-end", url: "jusu-svetaine.lt/kava", lead: 3300, scroll: 3200, hold: 700,
+        cursor: [{ at: 300, sel: "#chip-b", click: 1000 }, { at: 1700, sel: "#add-1", click: 2500 }, { at: 3000, sel: null }],
+        tick: function (t) {
+          var f = t >= 1000
+          chipA.classList.toggle("act", !f); chipB.classList.toggle("act", f)
+          cards.forEach(function (c) { c.classList.toggle("dim", f && c.dataset.roast !== "light") })
+          $("#cnt").textContent = f ? "3" : "6"
+          var added = t >= 2500
+          if (cartN.textContent !== (added ? "1" : "0")) { cartN.textContent = added ? "1" : "0"; cartN.classList.add("bump"); setTimeout(function () { cartN.classList.remove("bump") }, 260) }
+        } },
+      { g: 1, pane: "#p-cart", top: true, url: "jusu-svetaine.lt/uzsakymas", hold: 7200,
+        cursor: [{ at: 600, sel: "#d-2", click: 1300 }, { at: 2300, sel: "#pay-1", click: 2900 }, { at: 3900, sel: "#place", click: 4600 }],
+        tick: function (t) {
+          var par = t >= 1300
+          select(["#d-1", "#d-2", "#d-3"], par ? "#d-2" : "#d-1")
+          $("#ship").textContent = par ? "2,90 €" : "4,50 €"
+          $("#total").textContent = par ? "15,80 €" : "17,40 €"
+          $("#pay-1").classList.toggle("sel", t >= 2900)
+          $("#done").classList.toggle("on", t >= 5000)
+        } },
+      { g: 2, pane: "#p-admin", top: true, url: "jusu-svetaine.lt/valdymas", hold: 8200,
+        cursor: [{ at: 500, sel: "#price-1", click: 1100 }, { at: 3300, sel: "#tog-3", click: 3900 }, { at: 4700, sel: "#save", click: 5300 }],
+        tick: function (t) {
+          var f = $("#price-1")
+          var typed = t >= 1300 ? "13,50".slice(0, Math.max(0, Math.floor((t - 1300) / 1000 * 5))) : null
+          f.classList.toggle("edit", t >= 1100 && t < 5300)
+          f.textContent = (typed === null ? "12,90" : (typed.length ? typed : "")) + " €"
+          $("#tog-3").classList.toggle("off", t >= 3900)
+          $("#toast").classList.toggle("on", t >= 5500)
+        } }
+    ],
+    onEnter: function () {
+      $("#done").classList.remove("on"); $("#toast").classList.remove("on")
+    }
+  })
+})()
+</script>
+</body>
+</html>

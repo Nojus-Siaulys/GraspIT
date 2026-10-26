@@ -277,6 +277,10 @@ html { scroll-padding-top: 7rem; }
 /* Photo/video placeholders: dashed sand slots, shown only while building the site. */
 .media-slot { border: 2px dashed color-mix(in srgb, var(--foreground) 40%, transparent); border-radius: var(--radius); color: var(--foreground); background-color: var(--secondary); background-image: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--foreground) 5%, transparent) 14px 28px); }
 
+/* Animated service previews: 16:9 on desktop, taller on phones so the captions stay readable. */
+.embed-frame { aspect-ratio: var(--ratio, 16 / 9); }
+@media (max-width: 640px) { .embed-frame { aspect-ratio: 4 / 5; } }
+
 /* The photo band sits mid-page: skip rendering it, and fetching its background, until it is near the viewport. */
 .studio-scene { content-visibility: auto; contain-intrinsic-size: auto 40rem; }
 

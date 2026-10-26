@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Svetainės atnaujinimo peržiūra</title>
+<link rel="stylesheet" href="player.css?v=3">
+<link rel="stylesheet" href="kopa.css?v=3">
+<style>
+/* Before / after */
+.layer{position:absolute;inset:0;overflow:hidden}
+.new{clip-path:inset(0 100% 0 0)}
+.old-wrap{background:#efe3cc}
+.divider{position:absolute;top:0;bottom:0;left:0;width:3px;margin-left:-1.5px;background:var(--ink);z-index:6}
+.divider.edge{background:transparent}
+.divider::after{content:"⇄";position:absolute;top:50%;left:50%;translate:-50% -50%;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:15px}
+.divider.edge::after{opacity:0}
+.lab{position:absolute;top:calc(50% + 28px);background:var(--ink);color:#fff;font:700 11px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;padding:7px 10px;border-radius:4px;transition:opacity .3s}
+.lab.po{right:12px}.lab.pr{left:12px;background:#8a4b14}
+.ann{position:absolute;left:50%;bottom:14px;translate:-50% 10px;z-index:8;background:var(--ink);color:#fff;border-radius:8px;padding:10px 14px;font:600 13px/1.35 var(--font);
+  opacity:0;transition:opacity .4s,translate .4s;max-width:calc(100% - 24px);text-align:center;width:max-content}
+.ann.on{opacity:1;translate:-50% 0}
+.ann b{color:#ffc83d}
+
+/* Old site (fixed 960px design, scaled to the screen like a non-responsive page) */
+.old{position:absolute;left:0;top:0;width:960px;transform-origin:0 0;background:#efe3cc;color:#222;font:12px/1.45 Verdana,Tahoma,sans-serif;pointer-events:none}
+.old *{box-sizing:border-box}
+.o-top{background:#5a3a1e;color:#e9d9bd;padding:5px 14px;font-size:11px;display:flex;justify-content:space-between}
+.o-head{padding:12px 14px 6px;display:flex;align-items:flex-end;justify-content:space-between}
+.o-logo{font:700 30px Georgia,"Times New Roman",serif;color:#7a1f10;text-shadow:2px 2px 0 #d9bb86;letter-spacing:1px}
+.o-search{border:1px solid #888;background:#fff;padding:3px 6px;font-size:11px;width:170px;color:#888}
+.o-nav{background:#c9a46a;border-block:2px solid #7a5a2c;display:flex;flex-wrap:nowrap;font-size:11px;font-weight:700}
+.o-nav span{padding:7px 10px;border-right:1px solid #7a5a2c;white-space:nowrap}
+.o-nav span:first-child{background:#7a5a2c;color:#fff}
+.o-body{display:grid;grid-template-columns:170px 1fr 190px;gap:10px;padding:10px 14px}
+.o-box{background:#f8efe0;border:1px solid #b89a68;padding:8px}
+.o-box h4{margin:0 0 6px;background:#7a1f10;color:#fff;padding:3px 6px;font-size:11px}
+.o-box li{list-style:square;margin-left:14px;color:#1a3fa0;text-decoration:underline;font-size:11px}
+.o-box ul{margin:0;padding:0}
+.o-banner{background:linear-gradient(135deg,#6b3b1c,#c9842f);color:#ffe85c;padding:20px;border:3px double #fff;font:700 24px "Trebuchet MS",sans-serif;text-align:center;text-shadow:2px 2px 0 #000}
+.o-banner small{display:block;color:#fff;font:400 11px Verdana;margin-top:6px;text-shadow:none}
+.o-text{margin:8px 0;font-size:11px}
+.o-sale{background:#e01818;color:#fff;font:700 18px Arial;text-align:center;padding:10px;border:2px dashed #ffe85c}
+.o-link{color:#1a3fa0;text-decoration:underline}
+
+/* WordPress / keep and change */
+.wp{padding:2.2em 2.6em;display:grid;gap:1.6em;align-content:start;height:100%;background:#f3f5f7}
+.wp h2{font-size:2.1em;font-weight:900;letter-spacing:-.03em;line-height:1.05;max-width:18em}
+.wp .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.4em}
+.wp .col{background:#fff;border-radius:1.2em;padding:1.3em 1.5em;display:grid;gap:.7em;align-content:start}
+.wp .col h3{font-size:1.15em;font-weight:900;display:flex;align-items:center;gap:.6em}
+.wp .col h3 span{width:1.6em;height:1.6em;border-radius:50%;display:grid;place-items:center;font-size:.9em}
+.keep h3 span{background:var(--k-mint)}.chg h3 span{background:var(--k-sun)}
+.wp li{list-style:none;display:flex;gap:.7em;font-weight:600;opacity:0;translate:0 .5em;transition:opacity .35s,translate .35s}
+.wp li.on{opacity:1;translate:0 0}
+.wp li::before{content:"";flex:none;width:.5em;height:.5em;border-radius:50%;margin-top:.55em;background:var(--k-ink)}
+.wp ul{margin:0;padding:0;display:grid;gap:.6em}
+.wp .tags{display:flex;gap:.6em;flex-wrap:wrap;align-items:center;font-weight:700}
+.wp .pill{padding:.45em 1em;border-radius:99em;background:#fff;box-shadow:inset 0 0 0 .12em #cbd5df}
+.wp .pill.n{background:var(--k-ink);color:#fff;box-shadow:none}
+@container screen (min-width:561px){.wp{font-size:1.7cqw}}
+@container screen (max-width:560px){.wp{padding:1.4em 1.2em}.wp .row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" data-device="desktop">
+  <div class="view">
+    <div class="wm"><img src="/img/logo-96.png" alt="" width="18" height="18"><span>GraspIT</span></div>
+    <div class="device">
+      <div class="bar"><i></i><i></i><i></i><div class="url" id="url">jusu-svetaine.lt</div></div>
+      <div class="screen">
+
+        <div class="pane on" id="p-ba">
+          <div class="layer old-wrap" id="oldwrap">
+            <div class="old" id="old">
+              <div class="o-top"><span>Tel. 8 600 00000 &nbsp;|&nbsp; info@jusu-svetaine.lt &nbsp;|&nbsp; Facebook &nbsp;|&nbsp; Instagram</span><span>LT | EN | RU</span></div>
+              <div class="o-head"><div class="o-logo">KAVOS SKRUDYKLA</div><div class="o-search">Paieška...</div></div>
+              <div class="o-nav"><span>Pradžia</span><span>Apie mus</span><span>Kava</span><span>Pupelės</span><span>Malta</span><span>Akcijos</span><span>Naujienos</span><span>Kontaktai</span><span>Taisyklės</span></div>
+              <div class="o-body">
+                <div class="o-box"><h4>KATEGORIJOS</h4><ul><li>Pupelės</li><li>Malta kava</li><li>Kapsulės</li><li>Dovanų rinkiniai</li><li>Priedai</li><li>Akcijos</li><li>Išpardavimas</li></ul></div>
+                <div>
+                  <div class="o-banner">Sveiki atvykę į mūsų kavos skrudyklą!!!<small>Mes skrudiname kavą nuo seno. Skaitykite daugiau apie mus, mūsų kavą, pristatymą ir kitas paslaugas.</small></div>
+                  <p class="o-text">Mūsų skrudykla siūlo plačią kavos pupelių ir maltos kavos asortimentą. Kavą skrudiname Vilniuje, o užsakymus pristatome visoje Lietuvoje. Daugiau informacijos rasite skyriuose <span class="o-link">Apie mus</span>, <span class="o-link">Kava</span> ir <span class="o-link">Kontaktai</span>. Taip pat žiūrėkite <span class="o-link">Taisykles</span> ir <span class="o-link">Naujienas</span>.</p>
+                  <div class="o-sale">AKCIJA! -10% VISAI KAVAI IKI MĖNESIO PABAIGOS</div>
+                </div>
+                <div><div class="o-box"><h4>NAUJIENOS</h4><ul><li>Nauja kava jau parduotuvėje</li><li>Darbo laikas švenčių metu</li><li>Prenumeratos pakeitimai</li></ul></div><div class="o-box" style="margin-top:10px"><h4>APKLAUSA</h4>Kokią kavą mėgstate?<br>( ) Šviesią<br>( ) Tamsią<br>( ) Nežinau</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer new site" id="newl">
+            <nav class="nav">
+              <div class="logo">GraspIT</div>
+              <div class="links"><span>Pradžia</span><span>Kava</span><span>Apie mus</span><span>Kontaktai</span></div>
+              <span class="btn sm">Užsakyti</span>
+              <span class="burger"></span>
+            </nav>
+            <section class="hero">
+              <div class="hero-grid">
+                <div>
+                  <p class="kicker">Skrudykla Vilniuje</p>
+                  <h1>Šviežiai skrudinta kava pas jus per 48 val.</h1>
+                  <p class="lead">Mažos partijos, aiški kilmė ir pristatymas į namus ar biurą kas savaitę.</p>
+                  <div class="cta-row"><span class="btn">Pasirinkti kavą</span><span class="btn ghost">Prenumerata</span></div>
+                </div>
+                <div class="art">
+                  <div class="disc"></div>
+                  <div class="bag"><div class="lbl"><div>Etiopija</div><small>Guji · 250 g</small><div class="dots"><i></i><i></i><i></i></div></div></div>
+                  <span class="chip a">Skrudinta vakar</span><span class="chip b">Pristatymas 48 val.</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="divider" id="divider"><span class="lab po" id="lab-po">Po</span><span class="lab pr" id="lab-pr">Prieš</span></div>
+          <div class="ann" id="ann-a"><b>9 → 4</b> meniu punktai. Paslaugos ir veiksmas matomi iškart.</div>
+          <div class="ann" id="ann-b">Tekstas, mygtukai ir išdėstymas <b>pritaikyti telefonui</b>.</div>
+        </div>
+
+        <div class="pane site" id="p-wp">
+          <div class="wp">
+            <div class="tags"><span class="pill">Dabartinė svetainė · WordPress</span><span>→</span><span class="pill n">Atnaujinta svetainė</span></div>
+            <h2>Kartu nusprendžiame, ką išlaikyti, o ką keisti.</h2>
+            <div class="row">
+              <div class="col keep"><h3><span>✓</span>Išlaikome</h3><ul><li>Jūsų tekstus ir nuotraukas</li><li>Svetainės adresus su peradresavimais</li><li>Tai, kas jau veikia gerai</li></ul></div>
+              <div class="col chg"><h3><span>↻</span>Keičiame</h3><ul><li>Dizainą ir išvaizdą</li><li>Puslapių struktūrą ir navigaciją</li><li>Mobilųjį vaizdą</li></ul></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="segs" id="segs"></div>
+  <div class="caption">
+    <span class="no" id="cno"></span>
+    <div class="tx" id="ctx"><b></b><span></span></div>
+    <span class="ex">Pavyzdys</span>
+    <button class="pbtn" id="play" type="button"></button>
+  </div>
+  <div class="cursor" id="cursor"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M3 2l15 8.2-6.6 1.6L8.6 19z" fill="#fff" stroke="#10233a" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+</div>
+
+<script src="player.js?v=3"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s) }
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)) }
+  var clamp = function (v) { return Math.min(1, Math.max(0, v)) }
+  var ease = function (p) { return 0.5 - Math.cos(Math.PI * p) / 2 }
+  var screenEl = $(".screen"), old = $("#old"), newl = $("#newl"), divider = $("#divider")
+  var annA = $("#ann-a"), annB = $("#ann-b"), labPo = $("#lab-po"), labPr = $("#lab-pr")
+  var wpItems = $$("#p-wp li")
+
+  function fit() { old.style.transform = "scale(" + (screenEl.clientWidth / 960).toFixed(4) + ")" }
+  function wipe(x) {
+    newl.style.clipPath = "inset(0 " + (100 - x) + "% 0 0)"
+    divider.style.left = x + "%"
+    divider.classList.toggle("edge", x <= 2 || x >= 98)
+    labPo.style.opacity = x > 22 ? 1 : 0
+    labPr.style.opacity = x < 78 ? 1 : 0
+  }
+  function run(t, from, dur, note, noteAt) {
+    fit()
+    wipe(t < from ? 0 : ease(clamp((t - from) / dur)) * 100)
+    note.classList.toggle("on", t >= noteAt)
+  }
+
+  Player.start({
+    groups: [
+      { title: "Dizainas ir struktūra", line: "Aiškiau pristatome paslaugas ir sutvarkome navigaciją." },
+      { title: "Mobilioji versija", line: "Pritaikome tekstą, mygtukus ir išdėstymą mažam ekranui." },
+      { title: "WordPress svetainės", line: "Netenkina dabartinis dizainas? Aptarsime, ką keisti." }
+    ],
+    steps: [
+      { g: 0, pane: "#p-ba", url: "jusu-svetaine.lt", hold: 8200, tick: function (t) { run(t, 1500, 2600, annA, 4600); annB.classList.remove("on") } },
+      { g: 1, device: "mobile", pane: "#p-ba", url: "jusu-svetaine.lt", hold: 8000, tick: function (t) { run(t, 1200, 2600, annB, 4300); annA.classList.remove("on") } },
+      { g: 2, device: "desktop", pane: "#p-wp", url: "jusu-svetaine.lt", hold: 8000,
+        tick: function (t) { wpItems.forEach(function (li, i) { li.classList.toggle("on", t >= 900 + i * 650) }) } }
+    ],
+    onEnter: function () { wipe(0); annA.classList.remove("on"); annB.classList.remove("on") }
+  })
+})()
+</script>
+</body>
+</html>
