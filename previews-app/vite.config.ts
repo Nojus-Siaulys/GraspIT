@@ -3,7 +3,8 @@ import { pages } from "./src/site/content.ts"
 import { resolve } from "node:path"
 import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import { defineConfig, loadEnv } from "vite"
+import { createContactHandler } from "./server/contact.ts"
 
 // Match directory URLs in development and preview to the static production output.
 function directoryUrls(
@@ -21,17 +22,22 @@ function directoryUrls(
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  server: { host: "::", port: 5173, strictPort: true },
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "")
+  const contactHandler = createContactHandler({ key: env.RESEND_API_KEY, from: env.CONTACT_FROM, to: env.CONTACT_TO, origin: env.SITE_URL })
+  return {
+  server: { host: "127.0.0.1", port: 5174, strictPort: true },
   plugins: [
     react(),
     tailwindcss(),
     {
       name: "static-directory-urls",
       configureServer(server) {
+        server.middlewares.use("/api/contact", (req, res) => { void contactHandler(req, res) })
         server.middlewares.use(directoryUrls)
       },
       configurePreviewServer(server) {
+        server.middlewares.use("/api/contact", (req, res) => { void contactHandler(req, res) })
         server.middlewares.use(directoryUrls)
       },
     },
@@ -41,4 +47,5 @@ export default defineConfig({
       "@": resolve(import.meta.dirname, "./src"),
     },
   },
+}
 })

@@ -82,10 +82,22 @@ export const pages: Record<
     label: "Biblioteka",
   },
   "/darbai": {
-    title: "Atlikti darbai – Colorlisse, IriVitam ir Kalvita | GraspIT",
+    title: "Atlikti darbai – Colorlisse ir Kalvita | GraspIT",
     heading: "Atlikti darbai",
-    intro: "Trys mūsų projektai: dvi el. parduotuvės ir paslaugų svetainė. Peržiūrėkite jų pristatymus.",
+    intro: "El. parduotuvė ir paslaugų svetainė: skirtingi verslai, skirtingi lankytojo keliai. Susipažinkite su projektų paskirtimi ir sprendimais.",
     label: "Darbai",
+  },
+  "/darbai/colorlisse": {
+    title: "Colorlisse el. parduotuvė – projekto pristatymas | GraspIT",
+    heading: "Colorlisse. Produktas ir kelias iki užsakymo.",
+    intro: "Profesionalios kirpėjų folijos pristatymas ir pardavimas internetu. Projekto paskirtis, sistemos dalys ir sprendimų logika.",
+    label: "Colorlisse / El. parduotuvė",
+  },
+  "/darbai/kalvita": {
+    title: "Kalvita paslaugų svetainė – projekto pristatymas | GraspIT",
+    heading: "Kalvita. Darbai, kurie pradeda pokalbį.",
+    intro: "Kalvystės paslaugų ir atliktų darbų pristatymas. Kaip paslaugų informacija ir galerija veda iki susisiekimo.",
+    label: "Kalvita / Paslaugų svetainė",
   },
   "/duk": {
     title: "DUK apie svetainių kūrimą, kainas ir priežiūrą | GraspIT",

@@ -1,69 +1,133 @@
-import { useState } from "react"
-import { ArrowRight, RotateCcw } from "lucide-react"
+import { useEffect, useId, useRef, useState } from "react"
+import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react"
 import { prices } from "./pricing"
-import { siteCopy } from "./settings"
 
+type Option = { value: string; label: string; detail: string }
+type Question = { title: string; help: string; options: Option[] }
 type Need = "website" | "shop" | "redesign" | "automation"
-type Content = "all" | "some" | "none"
-type Timing = "soon" | "later" | "unsure"
 
-const questions = [
-  { key: "need", title: "Ko jums reikia?", options: [["website", "Naujos svetainės"], ["shop", "Parduoti internetu"], ["redesign", "Atnaujinti turimą svetainę"], ["automation", "Sutaupyti laiko automatizuojant darbus"]] },
-  { key: "content", title: "Kiek turinio jau turite?", options: [["all", "Turiu tekstus ir nuotraukas"], ["some", "Dalį"], ["none", "Kol nieko"]] },
-  { key: "timing", title: "Kada norėtumėte pradėti?", options: [["soon", "Per artimiausias savaites"], ["later", "Per kelis mėnesius"], ["unsure", "Dar tik galvoju"]] },
-] as const
-
-// Starting prices and timings are the ones already published on the pricing and service pages.
+const needQuestion: Question = {
+  title: "Ką norite padaryti?",
+  help: "Pasirinkite pagrindinį tikslą. Techninių žinių nereikia — sprendimą aptarsime kartu.",
+  options: [
+    { value: "website", label: "Pristatyti savo verslą internete", detail: "Reikia naujos svetainės paslaugoms, darbams ir kontaktams." },
+    { value: "shop", label: "Parduoti prekes internetu", detail: "Reikia el. parduotuvės su prekių katalogu ir pirkimo galimybe." },
+    { value: "redesign", label: "Atnaujinti turimą svetainę", detail: "Svetainė jau yra, bet netenkina jos išvaizda ar patogumas naudotis." },
+    { value: "automation", label: "Sumažinti pasikartojantį darbą", detail: "Norite mažiau laiko skirti laiškams, duomenų suvedimui ar kitoms rutininėms užduotims." },
+  ],
+}
+const contentQuestion: Question = {
+  title: "Ką jau turite svetainei?",
+  help: "Turime omenyje tekstus apie veiklą, paslaugų ar prekių aprašymus ir nuotraukas. Nieko tokio, jei dar ne viskas paruošta.",
+  options: [
+    { value: "all", label: "Didžiąją dalį turinio jau turiu", detail: "Tekstai ir nuotraukos paruošti arba juos galima perkelti iš esamos svetainės." },
+    { value: "some", label: "Turiu dalį turinio", detail: "Kai kas paruošta, bet dar trūksta tekstų, aprašymų ar nuotraukų." },
+    { value: "none", label: "Turinio dar neturiu", detail: "Pirmiausia reikia išsiaiškinti, ką paruošti svetainei." },
+  ],
+}
+const workflowQuestion: Question = {
+  title: "Ar žinote, kurį darbą norite automatizuoti?",
+  help: "Pavyzdžiui: rūšiuoti laiškus, paruošti atsakymų juodraščius ar perkelti duomenis tarp sistemų.",
+  options: [
+    { value: "clear", label: "Žinau konkrečią užduotį", detail: "Galiu paaiškinti, ką darau rankiniu būdu ir kokio rezultato tikiuosi." },
+    { value: "several", label: "Turiu kelias idėjas", detail: "Reikia padėti atsirinkti, nuo kurios užduoties verta pradėti." },
+    { value: "explore", label: "Dar noriu išsiaiškinti galimybes", detail: "Pasikartojančio darbo yra, bet nežinau, ką būtų galima automatizuoti." },
+  ],
+}
+const timingQuestion: Question = {
+  title: "Kada norėtumėte pradėti darbus?",
+  help: "Klausiame apie darbų pradžią, o ne paleidimo datą. Tikslų grafiką suderinsime aptarę projektą.",
+  options: [
+    { value: "soon", label: "Per artimiausias kelias savaites", detail: "Norėčiau netrukus aptarti projektą ir susitarti dėl pradžios." },
+    { value: "later", label: "Per artimiausius kelis mėnesius", detail: "Planuoju iš anksto ir dar turiu laiko pasiruošti." },
+    { value: "unsure", label: "Konkrečios datos dar neturiu", detail: "Kol kas noriu suprasti galimybes, kainą ir darbų eigą." },
+  ],
+}
 const results: Record<Need, { title: string; price: string; detail: string; href: string }> = {
-  website: { title: "Verslo svetainė", price: `nuo ${prices.website}`, detail: "Pradinė svetainė iki 4 puslapių, orientyras – 7 dienos.", href: "/paslaugos/svetaines/" },
-  shop: { title: "El. parduotuvė", price: `nuo ${prices.shop}`, detail: "Katalogas, pirkimo kelias ir turinio valdymas, orientyras – 14 dienų.", href: "/paslaugos/el-parduotuves/" },
-  redesign: { title: "Svetainės dizaino atnaujinimas", price: "kaina pagal apimtį", detail: "Pirmiausia peržiūrime dabartinę svetainę ir sutariame, ką keisti.", href: "/paslaugos/svetainiu-atnaujinimas/" },
-  automation: { title: "Darbo procesų automatizavimas", price: `nuo ${prices.email}`, detail: "Pradedame nuo vieno aiškaus poreikio, pavyzdžiui, laiškų tvarkymo.", href: "/paslaugos/ai-agentai/" },
+  website: { title: "Naujos svetainės kūrimas", price: `Nuo ${prices.website}`, detail: "Jūsų tikslui gali pakakti pradinės svetainės iki 4 puslapių: pristatyti veiklą, paslaugas ir pateikti kontaktus. Tokio projekto orientacinė trukmė — 7 dienos, kai sutarta apimtis ir paruoštas turinys.", href: "/paslaugos/svetaines/" },
+  shop: { title: "El. parduotuvės kūrimas", price: `Nuo ${prices.shop}`, detail: "Aptarsime prekių katalogą, pirkimo žingsnius, mokėjimą ir pristatymą. Orientacinė projekto trukmė — 14 dienų; ji priklauso nuo sutartos apimties, integracijų ir turinio paruošimo.", href: "/paslaugos/el-parduotuves/" },
+  redesign: { title: "Esamos svetainės atnaujinimas", price: "Kaina įvertinus svetainę", detail: "Pirmiausia peržiūrėsime dabartinę svetainę: kas joje trukdo lankytojui, ką verta išlaikyti ir ką pakeisti. Galite kreiptis ir dėl WordPress, ir dėl kitaip sukurtos svetainės.", href: "/paslaugos/svetainiu-atnaujinimas/" },
+  automation: { title: "Darbo procesų automatizavimas", price: `Nuo ${prices.email}`, detail: "Pradėsime nuo vienos pasikartojančios užduoties. Aptarsime, kokius įrankius naudojate, kokio rezultato reikia ir ką turės patikrinti žmogus. Galimybę automatizuoti įvertinsime prieš siūlydami sprendimą.", href: "/paslaugos/ai-agentai/" },
 }
-const contentNote: Record<Content, string> = {
-  all: "Turimas turinys paspartins darbą.",
-  some: "Trūkstamą turinį aptarsime pokalbio metu. Jo rengimas skaičiuojamas atskirai, jei neįtrauktas į pasiūlymą.",
-  none: "Padėsime susiplanuoti, kokio turinio reikia. Jo rengimas skaičiuojamas atskirai, jei neįtrauktas į pasiūlymą.",
+const preparationNotes: Record<string, string> = {
+  all: "Peržiūrėsime jūsų tekstus bei nuotraukas ir aptarsime, ką galima panaudoti.",
+  some: "Sudarysime trūkstamo turinio sąrašą ir sutarsime, kas jį paruoš. Jei jo rengimas kainuos papildomai, tai nurodysime pasiūlyme.",
+  none: "Padėsime susidaryti reikalingų tekstų ir nuotraukų sąrašą. Turinio rengimo apimtį bei kainą aptarsime atskirai.",
+  clear: "Pokalbiui pravers vienas užduoties pavyzdys: kaip ją atliekate dabar ir ko norėtumėte atsisakyti.",
+  several: "Kartu palyginsime idėjas ir išsirinksime vieną aiškų darbą, nuo kurio verta pradėti.",
+  explore: "Pokalbio metu pereisime per jūsų darbo eigą ir pažiūrėsime, ar yra tinkama užduotis automatizavimui.",
 }
-const timingNote: Record<Timing, string> = {
-  soon: "Jei jau norite pradėti, pirmas pokalbis nemokamas.",
-  later: "Nereikia skubėti: pirmas pokalbis nemokamas ir neįpareigoja.",
-  unsure: "Galvoti dar galima kartu: pirmas pokalbis nemokamas ir neįpareigoja.",
+const timingNotes: Record<string, string> = {
+  soon: "Aptarę projektą patvirtinsime, kada galime pradėti. Šis pasirinkimas datos nerezervuoja.",
+  later: "Galėsime iš anksto susiplanuoti darbų pradžią ir pasiruošimą.",
+  unsure: "Galite pradėti nuo nemokamo pokalbio ir nuspręsti vėliau. Užsakyti paslaugos neprivalote.",
 }
 
 export function PackageFinder() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<string[]>([])
-  const done = step >= questions.length
-  const [need, content, timing] = answers as [Need, Content, Timing]
-  const result = done ? results[need] : null
+  const heading = useRef<HTMLHeadingElement>(null)
+  const id = useId()
+  const questions = [needQuestion, answers[0] === "automation" ? workflowQuestion : contentQuestion, timingQuestion]
+  const done = step === questions.length
+  const [need, preparation, timing] = answers
+  const result = done ? results[need as Need] : null
   const question = questions[step]
+  const selection = answers[step]
+  const labels = questions.map((item, index) => item.options.find(option => option.value === answers[index])?.label ?? "")
+  const automation = need === "automation"
+  const inquiry = result ? "/kontaktai/?" + new URLSearchParams({
+    paslauga: ({ website: "Svetainė", shop: "El. parduotuvė", redesign: "Svetainės atnaujinimas", automation: "AI automatizacija" })[need as Need],
+    [automation ? "procesas" : "turinys"]: labels[1],
+    terminas: labels[2],
+  }).toString() : "/kontaktai/"
 
-  const choose = (value: string) => { setAnswers([...answers.slice(0, step), value]); setStep(step + 1) }
-  const back = () => setStep(Math.max(0, step - 1))
-  const restart = () => { setAnswers([]); setStep(0) }
+  useEffect(() => { if (step > 0) heading.current?.focus({ preventScroll: true }) }, [step])
+  function choose(value: string) {
+    // Changing the service invalidates answers to its service-specific questions.
+    setAnswers(previous => previous[step] === value ? previous : [...previous.slice(0, step), value])
+  }
+  function restart() { setAnswers([]); setStep(0) }
+  const primary = "inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:cursor-not-allowed disabled:opacity-40"
 
   return <div className="rounded-lg border border-foreground/25 bg-background p-6 md:p-10">
-    {!done && question ? <fieldset>
-      <legend className="flex w-full items-center justify-between gap-4 text-sm text-muted-foreground"><span>{step + 1} / {questions.length}</span><span aria-hidden="true" className="flex flex-1 gap-1.5">{questions.map((item, index) => <span key={item.key} className={`h-1.5 flex-1 rounded-full ${index <= step ? "bg-[var(--signal)]" : "bg-foreground/15"}`} />)}</span></legend>
-      <h3 className="mt-6 text-2xl font-bold tracking-tight md:text-3xl">{question.title}</h3>
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {question.options.map(([value, label]) => <button key={value} type="button" onClick={() => choose(value)} aria-pressed={answers[step] === value} className="min-h-14 rounded-lg border border-foreground/30 px-5 py-3 text-left text-lg font-semibold hover:border-foreground hover:bg-secondary motion-safe:transition-colors">{label}</button>)}
+    <p className="text-sm leading-relaxed text-muted-foreground">3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia</p>
+    <div className="mt-5 flex items-center gap-4 text-sm text-muted-foreground"><span>{done ? "Jūsų rezultatas" : `Klausimas ${step + 1} iš 3`}</span><span aria-hidden="true" className="flex flex-1 gap-1.5">{questions.map((_, index) => <span key={index} className={`h-1.5 flex-1 rounded-full ${index <= step ? "bg-[var(--signal)]" : "bg-foreground/15"}`} />)}</span></div>
+    {!done && question ? <div>
+      <h3 ref={heading} tabIndex={-1} id={`${id}-heading`} className="mt-6 text-2xl font-bold tracking-tight outline-none md:text-3xl">{question.title}</h3>
+      <p id={`${id}-help`} className="mt-3 max-w-[65ch] leading-relaxed text-muted-foreground">{question.help}</p>
+      <fieldset aria-labelledby={`${id}-heading`} aria-describedby={`${id}-help`} className="mt-6 grid gap-3 sm:grid-cols-2">
+        <legend className="sr-only">Pasirinkite vieną atsakymą</legend>
+        {question.options.map(option => <label key={option.value} className={`relative flex cursor-pointer items-start gap-3 rounded-lg border p-5 motion-safe:transition-colors ${selection === option.value ? "border-foreground bg-secondary" : "border-foreground/25 hover:border-foreground hover:bg-secondary/50"}`}>
+          <input type="radio" name={`${id}-${step}`} value={option.value} checked={selection === option.value} onChange={() => choose(option.value)} className="mt-1 size-4 shrink-0 accent-foreground" />
+          <span><span className="block text-lg font-semibold leading-snug">{option.label}</span><span className="mt-2 block text-sm leading-relaxed text-muted-foreground">{option.detail}</span></span>
+        </label>)}
+      </fieldset>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+        {step > 0 ? <button type="button" onClick={() => setStep(step - 1)} className="inline-flex min-h-12 items-center gap-2 font-semibold"><ArrowLeft className="size-4" aria-hidden="true" />Ankstesnis klausimas</button> : <span className="text-sm text-muted-foreground">Pasirinkite vieną atsakymą.</span>}
+        <button type="button" disabled={!selection} onClick={() => setStep(step + 1)} className={primary}>{step === 2 ? "Rodyti rekomendaciją" : "Kitas klausimas"}<ArrowRight className="size-4" aria-hidden="true" /></button>
       </div>
-      {step > 0 && <button type="button" onClick={back} className="mt-5 min-h-11 font-semibold text-muted-foreground underline underline-offset-4">Atgal</button>}
-    </fieldset> : result && <div role="status" aria-live="polite">
-      <p className="text-xs font-bold uppercase tracking-[.14em] text-[var(--signal)]">Jums gali tikti</p>
-      <h3 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">{result.title}</h3>
-      <p className="mt-2 text-2xl font-bold">{result.price}</p>
-      <p className="mt-4 max-w-[55ch] text-lg leading-relaxed">{result.detail}</p>
-      <ul className="mt-4 max-w-[60ch] space-y-2 text-muted-foreground"><li>{contentNote[content]}</li><li>{timingNote[timing]}</li></ul>
-      <p className="mt-4 text-sm text-muted-foreground">Tai tik orientyras. Tikslią kainą ir terminą fiksuojame pasiūlyme.</p>
-      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <a href="/kontaktai/" style={{ color: "var(--background)" }} className="inline-flex min-h-12 items-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-background">{siteCopy.cta}<ArrowRight className="size-4" aria-hidden="true" /></a>
-        <a href={result.href} className="inline-flex min-h-12 items-center gap-2 border-b border-current py-2 font-semibold">Daugiau apie šią paslaugą<ArrowRight className="size-4" aria-hidden="true" /></a>
-        <button type="button" onClick={restart} className="inline-flex min-h-11 items-center gap-2 font-semibold text-muted-foreground"><RotateCcw className="size-4" aria-hidden="true" />Rinktis iš naujo</button>
+    </div> : result && <div>
+      <p className="mt-6 text-xs font-bold uppercase tracking-[.14em] text-[var(--signal)]">Pagal jūsų atsakymus siūlome</p>
+      <h3 ref={heading} tabIndex={-1} className="mt-3 text-3xl font-bold tracking-tight outline-none md:text-4xl">{result.title}</h3>
+      <p className="mt-3 text-2xl font-bold">{result.price}</p>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Tai pradinis orientyras. Tikslią kainą, darbų apimtį ir terminą pateiksime įvertinę projektą.</p>
+      <p className="mt-5 max-w-[65ch] text-lg leading-relaxed">{result.detail}</p>
+      <div className="mt-6 rounded-md bg-secondary p-5">
+        <h4 className="font-semibold">Jūsų pasirinkimai</h4>
+        <dl className="mt-3 grid gap-3 text-sm">{["Tikslas", automation ? "Darbo procesas" : "Turinys", "Norima darbų pradžia"].map((label, index) => <div key={label} className="grid gap-1 sm:grid-cols-[10rem_1fr]"><dt className="text-muted-foreground">{label}</dt><dd className="font-medium">{labels[index]}</dd></div>)}</dl>
+        <button type="button" onClick={() => setStep(0)} className="mt-4 min-h-11 text-sm font-semibold underline underline-offset-4">Pakeisti atsakymus</button>
       </div>
+      <h4 className="mt-6 font-semibold">Ką aptarsime toliau?</h4>
+      <ul className="mt-3 max-w-[65ch] space-y-3 text-muted-foreground">{[preparationNotes[preparation], timingNotes[timing]].map(note => <li key={note} className="flex gap-3"><Check className="mt-1 size-4 shrink-0" aria-hidden="true" /><span>{note}</span></li>)}</ul>
+      <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <a href={inquiry} style={{ color: "#fff" }} className={primary}>Pereiti į projekto formą<ArrowRight className="size-4" aria-hidden="true" /></a>
+        <a href={result.href} className="inline-flex min-h-12 items-center gap-2 border-b border-current py-2 font-semibold">Apie šią paslaugą<ArrowRight className="size-4" aria-hidden="true" /></a>
+      </div>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Pasirinkimai bus perkelti į formą. Čia dar nieko neišsiunčiate ir paslaugos neužsakote.</p>
+      <button type="button" onClick={restart} className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted-foreground"><RotateCcw className="size-4" aria-hidden="true" />Pradėti iš naujo</button>
     </div>}
-    <noscript><p className="mt-4">Pasirinkimui reikia JavaScript. Visas paslaugas rasite <a href="/paslaugos/" className="font-semibold underline">paslaugų puslapyje</a>.</p></noscript>
+    <noscript><p className="mt-4">Klausimynui reikia JavaScript. Visas paslaugas rasite <a href="/paslaugos/" className="font-semibold underline">paslaugų puslapyje</a>.</p></noscript>
   </div>
 }
+// Inquiry CTA keeps a light label on its dark background.

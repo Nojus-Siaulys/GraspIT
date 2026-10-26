@@ -1,10 +1,10 @@
 // Photo and video slots. Fill `src` (a path under /public, e.g. "/img/team/studio.webp") to publish a real asset.
-// Slots without `src` render a clearly labelled placeholder in the dev server (or when VITE_SHOW_PLACEHOLDERS=1)
-// and render nothing in a normal production build, so no unfinished box can reach visitors.
+// Empty slots are visible during local development so missing media is easy to track.
+// Production builds hide them unless VITE_SHOW_PLACEHOLDERS=1; use 0 to hide locally.
 export type MediaItem = { kind: "photo" | "video"; ratio: string; label: string; alt: string; src?: string; poster?: string }
 
 const flag = (import.meta as ImportMeta & { env: Record<string, string | boolean | undefined> }).env
-export const showPlaceholders = flag.DEV === true || flag.VITE_SHOW_PLACEHOLDERS === "1"
+export const showPlaceholders = flag.VITE_SHOW_PLACEHOLDERS === "1" || (flag.DEV === true && flag.VITE_SHOW_PLACEHOLDERS !== "0")
 
 export const media = {
   heroVideo: { kind: "video", ratio: "16 / 10", label: "Trumpas įrašas (10–15 s, be garso): kaip peržiūrima jūsų kurta svetainė", alt: "Jūsų kurtos svetainės peržiūra" },

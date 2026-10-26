@@ -10,14 +10,9 @@ const escape = (value) =>
         char
       ]
   )
-// The home hero photo is a CSS background, so the browser finds it late and it becomes the largest paint.
-// Read its URL from the built stylesheet and preload it on the home page only.
-let heroImage
-for (const file of (await readdir("dist/assets")).filter((name) => name.endsWith(".css"))) {
-  const css = await readFile(`dist/assets/${file}`, "utf8")
-  heroImage ??= css.match(/\.home-hero\{[^}]*url\(["']?([^"')]+\.webp)["']?\)/)?.[1]
-}
-// index.css swaps in a "-mobile" copy of the hero on phones (max-width 639px); preload only the one the browser will use.
+// Match the responsive room image in HeroBackdrop; the two screen captures remain separate.
+const heroImage = "/img/generated/hero-real-websites-v3.webp"
+// HeroBackdrop uses a mobile picture source; preload only the matching room photo.
 const mobileHero = heroImage?.replace(/\.webp$/, "-mobile.webp")
 const hasMobileHero = Boolean(mobileHero) && (await readdir(`dist${mobileHero.replace(/[^/]+$/, "")}`).catch(() => [])).includes(mobileHero.split("/").pop())
 const preload = (href, media) =>

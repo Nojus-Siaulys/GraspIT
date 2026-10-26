@@ -2,7 +2,6 @@ import { Check, Phone } from "lucide-react"
 import { lt } from "@/content-lt"
 import { testimonials } from "./testimonials"
 import { contact, phoneHref } from "./settings"
-import { showPlaceholders } from "./mediaSlots"
 
 const wrap = "mx-auto max-w-[1280px] px-5 md:px-8"
 const eyebrow = "text-xs font-bold uppercase tracking-[.16em]"
@@ -19,9 +18,9 @@ export function TrustStrip() {
   </section>
 }
 
-// Real quotes render for everyone. Placeholder quotes render only in the dev server so they can be designed around, never published.
+// Only approved, real quotes appear in the visitor experience.
 export function Testimonials() {
-  const visible = testimonials.filter(item => !item.placeholder || showPlaceholders)
+  const visible = testimonials.filter(item => !item.placeholder)
   if (visible.length === 0) return null
   return <section className="bg-background py-16 md:py-24" aria-labelledby="testimonials-heading">
     <div className={wrap}>

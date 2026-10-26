@@ -11,7 +11,8 @@
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc -b",
     "preview": "vite preview",
-    "og": "node scripts/make-og.mjs"
+    "og": "node scripts/make-og.mjs",
+    "test:contact": "node --test server/contact.test.ts"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.3.0",

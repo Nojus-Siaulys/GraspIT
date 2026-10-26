@@ -1,8 +1,11 @@
+import { HeroBackdrop } from "./HeroBackdrop"
+import { CaseStudy } from "./CaseStudy"
+import { ServiceScenarios, StructureExplorer, PackageScope } from "./DecisionContent"
 import { ProjectLibrary } from "./ProjectLibrary"
 import { About } from "./About"
 import { ProjectGallery } from "./ProjectGallery"
 import { StudioScene, TrustPhoto } from "./Photography"
-import { contact, phoneHref, phoneLabel, siteCopy } from "./settings"
+import { contact, phoneHref, siteCopy } from "./settings"
 import { MobileCallBar, Testimonials, TrustStrip } from "./Trust"
 import { Media } from "./Media"
 import { hasMedia, type MediaId } from "./mediaSlots"
@@ -97,6 +100,7 @@ function Home() {
   ]
   return <>
     <section className="home-hero">
+      <HeroBackdrop />
       <div className={`${wrap} grid items-center gap-10 lg:grid-cols-12`}>
         <div className={`hero-copy ${hasMedia("heroVideo") ? "lg:col-span-7" : "lg:col-span-12"}`}>
           <p className={eyebrow}>GraspIT · Svetainės vietiniam verslui</p>
@@ -127,14 +131,16 @@ function Home() {
       </div>
       <div className="mt-7"><Link href="/paslaugos/">Visos paslaugos</Link></div>
     </Section>
+    <ServiceScenarios />
     <Section number="02" label="Atlikti darbai" title="Kelios mūsų kurtos svetainės.">
       <ProjectGallery />
       <div className="mt-9"><Link href="/darbai/">Visi darbai</Link></div>
     </Section>
-    <Section number="03" label="Pasirinkimas" title="Kokia svetainė jums tinka?" sand>
+    <Section number="03" label="Pasirinkimas" title="Nuo ko pradėti jūsų projektą?" sand>
       <div className="lg:ml-[25%]"><PackageFinder /></div>
     </Section>
     <Testimonials />
+    <StructureExplorer />
     <StudioScene />
     <Section number="04" label="Apie mus" title="Kas kuria GraspIT?">
       <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
@@ -152,6 +158,7 @@ function Home() {
 }
 function Pricing() {
   return (
+    <>
     <Section
       number="01"
       label="Paketai"
@@ -183,7 +190,7 @@ function Pricing() {
               ))}
             </ul>
             <a
-              href="/kontaktai/"
+              href={"/kontaktai/?" + new URLSearchParams({ paslauga: i ? "Dar nežinau" : "Svetainė", paketas: p.t }).toString()}
               className="mt-auto inline-flex items-center justify-between border-t border-current pt-5 font-semibold"
             >
               Aptarti šį sprendimą
@@ -203,11 +210,10 @@ function Pricing() {
           <Link href="/duk/#prieziura">Apie pagalbą ir priežiūrą</Link>
         </div>
       </div>
-      <div className="mt-16">
-        <h3 className="mb-6 text-2xl font-bold tracking-tight md:text-3xl">Nežinote, kuris variantas tinka?</h3>
-        <PackageFinder />
-      </div>
     </Section>
+    <PackageScope />
+    <Section number="02" label="Pasirinkimas" title="Nežinote, kuris variantas tinka?" sand><PackageFinder /></Section>
+    </>
   )
 }
 const processDetails = [
@@ -273,6 +279,7 @@ function Services({ path }: { path: string }) {
 </a>))}
 </div>
         </Section>
+        <ServiceScenarios />
         <Section
           number="02"
           label="Pirmas žingsnis"
@@ -398,7 +405,7 @@ function Contact() {
       sand
     >
       <div className="grid gap-10 lg:grid-cols-2">
-        <div>
+        <div className="order-2 lg:order-1">
           {hasMedia("contactPhoto") && <Media id="contactPhoto" className="mb-10" />}
           <h2 className="text-2xl font-bold tracking-tight">Kas bus toliau?</h2>
           <ol className="mt-6 space-y-6">
@@ -422,40 +429,18 @@ function Contact() {
             ))}
           </ul>
         </div>
-        <div className="rounded-lg bg-background p-7 md:p-10">
+        <div className="order-1 rounded-lg bg-background p-7 md:order-1 md:p-10 lg:order-2">
           <h2 className="mb-3 text-3xl font-bold tracking-tight">
             Paprasčiausia – pakalbėti.
           </h2>
           <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-            Skambutis – paprasčiausias būdas pradėti: trumpai papasakojate apie veiklą, o mes pasakome, ar ir kaip galime padėti.
+            Trumpai papasakokite apie veiklą ir norimą rezultatą. Techninių sprendimų iš anksto žinoti nereikia.
           </p>
-          <a
-            href={phoneHref}
-            style={{ color: "var(--background)" }}
-            className="inline-flex min-h-[52px] items-center gap-3 rounded-md bg-foreground px-6 py-3 text-lg font-semibold text-background"
-          >
-            <Phone className="size-5" aria-hidden="true" />
-            {siteCopy.call}: {phoneLabel}
-          </a>
-          {!readyPhone && <p className="mt-2 text-sm text-muted-foreground">Pavyzdinis numeris. Tikras numeris bus nurodytas prieš paskelbiant svetainę.</p>}
-          {readyEmail ? (
-            <p className="mt-5">
-              <a className={linkStyle} href={`mailto:${contact.email}`}>
-                {siteCopy.write}: {contact.email}
-                <ArrowRight className="size-4" />
-              </a>
-            </p>
-          ) : (
-            <p className="mt-4 text-sm text-muted-foreground">El. paštas: <span className="font-medium">hello@graspit.example</span> · pavyzdys, neveikiantis adresas</p>
-          )}
+          {readyPhone && <a href={phoneHref} className="inline-flex min-h-[52px] items-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-white"><Phone className="size-5" aria-hidden="true" />{contact.phone}</a>}
+          {readyEmail && <p className="mt-5"><a className={linkStyle} href={`mailto:${contact.email}`}>{contact.email}<ArrowRight className="size-4" /></a></p>}
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{siteCopy.note}</p>
           <ContactBrief />
-          {!readyEmail && !readyPhone && (
-            <p className="border-t border-foreground pt-5 text-muted-foreground">
-              Tiesioginiai studijos kontaktai dar ruošiami. Užklausų priėmimas
-              šioje svetainės versijoje kol kas neveikia.
-            </p>
-          )}
+
         </div>
       </div>
     </Section>
@@ -463,18 +448,11 @@ function Contact() {
 }
 function Work() {
   return <>
-    <Section number="01" label="Projektai" title="Atlikti darbai">
+    <Section number="01" label="Projektai" title="Nuo poreikio iki konkretaus sprendimo.">
+      <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">Atverkite projekto pristatymą: pamatysite jo paskirtį, svetainės dalis ir svarbiausių sprendimų logiką.</p>
       <ProjectGallery />
     </Section>
-    <Section number="02" label="Svetainės, kuriomis žavimės" title="Įkvėpimas iš interaktyvaus dizaino." sand>
-<p className="mb-8 max-w-[65ch] text-lg leading-relaxed text-muted-foreground">Trys Awwwards įvertinti 3D ir interaktyvių patirčių pavyzdžiai. Tai kitų kūrėjų darbai, kuriais žavimės. Jie nėra GraspIT projektai ar pradinio paketo pavyzdžiai.</p>
-<div className="grid gap-5 md:grid-cols-3">{[
-["Bruno’s Portfolio","Bruno Simon","Interaktyvus 3D pasaulis ir žaismingas naršymas.","https://www.awwwards.com/sites/brunos-portfolio"],
-["Lusion v3","Lusion","Eksperimentinis interaktyvus dizainas ir 3D vizualika.","https://www.awwwards.com/sites/lusion-v3"],
-["Immersive Garden","Immersive Garden","Įtraukiantis skaitmeninės studijos pristatymas.","https://www.awwwards.com/sites/immersive-garden-website"]
-].map(([name,creator,description,url],i)=><article key={name} className="flex flex-col border-t border-foreground py-6"><p className={eyebrow}>0{i+1} / Awwwards</p><h3 className="mt-7 text-2xl font-bold">{name}</h3><p className="mt-2 text-sm text-muted-foreground">{creator}</p><p className="my-5 leading-relaxed">{description}</p><a href={url} target="_blank" rel="noopener noreferrer" className={linkStyle}>Peržiūrėti Awwwards<span className="sr-only">: {name} (naujame lange)</span><ArrowRight aria-hidden="true" className="size-4" /></a></article>)}</div>
-</Section>
-
+    <StructureExplorer />
   </>
 }
 export function Site({ path = "/" }: { path?: string }) {
@@ -622,6 +600,7 @@ export function Site({ path = "/" }: { path?: string }) {
                       <span aria-hidden="true">/</span>
                     </>
                   )}
+                  {path.startsWith("/darbai/") && <><a href="/darbai/" className="inline-flex min-h-11 items-center hover:underline">Darbai</a><span aria-hidden="true">/</span></>}
                   <span aria-current="page">{page.label}</span>
                 </nav>
                 <p className={`${eyebrow} text-[var(--signal)]`}>
@@ -645,6 +624,7 @@ export function Site({ path = "/" }: { path?: string }) {
             {path === "/procesas" && <Process />}
             {path === "/apie-mus" && <About />}
             {path === "/darbai" && <Work />}
+            {path.startsWith("/darbai/") && <CaseStudy slug={path.split("/")[2]} />}
             {path === "/biblioteka" && <ProjectLibrary />}
             {path === "/kontaktai" && <Contact />}
             {path === "/duk" && (

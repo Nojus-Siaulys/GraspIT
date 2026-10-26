@@ -11,6 +11,7 @@ export type PersonalProject = {
   focus: string
   features: string[]
   story: { idea: string; problem: string; direction: string; lesson: string }
+  screenshots?: { src: string; label: string; alt: string; width: number; height: number }[]
   repository?: string
 }
 
@@ -20,6 +21,7 @@ export const personalProjects: PersonalProject[] = [
   {
     id: "foreman", title: "Foreman", category: "AI ir LLM", kind: "Kuriamas įrankis",
     description: "Asmeninė AI programavimo darbų sistema: nuo užduoties plano ir darbo kortelių iki kodo patikrų bei peržiūros.",
+    screenshots: [{"src": "/img/projects/foreman-board.jpg", "label": "Užduočių lenta", "alt": "Foreman užduočių lenta su modelių darbų eilėmis. Pradinė būsena be vykdomų užduočių.", "width": 1240, "height": 715}],
     story: {
       idea: "Pradėjau nuo klausimo: ar keli AI modeliai galėtų dirbti prie vieno projekto tvarkingiau, jei kiekvienas gautų mažą, aiškią užduotį? Taip atsirado Foreman — bandymas susikurti savo programavimo dirbtuves.",
       problem: "AI gali greitai parašyti kodą, bet kažkam vis tiek reikia išlaikyti bendrą kryptį, patikrinti rezultatą ir sujungti atskiras dalis. Norėjau mažiau rankinio užduočių nešiojimo tarp skirtingų įrankių.",
@@ -46,6 +48,7 @@ export const personalProjects: PersonalProject[] = [
   {
     id: "gintara", title: "Gintara", category: "AI ir LLM", kind: "MVP eksperimentas",
     description: "Žinių bazės prototipas logistikos įmonėms: dokumentai, atsakymai su šaltiniais ir transporto taisyklių pokyčių stebėjimas vienoje vietoje.",
+    screenshots: [{"src": "/img/projects/gintara-answer.jpg", "label": "Atsakymas su šaltiniais", "alt": "Gintara pristatymo puslapyje pateiktas atsakymo su šaltiniais pavyzdys.", "width": 1231, "height": 710}, {"src": "/img/projects/gintara-home.jpg", "label": "Pristatymo puslapis", "alt": "Gintara pagrindinis puslapis apie įmonės žinių paiešką.", "width": 1231, "height": 710}],
     story: {
       idea: "Gintara prasidėjo nuo minties apie įmonės atmintį: kas nutinka žinioms, kai jos išmėtytos dokumentuose, laiškuose ir žmonių galvose? Norėjau pabandyti sukurti vietą, kur būtų galima tiesiog užduoti klausimą.",
       problem: "Logistikos situacijose neužtenka sklandžiai skambančio atsakymo. Svarbu žinoti jo šaltinį, ar informacija dar aktuali ir kuriam klientui ji taikoma. Todėl pagrindinis eksperimentas buvo atsakymai su nuorodomis į dokumentus.",
@@ -59,6 +62,7 @@ export const personalProjects: PersonalProject[] = [
   {
     id: "refernet", title: "ReferNet", category: "Web projektai", kind: "Platformos prototipas",
     description: "B2B platformos idėja agentūroms, kurios nori perduoti netinkamus užsakymus partneriams ir sekti rekomendacijų eigą.",
+    screenshots: [{"src": "/img/projects/refernet-home.jpg", "label": "Pristatymo puslapis", "alt": "ReferNet pagrindinis puslapis apie užklausų perdavimą agentūroms.", "width": 1226, "height": 707}, {"src": "/img/projects/refernet-economics.jpg", "label": "Rekomendacijų modelis", "alt": "ReferNet puslapyje paaiškintas rekomendacijos mokesčio ir mokėjimų modelis.", "width": 1226, "height": 707}],
     story: {
       idea: "ReferNet idėja — užklausa, kuri netinka vienai agentūrai, gali būti geras projektas kitai. Norėjau išbandyti, kaip toks perdavimas galėtų vykti aiškiai, su matoma eiga ir sutartomis sąlygomis.",
       problem: "Paprasta rekomendacija dažnai pasibaigia persiųstu kontaktu. Vėliau neaišku, ar partneris susisiekė, kas vyksta su užklausa ir ar buvo laikomasi susitarimo. Platformos prototipas turėjo suteikti šiam procesui struktūrą.",
@@ -73,6 +77,7 @@ export const personalProjects: PersonalProject[] = [
   {
     id: "car-market", title: "CarMarket", category: "Web projektai", kind: "Asmeninis prototipas",
     description: "Automobilių skelbimų ir prekybos platformos eksperimentas su katalogu, paieška bei atskiromis pirkėjo ir administratoriaus sritimis.",
+    screenshots: [{"src": "/img/projects/carmarket-detail.jpg", "label": "Demonstracinis skelbimas", "alt": "CarMarket demonstracinis automobilio skelbimas su nuotraukomis, kaina ir pardavėjo informacija.", "width": 1274, "height": 717}, {"src": "/img/projects/carmarket-home.jpg", "label": "Pradinis puslapis", "alt": "CarMarket pradinis puslapis su automobilių paieška.", "width": 1274, "height": 717}],
     story: {
       idea: "CarMarket norėjau pasistatyti kaip didesnę web kūrimo treniruotę. Automobilių platforma tam patogi: čia susitinka katalogas, paieška, paskyros, nuotraukos ir skirtingi naudotojų veiksmai.",
       problem: "Kai skelbimų daug, gražaus pradinio puslapio neužtenka. Žmogus turi greitai atsirinkti tinkamus automobilius, išsisaugoti dominančius ir suprasti, ką daryti toliau. Mane domino visas šis kelias, ne vien atskiros kortelės dizainas.",
@@ -99,6 +104,7 @@ export const personalProjects: PersonalProject[] = [
   {
     id: "portfolio", title: "Portfolio eksperimentai", category: "Web projektai", kind: "Dizaino ir kodo studijos",
     description: "Asmeninės portfolio svetainės versijos, kuriose bandžiau skirtingą dizainą, animacijas ir savo darbų pristatymo būdus.",
+    screenshots: [{"src": "/img/projects/portfolio-home.jpg", "label": "WebGenas / lietuviška versija", "alt": "Ankstesnės WebGenas portfolio versijos pagrindinis puslapis lietuvių kalba.", "width": 1265, "height": 712}],
     story: {
       idea: "Portfolio versijos buvo vieta išbandyti tai, ko nebūtinai dėčiau į kliento svetainę: kitokį judesį, drąsesnį išdėstymą ar naują vizualinį efektą. Kartu ieškojau, kaip geriausiai pristatyti savo darbus.",
       problem: "Lengva pasidaryti puslapį, kuris patinka pačiam kūrėjui, bet lankytojui nepasako, ką jis moka. Bandžiau rasti balansą tarp charakterio, aiškaus turinio ir patogaus naršymo.",
