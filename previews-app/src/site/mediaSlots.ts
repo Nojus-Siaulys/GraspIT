@@ -9,7 +9,7 @@ export const showPlaceholders = flag.VITE_SHOW_PLACEHOLDERS === "1" || (flag.DEV
 
 export const media = {
   heroVideo: { kind: "video", ratio: "16 / 10", label: "Trumpa sukurtos svetainės peržiūra", alt: "Pavyzdinės svetainės peržiūra kompiuteryje ir telefone", embed: "/previews/hero.html?v=1" },
-  homeNew: { kind: "photo", ratio: "16 / 10", label: "Nauja svetainė kompiuteryje ir telefone", alt: "Pavyzdinė nauja svetainė kompiuteryje ir telefone", embed: "/previews/home-new.html?v=1" },
+  homeNew: { kind: "photo", ratio: "16 / 10", label: "Nauja svetainė kompiuteryje ir telefone", alt: "Pavyzdinė nauja svetainė kompiuteryje ir telefone", embed: "/previews/home-new.html?v=2" },
   homeRedesign: { kind: "photo", ratio: "16 / 10", label: "Svetainės palyginimas prieš ir po atnaujinimo", alt: "Pavyzdinė svetainė prieš ir po atnaujinimo", embed: "/previews/home-redesign.html?v=1" },
   processWork: { kind: "photo", ratio: "3 / 2", label: "Projekto eiga: nuo pokalbio iki paleidimo", alt: "Penki projekto žingsniai: pokalbis, pasiūlymas, kūrimas, pastabos ir paleidimas", embed: "/previews/process.html?v=1" },
   aboutVideo: { kind: "video", ratio: "16 / 9", label: "Prisistatymo video: kas esame ir kaip dirbame", alt: "GraspIT komandos prisistatymas", embed: "/previews/about.html?v=1" },
