@@ -103,7 +103,7 @@ function Home() {
     <section className="home-hero">
       <HeroBackdrop />
       <div className={`${wrap} grid items-center gap-10 lg:grid-cols-12`}>
-        <div className={`hero-copy ${hasMedia("heroVideo") ? "lg:col-span-7" : "lg:col-span-12"}`}>
+        <div className="hero-copy lg:col-span-12">
           <p className={eyebrow}>GraspIT · Svetainės vietiniam verslui</p>
           <h1 className="mt-8 max-w-[16ch] text-[clamp(2.8rem,5.8vw,5.6rem)] font-bold leading-[1.03] tracking-[-.05em]">Kuriame ir atnaujiname svetaines verslui.</h1>
           <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Padedame vietiniams verslams aiškiai pristatyti paslaugas internete.</p>
@@ -114,7 +114,6 @@ function Home() {
           <p className="hero-price mt-6 max-w-[48ch] text-sm leading-relaxed">{siteCopy.note}</p>
           <a href="/kainos/" className="hero-price mt-3 inline-flex min-h-11 items-center gap-3 text-sm"><span>Svetainės nuo <strong>{prices.website}</strong></span><span aria-hidden="true">·</span><span>Kainos ir sąlygos</span><ArrowRight className="size-4" /></a>
         </div>
-        {hasMedia("heroVideo") && <div className="lg:col-span-5"><Media id="heroVideo" className="shadow-2xl" /></div>}
       </div>
     </section>
     <TrustStrip />

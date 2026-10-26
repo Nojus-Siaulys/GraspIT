@@ -365,5 +365,6 @@ html { scroll-padding-top: 7rem; }
 .hero-photo-stage { position: relative; width: 1536px; height: 1024px; overflow: hidden; }
 .hero-room-photo { display: block; position: absolute; inset: 0; width: 1536px; height: 1024px; }
 .hero-screen-capture { display: block; position: absolute; top: 0; left: 0; width: 1280px; height: 720px; max-width: none; transform-origin: 0 0; backface-visibility: hidden; }
+.hero-laptop-preview { width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; }
 .hero-readability-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(5 19 15 / .83), rgb(5 19 15 / .62) 40%, rgb(5 19 15 / .12) 78%, transparent); }
 @media (prefers-reduced-motion: reduce) { .hero-art { transform: none; } }

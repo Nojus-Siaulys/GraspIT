@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react"
+import { MediaEmbed } from "./Media"
+import { media } from "./mediaSlots"
 
 type Point = readonly [number, number]
 
@@ -56,6 +58,9 @@ export function HeroBackdrop() {
           <picture><source media="(max-width: 639px)" srcSet="/img/generated/hero-real-websites-v3-mobile.webp" /><img className="hero-room-photo" src="/img/generated/hero-real-websites-v3.webp" alt="" width={1536} height={1024} fetchPriority="high" /></picture>
           <img className="hero-screen-capture" src="/img/hero-screens/studio-freight.jpg" alt="" width={1280} height={720} style={{ transform: monitor }} fetchPriority="high" />
           <img className="hero-screen-capture" src="/img/hero-screens/malvah-studio.jpg" alt="" width={1280} height={720} style={{ transform: laptop }} fetchPriority="high" />
+          <div className="hero-screen-capture" style={{ transform: laptop }}>
+            <MediaEmbed item={media.heroVideo} className="hero-laptop-preview" decorative />
+          </div>
         </div>
       </foreignObject>
     </svg>
