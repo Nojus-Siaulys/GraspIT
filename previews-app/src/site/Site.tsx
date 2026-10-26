@@ -403,11 +403,19 @@ function Contact() {
     <Section
       number="01"
       label="Jūsų projektas"
-      title="Papasakokite, ko reikia"
+      title="Pradėkime nuo jūsų idėjos"
       sand
     >
-      <div className="grid gap-10 lg:grid-cols-2">
-        <div className="order-2 lg:order-1">
+      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
+        <div className="order-1 min-w-0 rounded-lg bg-background p-5 md:p-8">
+          <ContactBrief />
+          {(readyPhone || readyEmail) && <div className="mt-8 border-t border-foreground/20 pt-6"><p className="mb-3 text-sm text-muted-foreground">Norite susisiekti tiesiogiai?</p>
+            {readyPhone && <a href={phoneHref} className="inline-flex min-h-11 items-center gap-3 font-semibold"><Phone className="size-5" aria-hidden="true" />{contact.phone}</a>}
+            {readyEmail && <p className="mt-3"><a className={linkStyle} href={`mailto:${contact.email}`}>{contact.email}<ArrowRight className="size-4" /></a></p>}
+          </div>}
+
+        </div>
+        <div className="order-2">
           {hasMedia("contactPhoto") && <Media id="contactPhoto" className="mb-10" />}
           <h2 className="text-2xl font-bold tracking-tight">Kas bus toliau?</h2>
           <ol className="mt-6 space-y-6">
@@ -418,31 +426,6 @@ function Contact() {
               </li>
             ))}
           </ol>
-          <h2 className="mt-12 text-xl font-bold tracking-tight">Pokalbiui nereikia ruoštis</h2>
-          <p className="mt-2 max-w-[48ch] leading-relaxed text-muted-foreground">Jei norite, pagalvokite apie tai. Į visa tai atsakysime kartu.</p>
-          <ul className="mt-4 space-y-3 text-lg">
-            {[
-              "Kokia jūsų veikla ir kas yra jūsų klientas?",
-              "Reikia naujos svetainės, parduotuvės ar atnaujinimo?",
-              "Ką turite: domeną, tekstus, nuotraukas?",
-              "Koks numatytas biudžetas ir norimas terminas?",
-            ].map((t) => (
-              <li key={t} className="border-t border-foreground/25 pt-3">{t}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="order-1 rounded-lg bg-background p-7 md:order-1 md:p-10 lg:order-2">
-          <h2 className="mb-3 text-3xl font-bold tracking-tight">
-            Paprasčiausia – pakalbėti.
-          </h2>
-          <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-            Trumpai papasakokite apie veiklą ir norimą rezultatą. Techninių sprendimų iš anksto žinoti nereikia.
-          </p>
-          {readyPhone && <a href={phoneHref} className="inline-flex min-h-[52px] items-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-white"><Phone className="size-5" aria-hidden="true" />{contact.phone}</a>}
-          {readyEmail && <p className="mt-5"><a className={linkStyle} href={`mailto:${contact.email}`}>{contact.email}<ArrowRight className="size-4" /></a></p>}
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{siteCopy.note}</p>
-          <ContactBrief />
-
         </div>
       </div>
     </Section>

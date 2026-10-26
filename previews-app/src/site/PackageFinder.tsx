@@ -63,9 +63,9 @@ const timingNotes: Record<string, string> = {
   unsure: "Galite pradėti nuo nemokamo pokalbio ir nuspręsti vėliau. Užsakyti paslaugos neprivalote.",
 }
 
-export function PackageFinder() {
+export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnswers?: string[]; onComplete?: (answers: string[]) => void }) {
   const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState<string[]>([])
+  const [answers, setAnswers] = useState<string[]>(initialAnswers)
   const heading = useRef<HTMLHeadingElement>(null)
   const id = useId()
   const questions = [needQuestion, answers[0] === "automation" ? workflowQuestion : contentQuestion, timingQuestion]
@@ -80,6 +80,7 @@ export function PackageFinder() {
     paslauga: ({ website: "Svetainė", shop: "El. parduotuvė", redesign: "Svetainės atnaujinimas", automation: "AI automatizacija" })[need as Need],
     [automation ? "procesas" : "turinys"]: labels[1],
     terminas: labels[2],
+    need, preparation, timing,
   }).toString() : "/kontaktai/"
 
   useEffect(() => { if (step > 0) heading.current?.focus({ preventScroll: true }) }, [step])
@@ -91,7 +92,7 @@ export function PackageFinder() {
   const primary = "inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:cursor-not-allowed disabled:opacity-40"
 
   return <div className="rounded-lg border border-foreground/25 bg-background p-6 md:p-10">
-    <p className="text-sm leading-relaxed text-muted-foreground">3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia</p>
+    <p className="text-sm leading-relaxed text-muted-foreground">{onComplete ? "3 trumpi klausimai · iš atsakymų paruošime jūsų projekto aprašymą" : "3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia"}</p>
     <div className="mt-5 flex items-center gap-4 text-sm text-muted-foreground"><span>{done ? "Jūsų rezultatas" : `Klausimas ${step + 1} iš 3`}</span><span aria-hidden="true" className="flex flex-1 gap-1.5">{questions.map((_, index) => <span key={index} className={`h-1.5 flex-1 rounded-full ${index <= step ? "bg-[var(--signal)]" : "bg-foreground/15"}`} />)}</span></div>
     {!done && question ? <div>
       <h3 ref={heading} tabIndex={-1} id={`${id}-heading`} className="mt-6 text-2xl font-bold tracking-tight outline-none md:text-3xl">{question.title}</h3>
@@ -105,7 +106,7 @@ export function PackageFinder() {
       </fieldset>
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
         {step > 0 ? <button type="button" onClick={() => setStep(step - 1)} className="inline-flex min-h-12 items-center gap-2 font-semibold"><ArrowLeft className="size-4" aria-hidden="true" />Ankstesnis klausimas</button> : <span className="text-sm text-muted-foreground">Pasirinkite vieną atsakymą.</span>}
-        <button type="button" disabled={!selection} onClick={() => setStep(step + 1)} className={primary}>{step === 2 ? "Rodyti rekomendaciją" : "Kitas klausimas"}<ArrowRight className="size-4" aria-hidden="true" /></button>
+        <button type="button" disabled={!selection} onClick={() => step === 2 && onComplete ? onComplete(answers) : setStep(step + 1)} className={primary}>{step === 2 ? onComplete ? "Paruošti užklausos aprašymą" : "Rodyti rekomendaciją" : "Kitas klausimas"}<ArrowRight className="size-4" aria-hidden="true" /></button>
       </div>
     </div> : result && <div>
       <p className="mt-6 text-xs font-bold uppercase tracking-[.14em] text-[var(--signal)]">Pagal jūsų atsakymus siūlome</p>
