@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GraspIT prisistatymas</title>
+<link rel="stylesheet" href="player.css?v=3">
+<style>
+/* Short silent introduction: real team photos and the wording from the About page */
+body{container:b / inline-size;background:var(--ink);color:#fff}
+.sc{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .7s,visibility .7s;overflow:hidden}
+.sc.on{opacity:1;visibility:visible}
+.sc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;scale:1;transition:scale 6s linear}
+.sc.on img{scale:1.07}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,55,43,.88) 0%,rgba(16,55,43,.55) 48%,rgba(16,55,43,0) 80%)}
+.copy{position:absolute;left:6%;top:0;bottom:12%;width:50%;display:flex;flex-direction:column;justify-content:center;gap:2cqh}
+.copy small{font:600 1.5cqw var(--font);letter-spacing:.16em;text-transform:uppercase;color:#bfe8d8}
+.copy h2{margin:0;font-size:4.6cqw;line-height:1.06;letter-spacing:-.03em;max-width:12em;opacity:0;translate:0 14px;transition:opacity .6s .15s,translate .6s .15s}
+.copy p{margin:0;font-size:2.1cqw;line-height:1.4;max-width:24em;color:#e6efe9;opacity:0;translate:0 14px;transition:opacity .6s .45s,translate .6s .45s}
+.sc.on .copy h2,.sc.on .copy p{opacity:1;translate:0 0}
+.sand{background:var(--sand);color:var(--ink)}
+.sand .shade{display:none}
+.sand .copy small{color:var(--signal)}
+.sand .copy p{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:1.2cqw;margin-top:1cqh;opacity:0;translate:0 14px;transition:opacity .6s .75s,translate .6s .75s}
+.sc.on .chips{opacity:1;translate:0 0}
+.chips span{font:600 1.7cqw var(--font);border:1px solid var(--ink);border-radius:99px;padding:.8cqh 1.6cqw;background:#fff}
+.split{position:absolute;right:0;top:0;bottom:0;width:36%}
+.split img{object-position:50% 20%}
+.ctl{position:absolute;right:3%;bottom:4%;z-index:5;width:34px;height:34px;border:1px solid rgba(255,255,255,.6);border-radius:6px;background:rgba(16,55,43,.65);color:#fff;display:grid;place-items:center;cursor:pointer}
+.ctl svg{width:12px;height:12px;fill:currentColor}
+.segs2{mix-blend-mode:difference;position:absolute;left:6%;right:calc(3% + 46px);bottom:5%;z-index:5;display:flex;gap:4px}
+.segs2 i{flex:1;height:3px;background:rgba(255,255,255,.3);overflow:hidden}
+.segs2 b{display:block;height:100%;width:0;background:#fff}
+.wm2{position:absolute;z-index:6;top:5%;right:3%;display:flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 3px;border-radius:5px;background:rgba(255,255,255,.92);color:var(--ink);font:700 12px/1 var(--font)}
+.wm2 img{position:static;width:16px;height:16px;border-radius:3px;scale:1!important}
+@container b (max-width:560px){
+  .copy{width:88%;left:6%}.copy h2{font-size:8cqw}.copy p{font-size:4cqw}.copy small{font-size:3cqw}.chips span{font-size:3.3cqw}
+  .shade{background:linear-gradient(0deg,rgba(16,55,43,.9) 0%,rgba(16,55,43,.3) 70%,rgba(16,55,43,0) 100%)}
+  .copy{justify-content:flex-end;bottom:14%}
+  .split{display:none}
+}
+</style>
+</head>
+<body>
+<section class="sc on"><img src="/img/team/team-casual.webp" alt="" width="1672" height="941"><div class="shade"></div>
+  <div class="copy"><small>Susipažinkime</small><h2>Už GraspIT, mes dviese.</h2><p>Du žmonės. Viena komanda.</p></div></section>
+<section class="sc sand"><div class="copy" style="width:58%"><small>Ką darome</small><h2>Svetainės ir el. parduotuvės.</h2><p>Kuriame naujas, atnaujiname esamą dizainą ir padedame aiškiau pristatyti verslą internete.</p>
+  <div class="chips"><span>Verslo svetainės</span><span>El. parduotuvės</span><span>AI automatizacija</span><span>Svetainių atnaujinimas</span></div></div></section>
+<section class="sc"><img src="/img/team/team-professional.webp" alt="" width="1086" height="1448" style="object-position:50% 25%"><div class="shade" style="background:linear-gradient(90deg,rgba(16,55,43,.95) 0%,rgba(16,55,43,.8) 55%,rgba(16,55,43,.1) 100%)"></div>
+  <div class="copy"><small>Kaip dirbame</small><h2>Bendraujate su tais, kurie dirba.</h2><p>Esame maža komanda, todėl su jumis kalba tie patys žmonės, kurie kuria jūsų svetainę.</p></div></section>
+<section class="sc sand"><div class="copy" style="width:62%"><small>Kitas žingsnis</small><h2>Pokalbis. 30 min, nemokamas.</h2><p>Papasakokite, ko reikia, o mes atsakysime, ką galime padaryti.</p>
+  <div class="chips"><span>Fiksuota kaina per 24 val.</span><span>Matote darbą viso kūrimo metu</span></div></div></section>
+<div class="wm2" style="background:rgba(255,255,255,.92)"><img src="/img/logo-96.png" alt="" width="16" height="16"><span>GraspIT</span></div>
+<div class="segs2" id="segs"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+<button class="ctl" id="play" type="button"></button>
+<script>
+(function () {
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)) }
+  var sc = $$(".sc"), bars = $$("#segs b")
+  var DUR = [5200, 5200, 5200, 4600], idx = 0, t = 0, visible = true
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
+  var playing = !reduced
+  var btn = document.getElementById("play")
+  var P = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h4v12H3zM9 2h4v12H9z"/></svg>'
+  var G = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>'
+  function sync() { btn.innerHTML = playing ? P : G; btn.setAttribute("aria-label", playing ? "Sustabdyti peržiūrą" : "Leisti peržiūrą") }
+  function show(i) {
+    idx = i; t = 0
+    sc.forEach(function (s, k) { s.classList.toggle("on", k === i) })
+    bars.forEach(function (b, k) { b.style.width = k < i ? "100%" : "0" })
+  }
+  document.getElementById("segs").addEventListener("click", function (e) { var k = $$("#segs i").indexOf(e.target.closest("i")); if (k >= 0) show(k) })
+  btn.addEventListener("click", function () { playing = !playing; sync() })
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting }).observe(document.body)
+  var last = performance.now()
+  function frame(now) {
+    var dt = Math.min(50, now - last); last = now
+    if (playing && visible && !document.hidden) { t += dt; if (t >= DUR[idx]) show((idx + 1) % sc.length) }
+    bars[idx].style.width = Math.min(100, t / DUR[idx] * 100) + "%"
+    requestAnimationFrame(frame)
+  }
+  show(0); sync()
+  var go = function () { requestAnimationFrame(function (n) { last = n; frame(n) }) }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go, go); else go()
+})()
+</script>
+</body>
+</html>
