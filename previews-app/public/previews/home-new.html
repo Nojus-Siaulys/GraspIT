@@ -4,103 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Nauja svetainė kompiuteryje ir telefone</title>
-<link rel="stylesheet" href="player.css?v=3">
+<title>Atliktos svetainės</title>
+<link rel="stylesheet" href="player.css?v=5">
 <style>
-/* Static composition. A different example brand (furniture workshop) so it does not repeat the other previews. */
-body{background:#e6e1d4}
-.comp{position:absolute;inset:0;overflow:hidden}
-.dsk,.ph{position:absolute;display:flex;flex-direction:column;background:#fff;overflow:hidden}
-.dsk{left:4%;top:9%;width:72%;height:80%;border:1px solid var(--ink);border-radius:8px;box-shadow:0 24px 50px -24px rgba(16,55,43,.55)}
-.dsk .bar{height:26px}
-.ph{right:5%;bottom:0;width:25%;height:84%;background:var(--ink);border:6px solid var(--ink);border-bottom:0;border-radius:30px 30px 0 0;box-shadow:0 24px 50px -20px rgba(16,55,43,.6)}
-.ph .screen{border-radius:24px 24px 0 0;overflow:hidden;isolation:isolate}
-.tag{position:absolute;z-index:4;left:4%;bottom:2.5%;font:700 11px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:#fff;border:1px solid var(--ink);border-radius:4px;padding:7px 9px}
-.comp .wm{top:3%;right:3%}
-@media (max-aspect-ratio:1/1){
-  .dsk{left:4%;top:11%;width:92%;height:48%}
-  .ph{right:7%;bottom:0;width:44%;height:52%}
+/* Two real GraspIT client sites in browser frames. Sizes are in container units so the whole composition scales as one picture. */
+body{background:var(--stage)}
+.comp{position:absolute;inset:0;overflow:hidden;container-type:size}
+.fr{position:absolute;display:flex;flex-direction:column;background:#fff;border:1px solid var(--ink);border-radius:8px;overflow:hidden;box-shadow:0 2.6cqw 4.6cqw -2.4cqw rgba(16,55,43,.55)}
+.fr .bar{height:26px}
+.fr .bar .wm{position:static;margin:0 0 0 auto;flex:none;background:#fff;border:1px solid rgba(16,55,43,.16);height:18px;font-size:11px}
+.fr .bar .wm img{width:14px;height:14px}
+.shot{overflow:hidden;background:#fff}
+.shot img{display:block;width:101.4%;height:auto;max-width:none}
+.comp>.wm{position:absolute;z-index:6;right:4cqw;bottom:3.4cqw;top:auto;background:#fff;border:1px solid rgba(16,55,43,.16);height:22px;font-size:12px}
+.fr.a{left:4cqw;top:5cqw;width:64cqw}
+.fr.b{right:4cqw;top:22cqw;width:60cqw;z-index:2}
+@container (max-aspect-ratio:1/1){
+  .fr.a{left:5cqw;top:6cqw;width:78cqw}
+  .fr.b{right:5cqw;top:48cqw;width:80cqw}
 }
-
-/* Example site: fixed design width, scaled to its screen */
-.d,.p{position:absolute;left:0;top:0;transform-origin:0 0;background:#1f1a17;color:#f4ead8;font:400 16px/1.45 var(--font);pointer-events:none}
-.d{width:1100px;height:1000px}.p{width:390px;height:900px}
-.d *,.p *{box-sizing:border-box;margin:0}
-.nv{display:flex;align-items:center;justify-content:space-between;padding:26px 56px}
-.lg{font:700 26px Georgia,"Times New Roman",serif;letter-spacing:-.01em}
-.lg i{color:#d9772b;font-style:normal}
-.ln{display:flex;gap:34px;font-size:15px;color:#d8cbb6}
-.bt{display:inline-block;background:#d9772b;color:#1f1a17;font-weight:700;padding:14px 26px;border-radius:4px;font-size:15px}
-.bt.g{background:none;color:#f4ead8;box-shadow:inset 0 0 0 1.5px #6b5a4c}
-.hg{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;padding:30px 56px 0;align-items:center}
-.kk{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#d9772b;font-weight:700;margin-bottom:18px}
-h1{font:400 66px/1.02 Georgia,"Times New Roman",serif;letter-spacing:-.025em}
-h1 em{color:#d9772b}
-.ld{margin-top:22px;font-size:19px;color:#d8cbb6;max-width:27em}
-.cr{display:flex;gap:14px;margin-top:30px}
-.ar{position:relative;height:430px}
-.arch{position:absolute;left:8%;right:8%;bottom:0;top:6%;border-radius:999px 999px 0 0;background:#3a2f28}
-.cab{position:absolute;left:24%;right:24%;bottom:0;top:26%;background:#b9783d;border-radius:6px 6px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px;box-shadow:0 20px 30px -10px rgba(0,0,0,.5)}
-.cab i{display:block;background:#c98a4c;border:2px solid #8f5a2b;border-radius:3px;position:relative}
-.cab i::after{content:"";position:absolute;top:46%;width:5px;height:34px;border-radius:3px;background:#2a211b}
-.cab i:first-child::after{right:10px}.cab i:last-child::after{left:10px}
-.ch{position:absolute;background:#f4ead8;color:#1f1a17;border-radius:99px;padding:9px 18px;font-weight:700;font-size:14px}
-.ch.a{left:0;top:18%}.ch.b{left:2%;bottom:12%}
-.tl{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:34px 56px}
-.tl div{border-top:1.5px solid #6b5a4c;padding-top:14px}
-.tl b{display:block;font:400 26px Georgia,serif}
-.tl span{font-size:14px;color:#b9a994}
-/* phone */
-.p .nv{padding:18px 20px}.p .lg{font-size:21px}
-.bg{width:26px;height:16px;border-block:2px solid #f4ead8;position:relative}
-.bg::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:#f4ead8}
-.p .hg{display:block;padding:14px 20px 0}
-.p h1{font-size:40px}.p .ld{font-size:16px;margin-top:14px}.p .cr{margin-top:22px}.p .bt{padding:13px 22px;font-size:14px}
-.p .ar{height:300px;margin-top:30px}
-.p .tl{grid-template-columns:1fr;padding:20px}
 </style>
 </head>
 <body>
 <div class="comp">
-  <div class="wm"><img src="/img/logo-96.png" alt="" width="18" height="18"><span>GraspIT</span></div>
-  <div class="dsk">
-    <div class="bar"><i></i><i></i><i></i><div class="url">jusu-dirbtuve.lt</div></div>
-    <div class="screen" id="ds">
-      <div class="d" id="d">
-        <div class="nv"><div class="lg">Medis<i>&amp;</i>Ko</div><div class="ln"><span>Virtuvės</span><span>Spintos</span><span>Darbai</span><span>Kontaktai</span></div><span class="bt">Gauti pasiūlymą</span></div>
-        <div class="hg">
-          <div><p class="kk">Baldų dirbtuvė Kaune</p><h1>Baldai, kurie tarnauja <em>dešimtmečius.</em></h1><p class="ld">Projektuojame ir gaminame pagal jūsų patalpos matmenis: virtuves, spintas ir laiptus.</p><div class="cr"><span class="bt">Gauti pasiūlymą</span><span class="bt g">Darbų pavyzdžiai</span></div></div>
-          <div class="ar"><div class="arch"></div><div class="cab"><i></i><i></i></div><span class="ch a">Ąžuolas</span><span class="ch b">Pagal matmenis</span></div>
-        </div>
-        <div class="tl"><div><b>Virtuvės</b><span>Pagal patalpos planą</span></div><div><b>Spintos</b><span>Įmontuojamos ir laisvai stovinčios</span></div><div><b>Laiptai</b><span>Medžio ir derinių</span></div></div>
-      </div>
-    </div>
+  <div class="fr a">
+    <div class="bar"><i></i><i></i><i></i><div class="url">kalvita.lt</div></div>
+    <div class="shot"><img src="/img/projects/kalvita.webp" alt="" width="1265" height="712"></div>
   </div>
-  <div class="ph">
-    <div class="screen" id="ps">
-      <div class="p" id="p">
-        <div class="nv"><div class="lg">Medis<i>&amp;</i>Ko</div><span class="bg"></span></div>
-        <div class="hg">
-          <div><p class="kk">Baldų dirbtuvė Kaune</p><h1>Baldai, kurie tarnauja <em>dešimtmečius.</em></h1><p class="ld">Projektuojame ir gaminame pagal jūsų patalpos matmenis.</p><div class="cr"><span class="bt">Gauti pasiūlymą</span></div></div>
-          <div class="ar"><div class="arch"></div><div class="cab"><i></i><i></i></div></div>
-        </div>
-      </div>
-    </div>
+  <div class="fr b">
+    <div class="bar"><i></i><i></i><i></i><div class="url">colorlisse.lt</div></div>
+    <div class="shot"><img src="/img/projects/colorlisse.webp" alt="" width="1265" height="712"></div>
   </div>
-  <span class="tag">Pavyzdys</span>
+  <div class="wm"><img src="/img/logo-96.png" alt="" width="14" height="14"><span>GraspIT</span></div>
 </div>
-<script>
-(function () {
-  function fit() {
-    [["ds", "d", 1100], ["ps", "p", 390]].forEach(function (a) {
-      var s = document.getElementById(a[0]), el = document.getElementById(a[1])
-      el.style.transform = "scale(" + (s.clientWidth / a[2]).toFixed(4) + ")"
-    })
-  }
-  fit()
-  addEventListener("resize", fit)
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit)
-})()
-</script>
 </body>
 </html>

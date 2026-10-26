@@ -368,3 +368,42 @@ html { scroll-padding-top: 7rem; }
 .hero-laptop-preview { width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; }
 .hero-readability-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(5 19 15 / .83), rgb(5 19 15 / .62) 40%, rgb(5 19 15 / .12) 78%, transparent); }
 @media (prefers-reduced-motion: reduce) { .hero-art { transform: none; } }
+
+/* Inner page headers with a photographed, slowly scrolling background */
+.page-backdrop { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.page-backdrop img { display: block; width: 100%; height: 100%; object-fit: cover; transform: translate3d(0, var(--hero-shift, 0px), 0) scale(1.08); transform-origin: 50% 0; }
+.page-backdrop-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(5 19 15 / .86), rgb(5 19 15 / .66) 55%, rgb(5 19 15 / .38)); }
+@media (prefers-reduced-motion: reduce) { .page-backdrop img { transform: none; } }
+
+/* Footer: call to action, numbered menu and a giant wordmark that spans the full width. */
+.fm { --fm-mint: #bfe8d8; --fm-line: rgb(243 239 230 / .25); container-type: inline-size; overflow: hidden; }
+.fm a { color: inherit; text-decoration: none; }
+.fm-inner { padding: 56px 48px 0; max-width: 1440px; margin: 0 auto; }
+.fm-head { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: start; padding-bottom: 44px; }
+.fm h2 { margin: 0 0 26px; max-width: 12em; font-size: clamp(30px, 4.3cqw, 54px); font-weight: 700; line-height: 1.03; letter-spacing: -.04em; text-wrap: balance; }
+.fm-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 22px; }
+.fm .fm-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 6px; font-weight: 700; white-space: nowrap; background: var(--background); color: var(--foreground); }
+.fm .fm-btn:hover { background: var(--fm-mint); }
+.fm .fm-phone { display: inline-flex; align-items: center; min-height: 44px; font-size: 17px; font-weight: 600; text-decoration: underline; text-decoration-color: rgb(243 239 230 / .5); text-underline-offset: 6px; }
+.fm .fm-phone:hover { text-decoration-color: currentColor; }
+.fm-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin: 0; padding: 0; list-style: none; }
+.fm-cols li { border-top: 1px solid var(--fm-line); }
+.fm-cols a { display: flex; align-items: baseline; gap: 12px; min-height: 44px; padding: 13px 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; transition: padding .2s, color .2s; }
+.fm-cols a i { font-size: 11px; font-style: normal; font-weight: 600; letter-spacing: .1em; color: var(--fm-mint); opacity: .8; }
+.fm-cols a:hover { padding-left: 8px; color: var(--fm-mint); }
+.fm-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; padding: 10px 0; border-top: 1px solid var(--fm-line); font-size: 13px; }
+.fm-dim { opacity: .7; }
+.fm-meta a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; }
+.fm-meta a:hover { color: var(--fm-mint); }
+.fm-wordmark { display: block; position: relative; height: var(--fm-h, 0px); margin-top: 10px; overflow: hidden; }
+.fm-wordmark span { position: absolute; left: 0; top: 0; display: flex; white-space: nowrap; font-size: var(--fm-fs, 0px); font-weight: 800; line-height: 1; letter-spacing: -.055em; color: #1f6b4f; user-select: none; }
+.fm-wordmark span i { display: inline-block; font-style: normal; transform: translateY(var(--fm-y, 0)); transition: transform .9s cubic-bezier(.2, .7, .2, 1), color .3s; }
+.fm-wordmark:hover span i { color: #2a8060; }
+.fm-wordmark::after { content: ""; position: absolute; inset: auto 0 0; height: 34%; background: linear-gradient(0deg, var(--foreground), transparent); pointer-events: none; }
+.fm-js:not(.fm-in) .fm-wordmark span i { --fm-y: 70%; }
+@media (prefers-reduced-motion: reduce) { .fm-wordmark span i { transition: none; } .fm-js:not(.fm-in) .fm-wordmark span i { --fm-y: 0; } }
+@container (max-width: 760px) {
+  .fm-inner { padding: 40px 20px 0; }
+  .fm-head { grid-template-columns: 1fr; gap: 34px; padding-bottom: 30px; }
+  .fm-cols a { font-size: 16px; }
+}

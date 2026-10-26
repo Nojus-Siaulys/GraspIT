@@ -5,24 +5,36 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Svetainė prieš ir po atnaujinimo</title>
-<link rel="stylesheet" href="player.css?v=3">
-<link rel="stylesheet" href="kopa.css?v=3">
+<link rel="stylesheet" href="player.css?v=5">
+<link rel="stylesheet" href="kopa.css?v=4">
 <style>
+/* Same example business, old and renewed, side by side so both are readable at once. */
 body{background:var(--stage)}
-.frame{position:absolute;inset:4% 4% 0;display:flex;flex-direction:column;background:#fff;border:1px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0;overflow:hidden}
-.frame .screen{position:relative;flex:1;min-height:0}
-.layer{position:absolute;inset:0;overflow:hidden}
-.new{clip-path:inset(0 50% 0 0)}
-.old-wrap{background:#efe3cc}
-.divider{position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:var(--ink);z-index:6}
-.divider::after{content:"⇄";position:absolute;top:50%;left:50%;translate:-50% -50%;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:15px}
-.lab{position:absolute;top:calc(50% + 28px);background:var(--ink);color:#fff;font:700 11px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;padding:7px 10px;border-radius:4px;transition:opacity .3s}
-.lab.po{right:12px}.lab.pr{left:12px;background:#8a4b14}
-.tag{position:absolute;z-index:7;left:12px;bottom:12px;font:600 10.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:#fff;border:1px solid rgba(16,55,43,.35);border-radius:4px;padding:6px 8px}
-.pb{position:absolute;z-index:8;right:calc(4% + 10px);bottom:10px;width:32px;height:32px;border:1px solid var(--ink);border-radius:6px;background:#fff;color:var(--ink);display:grid;place-items:center;cursor:pointer}
-.pb svg{width:12px;height:12px;fill:currentColor}
-@container screen (max-width:560px){.tag{display:none}}
-.old{position:absolute;left:0;top:0;width:960px;transform-origin:0 0;background:#efe3cc;color:#222;font:12px/1.45 Verdana,Tahoma,sans-serif;pointer-events:none}
+.comp{position:absolute;inset:0;overflow:hidden;container-type:size}
+.fr{position:absolute;display:flex;flex-direction:column;background:#fff;border:1px solid var(--ink);border-radius:8px;overflow:hidden;box-shadow:0 2.6cqw 4.6cqw -2.4cqw rgba(16,55,43,.55)}
+.fr .bar{height:26px}
+.fr .bar .wm{position:static;margin:0 0 0 auto;flex:none;background:#fff;border:1px solid rgba(16,55,43,.16);height:18px;font-size:11px}
+.fr .bar .wm img{width:14px;height:14px}
+.vp{position:relative;overflow:hidden;aspect-ratio:1.18/1;background:#fff}
+.fr.a{left:4cqw;top:12cqw;width:44cqw}
+.fr.b{right:4cqw;top:12cqw;width:44cqw}
+.pill{position:absolute;z-index:4;top:5cqw;display:inline-flex;align-items:center;gap:8px;font:700 12px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;padding:8px 11px;border-radius:4px;color:#fff}
+.pill.pr{left:4cqw;background:#8a4b14}.pill.po{right:4cqw;background:var(--ink)}
+.go{position:absolute;z-index:5;left:50%;top:calc(12cqw + 17cqw);translate:-50% -50%;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:16px;box-shadow:0 0 0 5px var(--stage)}
+.tag{position:absolute;z-index:4;left:4cqw;bottom:4cqw;font:700 10.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:#fff;border:1px solid rgba(16,55,43,.35);border-radius:4px;padding:6px 8px}
+.comp>.wm{position:absolute;z-index:6;right:4cqw;bottom:3.4cqw;top:auto;background:#fff;border:1px solid rgba(16,55,43,.16);height:22px;font-size:12px}
+.fr.b{animation:rise .8s .15s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+@media (prefers-reduced-motion:reduce){.fr.b{animation:none}}
+@container (max-aspect-ratio:1/1){
+  .fr.a{left:5cqw;top:12cqw;width:68cqw}
+  .fr.b{right:5cqw;top:56cqw;width:68cqw}
+  .pill.pr{left:5cqw;top:5cqw}.pill.po{right:5cqw;left:auto;top:49cqw}
+  .go{left:auto;right:20cqw;top:56cqw;rotate:90deg}
+  .tag{left:5cqw}
+}
+/* old site: fixed design width, scaled to the frame */
+.old{position:absolute;left:0;top:0;width:960px;transform-origin:0 0;background:#efe3cc;color:#222;font:12px/1.45 Verdana,Tahoma,sans-serif}
 .old *{box-sizing:border-box}
 .o-top{background:#5a3a1e;color:#e9d9bd;padding:5px 14px;font-size:11px;display:flex;justify-content:space-between}
 .o-head{padding:12px 14px 6px;display:flex;align-items:flex-end;justify-content:space-between}
@@ -40,96 +52,71 @@ body{background:var(--stage)}
 .o-banner small{display:block;color:#fff;font:400 11px Verdana;margin-top:6px;text-shadow:none}
 .o-text{margin:8px 0;font-size:11px}
 .o-sale{background:#e01818;color:#fff;font:700 18px Arial;text-align:center;padding:10px;border:2px dashed #ffe85c}
+.o-prod{margin:4px 14px 0;background:#f8efe0;border:1px solid #b89a68;padding:8px}
+.o-prod h4{margin:0 0 8px;background:#7a1f10;color:#fff;padding:3px 6px;font-size:11px}
+.o-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:11px;text-align:center}
+.o-grid div{border:1px solid #b89a68;background:#fff;padding:6px}
+.o-grid i{display:block;height:84px;background:#d9bb86;margin-bottom:6px}
+.o-grid b{color:#e01818}
+.o-foot{margin-top:14px;padding:8px 14px;background:#5a3a1e;color:#e9d9bd;font-size:10px;text-align:center}
 .o-link{color:#1a3fa0;text-decoration:underline}
+/* new site: laid out at a desktop container width, then scaled */
+.nw{position:absolute;left:0;top:0;width:1100px;transform-origin:0 0;container:screen / inline-size;pointer-events:none}
 </style>
 </head>
 <body>
-<div class="frame">
-  <div class="bar"><i></i><i></i><i></i><div class="url">jusu-svetaine.lt</div></div>
-  <div class="screen" id="screen">
-    <div class="layer old-wrap">
-            <div class="old" id="old">
-              <div class="o-top"><span>Tel. 8 600 00000 &nbsp;|&nbsp; info@jusu-svetaine.lt &nbsp;|&nbsp; Facebook &nbsp;|&nbsp; Instagram</span><span>LT | EN | RU</span></div>
-              <div class="o-head"><div class="o-logo">KAVOS SKRUDYKLA</div><div class="o-search">Paieška...</div></div>
-              <div class="o-nav"><span>Pradžia</span><span>Apie mus</span><span>Kava</span><span>Pupelės</span><span>Malta</span><span>Akcijos</span><span>Naujienos</span><span>Kontaktai</span><span>Taisyklės</span></div>
-              <div class="o-body">
-                <div class="o-box"><h4>KATEGORIJOS</h4><ul><li>Pupelės</li><li>Malta kava</li><li>Kapsulės</li><li>Dovanų rinkiniai</li><li>Priedai</li><li>Akcijos</li><li>Išpardavimas</li></ul></div>
-                <div>
-                  <div class="o-banner">Sveiki atvykę į mūsų kavos skrudyklą!!!<small>Mes skrudiname kavą nuo seno. Skaitykite daugiau apie mus, mūsų kavą, pristatymą ir kitas paslaugas.</small></div>
-                  <p class="o-text">Mūsų skrudykla siūlo plačią kavos pupelių ir maltos kavos asortimentą. Kavą skrudiname Vilniuje, o užsakymus pristatome visoje Lietuvoje. Daugiau informacijos rasite skyriuose <span class="o-link">Apie mus</span>, <span class="o-link">Kava</span> ir <span class="o-link">Kontaktai</span>. Taip pat žiūrėkite <span class="o-link">Taisykles</span> ir <span class="o-link">Naujienas</span>.</p>
-                  <div class="o-sale">AKCIJA! -10% VISAI KAVAI IKI MĖNESIO PABAIGOS</div>
-                </div>
-                <div><div class="o-box"><h4>NAUJIENOS</h4><ul><li>Nauja kava jau parduotuvėje</li><li>Darbo laikas švenčių metu</li><li>Prenumeratos pakeitimai</li></ul></div><div class="o-box" style="margin-top:10px"><h4>APKLAUSA</h4>Kokią kavą mėgstate?<br>( ) Šviesią<br>( ) Tamsią<br>( ) Nežinau</div></div>
-              </div>
-            </div>
-    </div>
-    <div class="layer new site">
-            <nav class="nav">
-              <div class="logo">GraspIT</div>
-              <div class="links"><span>Pradžia</span><span>Kava</span><span>Apie mus</span><span>Kontaktai</span></div>
-              <span class="btn sm">Užsakyti</span>
-              <span class="burger"></span>
-            </nav>
-            <section class="hero">
-              <div class="hero-grid">
-                <div>
-                  <p class="kicker">Skrudykla Vilniuje</p>
-                  <h1>Šviežiai skrudinta kava pas jus per 48 val.</h1>
-                  <p class="lead">Mažos partijos, aiški kilmė ir pristatymas į namus ar biurą kas savaitę.</p>
-                  <div class="cta-row"><span class="btn">Pasirinkti kavą</span><span class="btn ghost">Prenumerata</span></div>
-                </div>
-                <div class="art">
-                  <div class="disc"></div>
-                  <div class="bag"><div class="lbl"><div>Etiopija</div><small>Guji · 250 g</small><div class="dots"><i></i><i></i><i></i></div></div></div>
-                  <span class="chip a">Skrudinta vakar</span><span class="chip b">Pristatymas 48 val.</span>
-                </div>
-              </div>
-            </section>
+<div class="comp" id="comp">
+  <span class="pill pr">Prieš</span><span class="pill po">Po</span>
+  <div class="fr a">
+    <div class="bar"><i></i><i></i><i></i><div class="url">jusu-svetaine.lt</div></div>
+    <div class="vp" id="vp-old">
+      <div class="old" id="old">
+        <div class="o-top"><span>Tel. 8 600 00000 &nbsp;|&nbsp; info@jusu-svetaine.lt &nbsp;|&nbsp; Facebook &nbsp;|&nbsp; Instagram</span><span>LT | EN | RU</span></div>
+        <div class="o-head"><div class="o-logo">KAVOS SKRUDYKLA</div><div class="o-search">Paieška...</div></div>
+        <div class="o-nav"><span>Pradžia</span><span>Apie mus</span><span>Kava</span><span>Pupelės</span><span>Malta</span><span>Akcijos</span><span>Naujienos</span><span>Kontaktai</span><span>Taisyklės</span></div>
+        <div class="o-body">
+          <div class="o-box"><h4>KATEGORIJOS</h4><ul><li>Pupelės</li><li>Malta kava</li><li>Kapsulės</li><li>Dovanų rinkiniai</li><li>Priedai</li><li>Akcijos</li><li>Išpardavimas</li></ul></div>
+          <div>
+            <div class="o-banner">Sveiki atvykę į mūsų kavos skrudyklą!!!<small>Mes skrudiname kavą nuo seno. Skaitykite daugiau apie mus, mūsų kavą, pristatymą ir kitas paslaugas.</small></div>
+            <p class="o-text">Mūsų skrudykla siūlo plačią kavos pupelių ir maltos kavos asortimentą. Kavą skrudiname Vilniuje, o užsakymus pristatome visoje Lietuvoje. Daugiau informacijos rasite skyriuose <span class="o-link">Apie mus</span>, <span class="o-link">Kava</span> ir <span class="o-link">Kontaktai</span>.</p>
+            <div class="o-sale">AKCIJA! -10% VISAI KAVAI IKI MĖNESIO PABAIGOS</div>
           </div>
-    <div class="divider" id="divider"><span class="lab po" id="lab-po">Po</span><span class="lab pr" id="lab-pr">Prieš</span></div>
-    <span class="tag">Pavyzdys</span>
+          <div><div class="o-box"><h4>NAUJIENOS</h4><ul><li>Nauja kava jau parduotuvėje</li><li>Darbo laikas švenčių metu</li><li>Prenumeratos pakeitimai</li></ul></div><div class="o-box" style="margin-top:10px"><h4>APKLAUSA</h4>Kokią kavą mėgstate?<br>( ) Šviesią<br>( ) Tamsią<br>( ) Nežinau</div></div>
+        </div>
+        <div class="o-prod"><h4>POPULIARIAUSIOS PREKĖS</h4><div class="o-grid"><div><i></i>Etiopija Guji 250 g<br><b>12,90 EUR</b></div><div><i></i>Kolumbija Huila 250 g<br><b>11,50 EUR</b></div><div><i></i>Brazilija Santos 250 g<br><b>9,90 EUR</b></div><div><i></i>Dovanų rinkinys<br><b>29,00 EUR</b></div></div></div>
+        <div class="o-foot">© 2014 Kavos skrudykla · Visos teisės saugomos · Taisyklės · Privatumas</div>
+      </div>
+    </div>
   </div>
+  <span class="go" aria-hidden="true">→</span>
+  <div class="fr b">
+    <div class="bar"><i></i><i></i><i></i><div class="url">jusu-svetaine.lt</div></div>
+    <div class="vp" id="vp-new">
+      <div class="nw" id="nw"><div class="site">
+        <nav class="nav"><div class="logo">GraspIT</div><div class="links"><span>Pradžia</span><span>Kava</span><span>Apie mus</span><span>Kontaktai</span></div><span class="btn sm">Užsakyti</span></nav>
+        <section class="hero"><div class="hero-grid">
+          <div><p class="kicker">Skrudykla Vilniuje</p><h1>Šviežiai skrudinta kava pas jus per 48 val.</h1><p class="lead">Mažos partijos, aiški kilmė ir pristatymas į namus ar biurą kas savaitę.</p><div class="cta-row"><span class="btn">Pasirinkti kavą</span><span class="btn ghost">Prenumerata</span></div></div>
+          <div class="art"><div class="disc"></div><div class="bag"><div class="lbl"><div>Etiopija</div><small>Guji · 250 g</small><div class="dots"><i></i><i></i><i></i></div></div></div><span class="chip a">Skrudinta vakar</span><span class="chip b">Pristatymas 48 val.</span></div>
+        </div></section>
+        <section class="sec"><h2>Šio mėnesio skrudiniai</h2><p class="sub">Trys kavos, kurias mūsų komanda geria pati.</p>
+          <div class="cards"><div class="card"><div class="thumb" style="--c:#bfe8d8"><div class="mini"></div></div><h3>Etiopija Guji</h3><p class="notes">žemuogė · jazminas · citrina</p><div class="row"><span class="price">12,90 € <small>/ 250 g</small></span><span class="btn sm">Užsakyti</span></div></div><div class="card"><div class="thumb" style="--c:#ffe08a"><div class="mini"></div></div><h3>Kolumbija Huila</h3><p class="notes">karamelė · raudonas obuolys</p><div class="row"><span class="price">11,50 € <small>/ 250 g</small></span><span class="btn sm">Užsakyti</span></div></div><div class="card"><div class="thumb" style="--c:#ffc1b2"><div class="mini"></div></div><h3>Brazilija Santos</h3><p class="notes">riešutai · šokoladas</p><div class="row"><span class="price">9,90 € <small>/ 250 g</small></span><span class="btn sm">Užsakyti</span></div></div></div></section>
+      </div></div>
+    </div>
+  </div>
+  <span class="tag">Pavyzdys</span>
+  <div class="wm"><img src="/img/logo-96.png" alt="" width="14" height="14"><span>GraspIT</span></div>
 </div>
-<div class="wm"><img src="/img/logo-96.png" alt="" width="18" height="18"><span>GraspIT</span></div>
-<button class="pb" id="play" type="button"></button>
 <script>
 (function () {
-  var $ = function (s) { return document.querySelector(s) }
-  var screenEl = $("#screen"), old = $("#old"), newl = $(".new"), divider = $("#divider"), labPo = $("#lab-po"), labPr = $("#lab-pr"), btn = $("#play")
-  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
-  var playing = !reduced, visible = true, t = 0, CYCLE = 9000
-  var P = "<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 2h4v12H3zM9 2h4v12H9z\"/></svg>"
-  var G = "<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 2l10 6-10 6z\"/></svg>"
-  function sync() { btn.innerHTML = playing ? P : G; btn.setAttribute("aria-label", playing ? "Sustabdyti peržiūrą" : "Leisti peržiūrą") }
-  var ease = function (p) { return 0.5 - Math.cos(Math.PI * p) / 2 }
-  function wipeAt(ms) {
-    // hold on the old design, wipe to the new one, hold, wipe back
-    var p = ms / CYCLE
-    if (p < 0.12) return 4
-    if (p < 0.42) return 4 + ease((p - 0.12) / 0.30) * 92
-    if (p < 0.62) return 96
-    if (p < 0.92) return 96 - ease((p - 0.62) / 0.30) * 92
-    return 4
+  function fit() {
+    [["vp-old", "old", 960], ["vp-new", "nw", 1100]].forEach(function (a) {
+      var v = document.getElementById(a[0]), el = document.getElementById(a[1])
+      el.style.transform = "scale(" + (v.clientWidth / a[2]).toFixed(4) + ")"
+    })
   }
-  function paint(x) {
-    old.style.transform = "scale(" + (screenEl.clientWidth / 960).toFixed(4) + ")"
-    newl.style.clipPath = "inset(0 " + (100 - x) + "% 0 0)"
-    divider.style.left = x + "%"
-    labPo.style.opacity = x > 22 ? 1 : 0
-    labPr.style.opacity = x < 78 ? 1 : 0
-  }
-  btn.addEventListener("click", function () { playing = !playing; sync() })
-  if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting }).observe(document.body)
-  var last = performance.now()
-  function frame(now) {
-    var dt = Math.min(50, now - last); last = now
-    if (playing && visible && !document.hidden) t = (t + dt) % CYCLE
-    paint(reduced && !playing && t === 0 ? 50 : wipeAt(t))
-    requestAnimationFrame(frame)
-  }
-  sync()
-  var go = function () { requestAnimationFrame(function (n) { last = n; frame(n) }) }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go, go); else go()
+  fit()
+  addEventListener("resize", fit)
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit)
 })()
 </script>
 </body>

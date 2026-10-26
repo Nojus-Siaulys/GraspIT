@@ -37,11 +37,12 @@ body{background:var(--sand);color:var(--ink);font:15px/1.45 var(--font);overflow
 
 
 /* GraspIT watermark: sits in the browser bar on desktop, in the corner on phone view */
-.wm{position:absolute;z-index:9;top:calc(3.2% + 5px);right:calc(3.2% + 12px);display:flex;align-items:center;gap:6px;height:20px;
+.wm{position:absolute;z-index:9;top:calc(3.2vw + 5px);right:calc(3.2vw + 12px);display:flex;align-items:center;gap:6px;height:20px;
   padding:0 8px 0 3px;border-radius:5px;background:rgba(255,255,255,.92);color:var(--ink);font:700 12px/1 var(--font);letter-spacing:-.01em;pointer-events:none;
   transition:top .5s,right .5s}
 .wm img{display:block;width:16px;height:16px;border-radius:3px}
-.stage[data-device="mobile"] .wm{top:12px;right:14px;background:var(--ink);color:#fff;padding:0 8px 0 3px}
+.stage[data-device="mobile"] .wm{top:calc(3.2vw + 12px);right:auto;left:calc(50% + 135px + 14px);background:#fff;border:1px solid rgba(16,55,43,.16)}
+@media (max-width:640px){.stage[data-device="mobile"] .wm{left:auto;right:12px;top:10px;background:var(--ink);color:#fff;border:0}}
 
 .cursor{position:absolute;left:0;top:0;width:22px;height:22px;pointer-events:none;opacity:0;transition:opacity .3s,scale .12s;
   filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));z-index:8}

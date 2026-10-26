@@ -8,6 +8,8 @@ import { StudioScene, TrustPhoto } from "./Photography"
 import { contact, phoneHref, siteCopy } from "./settings"
 import { MobileCallBar, Testimonials, TrustStrip } from "./Trust"
 import { BackToTop } from "./BackToTop"
+import { Footer } from "./Footer"
+import { PageBackdrop, pageBackdrops } from "./PageBackdrop"
 import { Media } from "./Media"
 import { hasMedia, type MediaId } from "./mediaSlots"
 import { PackageFinder } from "./PackageFinder"
@@ -469,6 +471,7 @@ export function Site({ path = "/" }: { path?: string }) {
     return () => document.removeEventListener("keydown", close)
   }, [menu])
   const page = pages[path]
+  const photo = pageBackdrops[path]
   useEffect(() => {
     document.documentElement.lang = "lt"
     document.title = page?.title ?? "Puslapis nerastas | GraspIT"
@@ -582,11 +585,12 @@ export function Site({ path = "/" }: { path?: string }) {
           <Home />
         ) : (
           <>
-            <section className={`${band} border-b border-foreground/20`}>
-              <div className={wrap}>
+            <section className={photo ? `${band} relative isolate overflow-hidden bg-[#0b2219] text-white` : `${band} border-b border-foreground/20`}>
+              {photo && <PageBackdrop name={photo} />}
+              <div className={`${wrap} ${photo ? "relative z-10" : ""}`}>
                 <nav
                   aria-label="Naršymo kelias"
-                  className="mb-6 flex flex-wrap items-center gap-2 text-sm text-muted-foreground"
+                  className={`mb-6 flex flex-wrap items-center gap-2 text-sm ${photo ? "text-white/80" : "text-muted-foreground"}`}
                 >
                   <a href="/" className="inline-flex min-h-11 items-center hover:underline">
                     Pradžia
@@ -603,13 +607,13 @@ export function Site({ path = "/" }: { path?: string }) {
                   {path.startsWith("/darbai/") && <><a href="/darbai/" className="inline-flex min-h-11 items-center hover:underline">Darbai</a><span aria-hidden="true">/</span></>}
                   <span aria-current="page">{page.label}</span>
                 </nav>
-                <p className={`${eyebrow} text-[var(--signal)]`}>
+                <p className={`${eyebrow} ${photo ? "text-[#bfe8d8]" : "text-[var(--signal)]"}`}>
                   {page.label}
                 </p>
                 <h1 className="mt-5 mb-8 max-w-[20ch] text-[clamp(2.7rem,7vw,6.4rem)] leading-[.98] font-bold tracking-[-.05em]">
                   {page.heading}
                 </h1>
-                <div className="grid gap-6 border-t border-foreground pt-6 lg:grid-cols-12">
+                <div className={`grid gap-6 border-t pt-6 lg:grid-cols-12 ${photo ? "border-white/70" : "border-foreground"}`}>
                   <span className="hidden lg:col-span-3 lg:block">
                     <ArrowDown className="size-6" />
                   </span>
@@ -701,38 +705,7 @@ export function Site({ path = "/" }: { path?: string }) {
           </section>
         )}
       </main>
-      <footer className="bg-foreground py-12 text-background">
-        <div className={wrap}>
-          <div className="grid gap-10 border-b border-background/25 pb-10 md:grid-cols-2">
-            <div>
-              <a href="/" className="inline-flex min-h-11 items-center text-2xl font-bold tracking-tight"><Brand /></a>
-              <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-background/65">
-                Svetainės, el. parduotuvės ir aiškūs sprendimai jūsų verslui.
-              </p>
-              {(contact.phone || contact.email) && (
-                <p className="mt-5 grid gap-1 text-sm">
-                  {contact.phone && <a href={phoneHref} className="inline-flex min-h-11 items-center gap-2 font-semibold hover:underline"><Phone className="size-4" aria-hidden="true" />{contact.phone}</a>}
-                  {contact.email && <a href={`mailto:${contact.email}`} className="inline-flex min-h-11 items-center hover:underline">{contact.email}</a>}
-                </p>
-              )}
-            </div>
-            <nav
-              aria-label="Poraštės meniu"
-              className="grid grid-cols-2 gap-4 text-sm"
-            >
-              {[...navigation, ["/kontaktai", "Kontaktai"]].map(([href, t]) => (
-                <a key={href} href={pageUrl(href)} className="inline-flex min-h-11 items-center hover:underline">
-                  {t}
-                </a>
-              ))}
-            </nav>
-          </div>
-          <div className="mt-6 flex flex-wrap justify-between gap-4 text-xs text-background/60">
-            <span>© GraspIT</span>
-            <span>Svetainių kūrimas ir atnaujinimas</span>
-          </div>
-        </div>
-      </footer>
+      <Footer links={navigation} />
       <BackToTop />
       {path !== "/kontaktai" && <MobileCallBar />}
     </div>

@@ -56,7 +56,7 @@ export const pages: Record<
   },
   "/kainos": {
     title: `Svetainių kūrimo kainos: nuo ${prices.website} ir ${prices.shop} | GraspIT`,
-    heading: "Svetainių kūrimas nuo 350 €",
+    heading: "Svetainių kūrimas nuo 350 €",
     intro:
       `Pradinė svetainė – nuo ${prices.website}, verslo svetainė ar el. parduotuvė – nuo ${prices.shop}. Galutinę kainą sutariame prieš pradėdami; papildomi darbai aptariami atskirai.`,
     label: "Kainos",
