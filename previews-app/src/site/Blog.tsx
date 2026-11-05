@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from "react"
 import { ArrowRight } from "lucide-react"
-import { blogAuthor, postBySlug, posts, relatedPosts, type Block, type Post } from "./posts"
+import { blogAuthor, coverAlt, postBySlug, posts, relatedPosts, type Block, type Post } from "./posts"
 
 const wrap = "mx-auto max-w-[1280px] px-5 md:px-8"
 const band = "py-16 md:py-24"
@@ -37,11 +37,16 @@ function BlockView({ block }: { block: Block }) {
 
 function PostCard({ post }: { post: Post }) {
   return (
-    <a href={`/blogas/${post.slug}/`} className="group flex h-full flex-col rounded-lg border border-foreground bg-background p-6 md:p-8">
+    <a href={`/blogas/${post.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-lg border border-foreground bg-background">
+      <div className="aspect-[16/9] overflow-hidden border-b border-foreground bg-secondary">
+        <img src={`/img/blog/${post.slug}-800.webp`} alt={coverAlt[post.slug] ?? ""} width={800} height={450} loading="lazy" decoding="async" className="size-full object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.03]" />
+      </div>
+      <div className="flex flex-1 flex-col p-6 md:p-8">
       <span className={`${eyebrow} text-[var(--signal)]`}>{post.label} · {post.minutes} min.</span>
       <h3 className="mt-5 text-2xl font-bold leading-tight tracking-tight">{post.title}</h3>
       <p className="mt-4 mb-6 leading-relaxed text-muted-foreground">{post.description}</p>
       <span className="mt-auto inline-flex items-center gap-3 font-semibold motion-safe:transition-all group-hover:gap-5">Skaityti <ArrowRight className="size-4" aria-hidden="true" /></span>
+      </div>
     </a>
   )
 }
@@ -105,6 +110,9 @@ export function BlogPost({ slug }: { slug: string }) {
             </div>
           </aside>
           <div className="min-w-0 max-w-[72ch] lg:col-span-8">
+            <figure className="mb-10 overflow-hidden rounded-lg border border-foreground bg-secondary">
+              <img src={`/img/blog/${post.slug}.webp`} srcSet={`/img/blog/${post.slug}-800.webp 800w, /img/blog/${post.slug}.webp 1600w`} sizes="(min-width: 1024px) 760px, 100vw" alt={coverAlt[post.slug] ?? ""} width={1600} height={900} fetchPriority="high" decoding="async" className="aspect-[16/9] w-full object-cover" />
+            </figure>
             <div className="mb-12 rounded-lg border border-foreground bg-secondary p-6 md:p-8">
               <h2 className={`${eyebrow} mb-4 text-[var(--signal)]`}>Trumpai</h2>
               <ul className="space-y-3">

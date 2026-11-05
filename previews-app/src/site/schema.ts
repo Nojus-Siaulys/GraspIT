@@ -105,7 +105,7 @@ export function structuredData(path: string, origin = "") {
       datePublished: post.date,
       dateModified: post.updated ?? post.date,
       mainEntityOfPage: { "@id": `${url(path)}#puslapis` },
-      image: `${origin}/og/blogas-${post.slug}.png`,
+      image: [`${origin}/img/blog/${post.slug}.webp`, `${origin}/og/blogas-${post.slug}.png`],
       author: { "@type": "Organization", name: blogAuthor, "@id": org },
       publisher: { "@id": org },
       articleSection: post.label,

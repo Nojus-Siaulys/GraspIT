@@ -554,6 +554,17 @@ export const posts: Post[] = [
   },
 ]
 
+// Alt text for the cover illustrations in public/img/blog/ (made by scripts/make-blog-covers.mjs).
+export const coverAlt: Record<string, string> = {
+  "kiek-kainuoja-svetaine": "Iliustracija: svetainės pasiūlymas su vienkartinėmis ir periodinėmis išlaidomis",
+  "svetaine-ar-socialiniai-tinklai": "Iliustracija: socialinių tinklų srautas telefone šalia verslo svetainės",
+  "techninis-seo-sarasas": "Iliustracija: techninio SEO kontrolinis sąrašas, Core Web Vitals rodikliai ir robots.txt",
+  "geo-ai-paieska": "Iliustracija: AI asistento atsakymas, kuriame paminėtas verslas ir nurodyti šaltiniai",
+  "kada-atnaujinti-svetaine": "Iliustracija: pasenusi svetainė prieš atnaujinimą ir aiški svetainė po jo",
+  "google-verslo-profilis": "Iliustracija: Google žemėlapis su pažymėtu verslu ir jo profilio kortele",
+  "kaip-pradeti-el-parduotuve": "Iliustracija: el. parduotuvės katalogas, apmokėjimo būdai ir siuntos pristatymas",
+}
+
 export const postBySlug = Object.fromEntries(posts.map((post) => [post.slug, post]))
 
 // Which articles each service and info page points to.
