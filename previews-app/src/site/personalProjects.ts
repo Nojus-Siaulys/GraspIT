@@ -89,6 +89,19 @@ export const personalProjects: PersonalProject[] = [
     features: ["Automobilių katalogo ir paieškos puslapiai su demonstraciniais duomenimis.", "Mėgstamų skelbimų, pardavimo ir užsakymų sritys.", "Prisijungimo, administravimo ir atsiskaitymo integracijų struktūra."],
   },
   {
+    id: "trade-journal", title: "TradeJournal", category: "AI ir LLM", kind: "Asmeninis įrankis",
+    description: "Prekybos dienoraštis savo sandoriams: MT5 istorijos importas, analitika, kalendorius ir AI peržiūra pagal mano prekybos planą.",
+    story: {
+      idea: "Vedžiau prekybos sandorių užrašus ir norėjau, kad jie būtų vienoje vietoje, o ne lentelėse ir ekrano nuotraukose. Taip atsirado TradeJournal — mano paties dienoraštis, pritaikytas tam, kaip prekiauju.",
+      problem: "Sandorių istorija iš MetaTrader 5 savaime nepasako, kodėl buvo priimtas sprendimas ir ar laikiausi plano. Reikėjo sujungti skaičius (riziką, rezultatą, R:R) su pastabomis, emocijomis, klaidomis ir grafiko nuotrauka.",
+      direction: "Įrankis skirtas vienam naudotojui: prisijungimas ribojamas vienu el. paštu, o duomenis saugo Supabase eilučių lygio teisės. Paversti jį produktu kitiems prekiautojams būtų atskiras darbas, todėl to kol kas nedarau.",
+      lesson: "Naudingiausia ne pati analitika, o disciplina: kai prieš sandorį reikia atsakyti į tuos pačius plano klausimus, klaidos tampa matomos.",
+    },
+    technologies: ["Next.js", "React", "TypeScript", "Supabase", "Recharts", "OpenAI API"],
+    focus: "Kaip sandorių duomenis, prekybos planą ir AI peržiūrą sujungti į vieną įrankį, kuris padeda laikytis taisyklių. Tai asmeninis įrankis, be pažadų apie finansinius rezultatus.",
+    features: ["Sandorių importas iš MT5 istorijos ir rankinis įvedimas su rizikos skaičiavimu.", "Analitika, kalendoriaus vaizdas, kelios sąskaitos ir pozicijos dydžio skaičiuoklė.", "AI treneris, kuris įvertina sandorį pagal plano kontrolinį sąrašą."],
+  },
+  {
     id: "python-bot", title: "Python automatizavimo botas", category: "Python", kind: "Tyrimų eksperimentas",
     description: "Python projektas, kuriame tyrinėjau Polymarket įvykių stebėjimą, asinchroninį duomenų rinkimą ir strategijų simuliavimą.",
     story: {
