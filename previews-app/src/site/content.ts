@@ -1,10 +1,12 @@
 import { prices } from "./pricing.js"
+import { posts } from "./blog.js"
 export const navigation = [
   ["/paslaugos", "Paslaugos"],
   ["/darbai", "Darbai"],
   ["/biblioteka", "Biblioteka"],
   ["/procesas", "Procesas"],
   ["/kainos", "Kainos"],
+  ["/blogas", "Blogas"],
   ["/apie-mus", "Apie mus"],
   ["/duk", "DUK"],
 ] as const
@@ -106,6 +108,13 @@ export const pages: Record<
       "Kiek kainuoja svetainė, ko reikia pradžiai ir kas vyksta po paleidimo? Čia rasite atsakymus apie kūrimą, el. parduotuves, SEO ir priežiūrą.",
     label: "Dažniausiai užduodami klausimai",
   },
+  "/blogas": {
+    title: "Blogas apie svetaines, SEO ir AI paiešką verslui | GraspIT",
+    heading: "Patarimai, kaip būti randamam internete",
+    intro:
+      "Praktiški straipsniai apie svetainių kainas, techninį SEO, matomumą Google ir AI asistentų atsakymuose. Be reklamos biudžeto – su aiškiais žingsniais.",
+    label: "Blogas",
+  },
   "/kontaktai": {
     title: "Aptarkime jūsų svetainę | GraspIT kontaktai",
     heading: "Susisiekime",
@@ -113,6 +122,15 @@ export const pages: Record<
       "Ką siūlote, kam parduodate ir ką turėtų padėti pasiekti svetainė? Trumpas projekto aprašymas – gera pokalbio pradžia.",
     label: "Kontaktai",
   },
+}
+
+for (const post of posts) {
+  pages[`/blogas/${post.slug}`] = {
+    title: post.metaTitle,
+    heading: post.title,
+    intro: post.description,
+    label: post.label,
+  }
 }
 
 export const services = [

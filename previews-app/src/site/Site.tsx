@@ -15,6 +15,7 @@ import { hasMedia, type MediaId } from "./mediaSlots"
 import { PackageFinder } from "./PackageFinder"
 import { prices, pricingPackages } from "./pricing"
 import { ContactBrief } from "./ContactBrief"
+import { BlogIndex, BlogPost, RelatedArticles } from "./Blog"
 import { useEffect, useState, type ReactNode } from "react"
 import { ArrowDown, ArrowRight, Check, Menu, Phone, X } from "lucide-react"
 import { lt } from "@/content-lt"
@@ -153,6 +154,7 @@ function Home() {
         </div>
       </div>
     </Section>
+    <RelatedArticles path="/" title="Patarimai, kaip būti randamam internete" />
     <Section number="05" label="Klausimai" title="Prieš užsakant svetainę." sand>
       <div className="lg:ml-[25%]"><FaqItems items={[allFaq[0], allFaq[5], allFaq[19]]} /><div className="mt-6"><Link href="/duk/">Visi klausimai ir atsakymai</Link></div></div>
     </Section>
@@ -464,16 +466,6 @@ export function Site({ path = "/" }: { path?: string }) {
       page?.intro ?? "Šis puslapis nerastas. Grįžkite į GraspIT pradžią."
     )
   }, [page])
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    inLanguage: "lt",
-    mainEntity: allFaq.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  }
   return (
     <div data-theme="bento-swiss" className={`min-h-screen ${contact.phone ? "pb-[4.5rem] md:pb-0" : ""}`}>
       <a
@@ -587,13 +579,14 @@ export function Site({ path = "/" }: { path?: string }) {
                       <span aria-hidden="true">/</span>
                     </>
                   )}
+                  {path.startsWith("/blogas/") && <><a href="/blogas/" className="inline-flex min-h-11 items-center hover:underline">Blogas</a><span aria-hidden="true">/</span></>}
                   {path.startsWith("/darbai/") && <><a href="/darbai/" className="inline-flex min-h-11 items-center hover:underline">Darbai</a><span aria-hidden="true">/</span></>}
                   <span aria-current="page">{page.label}</span>
                 </nav>
                 <p className={`${eyebrow} ${photo ? "text-[#bfe8d8]" : "text-[var(--signal)]"}`}>
                   {page.label}
                 </p>
-                <h1 className="mt-5 mb-8 max-w-[20ch] text-[clamp(2.7rem,7vw,6.4rem)] leading-[.98] font-bold tracking-[-.05em]">
+                <h1 className={path.startsWith("/blogas/") ? "mt-5 mb-8 max-w-[24ch] text-[clamp(2.3rem,5vw,4.6rem)] leading-[1.02] font-bold tracking-[-.045em]" : "mt-5 mb-8 max-w-[20ch] text-[clamp(2.7rem,7vw,6.4rem)] leading-[.98] font-bold tracking-[-.05em]"}>
                   {page.heading}
                 </h1>
                 <div className={`grid gap-6 border-t pt-6 lg:grid-cols-12 ${photo ? "border-white/70" : "border-foreground"}`}>
@@ -614,6 +607,8 @@ export function Site({ path = "/" }: { path?: string }) {
             {path.startsWith("/darbai/") && <CaseStudy slug={path.split("/")[2]} />}
             {path === "/biblioteka" && <ProjectLibrary />}
             {path === "/kontaktai" && <Contact />}
+            {path === "/blogas" && <BlogIndex />}
+            {path.startsWith("/blogas/") && <BlogPost slug={path.split("/")[2]} />}
             {path === "/duk" && (
               <>
                 <div
@@ -651,16 +646,11 @@ export function Site({ path = "/" }: { path?: string }) {
                     </div>
                   </section>
                 ))}
-                <script
-                  type="application/ld+json"
-                  dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
-                  }}
-                />
               </>
             )}
           </>
         )}
+        {page && ["/paslaugos", "/kainos", "/duk", "/procesas", "/darbai"].some((p) => path === p || path.startsWith(p + "/")) && !path.startsWith("/darbai/") && <RelatedArticles path={path} />}
         {path !== "/kontaktai" && (
           <section className={`${band} bg-[var(--signal)] text-white`}>
             <div className={`${wrap} grid items-end gap-8 lg:grid-cols-12`}>

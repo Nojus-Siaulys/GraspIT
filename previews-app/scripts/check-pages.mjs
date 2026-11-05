@@ -45,11 +45,15 @@ for (const path of Object.keys(pages)) {
     )
     assert.ok(href.endsWith("/"), `${path}: directory URL ${href}`)
   }
+  const scripts = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
+  assert.equal(scripts.length, 1, `${path}: one JSON-LD block`)
+  const graph = JSON.parse(scripts[0][1])["@graph"]
+  assert.ok(graph.some((node) => node["@type"] === "Organization"), `${path}: Organization schema`)
+  if (path !== "/") assert.ok(graph.some((node) => node["@type"] === "BreadcrumbList"), `${path}: breadcrumbs schema`)
+  if (path.startsWith("/blogas/")) assert.ok(graph.some((node) => node["@type"] === "BlogPosting"), `${path}: BlogPosting schema`)
   if (path === "/duk") {
-    const schema = JSON.parse(
-      html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]
-    )
-    assert.equal(schema["@type"], "FAQPage")
+    const schema = graph.find((node) => node["@type"] === "FAQPage")
+    assert.ok(schema, "FAQPage schema")
     assert.equal(schema.mainEntity.length, 22)
     assert.equal((html.match(/<details\b/g) ?? []).length, 22)
     for (const question of schema.mainEntity) {
@@ -69,6 +73,11 @@ assert.match(
   /name="robots" content="noindex"/
 )
 await assert.rejects(access("dist/stiliai/index.html"), { code: "ENOENT" })
+const robots = await readFile("dist/robots.txt", "utf8")
+for (const bot of ["GPTBot", "OAI-SearchBot", "ClaudeBot", "PerplexityBot"]) assert.ok(robots.includes(`User-agent: ${bot}`), `robots.txt names ${bot}`)
+assert.ok(robots.includes("Disallow: /previews/"), "robots.txt hides design previews")
+const llms = await readFile("dist/llms.txt", "utf8")
+assert.ok(llms.startsWith("# GraspIT"), "llms.txt present")
 console.log(
-  `PASS: ${titles.size} prerendered pages, unique titles, Lithuanian metadata, internal directory links, 22 visible FAQ answers matching JSON-LD, noindex 404, no alternative designs or gallery.`
+  `PASS: ${titles.size} prerendered pages, JSON-LD on every page, robots.txt + llms.txt, unique titles, Lithuanian metadata, internal directory links, 22 visible FAQ answers matching JSON-LD, noindex 404, no alternative designs or gallery.`
 )

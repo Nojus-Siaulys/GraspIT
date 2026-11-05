@@ -1,4 +1,6 @@
 import { renderToString } from "react-dom/server"
 import { Site } from "./site/Site"
-export { pages } from "./site/content"
+export { pages, navigation, services } from "./site/content"
+export { posts } from "./site/blog"
+export { structuredData } from "./site/schema"
 export const render = (path: string) => renderToString(<Site path={path} />)
