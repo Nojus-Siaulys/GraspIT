@@ -60,6 +60,19 @@ export const personalProjects: PersonalProject[] = [
     features: ["Dokumentų įkėlimas ir paieška jų turinyje.", "Pokalbio sąsaja su nuorodomis į atsakymo šaltinius.", "Klientų informacijos ir taisyklių pokyčių peržiūros."],
   },
   {
+    id: "aiscan", title: "AIScan", category: "AI ir LLM", kind: "Kuriamas įrankis",
+    description: "AI atsakymų matomumo matavimas: ar ChatGPT, Perplexity ir kiti AI asistentai mini prekės ženklą, kurioje vietoje ir kokius konkurentus siūlo vietoje jo.",
+    story: {
+      idea: "Viskas prasidėjo nuo rankinio tyrimo: AI asistentų klausinėjau, kur Lietuvoje įsigyti priešgaisrines duris, ir tikrinau atsakymus. Nė viena įmonė neblokavo AI robotų, bet į atsakymus pirkėjo klausimams nepateko nė viena iš tų, kurias tikrinau.",
+      problem: "Techninis patikrinimas („ar svetainė leidžia AI robotus?“) neatsako į svarbiausią klausimą: ar AI iš tikrųjų rekomenduoja jūsų verslą. Todėl projektą perorientavau nuo svetainės skenavimo prie paties AI atsakymų matavimo.",
+      direction: "Įrankis dar kuriamas. Pirmiausia noriu, kad jis gerai veiktų mano paties darbui su klientų GEO, ir tik tada jį paleisti viešai. Kol kas prijungta Perplexity paieška, kiti AI tiekėjai bus pridedami vėliau.",
+      lesson: "Prekės ženklo paminėjimą atpažinti sunkiau, nei atrodo. Lietuvių kalboje pavadinimai linksniuojami, įmonės turi teisines formas (UAB, MB), o tas pats verslas gali būti paminėtas ir pavadinimu, ir domenu.",
+    },
+    technologies: ["Next.js", "TypeScript", "Supabase", "Perplexity API", "Vitest"],
+    focus: "Kaip patikimai išmatuoti verslo matomumą AI atsakymuose: kiek kartų jis paminimas, kurioje vietoje ir kas paminimas vietoje jo.",
+    features: ["Klausimų rinkinio generavimas pagal verslą ir pirkėjo ketinimus.", "Prekės ženklo atpažinimas atsakymuose ir šaltiniuose, įskaitant lietuviškus linksnius.", "Fone veikiantis paketinis vykdymas ir konkurentų dažnumo ataskaita."],
+  },
+  {
     id: "refernet", title: "ReferNet", category: "Web projektai", kind: "Platformos prototipas",
     description: "B2B platformos idėja agentūroms, kurios nori perduoti netinkamus užsakymus partneriams ir sekti rekomendacijų eigą.",
     screenshots: [{"src": "/img/projects/refernet-home.jpg", "label": "Pristatymo puslapis", "alt": "ReferNet pagrindinis puslapis apie užklausų perdavimą agentūroms.", "width": 1226, "height": 707}, {"src": "/img/projects/refernet-economics.jpg", "label": "Rekomendacijų modelis", "alt": "ReferNet puslapyje paaiškintas rekomendacijos mokesčio ir mokėjimų modelis.", "width": 1226, "height": 707}],

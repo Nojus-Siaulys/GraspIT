@@ -319,6 +319,7 @@ export const posts: Post[] = [
         h: "Kaip tai daroma GraspIT svetainėse",
         body: [
           "Kurdami svetaines generuojame visą tekstą statiniame HTML, žymime struktūrinius duomenis, ruošiame DUK, robots.txt su AI robotų leidimais ir llms.txt failą. Tai dalis mūsų [techninio SEO](/blogas/techninis-seo-sarasas/) pagrindo. Plačiau – [svetainių kūrimo puslapyje](/paslaugos/svetaines/).",
+          "Kad rezultatą būtų galima pamatuoti, kuriame savo įrankį [AIScan](/biblioteka/#aiscan): jis tikrina, ar AI asistentai mini verslą atsakymuose į pirkėjų klausimus ir kokius konkurentus siūlo vietoje jo.",
         ],
       },
     ],

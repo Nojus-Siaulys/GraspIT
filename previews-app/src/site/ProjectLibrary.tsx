@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
-import { ArrowRight, ArrowUpRight, Bot, CarFront, ChartCandlestick, ChevronLeft, ChevronRight, Gem, Hammer, Handshake, Lightbulb, Palette, PencilLine, RotateCcw, Search, Shuffle, X } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Bot, CarFront, ChartCandlestick, ChevronLeft, ChevronRight, Gem, Radar, Hammer, Handshake, Lightbulb, Palette, PencilLine, RotateCcw, Search, Shuffle, X } from "lucide-react"
 import { personalProjects, projectCategories, type PersonalProject, type ProjectCategory } from "./personalProjects"
 
 const wrap = "mx-auto max-w-[1280px] px-5 md:px-8"
 
 // Every project uses the same surface. Green communicates actions and key takeaways.
 const icons: Record<string, typeof Hammer> = {
-  foreman: Hammer, pensila: PencilLine, gintara: Gem, "python-bot": Bot, "trade-journal": ChartCandlestick,
+  foreman: Hammer, pensila: PencilLine, gintara: Gem, "python-bot": Bot, "trade-journal": ChartCandlestick, aiscan: Radar,
   refernet: Handshake, "car-market": CarFront, portfolio: Palette,
 }
 
