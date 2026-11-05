@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from "react"
 import { ArrowRight } from "lucide-react"
-import { blogAuthor, postBySlug, posts, relatedPosts, type Block, type Post } from "./blog"
+import { blogAuthor, postBySlug, posts, relatedPosts, type Block, type Post } from "./posts"
 
 const wrap = "mx-auto max-w-[1280px] px-5 md:px-8"
 const band = "py-16 md:py-24"

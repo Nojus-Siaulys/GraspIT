@@ -1,5 +1,5 @@
 import { allFaq, pages, services } from "./content"
-import { blogAuthor, postBySlug, posts } from "./blog"
+import { blogAuthor, postBySlug, posts } from "./posts"
 import { prices } from "./pricing"
 import { contact } from "./settings"
 

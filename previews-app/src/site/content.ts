@@ -1,5 +1,5 @@
 import { prices } from "./pricing.js"
-import { posts } from "./blog.js"
+import { posts } from "./posts.js"
 export const navigation = [
   ["/paslaugos", "Paslaugos"],
   ["/darbai", "Darbai"],
