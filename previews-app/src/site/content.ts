@@ -44,7 +44,7 @@ export const pages: Record<
     label: "El. parduotuvių kūrimas",
   },
   "/paslaugos/ai-agentai": {
-    title: `AI automatizacija verslui nuo ${prices.email} | GraspIT`,
+    title: "AI automatizacija verslui | GraspIT",
     heading: "Darbo procesų automatizavimas",
     intro:
       "Automatizuojame laiškų ir darbo procesus pasitelkdami dirbtinį intelektą. Pradedame nuo vienos aiškios užduoties ir sutariame, kaip tikrinsime rezultatą.",
@@ -152,7 +152,7 @@ export const services = [
     href: "/paslaugos/ai-agentai",
     title: "AI automatizacija",
     text: "Kai pasikartojantys laiškai ar procesai atima per daug laiko.",
-    price: `nuo ${prices.email}`,
+    price: "Kaina aptariama po pokalbio",
     number: "03",
   },
   { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Esamos svetainės dizaino ir struktūros atnaujinimas pagal jūsų veiklą.", price: "Kaina pagal apimtį", number: "04" }

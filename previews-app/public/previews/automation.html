@@ -63,10 +63,28 @@
 .data li::before{content:"✓";font-weight:900}
 .data ul{margin:0;padding:0;display:grid;gap:.4em}
 
+/* Data transfer */
+.sheet{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.7fr);gap:1.4em;padding:1.6em 2em;align-content:start;height:100%}
+.tbl{display:grid;gap:.4em}
+.tr{display:grid;grid-template-columns:.8fr 1fr 1.7fr .9fr;gap:.8em;align-items:center;padding:.7em .9em;border-radius:.8em;background:#f3f5f7;opacity:0;translate:0 .5em;transition:opacity .35s,translate .35s,box-shadow .3s,background .3s}
+.tr.on{opacity:1;translate:0 0}
+.tr.h{background:none;padding-block:.2em;font-size:.78em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6b7d8f}
+.tr.fresh.hl{background:#fff;box-shadow:inset 0 0 0 .14em var(--k-ink)}
+.tr b{font-weight:700}.tr span{color:#4b5f74;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr i{font-style:normal;justify-self:start;font-size:.78em;font-weight:800;padding:.35em .8em;border-radius:99em;background:var(--k-mint)}
+/* Weekly summary */
+.rep{display:grid;gap:1.4em;padding:1.6em 2em;align-content:start;height:100%}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.9em}
+.st{background:#fff;border-radius:1.1em;padding:1em 1.1em;opacity:0;scale:.92;transition:opacity .4s,scale .4s}
+.st.on{opacity:1;scale:1}
+.st b{display:block;font-size:2.4em;font-weight:900;letter-spacing:-.04em;line-height:1}
+.st span{display:block;margin-top:.4em;color:#4b5f74;font-size:.9em;font-weight:600}
+
 @container screen (min-width:561px){
   .site{font-size:1.85cqw}
 }
 @container screen (max-width:560px){
+  .sheet{grid-template-columns:1fr;padding:1.2em}.tr{grid-template-columns:1fr 1fr}.tr.h{display:none}.rep{padding:1.2em}.stats{grid-template-columns:1fr 1fr}
   .cols,.ctrl{grid-template-columns:1fr;padding:1.2em 1.2em}.chain{grid-template-columns:1fr;gap:1.2em}.cn{display:none}.flow{padding:1.4em 1.2em}.top{padding:.9em 1.2em}
 }
 </style>
@@ -96,6 +114,29 @@
                 <div class="meta">Jonas P. · Kainos užklausa</div>
                 <p class="msg">Sveiki, kavinėje ieškome tiekėjo. Kokia kaina 5 kg mišinio ir ar galima išbandyti mėginį?</p>
                 <div class="draft"><small>Atsakymo juodraštis</small><span id="draft-text"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1b. Data transfer -->
+        <div class="pane site" id="p-sheet">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Užklausų lentelė</span></div>
+            <div class="sheet">
+              <div class="card2" id="sh-mail">
+                <h3>Gautas laiškas</h3>
+                <div class="meta">Rūta M. · Užsakymo būsena</div>
+                <p class="msg">Kur mano užsakymas Nr. 1042?</p>
+              </div>
+              <div class="card2">
+                <h3>Užklausų lentelė</h3>
+                <div class="tbl">
+                  <div class="tr h"><span>Diena</span><span>Klientas</span><span>Užklausa</span><span>Būsena</span></div>
+                  <div class="tr"><span>Pirm.</span><b>Jonas P.</b><span>Kainos užklausa</span><i>Atsakyta</i></div>
+                  <div class="tr"><span>Pirm.</span><b>Tomas B.</b><span>Prenumerata</span><i>Atsakyta</i></div>
+                  <div class="tr fresh" id="tr-new"><span>Antr.</span><b>Rūta M.</b><span>Užsakymo būsena</span><i>Naujas</i></div>
+                </div>
               </div>
             </div>
           </div>
@@ -142,6 +183,29 @@
           </div>
         </div>
 
+        <!-- 4. Weekly summary -->
+        <div class="pane site" id="p-report">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Savaitės suvestinė</span></div>
+            <div class="rep">
+              <div class="stats">
+                <div class="st"><b>24</b><span>Gauta laiškų</span></div>
+                <div class="st"><b>18</b><span>Atsakymų paruošta</span></div>
+                <div class="st"><b>3</b><span>Laukia patvirtinimo</span></div>
+                <div class="st"><b>3</b><span>Perduota jums</span></div>
+              </div>
+              <div class="card2">
+                <h3>Laukia jūsų</h3>
+                <div class="rules">
+                  <div class="rule"><b>Skundas dėl užsakymo Nr. 1038</b><span class="who2 human">Tvirtina žmogus</span></div>
+                  <div class="rule"><b>Pasiūlymas kavinių tinklui</b><span class="who2 human">Tvirtina žmogus</span></div>
+                  <div class="rule"><b>Grąžinimo prašymas</b><span class="who2 human">Tvirtina žmogus</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -161,15 +225,17 @@
 (function () {
   var $ = function (s) { return document.querySelector(s) }
   var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)) }
-  var ems = $$("#p-inbox .em"), fns = $$("#p-flow .fn"), rules = $$("#p-ctrl .rule")
+  var ems = $$("#p-inbox .em"), fns = $$("#p-flow .fn"), rules = $$("#p-ctrl .rule"), rows = $$("#p-sheet .tr"), stats = $$("#p-report .st"), waiting = $$("#p-report .rule")
   var DRAFT = "Sveiki, Jonai! Ačiū už žinutę. Siunčiame kainoraštį kavinėms ir 5 kg užsakymo pasiūlymą. Ar patogu šią savaitę gauti mėginį?"
   var clamp = function (v) { return Math.min(1, Math.max(0, v)) }
 
   Player.start({
     groups: [
       { title: "Pasikartojantys laiškai", line: "Laiškų rūšiavimas ir atsakymų ruošimas." },
+      { title: "Duomenys be perkėlimo", line: "Informacija iš laiško patenka ten, kur jos reikia." },
       { title: "Darbo procesai", line: "Sujungiame aiškius žingsnius į vieną procesą." },
-      { title: "Kontrolė ir patikra", line: "Sutariame, kur sprendimą patvirtina žmogus ir kokie duomenys naudojami." }
+      { title: "Kontrolė ir patikra", line: "Sutariame, kur sprendimą patvirtina žmogus ir kokie duomenys naudojami." },
+      { title: "Savaitės suvestinė", line: "Matote, kas padaryta ir kas laukia jūsų." }
     ],
     steps: [
       { g: 0, pane: "#p-inbox", url: "Gautieji laiškai", hold: 9200,
@@ -186,7 +252,12 @@
           txt.textContent = DRAFT.slice(0, n)
           txt.classList.toggle("caret", t >= 3400 && n < DRAFT.length)
         } },
-      { g: 1, pane: "#p-flow", url: "Darbo eiga", hold: 6600,
+      { g: 1, pane: "#p-sheet", url: "Užklausų lentelė", hold: 7000,
+        tick: function (t) {
+          rows.forEach(function (r, i) { r.classList.toggle("on", t >= 400 + i * 650 + (i === 3 ? 900 : 0)) })
+          $("#tr-new").classList.toggle("hl", t >= 3600)
+        } },
+      { g: 2, pane: "#p-flow", url: "Darbo eiga", hold: 6600,
         tick: function (t) {
           fns.forEach(function (f, i) {
             f.classList.toggle("on", t >= 500 + i * 1100)
@@ -194,7 +265,7 @@
             if (c) c.style.width = clamp((t - (900 + i * 1100)) / 800) * 100 + "%"
           })
         } },
-      { g: 2, pane: "#p-ctrl", url: "Patvirtinimas", hold: 7600,
+      { g: 3, pane: "#p-ctrl", url: "Patvirtinimas", hold: 7600,
         cursor: [{ at: 3300, sel: "#approve", click: 4200 }, { at: 5200, sel: null }],
         tick: function (t) {
           rules.forEach(function (r, i) { r.classList.toggle("on", t >= 500 + i * 700) })
@@ -203,6 +274,11 @@
           st.classList.toggle("sent", sent)
           var label = sent ? "Išsiųsta" : "Laukia jūsų patvirtinimo"
           if (st.textContent !== label) st.textContent = label
+        } },
+      { g: 4, pane: "#p-report", url: "Savaitės suvestinė", hold: 7000,
+        tick: function (t) {
+          stats.forEach(function (e, i) { e.classList.toggle("on", t >= 300 + i * 450) })
+          waiting.forEach(function (e, i) { e.classList.toggle("on", t >= 2500 + i * 600) })
         } }
     ]
   })

@@ -1,6 +1,6 @@
 import { HeroBackdrop } from "./HeroBackdrop"
 import { CaseStudy } from "./CaseStudy"
-import { ServiceScenarios, StructureExplorer, PackageScope } from "./DecisionContent"
+import { AiBrief, AiSections, ServiceScenarios, StructureExplorer, PackageScope } from "./DecisionContent"
 import { ProjectLibrary } from "./ProjectLibrary"
 import { About } from "./About"
 import { ProjectGallery } from "./ProjectGallery"
@@ -307,11 +307,11 @@ function Services({ path }: { path: string }) {
     ? [
         [
           "Pasikartojantys laiškai",
-          `Laiškų rūšiavimas ir atsakymų ruošimas. Nuo ${prices.email}.`,
+          "Laiškų rūšiavimas ir atsakymų ruošimas.",
         ],
         [
           "Darbo procesai",
-          `Sujungiame aiškius žingsnius į vieną procesą. Nuo ${prices.workflow}.`,
+          "Sujungiame aiškius žingsnius į vieną procesą.",
         ],
         [
           "Kontrolė ir patikra",
@@ -374,22 +374,25 @@ function Services({ path }: { path: string }) {
           ))}
         </div>
       </Section>
-      <Section
-        number="02"
-        label="Prieš startą"
-        title="Pirmiausia – apimtis ir susitarimas."
-      >
-        <div className="lg:ml-[25%]">
-          <p className="mb-6 max-w-[65ch] text-xl leading-relaxed">
-            {ai
-              ? "Aptariame dabartinį procesą ir naudojamas priemones. Paslaugų tiekėjų mokesčiai vertinami atskirai. Slaptažodžių per viešą formą nesiųskite."
-              : "Išsiaiškiname puslapius, funkcijas ir turinį, tada pateikiame kainą ir terminą. Domenas ir talpinimas aptariami atskirai."}
-          </p>
-          <Link href={ai ? "/kontaktai/" : "/kainos/"}>
-            {ai ? "Aptarti automatizaciją" : "Palyginti paketus ir kainas"}
-          </Link>
-        </div>
-      </Section>
+      {ai ? (
+        <>
+          <AiSections />
+          <AiBrief />
+        </>
+      ) : (
+        <Section
+          number="02"
+          label="Prieš startą"
+          title="Pirmiausia – apimtis ir susitarimas."
+        >
+          <div className="lg:ml-[25%]">
+            <p className="mb-6 max-w-[65ch] text-xl leading-relaxed">
+              Išsiaiškiname puslapius, funkcijas ir turinį, tada pateikiame kainą ir terminą. Domenas ir talpinimas aptariami atskirai.
+            </p>
+            <Link href="/kainos/">Palyginti paketus ir kainas</Link>
+          </div>
+        </Section>
+      )}
     </>
   )
 }

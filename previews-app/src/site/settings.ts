@@ -1,6 +1,8 @@
 const env = (import.meta as ImportMeta & { env: Record<string, string | undefined> }).env
 const email = (env.VITE_CONTACT_EMAIL ?? "").trim()
 const phone = (env.VITE_CONTACT_PHONE ?? "").trim()
+const booking = (env.VITE_BOOKING_URL ?? "").trim()
+export const bookingUrl = /^https:\/\/\S+$/.test(booking) ? booking : ""
 export const contact = {
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : "",
   phone: /^\+?[\d ()-]{7,}$/.test(phone) ? phone : "",

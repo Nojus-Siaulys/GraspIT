@@ -9,7 +9,6 @@ const euros = (value: string) => Number(value.replace(/[^\d]/g, ""))
 const servicePrice: Record<string, number | undefined> = {
   "/paslaugos/svetaines": euros(prices.website),
   "/paslaugos/el-parduotuves": euros(prices.shop),
-  "/paslaugos/ai-agentai": euros(prices.email),
 }
 
 export function structuredData(path: string, origin = "") {

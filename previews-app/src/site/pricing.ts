@@ -1,4 +1,4 @@
-export const prices = { website: "€350", shop: "€700", email: "€950", workflow: "€1 500" } as const
+export const prices = { website: "€350", shop: "€700" } as const
 
 export const pricingPackages = [
           {

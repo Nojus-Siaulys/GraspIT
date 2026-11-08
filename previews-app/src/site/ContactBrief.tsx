@@ -1,19 +1,23 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { ArrowRight, Check, Download } from "lucide-react"
 import { PackageFinder } from "./PackageFinder"
-import { completeInquiry, draftInquiry, inquiryFromParams, inquiryServices, inquirySummary } from "./inquiryDraft"
+import { aiBriefKey, aiBriefText, completeInquiry, draftInquiry, inquiryFromParams, inquiryServices, inquirySummary } from "./inquiryDraft"
 
 const serviceOptions = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Dar nežinau"]
+function savedAiBrief() {
+  try { return aiBriefText(sessionStorage.getItem(aiBriefKey)) } catch { return "" }
+}
 function initialBrief() {
-  return inquiryFromParams(new URLSearchParams(typeof window === "undefined" ? "" : window.location.search))
+  const initial = inquiryFromParams(new URLSearchParams(typeof window === "undefined" ? "" : window.location.search))
+  return { ...initial, brief: typeof window !== "undefined" && initial.service === inquiryServices.automation ? savedAiBrief() : "" }
 }
 
 export function ContactBrief() {
   const [initial] = useState(initialBrief)
   const [service, setService] = useState(initial.service)
   const [answers, setAnswers] = useState(initial.answers)
-  const [message, setMessage] = useState(() => draftInquiry(initial.answers, initial.context))
-  const [wizard, setWizard] = useState(!completeInquiry(initial.answers))
+  const [message, setMessage] = useState(() => draftInquiry(initial.answers, initial.context) || initial.brief)
+  const [wizard, setWizard] = useState(!completeInquiry(initial.answers) && !initial.brief)
   const [editing, setEditing] = useState(!completeInquiry(initial.answers))
   const [dirty, setDirty] = useState(false)
   const [pendingDraft, setPendingDraft] = useState("")
@@ -60,6 +64,7 @@ export function ContactBrief() {
       const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data), signal: AbortSignal.timeout(15000) })
       const result = await response.json()
       if (!response.ok || result.sent !== true) { setNotice(result.error || "Išsiųsti nepavyko. Jūsų įrašai liko formoje."); return }
+      try { sessionStorage.removeItem(aiBriefKey) } catch { /* storage blocked: nothing to clear */ }
       setSent(true)
     } catch { setNotice("Nepavyko patvirtinti išsiuntimo. Jūsų įrašai liko formoje. Bandykite vėliau arba išsisaugokite aprašymą.") }
     finally { setBusy(false) }

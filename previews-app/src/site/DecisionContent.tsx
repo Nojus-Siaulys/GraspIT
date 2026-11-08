@@ -1,5 +1,8 @@
-import { useState } from "react"
+import { useState, type FormEvent } from "react"
 import { ArrowRight, Check, MousePointer2, LayoutTemplate, Layers, Image, MessageSquare, Tag, Users, Newspaper, CircleHelp } from "lucide-react"
+
+import { aiBriefKey } from "./inquiryDraft"
+import { bookingUrl } from "./settings"
 
 const wrap = "mx-auto max-w-[1280px] px-5 md:px-8"
 const scenarios = [
@@ -76,4 +79,75 @@ export function StructureExplorer() {
 
 export function PackageScope() {
   return <section className="py-16 md:py-24" aria-labelledby="scope-heading"><div className={wrap}><p className="ux-eyebrow">Kas bus sukurta</p><h2 id="scope-heading" className="mt-5 max-w-[23ch] text-3xl font-bold tracking-tight md:text-5xl">Kaina lengviau suprantama, kai matote apimtį.</h2><div className="mt-10 grid gap-4 lg:grid-cols-2"><article className="ux-panel bg-secondary p-6 md:p-9"><h3 className="text-2xl font-semibold tracking-tight">Iki 4 puslapių — pavyzdinė struktūra</h3><ol className="mt-6">{[["Pradžia", "Kas esate, ką darote ir kaip susisiekti."], ["Paslaugos", "Ką siūlote ir kokiam klientui tai tinka."], ["Darbai arba apie mus", "Pavyzdžiai ir kontekstas pasitikėjimui."], ["Kontaktai", "Aiškus kelias iki užklausos."]].map(([title, text], index) => <li key={title} className="flex gap-4 border-t border-foreground/20 py-4"><span className="text-xs text-muted-foreground">0{index + 1}</span><div><h4 className="font-semibold">{title}</h4><p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p></div></li>)}</ol><p className="mt-4 text-sm text-muted-foreground">Puslapių paskirtį galime keisti pagal jūsų veiklą. Tai apimties pavyzdys.</p></article><div className="grid gap-4"><article className="ux-panel p-6 md:p-9"><h3 className="text-xl font-semibold">Ką paruošiame kartu?</h3><ul className="mt-5 space-y-3">{["Puslapių ir pagrindinių veiksmų planą", "Turinio bei nuotraukų sąrašą", "Sutartą dizainą, pritaikymą ekranams ir patikrą"].map(text => <li key={text} className="flex gap-3"><Check className="mt-1 size-4 shrink-0" />{text}</li>)}</ul></article><article className="ux-panel bg-foreground p-6 text-white md:p-9"><h3 className="text-xl font-semibold">Kas aptariama papildomai?</h3><p className="mt-4 leading-relaxed text-white/80">Domenas ir talpinimas, tekstų rašymas, mokamos integracijos, papildomos kalbos ir didesnės funkcijos. Prieš pradėdami įvardijame, kas įtraukta į jūsų pasiūlymą.</p></article></div></div></div></section>
+}
+
+const aiSituations = [
+  { title: "Tie patys laiškai", text: "Klientai klausia to paties, o atsakymus tenka ruošti rankiniu būdu.", example: "Pavyzdys: kainų užklausos, užsakymo būsena." },
+  { title: "Rankiniu būdu perkeliami duomenys", text: "Informacija iš laiško ar formos kopijuojama į kitą sistemą ar lentelę.", example: "Pavyzdys: užklausos iš pašto į užsakymų lentelę." },
+  { title: "Žingsniai, kuriuos lengva pamiršti", text: "Priminimai, patvirtinimai ir tolesni veiksmai, kurie priklauso nuo žmogaus atminties.", example: "Pavyzdys: atsakymas klientui po savaitės." },
+]
+const aiIncluded = [
+  "Dabartinio proceso ir naudojamų priemonių aptarimas",
+  "Viena aiški pirmoji užduotis, nuo kurios pradedame",
+  "Sutartas būdas, kaip tikrinsime rezultatą",
+  "Aiškiai nustatyta, kur sprendimą patvirtina žmogus",
+  "Iš anksto sutarta, kokie duomenys naudojami",
+]
+const aiFaq = [
+  { q: "Ar AI atsakys klientams be žmogaus?", a: "Tik ten, kur tai sutariame. Kiekvienai užduočiai nusprendžiame, kur sprendimą patvirtina žmogus." },
+  { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo proceso apimties. Ją sutariame po pokalbio, prieš pradėdami darbą." },
+  { q: "Ką daryti su slaptais duomenimis?", a: "Slaptažodžių ir slaptų duomenų per svetainės formą nesiųskite. Kokie duomenys naudojami, sutariame iš anksto." },
+]
+
+export function AiSections() {
+  return <>
+    <section className="py-16 md:py-24" aria-labelledby="ai-fit-heading"><div className={wrap}>
+      <p className="ux-eyebrow">Kam tinka</p>
+      <h2 id="ai-fit-heading" className="mt-5 max-w-[22ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">Kai tas pats darbas kartojasi kiekvieną dieną.</h2>
+      <div className="mt-10 grid gap-4 lg:grid-cols-3">{aiSituations.map((item, index) => <article key={item.title} className="ux-panel bg-secondary p-6 md:p-8"><p className="ux-eyebrow text-muted-foreground">0{index + 1}</p><h3 className="mt-6 text-2xl font-semibold leading-tight tracking-tight">{item.title}</h3><p className="mt-5 leading-relaxed">{item.text}</p><p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.example}</p></article>)}</div>
+    </div></section>
+    <section className="bg-secondary py-16 md:py-24" aria-labelledby="ai-included-heading"><div className={`${wrap} grid gap-10 lg:grid-cols-2`}>
+      <div>
+        <p className="ux-eyebrow">Kas įeina</p>
+        <h2 id="ai-included-heading" className="mt-5 max-w-[16ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">Ką gaunate.</h2>
+        <p className="mt-5 max-w-[45ch] text-lg leading-relaxed text-muted-foreground">Kainos čia nerodome: kiekvienas procesas skirtingas, todėl kainą sutariame po pokalbio. Paslaugų tiekėjų mokesčiai vertinami atskirai.</p>
+      </div>
+      <ul className="space-y-3">{aiIncluded.map(text => <li key={text} className="ux-panel flex gap-3 bg-background p-4"><Check className="mt-1 size-4 shrink-0" aria-hidden="true" />{text}</li>)}</ul>
+    </div></section>
+    <section className="py-16 md:py-24" aria-labelledby="ai-faq-heading"><div className={wrap}>
+      <p className="ux-eyebrow">Dažni klausimai</p>
+      <h2 id="ai-faq-heading" className="mt-5 max-w-[22ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">Apie automatizaciją.</h2>
+      <div className="mt-10 max-w-[820px]">{aiFaq.map(item => <details key={item.q} className="border-t border-foreground/30 py-4 last:border-b"><summary className="cursor-pointer text-lg font-semibold">{item.q}</summary><p className="mt-3 max-w-[60ch] leading-relaxed text-muted-foreground">{item.a}</p></details>)}</div>
+    </div></section>
+  </>
+}
+
+const hoursOptions = ["Iki 2 val.", "2–5 val.", "5–10 val.", "Daugiau nei 10 val.", "Nežinau"]
+const aiField = "mt-2 min-h-12 w-full rounded-md border border-foreground/30 bg-background px-3 py-3 text-base"
+
+export function AiBrief() {
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    try { sessionStorage.setItem(aiBriefKey, JSON.stringify({ task: data.get("task"), hours: data.get("hours"), tools: data.get("tools") })) } catch { /* storage blocked: the contact form opens empty */ }
+    window.location.href = "/kontaktai/?paslauga=AI%20automatizacija"
+  }
+  return <section className="bg-secondary py-16 md:py-24" aria-labelledby="ai-brief-heading"><div className={`${wrap} grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]`}>
+    <div>
+      <p className="ux-eyebrow">Pirmas žingsnis</p>
+      <h2 id="ai-brief-heading" className="mt-5 max-w-[14ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">Trys klausimai prieš pokalbį.</h2>
+      <p className="mt-5 max-w-[42ch] text-lg leading-relaxed text-muted-foreground">Atsakykite trumpai, o mes paruošime užklausą. Likusį išsiaiškinsime pokalbyje.</p>
+    </div>
+    <form onSubmit={submit} className="ux-panel space-y-5 bg-background p-6 md:p-8" action="/kontaktai/" method="get">
+      <input type="hidden" name="paslauga" value="AI automatizacija" />
+      <label className="block font-medium" htmlFor="ai-task">Kokį procesą norite automatizuoti?<textarea id="ai-task" name="task" rows={3} maxLength={800} className={aiField} placeholder="Pvz., atsakymai į kainų užklausas laiškais" /></label>
+      <label className="block font-medium" htmlFor="ai-hours">Kiek laiko jis užima per savaitę?<select id="ai-hours" name="hours" defaultValue="" className={aiField}><option value="">Pasirinkite</option>{hoursOptions.map(option => <option key={option}>{option}</option>)}</select></label>
+      <label className="block font-medium" htmlFor="ai-tools">Kokiomis priemonėmis naudojatės?<input id="ai-tools" name="tools" type="text" maxLength={200} className={aiField} placeholder="Pvz., Gmail, Excel, parduotuvės sistema" /></label>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <button type="submit" className="inline-flex min-h-12 items-center gap-3 rounded-md bg-foreground px-5 py-3 font-semibold text-white">Tęsti į užklausą<ArrowRight className="size-4" aria-hidden="true" /></button>
+        {bookingUrl && <a href={bookingUrl} target="_blank" rel="noopener" className="inline-flex min-h-12 items-center gap-3 rounded-md border border-foreground/40 px-5 py-3 font-semibold">Rezervuoti 30 min skambutį</a>}
+      </div>
+      <p className="text-xs leading-relaxed text-muted-foreground">Atsakymai nesiunčiami, kol nepaspausite „Siųsti“ kitame žingsnyje. Slaptažodžių ir slaptų duomenų nerašykite.</p>
+    </form>
+  </div></section>
 }
