@@ -31,8 +31,7 @@ function Wordmark() {
       if (!natural) return
       const size = (100 * width) / natural
       element.style.setProperty("--fm-fs", `${size}px`)
-      element.style.setProperty("--fm-h", `${size * 0.8}px`)
-      label.style.top = `${-size * 0.1}px`
+      element.style.setProperty("--fm-h", `${size * 0.9}px`)
     }
     fit()
     const resize = new ResizeObserver(fit)
@@ -54,7 +53,7 @@ function Wordmark() {
   return (
     <a ref={box} href="/" className="fm-wordmark" aria-label="GraspIT, į puslapio pradžią">
       <span ref={text} aria-hidden="true">
-        {[...word].map((letter, index) => <i key={index} style={{ transitionDelay: `${index * 70}ms` }}>{letter}</i>)}
+        {[...word].map((letter, index) => <i key={index} style={{ "--d": `${index * 70}ms` } as React.CSSProperties}>{letter}</i>)}
       </span>
     </a>
   )
