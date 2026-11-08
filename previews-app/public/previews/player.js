@@ -147,8 +147,36 @@
         new IntersectionObserver(function (e) { visible = e[0].isIntersecting }).observe(stage)
       }
 
+      // Tell the host page how tall the frame must be so no fixed screen is cut off.
+      // Scrolling panes (steps with `to`) are meant to overflow; every other pane must fit.
+      var scrollSel = steps.filter(function (s) { return s.to }).map(function (s) { return s.pane || ".pane" })
+      var fixedCombos = []
+      steps.forEach(function (s) {
+        var sel = s.pane || ".pane"
+        if (scrollSel.indexOf(sel) >= 0) return
+        if (!fixedCombos.some(function (c) { return c.sel === sel && c.device === s.device })) fixedCombos.push({ sel: sel, device: s.device })
+      })
+      var reportQueued = false
+      function reportHeight() {
+        reportQueued = false
+        if (window.parent === window || !fixedCombos.length) return
+        var keep = dev, need = 0, screenEl = $(".screen")
+        stage.classList.add("measuring")
+        fixedCombos.forEach(function (c) {
+          stage.dataset.device = c.device
+          var chrome = stage.offsetHeight - screenEl.offsetHeight
+          stage.style.height = "0"
+          need = Math.max(need, chrome + $(c.sel).scrollHeight)
+          stage.style.height = ""
+        })
+        stage.dataset.device = keep
+        void stage.offsetWidth
+        stage.classList.remove("measuring")
+        window.parent.postMessage({ type: "preview-height", height: Math.ceil(need) + 8 }, location.origin)
+      }
+      window.addEventListener("resize", function () { if (!reportQueued) { reportQueued = true; requestAnimationFrame(reportHeight) } })
       setDevice(steps[0].device); enter(0); syncPlay()
-      var go = function () { requestAnimationFrame(function (t0) { last = t0; frame(t0) }) }
+      var go = function () { reportHeight(); requestAnimationFrame(function (t0) { last = t0; frame(t0) }) }
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(go, go); else go()
     },
   }

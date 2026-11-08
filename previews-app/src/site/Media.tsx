@@ -4,9 +4,21 @@ import { media, showPlaceholders, type MediaId, type MediaItem } from "./mediaSl
 
 // Animated previews live in /public/previews. The iframe is added only on the client and only near the viewport,
 // so prerendered HTML stays free of embeds and the page's first load does not pay for them.
-export function MediaEmbed({ item, className, decorative = false }: { item: MediaItem; className: string; decorative?: boolean }) {
+// With `grow`, the preview reports how tall its screens really are and the frame never ends up shorter, so nothing is cut off.
+export function MediaEmbed({ item, className, decorative = false, grow = false }: { item: MediaItem; className: string; decorative?: boolean; grow?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
+  const frame = useRef<HTMLIFrameElement>(null)
   const [live, setLive] = useState(false)
+  const [needed, setNeeded] = useState(0)
+  useEffect(() => {
+    if (!grow) return
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin || event.source !== frame.current?.contentWindow || event.data?.type !== "preview-height") return
+      setNeeded(Number(event.data.height) || 0)
+    }
+    window.addEventListener("message", onMessage)
+    return () => window.removeEventListener("message", onMessage)
+  }, [grow])
   useEffect(() => {
     const el = ref.current
     if (!el) return
@@ -19,8 +31,8 @@ export function MediaEmbed({ item, className, decorative = false }: { item: Medi
     io.observe(el)
     return () => io.disconnect()
   }, [])
-  return <div ref={ref} className={`embed-frame w-full overflow-hidden rounded-lg border border-foreground/30 bg-secondary ${className}`} style={{ "--ratio": item.ratio } as React.CSSProperties}>
-    {live && <iframe src={item.embed} title={item.alt} tabIndex={decorative ? -1 : undefined} loading="lazy" className="size-full border-0" />}
+  return <div ref={ref} className={`embed-frame w-full overflow-hidden rounded-lg border border-foreground/30 bg-secondary ${className}`} style={{ "--ratio": item.ratio, minHeight: needed || undefined } as React.CSSProperties}>
+    {live && <iframe ref={frame} src={item.embed} title={item.alt} tabIndex={decorative ? -1 : undefined} loading="lazy" className="size-full border-0" />}
   </div>
 }
 
@@ -33,7 +45,7 @@ export function Media({ id, className = "" }: { id: MediaId; className?: string 
   const frame = `w-full overflow-hidden rounded-lg object-cover ${className}`
   const style = { aspectRatio: item.ratio }
 
-  if (item.embed) return <MediaEmbed item={item} className={className} />
+  if (item.embed) return <MediaEmbed item={item} className={className} grow />
   if (item.src && item.kind === "video") return <video ref={ref} src={item.src} poster={item.poster} aria-label={item.alt} autoPlay muted loop playsInline preload="metadata" className={frame} style={style} />
   if (item.src) return <img src={item.src} alt={item.alt} loading="lazy" decoding="async" className={frame} style={style} />
   if (!showPlaceholders) return null

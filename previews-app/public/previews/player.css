@@ -70,3 +70,6 @@ body{background:var(--sand);color:var(--ink);font:15px/1.45 var(--font);overflow
   .view{padding:12px 12px 0}.segs{padding:0 12px}
 }
 @media (prefers-reduced-motion:reduce){.device,.cursor,.pane,.caption .tx{transition:none;animation:none}}
+
+/* While the host page asks how tall the demo must be, panels jump to size instead of animating. */
+.measuring .device,.measuring .bar{transition:none!important}

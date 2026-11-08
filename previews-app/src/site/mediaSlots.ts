@@ -14,9 +14,9 @@ export const media = {
   processWork: { kind: "photo", ratio: "3 / 2", label: "Projekto eiga: nuo pokalbio iki paleidimo", alt: "Penki projekto žingsniai: pokalbis, pasiūlymas, kūrimas, pastabos ir paleidimas", embed: "/previews/process.html?v=1" },
   aboutVideo: { kind: "video", ratio: "16 / 9", label: "Prisistatymo video: kas esame ir kaip dirbame", alt: "GraspIT komandos prisistatymas", embed: "/previews/about.html?v=1" },
   contactPhoto: { kind: "photo", ratio: "4 / 3", label: "GraspIT komanda", alt: "Abu GraspIT komandos nariai neformalioje nuotraukoje lauke", src: "/img/team/team-casual.webp" },
-  serviceWebsites: { kind: "video", ratio: "16 / 9", label: "Svetainės peržiūros įrašas (slinkimas per puslapį)", alt: "Pavyzdinės verslo svetainės peržiūra: struktūra, pritaikymas ekranams ir paieškos pagrindas", embed: "/previews/websites.html?v=5" },
-  serviceShop: { kind: "video", ratio: "16 / 9", label: "Parduotuvės įrašas: katalogas, krepšelis, užsakymas", alt: "Pavyzdinės el. parduotuvės peržiūra: katalogas, pirkimo kelias ir turinio valdymas", embed: "/previews/shop.html?v=5" },
-  serviceAutomation: { kind: "photo", ratio: "16 / 9", label: "Automatizacijos schema ar ekrano kadras", alt: "Pavyzdinė laiškų ir darbo procesų automatizacija su žmogaus patvirtinimu", embed: "/previews/automation.html?v=5" },
+  serviceWebsites: { kind: "video", ratio: "3 / 2", label: "Svetainės peržiūros įrašas (slinkimas per puslapį)", alt: "Pavyzdinės verslo svetainės peržiūra: struktūra, pritaikymas ekranams ir paieškos pagrindas", embed: "/previews/websites.html?v=5" },
+  serviceShop: { kind: "video", ratio: "3 / 2", label: "Parduotuvės įrašas: katalogas, krepšelis, užsakymas", alt: "Pavyzdinės el. parduotuvės peržiūra: katalogas, pirkimo kelias ir turinio valdymas", embed: "/previews/shop.html?v=5" },
+  serviceAutomation: { kind: "photo", ratio: "3 / 2", label: "Automatizacijos schema ar ekrano kadras", alt: "Pavyzdinė laiškų ir darbo procesų automatizacija su žmogaus patvirtinimu", embed: "/previews/automation.html?v=5" },
   serviceRedesign: { kind: "photo", ratio: "16 / 9", label: "Prieš / po palyginimas", alt: "Pavyzdinė svetainė prieš ir po atnaujinimo", embed: "/previews/redesign.html?v=5" },
 } satisfies Record<string, MediaItem>
 
