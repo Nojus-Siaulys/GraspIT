@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ArrowRight, Check, MousePointer2, LayoutTemplate, Layers, Image, MessageSquare } from "lucide-react"
+import { ArrowRight, Check, MousePointer2, LayoutTemplate, Layers, Image, MessageSquare, Tag, Users, Newspaper, CircleHelp } from "lucide-react"
 
 const wrap = "mx-auto max-w-[1280px] px-5 md:px-8"
 const scenarios = [
@@ -16,6 +16,10 @@ const structure = [
   { label: "Prisistatymas", question: "Ar čia rasiu tai, ko ieškau?", purpose: "Pirmas ekranas trumpai pasako, kuo užsiimate, kam padedate ir nuo ko pradėti.", result: "Lankytojas supranta jūsų pasiūlymą.", icon: LayoutTemplate },
   { label: "Paslaugos", question: "Kuris sprendimas tinka man?", purpose: "Atskiros paslaugų kortelės padeda palyginti galimybes ir pasirinkti pagal savo poreikį.", result: "Lankytojas atpažįsta jam tinkamą paslaugą.", icon: Layers },
   { label: "Darbų pavyzdžiai", question: "Kaip tai atrodo praktiškai?", purpose: "Atlikti darbai su trumpu kontekstu parodo, kaip jūsų paslauga pritaikoma iš tikrųjų.", result: "Lankytojas gali įvertinti jūsų darbą.", icon: Image },
+  { label: "Kainos", question: "Kiek tai kainuos?", purpose: "Aiškios kainos ir tai, kas į jas įeina, leidžia apsispręsti be nepatogių klausimų.", result: "Lankytojas žino eilės tvarką ir gali rašyti drąsiau.", icon: Tag },
+  { label: "Apie mus", question: "Kas už to stovi?", purpose: "Veidai, vardai ir darbo būdas parodo, su kuo žmogus kalbėsis.", result: "Lankytojas pasitiki žmonėmis, ne tik puslapiu.", icon: Users },
+  { label: "Blogas", question: "Ar jie išmano savo sritį?", purpose: "Straipsniai atsako į dažnus klausimus ir padeda surasti jus paieškoje.", result: "Lankytojas randa atsakymą ir lieka pas jus.", icon: Newspaper },
+  { label: "DUK", question: "O jei turiu klausimą?", purpose: "Dažniausi klausimai vienoje vietoje pašalina abejones dar prieš pokalbį.", result: "Lankytojas atsako į abejones pats.", icon: CircleHelp },
   { label: "Susisiekimas", question: "Kaip pradėti pokalbį?", purpose: "Aiškūs kontaktai ir trumpa forma padeda kreiptis net tada, kai žmogus dar nežino visų detalių.", result: "Lankytojas žino kitą žingsnį.", icon: MessageSquare },
 ] as const
 
@@ -55,9 +59,15 @@ export function StructureExplorer() {
           <button {...sectionProps(0)}><span className="sx-block-label"><span>01</span> Prisistatymas</span><span className="sx-hero-content"><span><span className="sx-mock-heading">Jūsų veikla.<br />Aiškiai.</span><span className="sx-mock-copy">Ką siūlote ir kam padedate.</span><span className="sx-mock-action">Pagrindinis veiksmas <ArrowRight className="size-3" aria-hidden="true" /></span></span><span className="sx-abstract-hero" aria-hidden="true"><i /><i /><i /></span></span></button>
           <button {...sectionProps(1)}><span className="sx-block-label"><span>02</span> Paslaugos</span><span className="sx-service-grid">{[1,2,3].map(number => <span key={number} className="sx-mini-card"><span className="sx-mini-icon" aria-hidden="true">0{number}</span><span className="sx-mini-title">Paslauga {number}</span><span className="sx-skeleton-lines" aria-hidden="true"><i /><i /></span></span>)}</span></button>
           <button {...sectionProps(2)}><span className="sx-block-label"><span>03</span> Darbų pavyzdžiai</span><span className="sx-work-grid">{[1,2,3].map(number => <span key={number} className="sx-mini-work"><span className={`sx-work-art sx-work-art-${number}`} aria-hidden="true"><i /><i /></span><span className="sx-mini-title">Projektas {number}</span></span>)}</span></button>
-          <button {...sectionProps(3)}><span className="sx-block-label"><span>04</span> Susisiekimas</span><span className="sx-contact-content"><span className="sx-contact-title">Pradėkime<br />pokalbį.</span><span className="sx-form-outline" aria-hidden="true"><span>Vardas <i /></span><span>El. paštas <i /></span><span className="sx-form-send">Užklausos veiksmas <ArrowRight className="size-3" /></span></span></span></button>
+          <button {...sectionProps(3)}><span className="sx-block-label"><span>04</span> Kainos</span><span className="sx-rows">{[1,2,3].map(number => <span key={number} className="sx-row"><span className="sx-mini-title">Paketas {number}</span><span className="sx-row-tag">€</span></span>)}</span></button>
+          <div className="sx-pair">
+            <button {...sectionProps(4)}><span className="sx-block-label"><span>05</span> Apie mus</span><span className="sx-people" aria-hidden="true"><i /><i /><span className="sx-skeleton-lines"><i /><i /></span></span></button>
+            <button {...sectionProps(5)}><span className="sx-block-label"><span>06</span> Blogas</span><span className="sx-rows">{[1,2,3].map(number => <span key={number} className="sx-row"><i className="sx-row-thumb" aria-hidden="true" /><span className="sx-skeleton-lines" aria-hidden="true"><i /><i /></span></span>)}</span></button>
+          </div>
+          <button {...sectionProps(6)}><span className="sx-block-label"><span>07</span> DUK</span><span className="sx-rows">{[1,2,3].map(number => <span key={number} className="sx-row"><span className="sx-skeleton-lines" aria-hidden="true"><i /></span><span className="sx-row-tag" aria-hidden="true">+</span></span>)}</span></button>
+          <button {...sectionProps(7)}><span className="sx-block-label"><span>08</span> Susisiekimas</span><span className="sx-contact-content"><span className="sx-contact-title">Pradėkime<br />pokalbį.</span><span className="sx-form-outline" aria-hidden="true"><span>Vardas <i /></span><span>El. paštas <i /></span><span className="sx-form-send">Užklausos veiksmas <ArrowRight className="size-3" /></span></span></span></button>
         </div>
-        <p className="sx-caption"><MousePointer2 className="size-4 shrink-0" aria-hidden="true" />Pasirinkite bet kurį iš 4 maketo blokų. Tai demonstracija — duomenys čia nevedami.</p>
+        <p className="sx-caption"><MousePointer2 className="size-4 shrink-0" aria-hidden="true" />Pasirinkite bet kurį iš 8 maketo blokų. Tai demonstracija — duomenys čia nevedami.</p>
       </div>
     </div>
     <div className="mt-7 flex flex-wrap items-center justify-between gap-4"><p className="max-w-[52ch] text-sm leading-relaxed text-muted-foreground">Jūsų svetainei dalių skaičių ir jų eiliškumą parinksime pagal verslo tikslą.</p><a href="/kontaktai/?paslauga=Svetain%C4%97" className="ux-text-link">Aptarti savo svetainę<ArrowRight className="size-4" /></a></div>

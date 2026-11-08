@@ -165,7 +165,7 @@ function StoryDialog({ project, onClose, onPrev, onNext, onSurprise }: { project
     animation.finished.then(() => dialog.close()).catch(() => dialog.close())
   }
 
-  return <dialog ref={dialogRef} aria-labelledby="story-title" onClose={onClose} onCancel={event => { event.preventDefault(); requestClose() }} onClick={event => { if (event.target === dialogRef.current) requestClose() }} className="lib-dialog">
+  return <dialog ref={dialogRef} data-lenis-prevent aria-labelledby="story-title" onClose={onClose} onCancel={event => { event.preventDefault(); requestClose() }} onClick={event => { if (event.target === dialogRef.current) requestClose() }} className="lib-dialog">
     <div className="lib-dialog-bar">
       <p>Biblioteka <span aria-hidden="true">/</span> Projektas {number}</p>
       <button type="button" onClick={requestClose} className="lib-close"><span>Uždaryti</span><X className="size-5" aria-hidden="true" /></button>
