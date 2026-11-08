@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowUp } from "lucide-react"
 import { contact } from "./settings"
+import { smoothScroll } from "./smoothScroll"
 
 // Icon-only button. Appears after about one screen of scrolling and switches colour over the dark footer so it never blends in.
 // On phones it sits above the fixed call bar when that bar is shown.
@@ -24,7 +25,8 @@ export function BackToTop() {
   }, [])
   const goTop = (event: React.MouseEvent<HTMLButtonElement>) => {
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" })
+    if (smoothScroll.lenis) smoothScroll.lenis.scrollTo(0)
+    else window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" })
     event.currentTarget.blur()
   }
   const tone = onFooter
