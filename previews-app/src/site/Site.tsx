@@ -1,6 +1,6 @@
 import { HeroBackdrop } from "./HeroBackdrop"
 import { CaseStudy } from "./CaseStudy"
-import { AiBrief, AiSections, ServiceScenarios, StructureExplorer, PackageScope } from "./DecisionContent"
+import { ServiceDetails, ServiceScenarios, StructureExplorer, PackageScope } from "./DecisionContent"
 import { ProjectLibrary } from "./ProjectLibrary"
 import { About } from "./About"
 import { ProjectGallery } from "./ProjectGallery"
@@ -277,8 +277,8 @@ function Services({ path }: { path: string }) {
         >
           <div className="grid gap-5 md:grid-cols-2">
 {services.map((service, index) => (
-<a key={service.href} href={pageUrl(service.href)} className="group flex min-h-64 flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-9">
-<div className="flex items-center justify-between gap-5"><span className={eyebrow}>{service.number} / {index === 0 ? "Aiškus pristatymas" : index === 1 ? "Pardavimas internetu" : index === 2 ? "Mažiau rankinio darbo" : "Svetainės dizaino atnaujinimas"}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
+<a key={service.href} href={pageUrl(service.href)} className={`group flex min-h-64 flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-9${index === services.length - 1 && services.length % 2 ? " md:col-span-2" : ""}`}>
+<div className="flex items-center justify-between gap-5"><span className={eyebrow}>{service.number} / {index === 0 ? "Aiškus pristatymas" : index === 1 ? "Pardavimas internetu" : index === 2 ? "Mažiau rankinio darbo" : index === 3 ? "Svetainės dizaino atnaujinimas" : "Savo sistema"}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
 <div className="mt-9 grid gap-6 lg:grid-cols-2"><div><h3 className="text-3xl font-bold tracking-tight md:text-4xl">{service.title}</h3><p className="mt-4 max-w-[45ch] text-lg leading-relaxed">{service.text}</p></div><div className="flex flex-col justify-end lg:items-end"><span className="text-3xl font-bold">{service.price}</span><span className="mt-2 text-sm">Pagal sutartą darbų apimtį</span></div></div>
 </a>))}
 </div>
@@ -302,8 +302,15 @@ function Services({ path }: { path: string }) {
     )
   const store = path.endsWith("el-parduotuves")
   const ai = path.endsWith("ai-agentai")
-  const slot: MediaId = ai ? "serviceAutomation" : store ? "serviceShop" : "serviceWebsites"
-  const rows = ai
+  const apps = path.endsWith("programos")
+  const slot: MediaId = ai ? "serviceAutomation" : apps ? "serviceApps" : store ? "serviceShop" : "serviceWebsites"
+  const rows = apps
+    ? [
+        ["Užsakymų ir užklausų valdymas", "Visa informacija vienoje vietoje, su aiškiomis būsenomis."],
+        ["Klientų ir komandos prieiga", "Sutariame, kas ką mato ir ką gali keisti."],
+        ["Ataskaitos", "Svarbiausi skaičiai matomi be rankinio skaičiavimo."],
+      ]
+    : ai
     ? [
         [
           "Pasikartojantys laiškai",
@@ -355,7 +362,9 @@ function Services({ path }: { path: string }) {
         title={
           ai
             ? "Automatizuojame tai, ką galima apibrėžti."
-            : "Kiekviena dalis turi savo paskirtį."
+            : apps
+              ? "Programa pagal jūsų darbo būdą."
+              : "Kiekviena dalis turi savo paskirtį."
         }
         sand
       >
@@ -374,11 +383,8 @@ function Services({ path }: { path: string }) {
           ))}
         </div>
       </Section>
-      {ai ? (
-        <>
-          <AiSections />
-          <AiBrief />
-        </>
+      {ai || apps ? (
+        <ServiceDetails kind={ai ? "ai" : "apps"} />
       ) : (
         <Section
           number="02"

@@ -50,6 +50,13 @@ export const pages: Record<
       "Automatizuojame laiškų ir darbo procesus pasitelkdami dirbtinį intelektą. Pradedame nuo vienos aiškios užduoties ir sutariame, kaip tikrinsime rezultatą.",
     label: "AI automatizacija",
   },
+  "/paslaugos/programos": {
+    title: "Programos ir vidaus sistemos verslui | GraspIT",
+    heading: "Programos ir vidaus sistemos",
+    intro:
+      "Kuriame programas kasdieniam darbui: užsakymų valdymą, rezervacijas, klientų portalą ar ataskaitas. Pradedame nuo pokalbio ir aiškios apimties.",
+    label: "Programos",
+  },
   "/paslaugos/svetainiu-atnaujinimas": {
     title: "Svetainių dizaino atnaujinimas | GraspIT",
     heading: "Svetainių atnaujinimas",
@@ -155,7 +162,8 @@ export const services = [
     price: "Kaina aptariama po pokalbio",
     number: "03",
   },
-  { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Esamos svetainės dizaino ir struktūros atnaujinimas pagal jūsų veiklą.", price: "Kaina pagal apimtį", number: "04" }
+  { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Esamos svetainės dizaino ir struktūros atnaujinimas pagal jūsų veiklą.", price: "Kaina pagal apimtį", number: "04" },
+  { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", price: "Kaina aptariama po pokalbio", number: "05" }
 ]
 
 export const faqGroups = [

@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { ArrowRight, Check, Download } from "lucide-react"
 import { PackageFinder } from "./PackageFinder"
-import { aiBriefKey, aiBriefText, completeInquiry, draftInquiry, inquiryFromParams, inquiryServices, inquirySummary } from "./inquiryDraft"
+import { briefKey, briefText, completeInquiry, draftInquiry, inquiryFromParams, inquiryServices, inquirySummary } from "./inquiryDraft"
 
-const serviceOptions = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Dar nežinau"]
-function savedAiBrief() {
-  try { return aiBriefText(sessionStorage.getItem(aiBriefKey)) } catch { return "" }
-}
+const serviceOptions = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Programa", "Dar nežinau"]
 function initialBrief() {
-  const initial = inquiryFromParams(new URLSearchParams(typeof window === "undefined" ? "" : window.location.search))
-  return { ...initial, brief: typeof window !== "undefined" && initial.service === inquiryServices.automation ? savedAiBrief() : "" }
+  const params = new URLSearchParams(typeof window === "undefined" ? "" : window.location.search)
+  const initial = inquiryFromParams(params)
+  const service = params.get("paslauga") ?? ""
+  let brief = ""
+  if (typeof window !== "undefined") try { brief = briefText(sessionStorage.getItem(briefKey), service) } catch { /* storage blocked: the form opens empty */ }
+  return { ...initial, service: brief ? service : initial.service, brief }
 }
 
 export function ContactBrief() {
@@ -64,7 +65,7 @@ export function ContactBrief() {
       const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data), signal: AbortSignal.timeout(15000) })
       const result = await response.json()
       if (!response.ok || result.sent !== true) { setNotice(result.error || "Išsiųsti nepavyko. Jūsų įrašai liko formoje."); return }
-      try { sessionStorage.removeItem(aiBriefKey) } catch { /* storage blocked: nothing to clear */ }
+      try { sessionStorage.removeItem(briefKey) } catch { /* storage blocked: nothing to clear */ }
       setSent(true)
     } catch { setNotice("Nepavyko patvirtinti išsiuntimo. Jūsų įrašai liko formoje. Bandykite vėliau arba išsisaugokite aprašymą.") }
     finally { setBusy(false) }

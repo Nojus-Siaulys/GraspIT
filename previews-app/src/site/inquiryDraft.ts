@@ -41,16 +41,20 @@ export function inquiryFromParams(params: URLSearchParams) {
   return { answers: completeInquiry(answers) ? answers : Object.hasOwn(inquiryServices, need) ? [need] : [], service: Object.hasOwn(inquiryServices, need) ? inquiryServices[need] : "Dar nežinau", context: { example: params.get("pavyzdys")?.slice(0, 160), package: params.get("paketas")?.slice(0, 160) } }
 }
 
-export const aiBriefKey = "graspit-ai-brief"
-// The three answers from the AI page, kept in sessionStorage so free text never goes into the URL.
-export function aiBriefText(raw: string | null) {
-  let saved: Record<string, unknown> | null
-  try { saved = JSON.parse(raw ?? "{}") } catch { return "" }
-  const pick = (key: string) => String(saved?.[key] ?? "").trim().slice(0, 800)
-  const lines = [
-    pick("task") && `Procesas, kurį norėčiau automatizuoti: ${pick("task")}`,
-    pick("hours") && `Kiek laiko jis užima per savaitę: ${pick("hours")}`,
-    pick("tools") && `Kokiomis priemonėmis naudojuosi: ${pick("tools")}`,
-  ].filter(Boolean)
-  return lines.length ? ["Sveiki, norėčiau aptarti automatizaciją.", ...lines].join("\n") : ""
+export const briefKey = "graspit-brief"
+const briefOpenings: Record<string, string> = {
+  "AI automatizacija": "Sveiki, norėčiau aptarti automatizaciją.",
+  Programa: "Sveiki, norėčiau aptarti programos kūrimą.",
+}
+// Answers from a service page, kept in sessionStorage so free text never goes into the URL.
+export function briefText(raw: string | null, service: string) {
+  let saved: { service?: unknown; answers?: unknown } | null
+  try { saved = JSON.parse(raw ?? "null") } catch { return "" }
+  if (!Object.hasOwn(briefOpenings, service) || saved?.service !== service || !Array.isArray(saved.answers)) return ""
+  const lines = saved.answers.map(item => {
+    const [line, answer] = Array.isArray(item) ? item : []
+    const text = String(answer ?? "").trim().slice(0, 800)
+    return text ? `${String(line)} ${text}` : ""
+  }).filter(Boolean)
+  return lines.length ? [briefOpenings[service], ...lines].join("\n") : ""
 }

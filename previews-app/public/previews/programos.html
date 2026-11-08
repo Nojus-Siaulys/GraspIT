@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Programos peržiūra</title>
+<link rel="stylesheet" href="player.css?v=99">
+<link rel="stylesheet" href="kopa.css?v=4">
+<style>
+.app{display:grid;grid-template-rows:auto 1fr;height:100%;background:#f3f5f7}
+.top{display:flex;align-items:center;justify-content:space-between;padding:1em 2em;background:#fff;border-bottom:.08em solid #e3e8ee}
+.top .logo{font-size:1.4em}
+.top .who{font-weight:700;color:#4b5f74}
+.card2{background:#fff;border-radius:1.2em;padding:1.3em 1.4em;display:grid;gap:.8em;align-content:start}
+.card2 h3{font-size:1.2em;font-weight:900;letter-spacing:-.02em}
+.meta{color:#4b5f74;font-size:.9em;font-weight:600}
+.btns{display:flex;gap:.7em;flex-wrap:wrap}
+.status{justify-self:start;font-size:.8em;font-weight:800;letter-spacing:.04em;padding:.4em .9em;border-radius:99em;background:#ffe08a;transition:background .3s}
+.status.sent{background:var(--k-mint)}
+.num{font-weight:900}
+
+/* Orders */
+.ord{display:grid;gap:1.2em;padding:1.6em 2em;align-content:start;height:100%}
+.stats3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9em}
+.st3{background:#fff;border-radius:1.1em;padding:.9em 1.1em;opacity:0;scale:.92;transition:opacity .4s,scale .4s}
+.st3.on{opacity:1;scale:1}
+.st3 b{display:block;font-size:2.2em;font-weight:900;letter-spacing:-.04em;line-height:1}
+.st3 span{display:block;margin-top:.35em;color:#4b5f74;font-size:.9em;font-weight:600}
+.tbl{display:grid;gap:.4em}
+.tr{display:grid;grid-template-columns:.6fr 1fr 1.5fr 1fr;gap:.8em;align-items:center;padding:.65em .9em;border-radius:.8em;background:#f3f5f7;opacity:0;translate:0 .5em;transition:opacity .35s,translate .35s,box-shadow .3s,background .3s}
+.tr.on{opacity:1;translate:0 0}
+.tr.h{background:none;padding-block:.2em;font-size:.78em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6b7d8f}
+.tr.pressed{background:#fff;box-shadow:inset 0 0 0 .14em var(--k-ink)}
+.tr b{font-weight:700}.tr span{color:#4b5f74;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pill{justify-self:start;font-size:.78em;font-weight:800;padding:.35em .8em;border-radius:99em}
+.p-new{background:var(--k-sun)}.p-prep{background:#d6e4ff}.p-sent{background:var(--k-mint)}
+
+/* Order card */
+.cols2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:1.4em;padding:1.6em 2em;align-content:start;margin-block:auto}
+.steps{display:grid;gap:.5em}
+.stp{display:flex;align-items:center;gap:.8em;padding:.7em .9em;border-radius:.8em;background:#f3f5f7;color:#6b7d8f;font-weight:700;transition:background .3s,color .3s,opacity .35s;opacity:0}
+.stp.show{opacity:1}
+.stp::before{content:"";flex:none;width:1.2em;height:1.2em;border-radius:50%;box-shadow:inset 0 0 0 .16em #c3ccd6;transition:background .3s,box-shadow .3s}
+.stp.on{background:#fff;color:var(--k-ink)}
+.stp.on::before{background:var(--k-ink);box-shadow:inset 0 0 0 .16em var(--k-ink)}
+.note2{color:#4b5f74;font-weight:600;min-height:2.6em}
+
+/* Customer portal */
+.portal{display:grid;justify-items:center;padding:1.6em 2em}
+.big{width:min(100%,34em);padding:1.8em 2em;margin-block:auto}
+.big small{font-size:.78em;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#6b7d8f}
+.big h3{font-size:1.9em;line-height:1.1}
+.big p{color:#4b5f74;font-weight:600}
+.track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5em;margin-top:.6em;position:relative}
+.tk{display:grid;justify-items:start;gap:.5em;font-size:.85em;font-weight:700;color:#6b7d8f;opacity:0;transition:opacity .4s,color .3s}
+.tk.on{opacity:1;color:var(--k-ink)}
+.tk i{width:1.6em;height:1.6em;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 .16em #c3ccd6;transition:background .3s,box-shadow .3s}
+.tk.on i{background:var(--k-ink);box-shadow:inset 0 0 0 .16em var(--k-ink)}
+
+/* Report */
+.rep2{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1.4em;padding:1.6em 2em;align-content:start;margin-block:auto}
+.bars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.8em;align-items:end;height:11em;padding-top:.5em}
+.bar2{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.4em;height:100%;font-size:.85em;font-weight:700;color:#6b7d8f}
+.bar2 i{display:block;width:100%;height:calc(var(--h) * .8);flex:none;border-radius:.5em .5em .2em .2em;background:var(--k-ink);transform:scaleY(0);transform-origin:bottom;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.bar2.on i{transform:scaleY(1)}
+.rules{display:grid;gap:.5em}
+.rule{display:grid;grid-template-columns:1fr auto;gap:.8em;align-items:center;padding:.7em .9em;border-radius:.8em;background:#f3f5f7;opacity:0;translate:0 .5em;transition:opacity .35s,translate .35s}
+.rule.on{opacity:1;translate:0 0}
+.rule b{font-weight:700}
+
+@container screen (min-width:561px){
+  .site{font-size:1.85cqw}
+}
+@container screen (max-width:560px){
+  .stats3{grid-template-columns:1fr 1fr}.tr{grid-template-columns:1fr 1fr}.tr.h{display:none}.cols2,.rep2{grid-template-columns:1fr;padding:1.2em}.ord,.portal{padding:1.2em}.top{padding:.9em 1.2em}.track{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" data-device="desktop" data-chrome="app">
+  <div class="view">
+    <div class="wm"><img src="/img/logo-96.png" alt="" width="18" height="18"><span>GraspIT</span></div>
+    <div class="device">
+      <div class="bar"><i></i><i></i><i></i><div class="url" id="url">Užsakymai</div></div>
+      <div class="screen">
+
+        <!-- 1. Orders -->
+        <div class="pane site on" id="p-orders">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Užsakymai</span></div>
+            <div class="ord">
+              <div class="stats3">
+                <div class="st3"><b>3</b><span>Nauji</span></div>
+                <div class="st3"><b>4</b><span>Ruošiami</span></div>
+                <div class="st3"><b>12</b><span>Išsiųsti šią savaitę</span></div>
+              </div>
+              <div class="card2">
+                <h3>Visi užsakymai</h3>
+                <div class="tbl">
+                  <div class="tr h"><span>Nr.</span><span>Klientas</span><span>Prekė</span><span>Būsena</span></div>
+                  <div class="tr"><span>1045</span><b>Jonas P.</b><span>5 kg mišinys</span><i class="pill p-new">Naujas</i></div>
+                  <div class="tr"><span>1044</span><b>Tomas B.</b><span>Prenumerata</span><i class="pill p-prep">Ruošiamas</i></div>
+                  <div class="tr"><span>1043</span><b>Eglė K.</b><span>2 kg kava</span><i class="pill p-prep">Ruošiamas</i></div>
+                  <div class="tr" id="ord-1042"><span>1042</span><b>Rūta M.</b><span>1 kg kava</span><i class="pill p-new">Naujas</i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Order card -->
+        <div class="pane site" id="p-order">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Užsakymas Nr. 1042</span></div>
+            <div class="cols2">
+              <div class="card2">
+                <h3>Rūta M.</h3>
+                <div class="meta">1 kg kava</div>
+                <div class="steps">
+                  <div class="stp">Gautas</div>
+                  <div class="stp">Apmokėtas</div>
+                  <div class="stp">Supakuotas</div>
+                  <div class="stp">Išsiųstas</div>
+                </div>
+              </div>
+              <div class="card2">
+                <h3>Būsena</h3>
+                <span class="status" id="o-status">Supakuotas</span>
+                <div class="btns"><span class="btn sun" id="ship">Pažymėti išsiųstu</span><span class="btn ghost">Atnaujinti</span></div>
+                <div class="note2" id="o-note">Pažymėjus išsiųstu, klientui bus išsiųstas pranešimas.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Customer portal -->
+        <div class="pane site" id="p-portal">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Mano užsakymai</span></div>
+            <div class="portal">
+              <div class="card2 big">
+                <small>Užsakymas Nr. 1042</small>
+                <h3>Jūsų užsakymas išsiųstas</h3>
+                <p>Klientas pats mato, kur yra užsakymas, ir neturi klausti.</p>
+                <div class="track">
+                  <div class="tk"><i></i>Gautas</div>
+                  <div class="tk"><i></i>Apmokėtas</div>
+                  <div class="tk"><i></i>Supakuotas</div>
+                  <div class="tk"><i></i>Išsiųstas</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Report -->
+        <div class="pane site" id="p-report">
+          <div class="app">
+            <div class="top"><div class="logo">GraspIT</div><span class="who">Savaitės ataskaita</span></div>
+            <div class="rep2">
+              <div class="card2">
+                <h3>Užsakymai pagal dieną</h3>
+                <div class="bars">
+                  <div class="bar2"><i style="--h:42%"></i>Pr</div>
+                  <div class="bar2"><i style="--h:68%"></i>An</div>
+                  <div class="bar2"><i style="--h:52%"></i>Tr</div>
+                  <div class="bar2"><i style="--h:90%"></i>Kt</div>
+                  <div class="bar2"><i style="--h:62%"></i>Pn</div>
+                </div>
+              </div>
+              <div class="card2">
+                <h3>Suvestinė</h3>
+                <div class="rules">
+                  <div class="rule"><b>Užsakymai</b><span class="num">19</span></div>
+                  <div class="rule"><b>Išsiųsta</b><span class="num">12</span></div>
+                  <div class="rule"><b>Laukia</b><span class="num">7</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="segs" id="segs"></div>
+  <div class="caption">
+    <span class="no" id="cno"></span>
+    <div class="tx" id="ctx"><b></b><span></span></div>
+    <span class="ex">Pavyzdys</span>
+    <button class="pbtn" id="play" type="button"></button>
+  </div>
+  <div class="cursor" id="cursor"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M3 2l15 8.2-6.6 1.6L8.6 19z" fill="#fff" stroke="#10233a" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+</div>
+
+<script src="player.js?v=4"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s) }
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)) }
+  var stats = $$("#p-orders .st3"), rows = $$("#p-orders .tr"), stp = $$("#p-order .stp"), tk = $$("#p-portal .tk"), bars = $$("#p-report .bar2"), nums = $$("#p-report .rule")
+
+  Player.start({
+    groups: [
+      { title: "Užsakymai vienoje vietoje", line: "Visi užsakymai ir jų būsenos viename sąraše." },
+      { title: "Užsakymo kortelė", line: "Vienu paspaudimu pakeičiate būseną ir informuojate klientą." },
+      { title: "Klientų portalas", line: "Klientas pats mato, kur jo užsakymas." },
+      { title: "Ataskaitos", line: "Svarbiausi skaičiai matomi be rankinio skaičiavimo." }
+    ],
+    steps: [
+      { g: 0, pane: "#p-orders", url: "Užsakymai", hold: 7600,
+        cursor: [{ at: 4600, sel: "#ord-1042", click: 5600 }, { at: 6600, sel: null }],
+        tick: function (t) {
+          stats.forEach(function (e, i) { e.classList.toggle("on", t >= 200 + i * 350) })
+          rows.forEach(function (r, i) { r.classList.toggle("on", t >= 900 + i * 450) })
+        } },
+      { g: 1, pane: "#p-order", url: "Užsakymas Nr. 1042", hold: 7600,
+        cursor: [{ at: 3600, sel: "#ship", click: 4400 }, { at: 5400, sel: null }],
+        tick: function (t) {
+          var sent = t >= 4500
+          stp.forEach(function (e, i) { e.classList.toggle("show", t >= 200 + i * 400); e.classList.toggle("on", i < 3 ? t >= 600 + i * 500 : sent) })
+          var st = $("#o-status")
+          st.classList.toggle("sent", sent)
+          var label = sent ? "Išsiųstas" : "Supakuotas"
+          if (st.textContent !== label) st.textContent = label
+          var note = sent ? "Klientui išsiųstas pranešimas." : "Pažymėjus išsiųstu, klientui bus išsiųstas pranešimas."
+          if ($("#o-note").textContent !== note) $("#o-note").textContent = note
+        } },
+      { g: 2, pane: "#p-portal", url: "Mano užsakymai", hold: 6200,
+        tick: function (t) {
+          tk.forEach(function (e, i) { e.classList.toggle("on", t >= 400 + i * 600) })
+        } },
+      { g: 3, pane: "#p-report", url: "Savaitės ataskaita", hold: 7000,
+        tick: function (t) {
+          bars.forEach(function (e, i) { e.classList.toggle("on", t >= 300 + i * 300) })
+          nums.forEach(function (e, i) { e.classList.toggle("on", t >= 2200 + i * 500) })
+        } }
+    ]
+  })
+})()
+</script>
+</body>
+</html>
