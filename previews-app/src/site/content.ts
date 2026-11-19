@@ -24,9 +24,9 @@ export const pages: Record<
   },
   "/paslaugos": {
     title: "Svetainių, el. parduotuvių kūrimas ir automatizacija | GraspIT",
-    heading: "Svetainių kūrimas ir atnaujinimas",
+    heading: "Pasakykite problemą, parinksime paslaugą",
     intro:
-      "Pristatyti paslaugas, parduoti internetu ar sutrumpinti kasdienius darbus? Parenkame tai, ko reikia jūsų verslui, ir iš anksto sutariame darbų apimtį.",
+      "Nuo vizitinės svetainės iki vidaus programos. Raskite situaciją, panašią į jūsų, ir pamatysite, ką darome ir kaip pradedame.",
     label: "Paslaugos",
   },
   "/paslaugos/svetaines": {
@@ -72,16 +72,16 @@ export const pages: Record<
   },
   "/kainos": {
     title: `Svetainių kūrimo kainos: nuo ${prices.website} ir ${prices.shop} | GraspIT`,
-    heading: "Svetainių kūrimas nuo 350 €",
+    heading: "Kas įskaičiuota į kainą, o kas ne",
     intro:
-      `Pradinė svetainė – nuo ${prices.website}, verslo svetainė ar el. parduotuvė – nuo ${prices.shop}. Galutinę kainą sutariame prieš pradėdami; papildomi darbai aptariami atskirai.`,
+      `Du paketai: pradinė svetainė nuo ${prices.website}, verslo svetainė ar el. parduotuvė nuo ${prices.shop}. Čia matote, ką jie apima, kas skaičiuojama atskirai ir kaip susitariame dėl mokėjimo.`,
     label: "Kainos",
   },
   "/procesas": {
     title: "Kaip vyksta svetainės kūrimas: 5 etapai | GraspIT",
-    heading: "Nuo pirmo pokalbio iki svetainės paleidimo",
+    heading: "Nieko nepradedame, kol nepatvirtinate kainos.",
     intro:
-      "Nuo pirmo pokalbio iki svetainės perdavimo – penki aiškūs žingsniai. Kūrybos metu matote peržiūrą ir galite pateikti pastabas.",
+      "Pasiūlymą gaunate antrame žingsnyje, o darbus pradedame, kai jį patvirtinate. Kūrimo metu matote peržiūrą ir rašote pastabas.",
     label: "Procesas",
   },
   "/apie-mus": {
@@ -143,7 +143,7 @@ export const pages: Record<
   },
   "/kontaktai": {
     title: "Aptarkime jūsų svetainę | GraspIT kontaktai",
-    heading: "Susisiekime",
+    heading: "Rašykite arba skambinkite",
     intro:
       "Ką siūlote, kam parduodate ir ką turėtų padėti pasiekti svetainė? Trumpas projekto aprašymas – gera pokalbio pradžia.",
     label: "Kontaktai",
@@ -193,23 +193,23 @@ export const faqGroups = [
     items: [
       {
         q: "Kiek kainuoja interneto svetainės kūrimas?",
-        a: `Pradinė iki 4 puslapių svetainė kainuoja nuo ${prices.website}. Verslo svetainė su turinio valdymu ar el. parduotuvė – nuo ${prices.shop}. Galutinė kaina priklauso nuo funkcijų, dizaino ir sutartos darbų apimties. Ją fiksuojame pasiūlyme prieš pradėdami kūrimą.`,
+        a: `Pigiausia – ${prices.website}: svetainė iki 4 puslapių. Verslo svetainė su turinio valdymu ar el. parduotuvė – nuo ${prices.shop}. Brangina: daugiau puslapių, funkcijų ir sudėtingesnis dizainas. Tikslią sumą užrašome pasiūlyme prieš pradėdami darbą.`,
       },
       {
         q: "Kas įskaičiuota į svetainės kainą?",
-        a: "Pradinio paketo apimtis – iki 4 puslapių svetainė, pritaikyta telefonams ir planšetėms, kodo ir turinio perdavimas bei 30 dienų pagalba po paleidimo. Konkrečius puslapius ir funkcijas įvardijame pasiūlyme. Domeną, talpinimą, tekstų rengimą ir mokamas integracijas aptariame atskirai.",
+        a: "Į pradinį paketą įeina: iki 4 puslapių, pritaikymas telefonams ir planšetėms, kodo ir turinio perdavimas, 30 dienų pagalba po paleidimo. Atskirai skaičiuojame domeną, talpinimą, tekstų rašymą ir mokamas integracijas. Konkrečius puslapius ir funkcijas surašome pasiūlyme.",
       },
       {
         q: "Ar kaina gali pasikeisti kūrimo metu?",
-        a: "Sutartos apimties kaina yra fiksuota. Jei kūrimo metu prireikia naujų puslapių ar papildomų funkcijų, pirmiausia aptariame jų kainą ir poveikį terminui. Papildomus darbus pradedame suderinę pakeitimus.",
+        a: "Sutartos apimties kaina nesikeičia. Keistis ji gali tik tada, kai prireikia naujų puslapių ar funkcijų: pirmiausia pasakome, kiek tai kainuos ir ar pasikeis terminas. Papildomų darbų be jūsų sutikimo nepradedame.",
       },
       {
         q: "Ar domenas ir talpinimas yra vienkartinės išlaidos?",
-        a: "Ne. Domeno registracija ir svetainės talpinimas paprastai pratęsiami periodiškai pagal pasirinkto tiekėjo sąlygas. Šias išlaidas svarbu atskirti nuo vienkartinės kūrimo kainos. Pasiūlyme išsiaiškiname, ką jau turite ir kokių paslaugų dar reikės.",
+        a: "Ne. Domeną ir talpinimą reikia periodiškai pratęsti pagal pasirinkto tiekėjo sąlygas. Tai atskira nuo vienkartinės kūrimo kainos. Pasiūlyme išsiaiškiname, ką jau turite ir ko dar reikės.",
       },
       {
         q: "Kaip susitariama dėl apmokėjimo?",
-        a: "Mokėjimo etapus ir terminus suderiname individualiame pasiūlyme prieš pradėdami darbą. Vienodos avanso dalies visiems projektams čia nenurodome: prieš patvirtindami pasiūlymą turite žinoti visą kainą, mokėjimo sąlygas ir darbų apimtį.",
+        a: "Mokėjimo etapus ir terminus užrašome pasiūlyme prieš pradedant darbą. Vienodo avanso visiems projektams nenustatome. Prieš patvirtindami pasiūlymą matote visą kainą, mokėjimo sąlygas ir darbų apimtį.",
       },
     ],
   },
@@ -219,27 +219,27 @@ export const faqGroups = [
     items: [
       {
         q: "Kiek laiko trunka sukurti svetainę?",
-        a: "Pradinės svetainės orientyras – 7 dienos, didesnės svetainės ar el. parduotuvės – 14 dienų. Tikslų grafiką sutariame pasiūlyme pagal funkcijas ir reikalingą turinį. Jei vėluoja tekstai, nuotraukos ar grįžtamasis ryšys, kartu peržiūrime paleidimo datą.",
+        a: "Pradinė svetainė – orientaciniu terminu 7 dienos, didesnė svetainė ar el. parduotuvė – 14 dienų. Tikslų grafiką sutariame pasiūlyme. Jei vėluoja tekstai, nuotraukos ar jūsų pastabos, kartu pakoreguojame paleidimo datą.",
       },
       {
         q: "Ką reikia paruošti prieš svetainės kūrimą?",
-        a: "Pradžiai pakanka aprašyti veiklą, tikslinį klientą ir svetainės tikslą. Pravers logotipas, paslaugų ar prekių sąrašas, turimi tekstai, nuotraukos ir patinkančių svetainių pavyzdžiai. Jei turite domeną ar seną svetainę, apie tai pasakykite per pirmą pokalbį.",
+        a: "Pradžiai pakanka papasakoti apie veiklą, klientus ir tai, ko tikitės iš svetainės. Pravers logotipas, paslaugų ar prekių sąrašas, turimi tekstai, nuotraukos ir svetainės, kurios jums patinka. Jei turite domeną ar seną svetainę, pasakykite per pirmą pokalbį.",
       },
       {
         q: "Kas paruošia svetainės tekstus ir nuotraukas?",
-        a: "Turinio paruošimo atsakomybes sutariame prieš kūrimą. Jei jau turite tekstus ir nuotraukas, aptariame jų pritaikymą naujai struktūrai. Jei turinį dar reikia sukurti, jo apimtį ir kainą įtraukiame į atskirą susitarimą. Nuotraukoms būtinos tinkamos naudojimo teisės.",
+        a: "Tai sutariame prieš pradėdami. Jei tekstus ir nuotraukas turite, pritaikome juos naujai struktūrai. Jei dar ne, tekstų ar nuotraukų paruošimą įtraukiame į atskirą susitarimą su sava kaina. Nuotraukoms reikia teisių jas naudoti.",
       },
       {
         q: "Ar galėsiu matyti svetainę dar prieš paleidimą?",
-        a: "Taip. Kūrimo metu gaunate privačią peržiūros nuorodą. Prieš viešą paleidimą peržiūrite sutartus puslapius ir pateikiate pastabas. Pakeitimų apimtį ir derinimo tvarką aptariame projekto pradžioje.",
+        a: "Taip. Kūrimo metu gaunate privačią peržiūros nuorodą ir prieš paleidimą pateikiate pastabas. Kiek pakeitimų daroma ir kaip juos derinsime, sutariame projekto pradžioje.",
       },
       {
         q: "Ar svetainė bus pritaikyta mobiliesiems telefonams?",
-        a: "Taip. Svetainės išdėstymą pritaikome telefonams, planšetėms ir kompiuteriams. Prieš paleidimą tikriname teksto skaitomumą, navigaciją ir pagrindinius veiksmus skirtingo pločio ekranuose.",
+        a: "Taip. Išdėstymą pritaikome telefonams, planšetėms ir kompiuteriams. Prieš paleidimą tikriname, ar tekstas skaitomas, ar veikia meniu ir pagrindiniai mygtukai skirtingo pločio ekranuose.",
       },
       {
         q: "Ar galite atnaujinti esamą svetainę?",
-        a: "Taip, pirmiausia įvertiname jos struktūrą, turinį ir techninę būklę. Tuomet aptariame, ką verta išlaikyti, ką perkurti ir kaip perkelti reikalingą turinį. Keičiant adresus svarbu suplanuoti senų puslapių peradresavimus, kad lankytojai nerastų neveikiančių nuorodų.",
+        a: "Taip. Pirmiausia pažiūrime į struktūrą, turinį ir techninę būklę. Tada sakome, ką verta palikti, ką perkurti ir kaip perkelti turinį. Jei keičiasi adresai, suplanuojame senų puslapių nukreipimus, kad lankytojai nepatektų į neveikiančias nuorodas.",
       },
     ],
   },
@@ -249,15 +249,15 @@ export const faqGroups = [
     items: [
       {
         q: "Kiek kainuoja sukurti el. parduotuvę?",
-        a: `El. parduotuvės su turinio valdymu kaina prasideda nuo ${prices.shop}. Tiksli suma priklauso nuo katalogo, prekių variantų, mokėjimo ir pristatymo būdų bei integracijų. Šiuos poreikius aptariame prieš pateikdami fiksuotos kainos pasiūlymą.`,
+        a: `Nuo ${prices.shop}, su turinio valdymu. Brangina: didesnis katalogas, prekių variantai, daugiau mokėjimo ir pristatymo būdų, integracijos. Tai aptariame prieš pateikdami fiksuotos kainos pasiūlymą.`,
       },
       {
         q: "Ar galėsiu pats keisti svetainės turinį?",
-        a: "Taip, kai į projekto apimtį įtrauktas turinio valdymas. Iš anksto sutariame, kokius tekstus, nuotraukas, prekes ar kitą informaciją norėsite redaguoti savarankiškai. Pradinio paketo nereikėtų laikyti turinčiu visas valdymo funkcijas – jos turi būti nurodytos pasiūlyme.",
+        a: "Taip, jei turinio valdymas įtrauktas į apimtį. Iš anksto sutariame, ką norėsite redaguoti patys: tekstus, nuotraukas, prekes ar ką nors kita. Pradiniame pakete visų valdymo funkcijų nėra – kas įtraukta, parašome pasiūlyme.",
       },
       {
         q: "Ar galima prijungti mokėjimus ir pristatymą?",
-        a: "Taip, šias integracijas aptariame planuodami parduotuvę. Pasirinkimas priklauso nuo prekybos rinkos, tiekėjų ir verslo poreikių. Mokėjimo operatorių, vežėjų ir kitų paslaugų sutartys bei jų mokesčiai vertinami atskirai nuo parduotuvės kūrimo.",
+        a: "Taip. Tai aptariame planuodami parduotuvę. Pasirinkimas priklauso nuo to, kur prekiaujate, su kuo dirbate ir ko reikia verslui. Mokėjimo operatorių, vežėjų ir kitų paslaugų sutartis bei mokesčius vertiname atskirai nuo parduotuvės kūrimo.",
       },
     ],
   },
@@ -267,19 +267,19 @@ export const faqGroups = [
     items: [
       {
         q: "Ar nauja svetainė bus paruošta Google paieškai?",
-        a: "Kuriant svarbu aiški puslapių struktūra, aprašomieji adresai, atskiros antraštės ir metaaprašymai, mobilusis pritaikymas bei paieškos sistemoms pasiekiamas turinys. Konkrečius SEO darbus įvardijame pasiūlyme. Techninis paruošimas savaime negarantuoja paieškos pozicijų.",
+        a: "Kuriant tvarkome puslapių struktūrą, adresus, antraštes ir aprašymus, pritaikymą telefonams ir tai, kad paieškos sistemos matytų turinį. Konkrečius darbus surašome pasiūlyme. Techninis paruošimas pozicijų negarantuoja.",
       },
       {
         q: "Ar garantuojate pirmą vietą Google?",
-        a: "Ne. Paieškos pozicijas lemia konkurencija, turinio nauda, svetainės autoritetas ir daugybė kitų veiksnių. Galime sutarti konkrečius techninius ir turinio darbus, tačiau ne pažadėti poziciją, kurios nekontroliuojame.",
+        a: "Ne. Pozicijas lemia konkurencija, turinio nauda, svetainės autoritetas ir daug kitų dalykų. Galime sutarti konkrečius techninius ir turinio darbus, bet ne pažadėti vietos, kurios nekontroliuojame.",
       },
       {
         q: "Kam reikalingas atskiras DUK puslapis?",
-        a: "DUK padeda lankytojui greitai rasti atsakymus apie kainą, kūrimą ir priežiūrą. Aiškūs klausimai ir konkretūs atsakymai taip pat padeda paieškos sistemoms suprasti turinį. Struktūriniai duomenys gali jį aprašyti, tačiau negarantuoja išplėstų paieškos rezultatų ar paminėjimo AI atsakymuose.",
+        a: "Lankytojas greitai randa atsakymus apie kainą, kūrimą ir priežiūrą. Aiškūs klausimai ir konkretūs atsakymai padeda ir paieškos sistemoms suprasti turinį. Struktūriniai duomenys gali aprašyti DUK, bet neužtikrina išplėstų paieškos rezultatų ar paminėjimo dirbtinio intelekto atsakymuose.",
       },
       {
         q: "Ar svetainei reikia nuolatinio SEO?",
-        a: "Tai priklauso nuo tikslų ir konkurencijos. Po paleidimo verta stebėti indeksavimą, paieškos užklausas ir užklausų skaičių, atnaujinti pasenusią informaciją bei plėsti naudingą turinį. Nuolatinis turinio ar SEO darbas yra atskira apimtis, jei jis neįtrauktas į pasiūlymą.",
+        a: "Priklauso nuo tikslų ir konkurencijos. Po paleidimo verta stebėti indeksavimą, paieškos užklausas ir gaunamų užklausų skaičių, atnaujinti pasenusią informaciją ir pildyti naudingu turiniu. Nuolatinis SEO ar turinio darbas yra atskira apimtis, jei jo nėra pasiūlyme.",
       },
     ],
   },
@@ -289,19 +289,19 @@ export const faqGroups = [
     items: [
       {
         q: "Kam priklausys svetainė ir jos kodas?",
-        a: "Paleidimo metu perduodame svetainės kodą ir turinį jums. Projekte naudojamų trečiųjų šalių paslaugų, šriftų ar vaizdų licencijos galioja pagal jų tiekėjų sąlygas. Prieigas ir naudojamas paslaugas aptariame perduodami projektą.",
+        a: "Jums. Paleidžiant perduodame svetainės kodą ir turinį. Trečiųjų šalių paslaugų, šriftų ar vaizdų licencijos galioja pagal jų tiekėjų sąlygas. Prieigas ir naudojamas paslaugas aptariame perduodami projektą.",
       },
       {
         q: "Kokia pagalba teikiama po paleidimo?",
-        a: "Po paleidimo teikiame 30 dienų pagalbą. Jos ribas ir pranešimo apie problemas tvarką aptariame perduodami svetainę. Naujos funkcijos ar didesni pakeitimai derinami atskirai; vėlesnei pagalbai galima aptarti priežiūros planą.",
+        a: "30 dienų pagalba. Kiek ji apima ir kaip pranešti apie problemą, aptariame perduodami svetainę. Naujos funkcijos ar didesni pakeitimai – atskirai. Ilgesnei pagalbai galima sutarti priežiūros planą.",
       },
       {
         q: "Kiek kainuoja svetainės priežiūra?",
-        a: "Priežiūros kainą pateikiame pagal reikalingus darbus: talpinimą, atnaujinimus ir smulkius pakeitimus. Vienos patvirtintos mėnesinės kainos kol kas neskelbiame. Prieš susitariant svarbu aiškiai įvardyti įtrauktus darbus ir trečiųjų šalių išlaidas.",
+        a: "Kainą pateikiame pagal reikalingus darbus: talpinimą, atnaujinimus ir smulkius pakeitimus. Vienos mėnesinės kainos kol kas neskelbiame. Prieš susitardami užrašome, kas įtraukta ir kokios trečiųjų šalių išlaidos yra atskirai.",
       },
       {
         q: "Ar dirbate su klientais visoje Lietuvoje?",
-        a: "Taip, paslaugas siūlome verslams visoje Lietuvoje. Projekto informaciją ir pastabas galime derinti nuotoliu. Pokalbio formatą ir bendravimo kanalą sutariame prieš pradėdami.",
+        a: "Taip, visoje Lietuvoje. Projekto informaciją ir pastabas galime derinti nuotoliu. Pokalbio formatą ir bendravimo kanalą sutariame prieš pradėdami.",
       },
     ],
   },

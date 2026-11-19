@@ -71,7 +71,7 @@ export function ContactBrief() {
     finally { setBusy(false) }
   }
   const field = "mt-2 min-h-12 w-full rounded-md border border-foreground/30 bg-background px-3 py-3 text-base"
-  if (sent) return <div className="ux-panel mt-8 bg-secondary p-6" role="status"><Check className="size-6" /><h3 className="mt-4 text-2xl font-semibold">Užklausa išsiųsta.</h3><p className="mt-3 leading-relaxed">Ačiū, kad papasakojote apie projektą. Susisieksime jūsų nurodytu el. paštu ir susitarsime dėl pirmo pokalbio.</p><a href="/procesas/" className="ux-text-link mt-5">Kas bus toliau<ArrowRight className="size-4" /></a></div>
+  if (sent) return <div className="ux-panel mt-8 bg-secondary p-6" role="status"><Check className="size-6" /><h3 className="mt-4 text-2xl font-semibold">Užklausa išsiųsta.</h3><p className="mt-3 leading-relaxed">Gavome. Perskaitysime ir parašysime el. paštu, kad sutartume pokalbį.</p><a href="/procesas/" className="ux-text-link mt-5">Kas bus toliau<ArrowRight className="size-4" /></a></div>
   return <div>
     <section hidden={!wizard} aria-labelledby="contact-finder-heading">
       <p className="ux-eyebrow">Lengvesnė užklausos pradžia</p>
@@ -82,7 +82,7 @@ export function ContactBrief() {
     </section>
     <form hidden={wizard} ref={formRef} onSubmit={submit} className="space-y-5" aria-labelledby="brief-heading">
       <p className="ux-eyebrow">{completeInquiry(answers) ? "Liko tik kontaktai" : "Jūsų projekto pradžia"}</p>
-      <h2 ref={headingRef} tabIndex={-1} id="brief-heading" className="scroll-mt-28 text-3xl font-bold tracking-tight outline-none md:text-4xl">{completeInquiry(answers) ? "Aprašymą paruošėme. Kaip su jumis susisiekti?" : "Papasakokite apie savo projektą."}</h2>
+      <h2 ref={headingRef} tabIndex={-1} id="brief-heading" className="scroll-mt-28 text-3xl font-bold tracking-tight outline-none md:text-4xl">{completeInquiry(answers) ? "Aprašymą paruošėme. Kaip su jumis susisiekti?" : "Kas jums šiuo metu trukdo?"}</h2>
       <p className="leading-relaxed text-muted-foreground">{completeInquiry(answers) ? "Panaudojome klausimyno atsakymus. Jei tekstas tinka, nieko papildomai rašyti nereikia — užtenka jūsų vardo ir el. pašto." : "Galite parašyti savais žodžiais arba pasinaudoti trimis klausimais — jie padės paruošti aprašymą už jus."}</p>
       <div className="rounded-md border border-foreground/20 bg-secondary p-4">
         {completeInquiry(answers) && <><p className="text-sm font-semibold">Jūsų pasirinkimai</p><ul className="mt-3 flex flex-wrap gap-2">{inquirySummary(answers).map(label => <li key={label} className="rounded border border-foreground/20 bg-background px-3 py-1 text-xs">{label}</li>)}</ul></>}
@@ -96,7 +96,7 @@ export function ContactBrief() {
         <div className="rounded-md border border-foreground/25 p-5">
           <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">Jūsų projekto aprašymas</h3>{completeInquiry(answers) && <span className="text-xs text-muted-foreground">Paruoštas iš jūsų atsakymų</span>}</div>
           {!editing && <p className="mt-4 whitespace-pre-line text-sm leading-7">{message}</p>}
-          <label hidden={!editing} className="mt-3 block text-sm font-medium" htmlFor="brief-project">{completeInquiry(answers) ? "Pataisykite tekstą, jei norite" : "Ką norėtumėte sukurti arba išspręsti?"}<textarea id="brief-project" name="message" value={message} onChange={event => { setMessage(event.target.value); setDirty(true) }} required={editing} minLength={10} maxLength={3000} rows={8} aria-describedby="brief-help" placeholder="Trumpai apie jūsų veiklą ir norimą rezultatą…" className={field} /></label>
+          <label hidden={!editing} className="mt-3 block text-sm font-medium" htmlFor="brief-project">{completeInquiry(answers) ? "Pataisykite tekstą, jei norite" : "Aprašykite situaciją, o sprendimą ieškosime kartu."}<textarea id="brief-project" name="message" value={message} onChange={event => { setMessage(event.target.value); setDirty(true) }} required={editing} minLength={10} maxLength={3000} rows={8} aria-describedby="brief-help" placeholder="Trumpai apie jūsų veiklą ir norimą rezultatą…" className={field} /></label>
           {message && <button type="button" onClick={() => setEditing(!editing)} className="mt-3 min-h-11 text-sm font-semibold underline underline-offset-4">{editing ? "Baigti redaguoti" : "Noriu pataisyti tekstą"}</button>}
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{completeInquiry(answers) ? "Jei aprašymas tinka, galite jo nekeisti." : "Užtenka kelių sakinių. Techninių žinių nereikia."}</p>
         </div>

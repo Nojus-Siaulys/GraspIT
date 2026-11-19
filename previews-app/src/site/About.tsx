@@ -16,8 +16,8 @@ export function About() {
         <div className="lg:col-span-7">
           <p className={eyebrow}>01 / Susipažinkime</p>
           <h2 id="team-heading" className="mt-6 max-w-[18ch] text-[clamp(2.2rem,4.5vw,3.8rem)] font-bold leading-[1.06] tracking-tight">Už GraspIT — mes dviese.</h2>
-          <p className="mt-7 max-w-[48ch] text-xl leading-relaxed">Kuriame svetaines ir el. parduotuves, atnaujiname esamą dizainą ir padedame aiškiau pristatyti verslą internete.</p>
-          <p className="mt-5 max-w-[55ch] text-lg leading-relaxed text-muted-foreground">Esame maža komanda, todėl su jumis bendrauja tie patys žmonės, kurie dirba prie jūsų svetainės.</p>
+          <p className="mt-7 max-w-[48ch] text-xl leading-relaxed">Kuriame svetaines ir el. parduotuves, atnaujiname senas ir padedame žmonėms jus rasti.</p>
+          <p className="mt-5 max-w-[55ch] text-lg leading-relaxed text-muted-foreground">Dirbame dviese, todėl nieko nereikia aiškinti du kartus.</p>
           <a href="/darbai/" className="mt-7 inline-flex min-h-12 items-center gap-3 border-b border-current py-2 font-semibold">Pažiūrėti, prie ko dirbome<ArrowRight className="size-4" /></a>
         </div>
       </div>
@@ -33,7 +33,7 @@ export function About() {
             <p className="mt-3 text-lg">Programavimas ir dizaino kryptis</p>
           </header>
           <div className="lg:col-span-8">
-            <p className="max-w-[60ch] text-xl leading-relaxed">Programuoju ir rūpinuosi, kad svetainė ne tik veiktų, bet ir gerai atrodytų. Man svarbu bendras dizaino įspūdis ir detalės: šriftai, tarpai, spalvos bei patogus naršymas.</p>
+            <p className="max-w-[60ch] text-xl leading-relaxed">Programuoju ir ruošiu dizainus. Šriftai, tarpai, spalvos – čia mano. Jei kas atrodo ne taip, pastebiu pirmas.</p>
             <ul aria-label="Nojaus technologijos ir interesai" className="mt-6 flex flex-wrap gap-2">
               {["HTML / CSS", "JavaScript", "TypeScript", "React", "Web dizainas", "LLM"].map(skill => <li key={skill} className="rounded-full border border-foreground/25 px-4 py-2 text-sm">{skill}</li>)}
             </ul>
@@ -46,7 +46,7 @@ export function About() {
             <p className="mt-3 text-lg">Techniniai sprendimai ir marketingas</p>
           </header>
           <div className="lg:col-span-8">
-            <p className="max-w-[60ch] text-xl leading-relaxed">Rūpinuosi techniniais dalykais ir marketingu. Man svarbu, kad svetainė sklandžiai veiktų ir aiškiai pristatytų verslą žmonėms, kuriems jo paslaugos aktualios.</p>
+            <p className="max-w-[60ch] text-xl leading-relaxed">Tvarkau tai, ko nesimato: greitį, paiešką, adresus. Kad matoma dalis veiktų be trikdžių.</p>
             <ul aria-label="Antrojo Nojaus veiklos sritys ir interesai" className="mt-6 flex flex-wrap gap-2">
               {["Techniniai sprendimai", "Marketingas", "Sportas", "Sveikata"].map(interest => <li key={interest} className="rounded-full border border-foreground/25 px-4 py-2 text-sm">{interest}</li>)}
             </ul>
@@ -57,12 +57,12 @@ export function About() {
     <section className="bg-background py-16 md:py-20" aria-labelledby="skills-heading">
       <div className={wrap}>
         <p className={eyebrow}>03 / Ką darome</p>
-        <h2 id="skills-heading" className="mt-5 text-[clamp(2rem,4vw,3rem)] font-bold tracking-tight">Nuo idėjos iki veikiančios svetainės.</h2>
+        <h2 id="skills-heading" className="mt-5 text-[clamp(2rem,4vw,3rem)] font-bold tracking-tight">Ko pas mus ateinama ieškoti.</h2>
         <div className="mt-10 grid gap-8 md:grid-cols-3">
           {[
-            ["Dizainas ir struktūra", "Planuojame išdėstymą ir navigaciją. Atnaujiname esamų, taip pat WordPress, svetainių išvaizdą."],
-            ["Svetainių kūrimas", "Kuriame verslo svetaines ir el. parduotuves, patogias ir telefone."],
-            ["Automatizacija", "Supaprastiname pasikartojančias užduotis, pradėdami nuo vieno aiškaus poreikio."],
+            ["Noriu naujos svetainės.", "Sudėliojame puslapius ir meniu, parašome kodą, paleidžiame. Svetainės ir el. parduotuvės gerai atrodo ir telefone."],
+            ["Noriu atnaujinti seną.", "Atnaujiname dizainą ir struktūrą, taip pat WordPress svetainių. Kas veikia, tą paliekame."],
+            ["Noriu, kad būtų mažiau rankinio darbo.", "Pasikartojančius darbus atiduodame programai. Pradedame nuo vieno konkretaus poreikio."],
           ].map(([title, text], index) => <article key={title} className="border-t border-foreground/25 pt-5"><span className={`${eyebrow} text-muted-foreground`}>0{index + 1}</span><h3 className="mt-5 text-2xl font-bold tracking-tight">{title}</h3><p className="mt-4 leading-relaxed text-muted-foreground">{text}</p></article>)}
         </div>
       </div>

@@ -19,7 +19,7 @@ export const details: Record<ServiceKind, Detail> = {
   websites: {
     id: "websites",
     service: "Svetainė",
-    fit: { eyebrow: "Kam tinka", heading: "Kai klientai jūsų neranda arba nesupranta pasiūlymo.", items: [
+    fit: { eyebrow: "Kam tinka", heading: "„Mūsų niekas neranda, o radęs nesupranta, ką darome.“", items: [
       { title: "Informacija išbarstyta", text: "Paslaugos, kainos ir kontaktai gyvena socialiniuose tinkluose ar žinutėse, o klientas turi jų ieškoti.", example: "Pavyzdys: meistras, specialistas, paslaugų įmonė." },
       { title: "Norite būti randami paieškoje", text: "Aiški struktūra, antraštės ir aprašymai padeda paieškos sistemoms suprasti puslapį.", example: "Techninis paruošimas savaime pozicijų negarantuoja." },
       { title: "Reikia vietos darbams parodyti", text: "Darbų galerija su trumpu kontekstu padeda žmogui įvertinti, ką galite padaryti.", example: "Pavyzdys: Kalvitos paslaugų svetainė." },
@@ -35,7 +35,7 @@ export const details: Record<ServiceKind, Detail> = {
   shop: {
     id: "shop",
     service: "El. parduotuvė",
-    fit: { eyebrow: "Kam tinka", heading: "Kai norite prekiauti internetu be žinučių maratonų.", items: [
+    fit: { eyebrow: "Kam tinka", heading: "„Užsakymus renkame žinutėmis.“", items: [
       { title: "Prekes užsako žinutėmis", text: "Prekės, pasirinkimai ir užsakymo kelias vienoje vietoje, kad pirkėjui nereikėtų klausinėti.", example: "Pavyzdys: nedidelis prekių ženklas ar specializuotas katalogas." },
       { title: "Norite patys tvarkyti prekes", text: "Iš anksto sutariame, ką redaguosite savarankiškai. Valdymo funkcijas įvardijame pasiūlyme.", example: "Pavyzdys: prekių aprašymai, nuotraukos, atsargos." },
       { title: "Reikia mokėjimų ir pristatymo", text: "Mokėjimo ir pristatymo būdus aptariame planuodami. Jų operatorių mokesčiai vertinami atskirai.", example: "Pavyzdys: Colorlisse el. parduotuvė." },
@@ -51,17 +51,17 @@ export const details: Record<ServiceKind, Detail> = {
   redesign: {
     id: "redesign",
     service: "Svetainės atnaujinimas",
-    fit: { eyebrow: "Kam tinka", heading: "Kai svetainė jau yra, bet nebeatspindi jūsų verslo.", items: [
+    fit: { eyebrow: "Kam tinka", heading: "„Svetainė yra, bet jau nebeatspindi, ką darome.“", items: [
       { title: "Dizainas atrodo pasenęs", text: "Aiškiau pristatome paslaugas ir sutvarkome navigaciją, išlaikydami tai, kas veikia.", example: "Pirmiausia įvertiname, ką verta palikti." },
       { title: "Telefone nepatogu", text: "Pritaikome tekstą, mygtukus ir išdėstymą mažam ekranui.", example: "Prieš paleidimą tikriname skirtingo pločio ekranuose." },
       { title: "WordPress svetainė netenkina", text: "Aptariame, ką keisti dabartinėje svetainėje ir kaip perkelti reikalingą turinį.", example: "Planuojame ir senų adresų peradresavimus." },
     ] },
     included: { note: "Kaina pagal apimtį: ją suderiname įvertinę dabartinę svetainę.", items: [
-      "Dabartinės svetainės struktūros, turinio ir techninės būklės įvertinimas",
-      "Aptarimas, ką išlaikyti ir ką perkurti",
-      "Reikalingo turinio perkėlimas",
-      "Senų puslapių peradresavimų planas",
-      "Pritaikymas telefonams ir planšetėms",
+      "Pažiūrime, kas veikia dabartinėje svetainėje: struktūra, turinys, techninė būklė",
+      "Kartu nusprendžiame, ką palikti, o ką perkurti",
+      "Perkeliame reikalingą turinį",
+      "Suplanuojame senų puslapių nukreipimus",
+      "Pritaikome telefonams ir planšetėms",
     ] },
     faq: { heading: "Apie svetainės atnaujinimą.", items: fromFaq("Ar galite atnaujinti esamą svetainę?", "Ar galėsiu matyti svetainę dar prieš paleidimą?", "Kokia pagalba teikiama po paleidimo?") },
     questions: [
@@ -73,17 +73,17 @@ export const details: Record<ServiceKind, Detail> = {
   ai: {
     id: "ai",
     service: "AI automatizacija",
-    fit: { eyebrow: "Kam tinka", heading: "Kai tas pats darbas kartojasi kiekvieną dieną.", items: [
+    fit: { eyebrow: "Kam tinka", heading: "„Tą patį darbą darome kiekvieną dieną.“", items: [
       { title: "Tie patys laiškai", text: "Klientai klausia to paties, o atsakymus tenka ruošti rankiniu būdu.", example: "Pavyzdys: kainų užklausos, užsakymo būsena." },
       { title: "Rankiniu būdu perkeliami duomenys", text: "Informacija iš laiško ar formos kopijuojama į kitą sistemą ar lentelę.", example: "Pavyzdys: užklausos iš pašto į užsakymų lentelę." },
       { title: "Žingsniai, kuriuos lengva pamiršti", text: "Priminimai, patvirtinimai ir tolesni veiksmai, kurie priklauso nuo žmogaus atminties.", example: "Pavyzdys: atsakymas klientui po savaitės." },
     ] },
     included: { note: "Kainos čia nerodome: kiekvienas procesas skirtingas, todėl kainą sutariame po pokalbio. Paslaugų tiekėjų mokesčiai vertinami atskirai.", items: [
-      "Dabartinio proceso ir naudojamų priemonių aptarimas",
-      "Viena aiški pirmoji užduotis, nuo kurios pradedame",
-      "Sutartas būdas, kaip tikrinsime rezultatą",
-      "Aiškiai nustatyta, kur sprendimą patvirtina žmogus",
-      "Iš anksto sutarta, kokie duomenys naudojami",
+      "Aptariame, kaip darbas vyksta dabar ir kokiomis priemonėmis naudojatės",
+      "Pradedame nuo vienos užduoties",
+      "Sutariame, kaip tikrinsime rezultatą",
+      "Nustatome, kur sprendimą patvirtina žmogus",
+      "Iš anksto susitariame, kokie duomenys naudojami",
     ] },
     faq: { heading: "Apie automatizaciją.", items: [
       { q: "Ar AI atsakys klientams be žmogaus?", a: "Tik ten, kur tai sutariame. Kiekvienai užduočiai nusprendžiame, kur sprendimą patvirtina žmogus." },
@@ -99,16 +99,16 @@ export const details: Record<ServiceKind, Detail> = {
   apps: {
     id: "apps",
     service: "Programa",
-    fit: { eyebrow: "Kam tinka", heading: "Kai Excel ir laiškai nebeužtenka.", items: [
+    fit: { eyebrow: "Kam tinka", heading: "„Mums nebeužtenka Excel ir laiškų.“", items: [
       { title: "Informacija išbarstyta", text: "Užsakymai ir užklausos gyvena laiškuose, lentelėse ir užrašuose, o bendros apžvalgos niekas neturi.", example: "Pavyzdys: užsakymų valdymas vienoje vietoje." },
       { title: "Klientai nuolat klausia, kas vyksta", text: "Klientas pats mato užsakymo ar paslaugos būseną, o jums nereikia atsakinėti.", example: "Pavyzdys: klientų portalas." },
       { title: "Ataskaitos renkamos ranka", text: "Skaičiai iš kelių vietų sudedami rankiniu būdu kiekvieną savaitę.", example: "Pavyzdys: savaitės ataskaita be skaičiavimo." },
     ] },
     included: { note: "Kainos čia nerodome: programos būna labai skirtingos, todėl kainą sutariame po pokalbio, kai aiški apimtis.", items: [
-      "Pokalbis apie dabartinį darbą ir tai, ko programai reikia",
-      "Aiški apimtis: kas bus pirmoje versijoje, o kas vėliau",
-      "Matomas rezultatas jau kūrimo metu",
-      "Sutarta, kas turi prieigą ir kokie duomenys saugomi",
+      "Pasikalbame apie dabartinį darbą ir tai, ko programai reikia",
+      "Sutariame, kas bus pirmoje versijoje, o kas vėliau",
+      "Rodome rezultatą jau kūrimo metu",
+      "Sutariame, kas turi prieigą ir kokie duomenys saugomi",
     ] },
     faq: { heading: "Apie programas.", items: [
       { q: "Nuo ko pradedama?", a: "Nuo pokalbio. Aptariame, ką šiandien darote rankiniu būdu ir kas svarbiausia pirmai versijai." },
@@ -124,17 +124,17 @@ export const details: Record<ServiceKind, Detail> = {
   seo: {
     id: "seo",
     service: "SEO ir priežiūra",
-    fit: { eyebrow: "Kam tinka", heading: "Kai svetainė paleista, bet niekas jos neprižiūri.", items: [
+    fit: { eyebrow: "Kam tinka", heading: "„Svetainę paleidome, bet niekas jos neprižiūri.“", items: [
       { title: "Užklausų mažai, o priežasties nežinote", text: "Patikriname indeksavimą, adresus, antraštes ir aprašymus, kad matytumėte, ką galima pagerinti.", example: "Pozicijų neprižadame: jas lemia ir konkurencija." },
       { title: "Informacija pasensta", text: "Kainos, kontaktai ir paslaugų aprašymai laikui bėgant keičiasi. Sutariame, kas juos atnaujina.", example: "Pavyzdys: pasikeitė darbo laikas ar kontaktai." },
       { title: "Nėra kam atlikti smulkių pakeitimų", text: "Smulkūs pakeitimai, atnaujinimai ir talpinimas tvarkomi pagal sutartą planą.", example: "Plano apimtį ir trečiųjų šalių išlaidas įvardijame iš anksto." },
     ] },
     included: { note: "Vienos mėnesinės kainos neskelbiame: kainą pateikiame pagal reikalingus darbus.", items: [
-      "Svetainės techninės būklės patikra",
-      "Indeksavimo ir paieškos užklausų stebėjimas",
-      "Pasenusios informacijos atnaujinimas",
-      "Smulkūs pakeitimai pagal sutartą planą",
-      "Aiškiai įvardyti darbai ir trečiųjų šalių išlaidos",
+      "Patikriname svetainės techninę būklę",
+      "Stebime indeksavimą ir paieškos užklausas",
+      "Atnaujiname pasenusią informaciją",
+      "Darome smulkius pakeitimus pagal sutartą planą",
+      "Iš anksto užrašome darbus ir trečiųjų šalių išlaidas",
     ] },
     faq: { heading: "Apie SEO ir priežiūrą.", items: fromFaq("Ar svetainei reikia nuolatinio SEO?", "Kiek kainuoja svetainės priežiūra?", "Ar garantuojate pirmą vietą Google?") },
     questions: [

@@ -101,8 +101,8 @@ function FaqItems({ items }: { items: typeof allFaq }) {
 }
 function Home() {
   const cards: { id: MediaId; title: string; text: string; href: string; link: string; note: string }[] = [
-    { id: "homeNew", title: "Reikia naujos svetainės", text: "Sukursime vietą jūsų paslaugoms, darbams ir kontaktams.", href: "/paslaugos/svetaines/", link: "Apie svetainių kūrimą", note: "Nuo " + prices.website },
-    { id: "homeRedesign", title: "Noriu atnaujinti turimą", text: "Atnaujinsime dizainą ir pritaikysime telefonams, taip pat WordPress svetainėms.", href: "/paslaugos/svetainiu-atnaujinimas/", link: "Apie svetainės atnaujinimą", note: "Kaina pagal apimtį" },
+    { id: "homeNew", title: "Reikia naujos svetainės", text: "Neturite svetainės? Sudėliosime paslaugas, darbus ir kontaktus ten, kur jų ieškos.", href: "/paslaugos/svetaines/", link: "Apie svetainių kūrimą", note: "Nuo " + prices.website },
+    { id: "homeRedesign", title: "Noriu atnaujinti turimą", text: "Turite svetainę, bet ji atrodo pasenusi? Atnaujinsime dizainą ir pritaikysime telefonui, taip pat WordPress.", href: "/paslaugos/svetainiu-atnaujinimas/", link: "Apie svetainės atnaujinimą", note: "Kaina pagal apimtį" },
   ]
   return <>
     <section className="home-hero">
@@ -110,8 +110,8 @@ function Home() {
       <div className={`${wrap} grid items-center gap-10 lg:grid-cols-12`}>
         <div className="hero-copy lg:col-span-12">
           <p className={eyebrow}>GraspIT · Svetainės vietiniam verslui</p>
-          <h1 className="mt-8 max-w-[16ch] text-[clamp(2.8rem,5.8vw,5.6rem)] font-bold leading-[1.03] tracking-[-.05em]">Kuriame ir atnaujiname svetaines verslui.</h1>
-          <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Padedame vietiniams verslams aiškiai pristatyti paslaugas internete.</p>
+          <h1 className="mt-8 max-w-[22ch] text-[clamp(2.4rem,4.8vw,4.6rem)] font-bold leading-[1.05] tracking-[-.045em]">Ar klientas jus randa, o radęs supranta, ką darote?</h1>
+          <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Sutvarkome svetainę taip, kad žmogus per kelias sekundes suprastų, ką siūlote ir kaip su jumis susisiekti.</p>
           <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
             <a href="/kontaktai/" className="hero-primary cta-glow inline-flex min-h-[52px] items-center justify-center gap-3 rounded-md px-6 py-3 font-semibold">{siteCopy.cta}<ArrowRight className="size-4" /></a>
             <Link href="/darbai/">Peržiūrėti darbus</Link>
@@ -122,7 +122,7 @@ function Home() {
       </div>
     </section>
     <TrustStrip />
-    <Section number="01" label="Paslaugos" title="Ko reikia jūsų verslui?" sand>
+    <Section number="01" label="Paslaugos" title="Šešios paslaugos. Pradėkite nuo tos, kurios labiausiai trūksta." sand>
       <div className="grid gap-6 md:grid-cols-2">
         {cards.map((item, i) => <article key={item.title} className="lift flex flex-col overflow-hidden rounded-lg border border-foreground/20 bg-background">
           {hasMedia(item.id) && <Media id={item.id} className="rounded-none" />}
@@ -168,7 +168,7 @@ function Pricing() {
     <Section
       number="01"
       label="Paketai"
-      title="Svetainių kūrimo kainos"
+      title="Du paketai"
       sand
     >
       <div className="grid gap-6 md:grid-cols-2">
@@ -212,7 +212,7 @@ function Pricing() {
         </div>
         <div>
           <h3 className="mb-3 text-2xl font-bold">Priežiūra po paleidimo</h3>
-          <p className="leading-relaxed text-muted-foreground">Talpinimo, atnaujinimų ir smulkių pakeitimų planą derinome individualiai.</p>
+          <p className="leading-relaxed text-muted-foreground">Talpinimo, atnaujinimų ir smulkių pakeitimų planą sudarome atskirai, pagal tai, ko reikia jūsų svetainei.</p>
           <Link href="/duk/#prieziura">Apie pagalbą ir priežiūrą</Link>
         </div>
       </div>
@@ -223,11 +223,11 @@ function Pricing() {
   )
 }
 const processDetails = [
-  "Aptariame veiklą, auditoriją ir tai, ką svetainė turi pasiekti.",
-  "Fiksuotą kainą, apimtį ir terminą atsiunčiame per 24 val. po pokalbio.",
-  "Kuriame sutartus puslapius. Jūs gaunate privačią nuorodą ir matote, kaip juda darbas.",
-  "Kartu peržiūrime turinį, surenkame pastabas ir jas įgyvendiname.",
-  "Patikriname, paleidžiame ir perduodame kodą bei turinį. Toliau 30 dienų padedame.",
+  "Aptariame veiklą, klientus ir tai, ko tikitės iš svetainės.",
+  "Per 24 val. po pokalbio atsiunčiame kainą, apimtį ir terminą.",
+  "Kuriame. Privačioje nuorodoje matote, kaip juda darbas.",
+  "Peržiūrite, rašote pastabas, mes jas įgyvendiname.",
+  "Patikriname, paleidžiame, perduodame kodą ir turinį. Dar 30 dienų padedame.",
 ]
 function Process() {
   return (
@@ -236,7 +236,7 @@ function Process() {
       label="Projekto eiga"
       title="Kaip vyksta darbas?"
     >
-<div className="mb-12 grid items-center gap-8 lg:grid-cols-2"><div><p className="text-2xl font-semibold leading-snug">Pirmiausia susitariame. Tada kuriame.</p><p className="mt-5 max-w-[40ch] text-lg leading-relaxed text-muted-foreground">Viso projekto metu žinote, kas vyksta ir koks kitas žingsnis.</p></div>{hasMedia("processWork") ? <Media id="processWork" /> : <div className="aspect-[3/2] overflow-hidden rounded-lg"><TrustPhoto /></div>}</div>
+<div className="mb-12 grid items-center gap-8 lg:grid-cols-2"><div><p className="text-2xl font-semibold leading-snug">Penki žingsniai. Kainą žinote jau antrame.</p><p className="mt-5 max-w-[40ch] text-lg leading-relaxed text-muted-foreground">Visą laiką žinote, kas vyksta ir kas bus toliau.</p></div>{hasMedia("processWork") ? <Media id="processWork" /> : <div className="aspect-[3/2] overflow-hidden rounded-lg"><TrustPhoto /></div>}</div>
       <ol>
         {lt.process.map((p, i) => (
           <li
@@ -254,7 +254,7 @@ function Process() {
         ))}
       </ol>
       <p className="border-t border-foreground pt-6 text-muted-foreground">
-        Apie pasikeitusią apimtį ar terminą kalbamės iš karto.
+        Apie pasikeitusią apimtį ar terminą pasakome iš karto, o ne paleidimo dieną.
       </p>
     </Section>
   )
@@ -311,7 +311,7 @@ function Services({ path }: { path: string }) {
         <Section
           number="01"
           label="Pasirinkimas"
-          title="Mūsų paslaugos"
+          title="Pasirinkite savo atvejį"
           sand
         >
           <div className="grid gap-5 md:grid-cols-2">
@@ -631,12 +631,12 @@ export function Site({ path = "/" }: { path?: string }) {
               <div className="lg:col-span-8">
                 <p className={`${eyebrow} mb-6`}>Susisiekime</p>
                 <h2 className="max-w-[18ch] text-[clamp(2.5rem,6vw,5rem)] leading-none font-bold tracking-[-.045em]">
-                  Pakalbėkime apie jūsų svetainę.
+                  Parašykite, kas jums reikalinga.
                 </h2>
               </div>
               <div className="lg:col-span-4">
                 <p className="mb-6 text-lg text-white/85">
-                  Papasakokite apie savo veiklą. Pasakysime, ką galime padaryti, kiek tai kainuos ir kiek laiko užtruks.
+                  Atsakysime, ką galime padaryti, kiek tai kainuos ir kiek užtruks.
                 </p>
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                   {contact.phone ? (
