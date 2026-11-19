@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 import { MediaEmbed } from "./Media"
 import { media } from "./mediaSlots"
 
@@ -34,6 +34,16 @@ const laptop = perspective([[1034, 409], [1399, 423], [1379, 677], [1005, 652]])
 
 export function HeroBackdrop() {
   const ref = useRef<HTMLDivElement>(null)
+  // Safari does not scale a foreignObject inside an SVG viewBox, so the photo is scaled to cover here instead.
+  useLayoutEffect(() => {
+    const element = ref.current
+    if (!element) return
+    const cover = () => element.style.setProperty("--hero-scale", String(Math.max(element.clientWidth / 1536, element.clientHeight / 1024)))
+    cover()
+    const resize = new ResizeObserver(cover)
+    resize.observe(element)
+    return () => resize.disconnect()
+  }, [])
   useEffect(() => {
     const element = ref.current
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -52,18 +62,16 @@ export function HeroBackdrop() {
   }, [])
 
   return <div ref={ref} className="hero-backdrop" aria-hidden="true">
-    <svg className="hero-art" viewBox="0 0 1536 1024" preserveAspectRatio="xMidYMid slice" focusable="false">
-      <foreignObject width="1536" height="1024">
-        <div className="hero-photo-stage">
-          <picture><source media="(max-width: 639px)" srcSet="/img/generated/hero-real-websites-v3-mobile.webp" /><img className="hero-room-photo" src="/img/generated/hero-real-websites-v3.webp" alt="" width={1536} height={1024} fetchPriority="high" /></picture>
-          <img className="hero-screen-capture" src="/img/hero-screens/studio-freight.jpg" alt="" width={1280} height={720} style={{ transform: monitor }} fetchPriority="high" />
-          <img className="hero-screen-capture" src="/img/hero-screens/malvah-studio.jpg" alt="" width={1280} height={720} style={{ transform: laptop }} fetchPriority="high" />
-          <div className="hero-screen-capture" style={{ transform: laptop }}>
-            <MediaEmbed item={media.heroVideo} className="hero-laptop-preview" decorative />
-          </div>
+    <div className="hero-art">
+      <div className="hero-photo-stage">
+        <picture><source media="(max-width: 639px)" srcSet="/img/generated/hero-real-websites-v3-mobile.webp" /><img className="hero-room-photo" src="/img/generated/hero-real-websites-v3.webp" alt="" width={1536} height={1024} fetchPriority="high" /></picture>
+        <img className="hero-screen-capture" src="/img/hero-screens/studio-freight.jpg" alt="" width={1280} height={720} style={{ transform: monitor }} fetchPriority="high" />
+        <img className="hero-screen-capture" src="/img/hero-screens/malvah-studio.jpg" alt="" width={1280} height={720} style={{ transform: laptop }} fetchPriority="high" />
+        <div className="hero-screen-capture" style={{ transform: laptop }}>
+          <MediaEmbed item={media.heroVideo} className="hero-laptop-preview" decorative />
         </div>
-      </foreignObject>
-    </svg>
+      </div>
+    </div>
     <div className="hero-readability-shade" />
   </div>
 }
