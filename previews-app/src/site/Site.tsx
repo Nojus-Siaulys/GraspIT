@@ -6,6 +6,7 @@ import type { ServiceKind } from "./serviceDetails"
 import { ProjectLibrary } from "./ProjectLibrary"
 import { About } from "./About"
 import { ProjectGallery } from "./ProjectGallery"
+import { MoreWorks } from "./MoreWorks"
 import { StudioScene, TrustPhoto } from "./Photography"
 import { contact, phoneHref, siteCopy } from "./settings"
 import { MobileCallBar, Testimonials, TrustStrip } from "./Trust"
@@ -410,6 +411,14 @@ function Work() {
     <Section number="01" label="Projektai" title="Nuo poreikio iki konkretaus sprendimo.">
       <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">Atverkite projekto pristatymą: pamatysite jo paskirtį, svetainės dalis ir svarbiausių sprendimų logiką.</p>
       <ProjectGallery />
+    </Section>
+    <Section number="02" label="Daugiau darbų" title="Paleistos svetainės Lenkijos klientams." sand>
+      <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">Kiekvienai iš jų atnaujintas dizainas gyvoje svetainėje.</p>
+      <MoreWorks kind="live" />
+    </Section>
+    <Section number="03" label="Dizaino pasiūlymai" title="Dizainai, kurie dar nepaleisti.">
+      <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">Tai dizaino pasiūlymai: jie nėra paleisti klientų svetainėse.</p>
+      <MoreWorks kind="proposals" />
     </Section>
     <StructureExplorer />
   </>
