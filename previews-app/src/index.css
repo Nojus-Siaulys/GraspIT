@@ -506,3 +506,7 @@ input:user-invalid, textarea:user-invalid { border-color: #b3261e; }
   .ux-panel[role="status"] > svg:first-child { animation: pop .35s cubic-bezier(.34, 1.56, .64, 1); }
   input:user-invalid, textarea:user-invalid { animation: shake .3s ease-out; }
 }
+
+/* Header hides while reading down and at the bottom; keyboard focus inside it always brings it back. */
+.site-header { transition: transform .25s cubic-bezier(.2, .7, .2, 1); }
+.site-header[data-hidden="true"]:not(:focus-within) { transform: translateY(-100%); }

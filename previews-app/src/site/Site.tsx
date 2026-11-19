@@ -416,6 +416,22 @@ function Work() {
 }
 export function Site({ path = "/" }: { path?: string }) {
   const [menu, setMenu] = useState(false)
+  // The header slides away while reading down and at the very bottom; it returns on any scroll up and at the top.
+  const [navHidden, setNavHidden] = useState(false)
+  useEffect(() => {
+    let last = window.scrollY
+    const update = () => {
+      const y = window.scrollY
+      const bottom = document.documentElement.scrollHeight - window.innerHeight
+      if (y < 80) { setNavHidden(false); last = y; return }
+      if (bottom - y < 4) { setNavHidden(true); last = y; return }
+      if (Math.abs(y - last) < 4) return
+      setNavHidden(y > last)
+      last = y
+    }
+    window.addEventListener("scroll", update, { passive: true })
+    return () => window.removeEventListener("scroll", update)
+  }, [])
   useEffect(() => {
     if (!menu) return
     const close = (event: KeyboardEvent) => {
@@ -454,7 +470,7 @@ export function Site({ path = "/" }: { path?: string }) {
           <span>Nepriklausoma studija · LT</span>
         </div>
       </div>
-      <header className="sticky top-0 z-40 border-b border-foreground bg-background/95 backdrop-blur">
+      <header data-hidden={navHidden && !menu ? "true" : undefined} className="site-header sticky top-0 z-40 border-b border-foreground bg-background/95 backdrop-blur">
         <div className={`${wrap} flex h-20 items-center justify-between gap-4`}>
           <a href="/" aria-label="GraspIT – pradžia">
             <Brand />
