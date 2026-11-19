@@ -57,3 +57,10 @@ test("the sixth attempt within a minute is rate limited", async () => {
     assert.equal(response.status, 429); assert.equal(response.headers.get("retry-after"), "60")
   })
 })
+test("every service offered on the contact form is accepted", async () => {
+  for (const service of ["AI automatizacija", "Programa", "SEO ir priežiūra", "Integracijos"]) {
+    await withApi(createContactHandler(config, async () => new Response("{}", { status: 200 })), async url => {
+      assert.equal((await post(url, { ...valid, service })).status, 200, service)
+    })
+  }
+})

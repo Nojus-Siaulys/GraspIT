@@ -1,6 +1,8 @@
 import { HeroBackdrop } from "./HeroBackdrop"
 import { CaseStudy } from "./CaseStudy"
 import { ServiceDetails, ServiceScenarios, StructureExplorer, PackageScope } from "./DecisionContent"
+import { Legal } from "./Legal"
+import type { ServiceKind } from "./serviceDetails"
 import { ProjectLibrary } from "./ProjectLibrary"
 import { About } from "./About"
 import { ProjectGallery } from "./ProjectGallery"
@@ -257,15 +259,52 @@ function Process() {
     </Section>
   )
 }
-function WebsiteRedesign() {
-return <><Section number="01" label="Svetainės dizaino atnaujinimas" title="Geresnė svetainė. Išlaikant tai, kas veikia." sand>
-{hasMedia("serviceRedesign") && <Media id="serviceRedesign" className="mb-10" />}
-<div className="grid gap-8 lg:grid-cols-2"><p className="text-2xl leading-relaxed">Turite svetainę, bet ji nebeatspindi jūsų verslo? Pirmiausia įvertiname, ką verta išlaikyti.</p><div className="space-y-6">{[["Dizainas ir struktūra","Aiškiau pristatome paslaugas ir sutvarkome navigaciją."],["Mobilioji versija","Pritaikome tekstą, mygtukus ir išdėstymą mažam ekranui."],["WordPress svetainės","Netenkina dabartinis dizainas? Aptarsime, ką keisti."]].map(([t,d])=><div key={t} className="border-t border-foreground/30 pt-4"><h3 className="text-xl font-bold">{t}</h3><p className="mt-2 leading-relaxed text-muted-foreground">{d}</p></div>)}</div></div>
-</Section><Section number="02" label="Pirmas žingsnis" title="Pradėkime nuo jūsų dabartinės svetainės."><p className="mb-6 max-w-[55ch] text-xl leading-relaxed">Parodykite svetainės adresą ir pasakykite, kas netenkina. Kainą suderinsime pagal apimtį.</p><Link href="/kontaktai/">Aptarti svetainės atnaujinimą</Link></Section></>
+const serviceTitles: Record<ServiceKind, string> = {
+  websites: "Kiekviena dalis turi savo paskirtį.",
+  shop: "Kiekviena dalis turi savo paskirtį.",
+  redesign: "Geresnė svetainė. Išlaikant tai, kas veikia.",
+  ai: "Automatizuojame tai, ką galima apibrėžti.",
+  apps: "Programa pagal jūsų darbo būdą.",
+  seo: "Svetainė, kuria rūpinamasi ir po paleidimo.",
 }
+const serviceRows: Record<ServiceKind, string[][]> = {
+  websites: [
+    ["Aiški struktūra", "Lankytojas greitai randa paslaugas, kainas ir kaip susisiekti."],
+    ["Dizainas visiems ekranams", "Išdėstymas pritaikomas telefonams, planšetėms ir kompiuteriams."],
+    ["Pagrindas paieškai", "Suplanuojame adresus, antraštes ir aprašymus paieškai."],
+  ],
+  shop: [
+    ["Prekių katalogas", "Suplanuojame kategorijas ir prekių informaciją, kad pirkėjui būtų lengva rasti reikiamą."],
+    ["Pirkimo kelias", "Aptariame krepšelį, mokėjimo ir pristatymo būdus. Integracijų mokesčiai nurodomi atskirai."],
+    ["Turinio valdymas", "Sutariame, ką norėsite tvarkyti savarankiškai."],
+  ],
+  redesign: [
+    ["Dizainas ir struktūra", "Aiškiau pristatome paslaugas ir sutvarkome navigaciją."],
+    ["Mobilioji versija", "Pritaikome tekstą, mygtukus ir išdėstymą mažam ekranui."],
+    ["WordPress svetainės", "Netenkina dabartinis dizainas? Aptarsime, ką keisti."],
+  ],
+  ai: [
+    ["Pasikartojantys laiškai", "Laiškų rūšiavimas ir atsakymų ruošimas."],
+    ["Darbo procesai", "Sujungiame aiškius žingsnius į vieną procesą."],
+    ["Kontrolė ir patikra", "Sutariame, kur sprendimą patvirtina žmogus ir kokie duomenys naudojami."],
+  ],
+  apps: [
+    ["Užsakymų ir užklausų valdymas", "Visa informacija vienoje vietoje, su aiškiomis būsenomis."],
+    ["Klientų ir komandos prieiga", "Sutariame, kas ką mato ir ką gali keisti."],
+    ["Ataskaitos", "Svarbiausi skaičiai matomi be rankinio skaičiavimo."],
+  ],
+  seo: [
+    ["Techninė būklė", "Tikriname adresus, antraštes, aprašymus ir pritaikymą telefonams."],
+    ["Matomumas paieškoje", "Stebime indeksavimą ir paieškos užklausas, atnaujiname pasenusią informaciją."],
+    ["Priežiūra", "Talpinimas, atnaujinimai ir smulkūs pakeitimai pagal sutartą planą."],
+  ],
+}
+const kickers = ["Aiškus pristatymas", "Pardavimas internetu", "Mažiau rankinio darbo", "Svetainės dizaino atnaujinimas", "Savo sistema", "Būti randamam"]
+// Integrations are only a card: they have no page of their own, so the card opens the contact form with the service chosen.
+const integrationsCard = { href: "/kontaktai/?paslauga=Integracijos", title: "Integracijos ir dokumentų automatizavimas", text: "Sujungiame jūsų naudojamas sistemas, kad duomenys ir dokumentai nereikalautų perrašymo ranka.", price: "Kaina aptariama po pokalbio", number: "07", kicker: "Sujungtos sistemos" }
+const cards = [...services.map((service, index) => ({ ...service, kicker: kickers[index] })), integrationsCard]
 
 function Services({ path }: { path: string }) {
-  if (path === "/paslaugos/svetainiu-atnaujinimas") return <WebsiteRedesign />
   if (path === "/paslaugos")
     return (
       <>
@@ -276,9 +315,9 @@ function Services({ path }: { path: string }) {
           sand
         >
           <div className="grid gap-5 md:grid-cols-2">
-{services.map((service, index) => (
-<a key={service.href} href={pageUrl(service.href)} className={`group flex min-h-64 flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-9${index === services.length - 1 && services.length % 2 ? " md:col-span-2" : ""}`}>
-<div className="flex items-center justify-between gap-5"><span className={eyebrow}>{service.number} / {index === 0 ? "Aiškus pristatymas" : index === 1 ? "Pardavimas internetu" : index === 2 ? "Mažiau rankinio darbo" : index === 3 ? "Svetainės dizaino atnaujinimas" : "Savo sistema"}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
+{cards.map((service, index) => (
+<a key={service.href} href={service.href.includes("?") ? service.href : pageUrl(service.href)} className={`group flex min-h-64 flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-9${index === cards.length - 1 && cards.length % 2 ? " md:col-span-2" : ""}`}>
+<div className="flex items-center justify-between gap-5"><span className={eyebrow}>{service.number} / {service.kicker}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
 <div className="mt-9 grid gap-6 lg:grid-cols-2"><div><h3 className="text-3xl font-bold tracking-tight md:text-4xl">{service.title}</h3><p className="mt-4 max-w-[45ch] text-lg leading-relaxed">{service.text}</p></div><div className="flex flex-col justify-end lg:items-end"><span className="text-3xl font-bold">{service.price}</span><span className="mt-2 text-sm">Pagal sutartą darbų apimtį</span></div></div>
 </a>))}
 </div>
@@ -300,105 +339,29 @@ function Services({ path }: { path: string }) {
         </Section>
       </>
     )
-  const store = path.endsWith("el-parduotuves")
-  const ai = path.endsWith("ai-agentai")
-  const apps = path.endsWith("programos")
-  const slot: MediaId = ai ? "serviceAutomation" : apps ? "serviceApps" : store ? "serviceShop" : "serviceWebsites"
-  const rows = apps
-    ? [
-        ["Užsakymų ir užklausų valdymas", "Visa informacija vienoje vietoje, su aiškiomis būsenomis."],
-        ["Klientų ir komandos prieiga", "Sutariame, kas ką mato ir ką gali keisti."],
-        ["Ataskaitos", "Svarbiausi skaičiai matomi be rankinio skaičiavimo."],
-      ]
-    : ai
-    ? [
-        [
-          "Pasikartojantys laiškai",
-          "Laiškų rūšiavimas ir atsakymų ruošimas.",
-        ],
-        [
-          "Darbo procesai",
-          "Sujungiame aiškius žingsnius į vieną procesą.",
-        ],
-        [
-          "Kontrolė ir patikra",
-          "Sutariame, kur sprendimą patvirtina žmogus ir kokie duomenys naudojami.",
-        ],
-      ]
-    : store
-      ? [
-          [
-            "Prekių katalogas",
-            "Suplanuojame kategorijas ir prekių informaciją, kad pirkėjui būtų lengva rasti reikiamą.",
-          ],
-          [
-            "Pirkimo kelias",
-            "Aptariame krepšelį, mokėjimo ir pristatymo būdus. Integracijų mokesčiai nurodomi atskirai.",
-          ],
-          [
-            "Turinio valdymas",
-            "Sutariame, ką norėsite tvarkyti savarankiškai.",
-          ],
-        ]
-      : [
-          [
-            "Aiški struktūra",
-            "Lankytojas greitai randa paslaugas, kainas ir kaip susisiekti.",
-          ],
-          [
-            "Dizainas visiems ekranams",
-            "Išdėstymas pritaikomas telefonams, planšetėms ir kompiuteriams.",
-          ],
-          [
-            "Pagrindas paieškai",
-            "Suplanuojame adresus, antraštes ir aprašymus paieškai.",
-          ],
-        ]
+  const kind: ServiceKind = path.endsWith("el-parduotuves") ? "shop"
+    : path.endsWith("ai-agentai") ? "ai"
+    : path.endsWith("programos") ? "apps"
+    : path.endsWith("seo-prieziura") ? "seo"
+    : path.endsWith("svetainiu-atnaujinimas") ? "redesign"
+    : "websites"
+  const slot: MediaId | undefined = ({ ai: "serviceAutomation", apps: "serviceApps", shop: "serviceShop", websites: "serviceWebsites", redesign: "serviceRedesign" } as const)[kind as Exclude<ServiceKind, "seo">]
+  const rows = serviceRows[kind]
   return (
     <>
-      <Section
-        number="01"
-        label="Sprendimo dalys"
-        title={
-          ai
-            ? "Automatizuojame tai, ką galima apibrėžti."
-            : apps
-              ? "Programa pagal jūsų darbo būdą."
-              : "Kiekviena dalis turi savo paskirtį."
-        }
-        sand
-      >
-        {hasMedia(slot) && <Media id={slot} className="mb-10" />}
+      <Section number="01" label="Sprendimo dalys" title={serviceTitles[kind]} sand>
+        {slot && hasMedia(slot) && <Media id={slot} className="mb-10" />}
         <div className="grid gap-8 md:grid-cols-3">
           {rows.map(([t, d], i) => (
             <article key={t} className="border-t border-foreground pt-5">
-              <span className={`${eyebrow} text-[var(--signal)]`}>
-                0{i + 1}
-              </span>
+              <span className={`${eyebrow} text-[var(--signal)]`}>0{i + 1}</span>
               <h2 className="mt-6 mb-4 text-2xl font-bold">{t}</h2>
-              <p className="text-lg leading-relaxed text-muted-foreground">
-                {d}
-              </p>
+              <p className="text-lg leading-relaxed text-muted-foreground">{d}</p>
             </article>
           ))}
         </div>
       </Section>
-      {ai || apps ? (
-        <ServiceDetails kind={ai ? "ai" : "apps"} />
-      ) : (
-        <Section
-          number="02"
-          label="Prieš startą"
-          title="Pirmiausia – apimtis ir susitarimas."
-        >
-          <div className="lg:ml-[25%]">
-            <p className="mb-6 max-w-[65ch] text-xl leading-relaxed">
-              Išsiaiškiname puslapius, funkcijas ir turinį, tada pateikiame kainą ir terminą. Domenas ir talpinimas aptariami atskirai.
-            </p>
-            <Link href="/kainos/">Palyginti paketus ir kainas</Link>
-          </div>
-        </Section>
-      )}
+      <ServiceDetails kind={kind} />
     </>
   )
 }
@@ -616,6 +579,8 @@ export function Site({ path = "/" }: { path?: string }) {
             {path.startsWith("/darbai/") && <CaseStudy slug={path.split("/")[2]} />}
             {path === "/biblioteka" && <ProjectLibrary />}
             {path === "/kontaktai" && <Contact />}
+            {path === "/privatumo-politika" && <Legal kind="privacy" />}
+            {path === "/slapukai" && <Legal kind="cookies" />}
             {path === "/blogas" && <BlogIndex />}
             {path.startsWith("/blogas/") && <BlogPost slug={path.split("/")[2]} />}
             {path === "/duk" && (

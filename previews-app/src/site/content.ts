@@ -63,6 +63,13 @@ export const pages: Record<
     intro: "Atnaujiname esamų svetainių dizainą, struktūrą ir pritaikymą telefonams. Pirmiausia įvertiname dabartinę svetainę, tada suderiname darbų apimtį ir kainą.",
     label: "Svetainės dizaino atnaujinimas",
   },
+  "/paslaugos/seo-prieziura": {
+    title: "Svetainės SEO ir priežiūra | GraspIT",
+    heading: "SEO ir svetainės priežiūra",
+    intro:
+      "Po paleidimo svetainę verta prižiūrėti: stebėti indeksavimą, atnaujinti informaciją ir tvarkyti smulkius pakeitimus. Kainą pateikiame pagal reikalingus darbus.",
+    label: "SEO ir priežiūra",
+  },
   "/kainos": {
     title: `Svetainių kūrimo kainos: nuo ${prices.website} ir ${prices.shop} | GraspIT`,
     heading: "Svetainių kūrimas nuo 350 €",
@@ -122,6 +129,18 @@ export const pages: Record<
       "Praktiški straipsniai apie svetainių kainas, techninį SEO, matomumą Google ir AI asistentų atsakymuose. Be reklamos biudžeto – su aiškiais žingsniais.",
     label: "Blogas",
   },
+  "/privatumo-politika": {
+    title: "Privatumo politika | GraspIT",
+    heading: "Privatumo politika",
+    intro: "Kaip GraspIT tvarko duomenis, kuriuos paliekate užklausos formoje ar parašę mums, kiek laiko juos saugo ir kokias teises turite.",
+    label: "Privatumo politika",
+  },
+  "/slapukai": {
+    title: "Slapukai ir panašios technologijos | GraspIT",
+    heading: "Slapukai",
+    intro: "Šioje svetainėje slapukų nenaudojame. Čia aprašome, ką svetainė išsaugo jūsų įrenginyje ir kodėl.",
+    label: "Slapukai",
+  },
   "/kontaktai": {
     title: "Aptarkime jūsų svetainę | GraspIT kontaktai",
     heading: "Susisiekime",
@@ -163,7 +182,8 @@ export const services = [
     number: "03",
   },
   { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Esamos svetainės dizaino ir struktūros atnaujinimas pagal jūsų veiklą.", price: "Kaina pagal apimtį", number: "04" },
-  { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", price: "Kaina aptariama po pokalbio", number: "05" }
+  { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", price: "Kaina aptariama po pokalbio", number: "05" },
+  { href: "/paslaugos/seo-prieziura", title: "SEO ir svetainės priežiūra", text: "Kai paleistos svetainės niekas neprižiūri ir nežinote, ką pagerinti.", price: "Kaina pagal darbus", number: "06" }
 ]
 
 export const faqGroups = [

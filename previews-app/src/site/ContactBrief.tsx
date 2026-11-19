@@ -3,7 +3,7 @@ import { ArrowRight, Check, Download } from "lucide-react"
 import { PackageFinder } from "./PackageFinder"
 import { briefKey, briefText, completeInquiry, draftInquiry, inquiryFromParams, inquiryServices, inquirySummary } from "./inquiryDraft"
 
-const serviceOptions = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Programa", "Dar nežinau"]
+const serviceOptions = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Programa", "SEO ir priežiūra", "Integracijos", "Dar nežinau"]
 function initialBrief() {
   const params = new URLSearchParams(typeof window === "undefined" ? "" : window.location.search)
   const initial = inquiryFromParams(params)
@@ -106,7 +106,7 @@ export function ContactBrief() {
           <label className="block font-medium" htmlFor="brief-extra">Kas dar svarbu?<textarea id="brief-extra" name="extra" rows={3} maxLength={1000} placeholder="Jūsų veikla, norimos funkcijos ar patinkanti svetainė…" className={field} /></label>
         </div></details>
         <div className="ux-honeypot" aria-hidden="true"><label htmlFor="brief-website">Palikite tuščią<input id="brief-website" name="website" autoComplete="off" tabIndex={-1} /></label></div>
-        <p id="brief-help" className="text-xs leading-relaxed text-muted-foreground">Vardą, el. paštą ir projekto aprašymą naudosime atsakymui apie jūsų projektą. Slaptų duomenų nesiųskite.</p>
+        <p id="brief-help" className="text-xs leading-relaxed text-muted-foreground">Vardą, el. paštą ir projekto aprašymą naudosime atsakymui apie jūsų projektą. Slaptų duomenų nesiųskite. Daugiau: <a href="/privatumo-politika/" className="underline underline-offset-4">privatumo politika</a>.</p>
         {checked && !enabled && <p id="brief-unavailable" className="border-l-2 border-foreground/40 pl-4 text-sm leading-relaxed text-muted-foreground">Užklausų siuntimą dar ruošiame. Kol kas galite išsisaugoti aprašymą — jis mums nebus išsiųstas.</p>}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3"><button type="submit" disabled={busy || !enabled} aria-describedby={!enabled && checked ? "brief-unavailable" : undefined} className="inline-flex min-h-12 items-center gap-3 rounded-md bg-foreground px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">{busy ? "Siunčiama…" : "Pateikti užklausą"}<ArrowRight className="size-4" /></button><button type="button" onClick={download} className="ux-text-link"><Download className="size-4" />{enabled ? "Išsisaugoti kopiją" : "Atsisiųsti projekto aprašymą"}</button></div>
       </fieldset>

@@ -90,6 +90,7 @@ export function Footer({ links }: { links: readonly Item[] }) {
         </div>
         <div className="fm-meta">
           <span className="fm-dim">© GraspIT · Svetainių kūrimas ir atnaujinimas{contact.email && ` · ${contact.email}`}</span>
+          <nav aria-label="Teisinė informacija" className="fm-legal"><a href="/privatumo-politika/">Privatumo politika</a><a href="/slapukai/">Slapukai</a></nav>
         </div>
         <Wordmark />
       </div>

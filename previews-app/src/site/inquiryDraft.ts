@@ -43,8 +43,12 @@ export function inquiryFromParams(params: URLSearchParams) {
 
 export const briefKey = "graspit-brief"
 const briefOpenings: Record<string, string> = {
+  Svetainė: "Sveiki, norėčiau aptarti svetainės kūrimą.",
+  "El. parduotuvė": "Sveiki, norėčiau aptarti el. parduotuvės kūrimą.",
+  "Svetainės atnaujinimas": "Sveiki, norėčiau aptarti svetainės atnaujinimą.",
   "AI automatizacija": "Sveiki, norėčiau aptarti automatizaciją.",
   Programa: "Sveiki, norėčiau aptarti programos kūrimą.",
+  "SEO ir priežiūra": "Sveiki, norėčiau aptarti svetainės SEO ir priežiūrą.",
 }
 // Answers from a service page, kept in sessionStorage so free text never goes into the URL.
 export function briefText(raw: string | null, service: string) {

@@ -575,6 +575,7 @@ export const relatedPosts: Record<string, string[]> = {
   "/paslaugos/el-parduotuves": ["kaip-pradeti-el-parduotuve", "techninis-seo-sarasas", "kiek-kainuoja-svetaine"],
   "/paslaugos/svetainiu-atnaujinimas": ["kada-atnaujinti-svetaine", "techninis-seo-sarasas", "geo-ai-paieska"],
   "/paslaugos/ai-agentai": ["geo-ai-paieska", "techninis-seo-sarasas", "kiek-kainuoja-svetaine"],
+  "/paslaugos/seo-prieziura": ["techninis-seo-sarasas", "geo-ai-paieska", "google-verslo-profilis"],
   "/kainos": ["kiek-kainuoja-svetaine", "kaip-pradeti-el-parduotuve", "kada-atnaujinti-svetaine"],
   "/duk": ["kiek-kainuoja-svetaine", "techninis-seo-sarasas", "geo-ai-paieska"],
   "/procesas": ["kiek-kainuoja-svetaine", "kada-atnaujinti-svetaine", "svetaine-ar-socialiniai-tinklai"],

@@ -3,6 +3,7 @@ import { ArrowRight, Check, MousePointer2, LayoutTemplate, Layers, Image, Messag
 
 import { briefKey } from "./inquiryDraft"
 import { bookingUrl } from "./settings"
+import { details, type ServiceKind } from "./serviceDetails"
 
 const wrap = "mx-auto max-w-[1280px] px-5 md:px-8"
 const scenarios = [
@@ -81,73 +82,11 @@ export function PackageScope() {
   return <section className="py-16 md:py-24" aria-labelledby="scope-heading"><div className={wrap}><p className="ux-eyebrow">Kas bus sukurta</p><h2 id="scope-heading" className="mt-5 max-w-[23ch] text-3xl font-bold tracking-tight md:text-5xl">Kaina lengviau suprantama, kai matote apimtį.</h2><div className="mt-10 grid gap-4 lg:grid-cols-2"><article className="ux-panel bg-secondary p-6 md:p-9"><h3 className="text-2xl font-semibold tracking-tight">Iki 4 puslapių — pavyzdinė struktūra</h3><ol className="mt-6">{[["Pradžia", "Kas esate, ką darote ir kaip susisiekti."], ["Paslaugos", "Ką siūlote ir kokiam klientui tai tinka."], ["Darbai arba apie mus", "Pavyzdžiai ir kontekstas pasitikėjimui."], ["Kontaktai", "Aiškus kelias iki užklausos."]].map(([title, text], index) => <li key={title} className="flex gap-4 border-t border-foreground/20 py-4"><span className="text-xs text-muted-foreground">0{index + 1}</span><div><h4 className="font-semibold">{title}</h4><p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p></div></li>)}</ol><p className="mt-4 text-sm text-muted-foreground">Puslapių paskirtį galime keisti pagal jūsų veiklą. Tai apimties pavyzdys.</p></article><div className="grid gap-4"><article className="ux-panel p-6 md:p-9"><h3 className="text-xl font-semibold">Ką paruošiame kartu?</h3><ul className="mt-5 space-y-3">{["Puslapių ir pagrindinių veiksmų planą", "Turinio bei nuotraukų sąrašą", "Sutartą dizainą, pritaikymą ekranams ir patikrą"].map(text => <li key={text} className="flex gap-3"><Check className="mt-1 size-4 shrink-0" />{text}</li>)}</ul></article><article className="ux-panel bg-foreground p-6 text-white md:p-9"><h3 className="text-xl font-semibold">Kas aptariama papildomai?</h3><p className="mt-4 leading-relaxed text-white/80">Domenas ir talpinimas, tekstų rašymas, mokamos integracijos, papildomos kalbos ir didesnės funkcijos. Prieš pradėdami įvardijame, kas įtraukta į jūsų pasiūlymą.</p></article></div></div></div></section>
 }
 
-type Detail = {
-  id: string
-  service: string
-  fit: { eyebrow: string; heading: string; items: { title: string; text: string; example: string }[] }
-  included: { items: string[]; note: string }
-  faq: { heading: string; items: { q: string; a: string }[] }
-  questions: { label: string; line: string; placeholder?: string; options?: string[]; long?: boolean }[]
-}
-
-const details: Record<"ai" | "apps", Detail> = {
-  ai: {
-    id: "ai",
-    service: "AI automatizacija",
-    fit: { eyebrow: "Kam tinka", heading: "Kai tas pats darbas kartojasi kiekvieną dieną.", items: [
-      { title: "Tie patys laiškai", text: "Klientai klausia to paties, o atsakymus tenka ruošti rankiniu būdu.", example: "Pavyzdys: kainų užklausos, užsakymo būsena." },
-      { title: "Rankiniu būdu perkeliami duomenys", text: "Informacija iš laiško ar formos kopijuojama į kitą sistemą ar lentelę.", example: "Pavyzdys: užklausos iš pašto į užsakymų lentelę." },
-      { title: "Žingsniai, kuriuos lengva pamiršti", text: "Priminimai, patvirtinimai ir tolesni veiksmai, kurie priklauso nuo žmogaus atminties.", example: "Pavyzdys: atsakymas klientui po savaitės." },
-    ] },
-    included: { note: "Kainos čia nerodome: kiekvienas procesas skirtingas, todėl kainą sutariame po pokalbio. Paslaugų tiekėjų mokesčiai vertinami atskirai.", items: [
-      "Dabartinio proceso ir naudojamų priemonių aptarimas",
-      "Viena aiški pirmoji užduotis, nuo kurios pradedame",
-      "Sutartas būdas, kaip tikrinsime rezultatą",
-      "Aiškiai nustatyta, kur sprendimą patvirtina žmogus",
-      "Iš anksto sutarta, kokie duomenys naudojami",
-    ] },
-    faq: { heading: "Apie automatizaciją.", items: [
-      { q: "Ar AI atsakys klientams be žmogaus?", a: "Tik ten, kur tai sutariame. Kiekvienai užduočiai nusprendžiame, kur sprendimą patvirtina žmogus." },
-      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo proceso apimties. Ją sutariame po pokalbio, prieš pradėdami darbą." },
-      { q: "Ką daryti su slaptais duomenimis?", a: "Slaptažodžių ir slaptų duomenų per svetainės formą nesiųskite. Kokie duomenys naudojami, sutariame iš anksto." },
-    ] },
-    questions: [
-      { label: "Kokį procesą norite automatizuoti?", line: "Procesas, kurį norėčiau automatizuoti:", long: true, placeholder: "Pvz., atsakymai į kainų užklausas laiškais" },
-      { label: "Kiek laiko jis užima per savaitę?", line: "Kiek laiko jis užima per savaitę:", options: ["Iki 2 val.", "2–5 val.", "5–10 val.", "Daugiau nei 10 val.", "Nežinau"] },
-      { label: "Kokiomis priemonėmis naudojatės?", line: "Kokiomis priemonėmis naudojuosi:", placeholder: "Pvz., Gmail, Excel, parduotuvės sistema" },
-    ],
-  },
-  apps: {
-    id: "apps",
-    service: "Programa",
-    fit: { eyebrow: "Kam tinka", heading: "Kai Excel ir laiškai nebeužtenka.", items: [
-      { title: "Informacija išbarstyta", text: "Užsakymai ir užklausos gyvena laiškuose, lentelėse ir užrašuose, o bendros apžvalgos niekas neturi.", example: "Pavyzdys: užsakymų valdymas vienoje vietoje." },
-      { title: "Klientai nuolat klausia, kas vyksta", text: "Klientas pats mato užsakymo ar paslaugos būseną, o jums nereikia atsakinėti.", example: "Pavyzdys: klientų portalas." },
-      { title: "Ataskaitos renkamos ranka", text: "Skaičiai iš kelių vietų sudedami rankiniu būdu kiekvieną savaitę.", example: "Pavyzdys: savaitės ataskaita be skaičiavimo." },
-    ] },
-    included: { note: "Kainos čia nerodome: programos būna labai skirtingos, todėl kainą sutariame po pokalbio, kai aiški apimtis.", items: [
-      "Pokalbis apie dabartinį darbą ir tai, ko programai reikia",
-      "Aiški apimtis: kas bus pirmoje versijoje, o kas vėliau",
-      "Matomas rezultatas jau kūrimo metu",
-      "Sutarta, kas turi prieigą ir kokie duomenys saugomi",
-    ] },
-    faq: { heading: "Apie programas.", items: [
-      { q: "Nuo ko pradedama?", a: "Nuo pokalbio. Aptariame, ką šiandien darote rankiniu būdu ir kas svarbiausia pirmai versijai." },
-      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo apimties. Ją sutariame po pokalbio, prieš pradėdami darbą." },
-      { q: "Ar galėsiu ką nors pridėti vėliau?", a: "Pirmajai versijai pasirenkame svarbiausią dalį, o kitus norus aptariame atskirai." },
-    ] },
-    questions: [
-      { label: "Ką programa turėtų daryti?", line: "Ką programa turėtų daryti:", long: true, placeholder: "Pvz., rodyti užsakymus ir jų būsenas vienoje vietoje" },
-      { label: "Kiek žmonių ja naudosis?", line: "Kiek žmonių ja naudosis:", options: ["1–2", "3–10", "11–50", "Daugiau nei 50", "Nežinau"] },
-      { label: "Kaip tai darote dabar?", line: "Kaip tai darau dabar:", placeholder: "Pvz., Excel lentelė ir laiškai" },
-    ],
-  },
-}
 
 const briefField = "mt-2 min-h-12 w-full rounded-md border border-foreground/30 bg-background px-3 py-3 text-base"
 
-// "Kam tinka", "Kas įeina", FAQ and the three-question brief shared by the AI and programs pages.
-export function ServiceDetails({ kind }: { kind: "ai" | "apps" }) {
+// "Kam tinka", "Kas įeina", FAQ and the three-question brief shared by all service pages.
+export function ServiceDetails({ kind }: { kind: ServiceKind }) {
   const d = details[kind]
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

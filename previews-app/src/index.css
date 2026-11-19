@@ -407,6 +407,7 @@ html { scroll-padding-top: 7rem; }
 .fm-cols a:hover { padding-left: 8px; color: var(--fm-mint); }
 .fm-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; padding: 10px 0; border-top: 1px solid var(--fm-line); font-size: 13px; }
 .fm-dim { opacity: .7; }
+.fm-legal { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .fm-meta a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; }
 .fm-meta a:hover { color: var(--fm-mint); }
 .fm-wordmark { display: block; position: relative; height: var(--fm-h, 0px); margin-top: calc(10px - var(--fm-fs, 0px) * .1); overflow: hidden; }

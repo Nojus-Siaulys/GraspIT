@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http"
 
 export type ContactConfig = { key?: string; from?: string; to?: string; origin?: string }
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const services = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Dar nežinau"]
+const services = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Programa", "SEO ir priežiūra", "Integracijos", "Dar nežinau"]
 export function createContactHandler(config: ContactConfig, send: typeof fetch = fetch) {
   const ready = Boolean(config.key && config.from && config.to && emailPattern.test(config.to))
   const attempts = new Map<string, { count: number; until: number }>()
