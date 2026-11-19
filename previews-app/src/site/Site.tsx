@@ -113,7 +113,7 @@ function Home() {
           <h1 className="mt-8 max-w-[16ch] text-[clamp(2.8rem,5.8vw,5.6rem)] font-bold leading-[1.03] tracking-[-.05em]">Kuriame ir atnaujiname svetaines verslui.</h1>
           <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Padedame vietiniams verslams aiškiai pristatyti paslaugas internete.</p>
           <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <a href="/kontaktai/" className="hero-primary inline-flex min-h-[52px] items-center justify-center gap-3 rounded-md px-6 py-3 font-semibold">{siteCopy.cta}<ArrowRight className="size-4" /></a>
+            <a href="/kontaktai/" className="hero-primary cta-glow inline-flex min-h-[52px] items-center justify-center gap-3 rounded-md px-6 py-3 font-semibold">{siteCopy.cta}<ArrowRight className="size-4" /></a>
             <Link href="/darbai/">Peržiūrėti darbus</Link>
           </div>
           <p className="hero-price mt-6 max-w-[48ch] text-sm leading-relaxed">{siteCopy.note}</p>
@@ -124,7 +124,7 @@ function Home() {
     <TrustStrip />
     <Section number="01" label="Paslaugos" title="Ko reikia jūsų verslui?" sand>
       <div className="grid gap-6 md:grid-cols-2">
-        {cards.map((item, i) => <article key={item.title} className="flex flex-col overflow-hidden rounded-lg border border-foreground/20 bg-background">
+        {cards.map((item, i) => <article key={item.title} className="lift flex flex-col overflow-hidden rounded-lg border border-foreground/20 bg-background">
           {hasMedia(item.id) && <Media id={item.id} className="rounded-none" />}
           <div className="flex flex-1 flex-col p-7 md:p-9">
             <p className={eyebrow}>0{i + 1} / {item.note}</p>
@@ -316,7 +316,7 @@ function Services({ path }: { path: string }) {
         >
           <div className="grid gap-5 md:grid-cols-2">
 {cards.map((service, index) => (
-<a key={service.href} href={service.href.includes("?") ? service.href : pageUrl(service.href)} className={`group flex min-h-64 flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-9${index === cards.length - 1 && cards.length % 2 ? " md:col-span-2" : ""}`}>
+<a key={service.href} href={service.href.includes("?") ? service.href : pageUrl(service.href)} className={`lift group flex min-h-64 flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-9${index === cards.length - 1 && cards.length % 2 ? " md:col-span-2" : ""}`}>
 <div className="flex items-center justify-between gap-5"><span className={eyebrow}>{service.number} / {service.kicker}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
 <div className="mt-9 grid gap-6 lg:grid-cols-2"><div><h3 className="text-3xl font-bold tracking-tight md:text-4xl">{service.title}</h3><p className="mt-4 max-w-[45ch] text-lg leading-relaxed">{service.text}</p></div><div className="flex flex-col justify-end lg:items-end"><span className="text-3xl font-bold">{service.price}</span><span className="mt-2 text-sm">Pagal sutartą darbų apimtį</span></div></div>
 </a>))}
@@ -472,7 +472,7 @@ export function Site({ path = "/" }: { path?: string }) {
                     ? "page"
                     : undefined
                 }
-                className="py-2 underline-offset-8 hover:underline aria-[current=page]:underline"
+                className="nav-link py-2"
               >
                 {text}
               </a>
@@ -485,7 +485,7 @@ export function Site({ path = "/" }: { path?: string }) {
             <a
               href="/kontaktai/"
               style={{ color: "var(--background)" }}
-              className="hidden min-h-11 items-center rounded-md bg-foreground px-5 text-sm font-semibold text-background sm:inline-flex"
+              className="cta-glow hidden min-h-11 items-center rounded-md bg-foreground px-5 text-sm font-semibold text-background sm:inline-flex"
             >
               {siteCopy.ctaShort} <ArrowRight className="ml-3 size-4" />
             </a>
@@ -642,7 +642,7 @@ export function Site({ path = "/" }: { path?: string }) {
                   {contact.phone ? (
                     <a href={phoneHref} style={{ color: "var(--foreground)" }} className="inline-flex min-h-[52px] items-center gap-3 rounded-md bg-white px-6 py-3 font-semibold text-foreground"><Phone className="size-4" aria-hidden="true" />{contact.phone}</a>
                   ) : (
-                    <a href="/kontaktai/" style={{ color: "var(--foreground)" }} className="inline-flex min-h-[52px] items-center gap-4 rounded-md bg-white px-6 py-3 font-semibold text-foreground">{siteCopy.cta} <ArrowRight className="size-4" /></a>
+                    <a href="/kontaktai/" style={{ color: "var(--foreground)" }} className="cta-glow inline-flex min-h-[52px] items-center gap-4 rounded-md bg-white px-6 py-3 font-semibold text-foreground">{siteCopy.cta} <ArrowRight className="size-4" /></a>
                   )}
                   {contact.phone && <a href="/kontaktai/" className="inline-flex min-h-12 items-center gap-2 border-b border-current py-2 font-semibold text-white">{siteCopy.write}<ArrowRight className="size-4" aria-hidden="true" /></a>}
                 </div>

@@ -73,7 +73,7 @@ export function Footer({ links }: { links: readonly Item[] }) {
           <div>
             <h2>Papasakokite, ko reikia jūsų svetainei.</h2>
             <div className="fm-acts">
-              <a href="/kontaktai/" className="fm-btn">{siteCopy.ctaShort}<ArrowRight className="size-4" aria-hidden="true" /></a>
+              <a href="/kontaktai/" className="fm-btn cta-glow">{siteCopy.ctaShort}<ArrowRight className="size-4" aria-hidden="true" /></a>
               {contact.phone && <a href={phoneHref} className="fm-phone">{contact.phone}</a>}
               {contact.email && <a href={`mailto:${contact.email}`} className="fm-phone">{contact.email}</a>}
             </div>
