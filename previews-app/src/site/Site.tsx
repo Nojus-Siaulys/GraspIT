@@ -200,7 +200,7 @@ function Pricing() {
               href={"/kontaktai/?" + new URLSearchParams({ paslauga: i ? "Dar nežinau" : "Svetainė", paketas: p.t }).toString()}
               className="mt-auto inline-flex items-center justify-between border-t border-current pt-5 font-semibold"
             >
-              Aptarti šį sprendimą
+              Aptarti šį paketą
               <ArrowRight className="size-5" />
             </a>
           </article>
@@ -408,8 +408,8 @@ function Contact() {
 }
 function Work() {
   return <>
-    <Section number="01" label="Projektai" title="Nuo poreikio iki konkretaus sprendimo.">
-      <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">Atverkite projekto pristatymą: pamatysite jo paskirtį, svetainės dalis ir svarbiausių sprendimų logiką.</p>
+    <Section number="01" label="Projektai" title="Nuo poreikio iki veikiančios svetainės.">
+      <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">Atverkite projekto pristatymą: pamatysite, kam skirta svetainė, iš kokių dalių ji sudaryta ir kodėl padaryta būtent taip.</p>
       <ProjectGallery />
     </Section>
     <Section number="02" label="Daugiau darbų" title="Paleistos svetainės Lenkijos klientams." sand>

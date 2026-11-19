@@ -71,7 +71,7 @@ export function StructureExplorer() {
           <button {...sectionProps(6)}><span className="sx-block-label"><span>07</span> DUK</span><span className="sx-rows">{[1,2,3].map(number => <span key={number} className="sx-row"><span className="sx-skeleton-lines" aria-hidden="true"><i /></span><span className="sx-row-tag" aria-hidden="true">+</span></span>)}</span></button>
           <button {...sectionProps(7)}><span className="sx-block-label"><span>08</span> Susisiekimas</span><span className="sx-contact-content"><span className="sx-contact-title">Pradėkime<br />pokalbį.</span><span className="sx-form-outline" aria-hidden="true"><span>Vardas <i /></span><span>El. paštas <i /></span><span className="sx-form-send">Užklausos veiksmas <ArrowRight className="size-3" /></span></span></span></button>
         </div>
-        <p className="sx-caption"><MousePointer2 className="size-4 shrink-0" aria-hidden="true" />Pasirinkite bet kurį iš 8 maketo blokų. Tai demonstracija — duomenys čia nevedami.</p>
+        <p className="sx-caption"><MousePointer2 className="size-4 shrink-0" aria-hidden="true" />Pasirinkite bet kurį iš 8 maketo blokų. Tai tik demonstracija, duomenų čia vesti nereikia.</p>
       </div>
     </div>
     <div className="mt-7 flex flex-wrap items-center justify-between gap-4"><p className="max-w-[52ch] text-sm leading-relaxed text-muted-foreground">Jūsų svetainei dalių skaičių ir jų eiliškumą parinksime pagal verslo tikslą.</p><a href="/kontaktai/?paslauga=Svetain%C4%97" className="ux-text-link">Aptarti savo svetainę<ArrowRight className="size-4" /></a></div>

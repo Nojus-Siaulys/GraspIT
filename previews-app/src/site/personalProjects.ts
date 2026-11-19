@@ -25,7 +25,7 @@ export const personalProjects: PersonalProject[] = [
     story: {
       idea: "Pradėjau nuo klausimo: ar keli AI modeliai galėtų dirbti prie vieno projekto tvarkingiau, jei kiekvienas gautų mažą, aiškią užduotį? Taip atsirado Foreman — bandymas susikurti savo programavimo dirbtuves.",
       problem: "AI gali greitai parašyti kodą, bet kažkam vis tiek reikia išlaikyti bendrą kryptį, patikrinti rezultatą ir sujungti atskiras dalis. Norėjau mažiau rankinio užduočių nešiojimo tarp skirtingų įrankių.",
-      direction: "Foreman laikau asmenine laboratorija, o ne užbaigtu produktu visiems. Naują funkciją verta pridėti tik tada, kai ji iš tikrųjų palengvina darbą — kitaip pats pagalbininkas tampa dar vienu projektu, kurį reikia prižiūrėti.",
+      direction: "Foreman laikau asmenine laboratorija, o ne užbaigtu produktu visiems. Naują funkciją verta pridėti tik tada, kai ji iš tikrųjų palengvina darbą. Kitaip pats pagalbininkas tampa dar vienu projektu, kurį reikia prižiūrėti.",
       lesson: "Daugiau modelių savaime nereiškia geresnio rezultato. Aiški užduotis ir gera patikra dažnai svarbesnės už dar vieną agentą.",
     },
     technologies: ["TypeScript", "Node.js", "React", "SQLite", "Vitest"],
@@ -134,7 +134,7 @@ export const personalProjects: PersonalProject[] = [
     story: {
       idea: "Portfolio versijos buvo vieta išbandyti tai, ko nebūtinai dėčiau į kliento svetainę: kitokį judesį, drąsesnį išdėstymą ar naują vizualinį efektą. Kartu ieškojau, kaip geriausiai pristatyti savo darbus.",
       problem: "Lengva pasidaryti puslapį, kuris patinka pačiam kūrėjui, bet lankytojui nepasako, ką jis moka. Bandžiau rasti balansą tarp charakterio, aiškaus turinio ir patogaus naršymo.",
-      direction: "Senesnes versijas palikau kaip bandymų archyvą. Kiekvienos idėjos neverta prižiūrėti kaip atskiro gyvo puslapio — geresnius sprendimus galima pasiimti į kitą versiją, o likusius tiesiog palikti kaip mokymosi etapą.",
+      direction: "Senesnes versijas palikau kaip bandymų archyvą. Kiekvienos idėjos neverta prižiūrėti kaip atskiro gyvo puslapio: geresnes idėjas galima pasiimti į kitą versiją, o likusius tiesiog palikti kaip mokymosi etapą.",
       lesson: "Efektas turi padėti turiniui. Jei lankytojas prisimena tik animaciją, bet nesupranta, ką siūlau, dizainas dar nebaigtas.",
     },
     technologies: ["Next.js", "React", "Tailwind CSS", "Motion"],

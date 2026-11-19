@@ -34,7 +34,7 @@ export const posts: Post[] = [
       `Paprasta verslo svetainė GraspIT kainuoja nuo ${prices.website}, verslo svetainė su turinio valdymu ar el. parduotuvė – nuo ${prices.shop}.`,
       "Kainą labiausiai lemia puslapių skaičius, funkcijos, turinio paruošimas ir integracijos.",
       "Domenas, talpinimas ir priežiūra – periodinės išlaidos, jas verta atskirti nuo vienkartinės kūrimo kainos.",
-      "Lyginkite ne tik sumą, bet ir tai, kas tiksliai įeina į pasiūlymą.",
+      "Lygindami pasiūlymus žiūrėkite, kas tiksliai įeina į kainą.",
     ],
     sections: [
       {
@@ -186,7 +186,7 @@ export const posts: Post[] = [
     date: "2026-11-05",
     minutes: 8,
     summary: [
-      "Techninis SEO užtikrina, kad Google galėtų rasti, perskaityti ir suprasti jūsų svetainę.",
+      "Techninis SEO reikalingas tam, kad Google galėtų rasti, perskaityti ir suprasti jūsų svetainę.",
       "Svarbiausi dalykai: pasiekiamas turinys, unikalūs pavadinimai ir aprašymai, sitemap, greitis, mobilioji versija ir HTTPS.",
       "Struktūriniai duomenys ir vidinės nuorodos padeda paieškos sistemoms ir AI suprasti, kas jūs esate ir ką siūlote.",
       "Techninis SEO negarantuoja pozicijų, bet be jo net geras turinys gali likti nepastebėtas.",

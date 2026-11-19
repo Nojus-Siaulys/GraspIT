@@ -33,7 +33,7 @@ export const pages: Record<
     title: `Interneto svetainių kūrimas nuo ${prices.website} | GraspIT`,
     heading: "Svetainė jūsų verslui",
     intro:
-      `Kuriame verslo svetaines nuo ${prices.website}. Pradinį iki 4 puslapių sprendimą paruošiame per 7 dienas pagal sutartą apimtį ir gavę reikalingą turinį.`,
+      `Kuriame verslo svetaines nuo ${prices.website}. Pradinę iki 4 puslapių svetainę paruošiame per 7 dienas pagal sutartą apimtį ir gavę reikalingą turinį.`,
     label: "Svetainių kūrimas",
   },
   "/paslaugos/el-parduotuves": {
@@ -100,13 +100,13 @@ export const pages: Record<
   "/darbai": {
     title: "Atlikti darbai – Colorlisse ir Kalvita | GraspIT",
     heading: "Atlikti darbai",
-    intro: "El. parduotuvė ir paslaugų svetainė: skirtingi verslai, skirtingi lankytojo keliai. Susipažinkite su projektų paskirtimi ir sprendimais.",
+    intro: "El. parduotuvė ir paslaugų svetainė: skirtingi verslai, skirtingi lankytojo keliai. Pažiūrėkite, kam skirtas kiekvienas projektas ir kaip jis veikia.",
     label: "Darbai",
   },
   "/darbai/colorlisse": {
     title: "Colorlisse el. parduotuvė – projekto pristatymas | GraspIT",
     heading: "Colorlisse. Produktas ir kelias iki užsakymo.",
-    intro: "Profesionalios kirpėjų folijos pristatymas ir pardavimas internetu. Projekto paskirtis, sistemos dalys ir sprendimų logika.",
+    intro: "Profesionalios kirpėjų folijos pristatymas ir pardavimas internetu. Kam skirta svetainė, iš ko ji sudaryta ir kodėl padaryta taip.",
     label: "Colorlisse / El. parduotuvė",
   },
   "/darbai/kalvita": {

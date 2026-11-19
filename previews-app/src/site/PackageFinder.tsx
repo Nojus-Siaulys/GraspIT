@@ -8,7 +8,7 @@ type Need = "website" | "shop" | "redesign" | "automation"
 
 const needQuestion: Question = {
   title: "Ką norite padaryti?",
-  help: "Pasirinkite pagrindinį tikslą. Techninių žinių nereikia — sprendimą aptarsime kartu.",
+  help: "Pasirinkite pagrindinį tikslą. Techninių žinių nereikia, viską aptarsime kartu.",
   options: [
     { value: "website", label: "Pristatyti savo verslą internete", detail: "Reikia naujos svetainės paslaugoms, darbams ir kontaktams." },
     { value: "shop", label: "Parduoti prekes internetu", detail: "Reikia el. parduotuvės su prekių katalogu ir pirkimo galimybe." },

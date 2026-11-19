@@ -76,14 +76,14 @@ export function ContactBrief() {
     <section hidden={!wizard} aria-labelledby="contact-finder-heading">
       <p className="ux-eyebrow">Lengvesnė užklausos pradžia</p>
       <h2 id="contact-finder-heading" className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">Nereikia galvoti, ką parašyti.</h2>
-      <p className="mt-4 max-w-[65ch] text-lg leading-relaxed text-muted-foreground">Atsakykite į 3 trumpus klausimus — iš jūsų pasirinkimų paruošime projekto aprašymą. Beliks įrašyti vardą ir el. paštą. Tekstą galėsite pataisyti.</p>
+      <p className="mt-4 max-w-[65ch] text-lg leading-relaxed text-muted-foreground">Atsakykite į 3 trumpus klausimus, ir iš jūsų pasirinkimų paruošime projekto aprašymą. Beliks įrašyti vardą ir el. paštą. Tekstą galėsite pataisyti.</p>
       <div className="mt-6">{wizard && <PackageFinder initialAnswers={answers} onComplete={finish} />}</div>
       <button type="button" onClick={() => setWizard(false)} className="mt-4 min-h-11 text-sm font-semibold underline underline-offset-4">{message ? "Grįžti į formą nekeičiant aprašymo" : "Praleisti klausimus ir pildyti pačiam"}</button>
     </section>
     <form hidden={wizard} ref={formRef} onSubmit={submit} className="space-y-5" aria-labelledby="brief-heading">
       <p className="ux-eyebrow">{completeInquiry(answers) ? "Liko tik kontaktai" : "Jūsų projekto pradžia"}</p>
       <h2 ref={headingRef} tabIndex={-1} id="brief-heading" className="scroll-mt-28 text-3xl font-bold tracking-tight outline-none md:text-4xl">{completeInquiry(answers) ? "Aprašymą paruošėme. Kaip su jumis susisiekti?" : "Kas jums šiuo metu trukdo?"}</h2>
-      <p className="leading-relaxed text-muted-foreground">{completeInquiry(answers) ? "Panaudojome klausimyno atsakymus. Jei tekstas tinka, nieko papildomai rašyti nereikia — užtenka jūsų vardo ir el. pašto." : "Galite parašyti savais žodžiais arba pasinaudoti trimis klausimais — jie padės paruošti aprašymą už jus."}</p>
+      <p className="leading-relaxed text-muted-foreground">{completeInquiry(answers) ? "Panaudojome klausimyno atsakymus. Jei tekstas tinka, nieko papildomai rašyti nereikia: užtenka jūsų vardo ir el. pašto." : "Galite parašyti savais žodžiais arba pasinaudoti trimis klausimais: jie padės paruošti aprašymą už jus."}</p>
       <div className="rounded-md border border-foreground/20 bg-secondary p-4">
         {completeInquiry(answers) && <><p className="text-sm font-semibold">Jūsų pasirinkimai</p><ul className="mt-3 flex flex-wrap gap-2">{inquirySummary(answers).map(label => <li key={label} className="rounded border border-foreground/20 bg-background px-3 py-1 text-xs">{label}</li>)}</ul></>}
         <button type="button" onClick={() => setWizard(true)} className="min-h-11 text-sm font-semibold underline underline-offset-4">{completeInquiry(answers) ? "Pakeisti klausimyno atsakymus" : "Padėti man užpildyti aprašymą"}</button>
@@ -107,7 +107,7 @@ export function ContactBrief() {
         </div></details>
         <div className="ux-honeypot" aria-hidden="true"><label htmlFor="brief-website">Palikite tuščią<input id="brief-website" name="website" autoComplete="off" tabIndex={-1} /></label></div>
         <p id="brief-help" className="text-xs leading-relaxed text-muted-foreground">Vardą, el. paštą ir projekto aprašymą naudosime atsakymui apie jūsų projektą. Slaptų duomenų nesiųskite. Daugiau: <a href="/privatumo-politika/" className="underline underline-offset-4">privatumo politika</a>.</p>
-        {checked && !enabled && <p id="brief-unavailable" className="border-l-2 border-foreground/40 pl-4 text-sm leading-relaxed text-muted-foreground">Užklausų siuntimą dar ruošiame. Kol kas galite išsisaugoti aprašymą — jis mums nebus išsiųstas.</p>}
+        {checked && !enabled && <p id="brief-unavailable" className="border-l-2 border-foreground/40 pl-4 text-sm leading-relaxed text-muted-foreground">Užklausų siuntimą dar ruošiame. Kol kas galite išsisaugoti aprašymą, bet mums jis nebus išsiųstas.</p>}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3"><button type="submit" disabled={busy || !enabled} aria-describedby={!enabled && checked ? "brief-unavailable" : undefined} className="inline-flex min-h-12 items-center gap-3 rounded-md bg-foreground px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">{busy ? "Siunčiama…" : "Pateikti užklausą"}<ArrowRight className="size-4" /></button><button type="button" onClick={download} className="ux-text-link"><Download className="size-4" />{enabled ? "Išsisaugoti kopiją" : "Atsisiųsti projekto aprašymą"}</button></div>
       </fieldset>
       <p role="status" aria-live="polite" className="text-sm leading-relaxed">{notice}</p>

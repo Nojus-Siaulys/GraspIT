@@ -44,7 +44,7 @@ export const lt = {
   services: [
     { t: "Pradinė svetainė", d: "Iki 4 puslapių, pritaikyta telefonams ir planšetėms, paruošiama per 7 dienas.", p: `nuo ${prices.website}` },
     { t: "Verslo svetainė ar parduotuvė", d: "Neribotas puslapių skaičius, el. parduotuvė ir turinio valdymas. Paruošiama per 14 dienų.", p: `nuo ${prices.shop}` },
-    { t: "Priežiūros planas", d: "Talpinimas, atnaujinimai ir smulkūs pakeitimai, kad svetainė veiktų be rūpesčių.", p: `€[__]/mėn.` },
+    { t: "Priežiūros planas", d: "Talpinimas, atnaujinimai ir smulkūs pakeitimai, kad svetainė veiktų, o jums nereikėtų dėl jos sukti galvos.", p: `€[__]/mėn.` },
   ],
   aiLine: `Reikia automatizuoti laiškus ar kasdienius procesus? Taip pat kuriame automatizacijas su dirbtiniu intelektu. Kainą sutariame po pokalbio.`,
   processTitle: "Kaip vyksta projektas",
