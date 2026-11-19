@@ -18,6 +18,8 @@ export const designProposals = [
     text: "Prabangių pagalvių parduotuvės dizaino pasiūlymas: daugiapuslapė peržiūra su produktais, krepšeliu ir filosofijos puslapiu." },
   { name: "LaborTech", type: "Medžiagų bandymo įrangos tiekėjas", image: "/img/works/labortech.webp",
     text: "Svetainės perdarymo pasiūlymas: demo versija su visu turiniu (127 puslapiai) ir rekomendacijų ataskaita." },
+  { name: "Metalowiec", type: "Sporto klubo svetainė, Balstogė", image: "/img/works/metalowiec.webp",
+    text: "Zapasų, boksavimo ir BJJ klubo dizaino pasiūlymas: septynių puslapių peržiūra su naujienomis, istorija, pasiūla, tvarkaraščiu, kainomis ir kontaktais." },
   { name: "Podobaltica", type: "Podologo kabineto svetainė, Gdanskas", image: "/img/works/podobaltica.webp",
     text: "Pagrindinio puslapio maketai staliniam kompiuteriui ir telefonui, taip pat dizaino ir UX rekomendacijų ataskaita." },
 ] as const
