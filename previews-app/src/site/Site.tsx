@@ -109,9 +109,9 @@ function Home() {
       <HeroBackdrop />
       <div className={`${wrap} grid items-center gap-10 lg:grid-cols-12`}>
         <div className="hero-copy lg:col-span-12">
-          <p className={eyebrow}>GraspIT · Svetainės vietiniam verslui</p>
-          <h1 className="mt-8 max-w-[22ch] text-[clamp(2.4rem,4.8vw,4.6rem)] font-bold leading-[1.05] tracking-[-.045em]">Ar klientas jus randa, o radęs supranta, ką darote?</h1>
-          <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Sutvarkome svetainę taip, kad žmogus per kelias sekundes suprastų, ką siūlote ir kaip su jumis susisiekti.</p>
+          <p className={eyebrow}>GraspIT · Programos, svetainės, automatizacija</p>
+          <h1 className="mt-8 max-w-[22ch] text-[clamp(2.4rem,4.8vw,4.6rem)] font-bold leading-[1.05] tracking-[-.045em]">Kuriame programas verslams</h1>
+          <p className="mt-7 max-w-[43ch] text-lg leading-relaxed md:text-xl">Pradedame nuo pokalbio apie tai, ką šiandien darote rankomis. Kainą sakome po jo, prieš pradėdami darbą.</p>
           <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
             <a href="/kontaktai/" className="hero-primary cta-glow inline-flex min-h-[52px] items-center justify-center gap-3 rounded-md px-6 py-3 font-semibold">{siteCopy.cta}<ArrowRight className="size-4" /></a>
             <Link href="/darbai/">Peržiūrėti darbus</Link>
