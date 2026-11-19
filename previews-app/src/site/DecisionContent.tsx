@@ -112,7 +112,7 @@ export function ServiceDetails({ kind }: { kind: ServiceKind }) {
     <section className="py-16 md:py-24" aria-labelledby={`${d.id}-faq-heading`}><div className={wrap}>
       <p className="ux-eyebrow">Dažni klausimai</p>
       <h2 id={`${d.id}-faq-heading`} className="mt-5 max-w-[22ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">{d.faq.heading}</h2>
-      <div className="mt-10 max-w-[820px]">{d.faq.items.map(item => <details key={item.q} className="border-t border-foreground/30 py-4 last:border-b"><summary className="cursor-pointer text-lg font-semibold">{item.q}</summary><p className="mt-3 max-w-[60ch] leading-relaxed text-muted-foreground">{item.a}</p></details>)}</div>
+      <div className="mt-10 max-w-[820px]">{d.faq.items.map(item => <details key={item.q} className="border-t border-foreground/30 last:border-b"><summary className="flex min-h-14 cursor-pointer items-center py-4 text-lg font-semibold">{item.q}</summary><p className="max-w-[60ch] pb-4 leading-relaxed text-muted-foreground">{item.a}</p></details>)}</div>
     </div></section>
     <section className="bg-secondary py-16 md:py-24" aria-labelledby={`${d.id}-brief-heading`}><div className={`${wrap} grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]`}>
       <div>

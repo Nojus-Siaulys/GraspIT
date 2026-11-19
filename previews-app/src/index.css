@@ -134,7 +134,7 @@
 [data-theme="bento-swiss"] :where(input, select, textarea) { max-width: 100%; }
 [data-theme="bento-swiss"] :where(h1, h2, h3, p, a) { overflow-wrap: anywhere; }
 html { scroll-padding-top: 7rem; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
+/* Reduced motion is tiered: see the block at the end of this file. */
 
 
 /* Photo sections: fixed scenery on desktop, static on mobile. */
@@ -402,7 +402,7 @@ html { scroll-padding-top: 7rem; }
 .fm .fm-phone:hover { text-decoration-color: currentColor; }
 .fm-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin: 0; padding: 0; list-style: none; }
 .fm-cols li { border-top: 1px solid var(--fm-line); }
-.fm-cols a { display: flex; align-items: baseline; gap: 12px; min-height: 44px; padding: 13px 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; transition: padding .2s, color .2s; }
+.fm-cols a { display: flex; align-items: baseline; gap: 12px; min-height: 44px; padding: 13px 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; transition: padding .12s, color .12s; }
 .fm-cols a i { font-size: 11px; font-style: normal; font-weight: 600; letter-spacing: .1em; color: var(--fm-mint); opacity: .8; }
 .fm-cols a:hover { padding-left: 8px; color: var(--fm-mint); }
 .fm-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; padding: 10px 0; border-top: 1px solid var(--fm-line); font-size: 13px; }
@@ -452,28 +452,57 @@ p, li { text-wrap: pretty; }
 .cta-glow:focus-visible::before { opacity: 1; }
 
 .nav-link { position: relative; }
-.nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .28s cubic-bezier(.2, .7, .2, 1); }
+.nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .12s ease-out; }
 .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
 
-.lift { transition: transform .28s cubic-bezier(.2, .7, .2, 1), box-shadow .28s; }
-@media (hover: hover) { .lift:hover { transform: translateY(-4px); box-shadow: 0 18px 32px -22px rgb(16 55 43 / .5); } }
+.lift { transition: transform .28s cubic-bezier(.2, .7, .2, 1), box-shadow .28s, opacity .2s; }
+@media (hover: hover) { :has(> .lift:hover) > .lift:not(:hover) { opacity: .55; } .lift:hover { transform: translateY(-4px); box-shadow: 0 18px 32px -22px rgb(16 55 43 / .5); } }
 
 @keyframes rise-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
-  .home-hero .hero-copy > * { animation: rise-in .6s cubic-bezier(.2, .7, .2, 1) backwards; }
-  .home-hero .hero-copy > :nth-child(2) { animation-delay: .08s; }
-  .home-hero .hero-copy > :nth-child(3) { animation-delay: .16s; }
-  .home-hero .hero-copy > :nth-child(4) { animation-delay: .24s; }
-  .home-hero .hero-copy > :nth-child(5) { animation-delay: .32s; }
-  .home-hero .hero-copy > :nth-child(6) { animation-delay: .4s; }
+  .home-hero .hero-copy > * { animation: rise-in .4s cubic-bezier(.2, .7, .2, 1) backwards; }
+  .home-hero .hero-copy > :nth-child(2) { animation-delay: .06s; }
+  .home-hero .hero-copy > :nth-child(3) { animation-delay: .12s; }
+  .home-hero .hero-copy > :nth-child(4) { animation-delay: .18s; }
+  .home-hero .hero-copy > :nth-child(5) { animation-delay: .24s; }
+  .home-hero .hero-copy > :nth-child(6) { animation-delay: .3s; }
   .ux-panel[role="status"], p[role="status"]:not(:empty) { animation: rise-in .35s cubic-bezier(.2, .7, .2, 1); }
 }
 
 /* Placeholders while pictures and live demos load. */
 @keyframes shimmer { to { background-position: -200% 0; } }
 .embed-frame:not(:has(iframe)), img[loading="lazy"] { background: linear-gradient(100deg, var(--secondary) 30%, color-mix(in srgb, var(--secondary) 55%, #fff) 50%, var(--secondary) 70%) 100% 0 / 200% 100%; }
-@media (prefers-reduced-motion: no-preference) { .embed-frame:not(:has(iframe)), img[loading="lazy"] { animation: shimmer 1.6s linear infinite; } }
+/* Three passes (about 5 s) cover a normal load; an endless loop kept repainting every image after it had loaded. */
+@media (prefers-reduced-motion: no-preference) { .embed-frame:not(:has(iframe)), img[loading="lazy"] { animation: shimmer 1.6s linear 3; } }
 
 @view-transition { navigation: auto; }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+/* Reduced motion, in tiers: movement goes (hover lifts, slides, spinning glow, shimmer, parallax),
+   fades, colour changes and focus rings stay, so nothing teleports and keyboard users still see where they are. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, opacity, box-shadow, fill, stroke !important;
+    transition-duration: .15s !important;
+    animation-duration: .2s !important;
+    animation-iteration-count: 1 !important;
+  }
+  @keyframes lib-reveal { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes lib-tile-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes lib-content-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes rise-in { from { opacity: 0; } to { opacity: 1; } }
+  .cta-glow::before, .cta-glow::after, .embed-frame:not(:has(iframe)), img[loading="lazy"] { animation: none !important; }
+  .lift:hover, .rounded-md[class*="min-h-"]:hover:not(:disabled), .rounded-md[class*="min-h-"]:active:not(:disabled) { transform: none !important; }
+  .rounded-md[class*="min-h-"]:hover:not(:disabled) svg, a[class*="border-current"]:hover svg, .ux-text-link:hover svg { transform: none !important; }
+}
+
+/* Exaggerated feedback: the check on the thank-you note pops, a field with a wrong value turns red and shakes once. */
+@keyframes pop { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.18); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes shake { 20%, 60% { transform: translateX(-4px); } 40%, 80% { transform: translateX(4px); } }
+input:user-invalid, textarea:user-invalid { border-color: #b3261e; }
+@media (prefers-reduced-motion: no-preference) {
+  .ux-panel[role="status"] > svg:first-child { animation: pop .35s cubic-bezier(.34, 1.56, .64, 1); }
+  input:user-invalid, textarea:user-invalid { animation: shake .3s ease-out; }
+}

@@ -113,7 +113,7 @@ export function ProjectLibrary() {
               </h3>
               <p className="mt-3 max-w-[52ch] leading-relaxed opacity-85">{project.description}</p>
               <ul aria-label={`${project.title}: technologijos`} className="relative z-10 mt-5 flex flex-wrap gap-2">
-                {project.technologies.map(item => <li key={item}><button type="button" onClick={() => setTechnology(technology === item ? null : item)} aria-pressed={technology === item} title={`Rodyti projektus su ${item}`} className="lib-chip min-h-8 rounded-md px-3 text-xs font-semibold">{item}</button></li>)}
+                {project.technologies.map(item => <li key={item}><button type="button" onClick={() => setTechnology(technology === item ? null : item)} aria-pressed={technology === item} title={`Rodyti projektus su ${item}`} className="lib-chip min-h-11 rounded-md px-3 text-xs font-semibold">{item}</button></li>)}
               </ul>
               <p className="mt-auto inline-flex items-center gap-2 pt-6 font-semibold" aria-hidden="true">Skaityti istoriją<ArrowRight className="lib-arrow size-4" /></p>
               <noscript>

@@ -100,7 +100,7 @@ export function ContactBrief() {
           {message && <button type="button" onClick={() => setEditing(!editing)} className="mt-3 min-h-11 text-sm font-semibold underline underline-offset-4">{editing ? "Baigti redaguoti" : "Noriu pataisyti tekstą"}</button>}
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{completeInquiry(answers) ? "Jei aprašymas tinka, galite jo nekeisti." : "Užtenka kelių sakinių. Techninių žinių nereikia."}</p>
         </div>
-        <details className="border-y border-foreground/20 py-4"><summary className="cursor-pointer py-2 text-sm font-semibold">Pridėti daugiau informacijos (neprivaloma)</summary><div className="mt-4 space-y-4">
+        <details className="border-y border-foreground/20 py-4"><summary className="cursor-pointer py-3 text-sm font-semibold">Pridėti daugiau informacijos (neprivaloma)</summary><div className="mt-4 space-y-4">
           <label className="block font-medium" htmlFor="brief-url">Dabartinės svetainės adresas<input id="brief-url" name="url" type="url" placeholder="https://" maxLength={250} className={field} /></label>
           <label className="block font-medium" htmlFor="brief-budget">Numatytas biudžetas<input id="brief-budget" name="budget" placeholder="Galite nurodyti intervalą arba palikti tuščią" maxLength={100} className={field} /></label>
           <label className="block font-medium" htmlFor="brief-extra">Kas dar svarbu?<textarea id="brief-extra" name="extra" rows={3} maxLength={1000} placeholder="Jūsų veikla, norimos funkcijos ar patinkanti svetainė…" className={field} /></label>

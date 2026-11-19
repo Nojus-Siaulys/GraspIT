@@ -558,7 +558,7 @@ export function Site({ path = "/" }: { path?: string }) {
                 <p className={`${eyebrow} ${photo ? "text-[#bfe8d8]" : "text-[var(--signal)]"}`}>
                   {page.label}
                 </p>
-                <h1 className={path.startsWith("/blogas/") ? "mt-5 mb-8 max-w-[24ch] text-[clamp(2.3rem,5vw,4.6rem)] leading-[1.02] font-bold tracking-[-.045em]" : "mt-5 mb-8 max-w-[20ch] text-[clamp(2.7rem,7vw,6.4rem)] leading-[.98] font-bold tracking-[-.05em]"}>
+                <h1 className={path.startsWith("/blogas/") ? "mt-5 mb-8 max-w-[24ch] text-[clamp(1.9rem,5vw,4.6rem)] leading-[1.02] font-bold tracking-[-.045em]" : "mt-5 mb-8 max-w-[20ch] text-[clamp(2rem,7vw,6.4rem)] leading-[.98] font-bold tracking-[-.05em]"}>
                   {page.heading}
                 </h1>
                 <div className={`grid gap-6 border-t pt-6 lg:grid-cols-12 ${photo ? "border-white/70" : "border-foreground"}`}>
@@ -593,7 +593,7 @@ export function Site({ path = "/" }: { path?: string }) {
                     <a
                       key={g.id}
                       href={`#${g.id}`}
-                      className="rounded-full border border-foreground px-4 py-2 text-sm hover:bg-secondary"
+                      className="inline-flex min-h-11 items-center rounded-full border border-foreground px-4 text-sm hover:bg-secondary"
                     >
                       {g.title}
                     </a>
