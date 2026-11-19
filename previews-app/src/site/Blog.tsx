@@ -37,7 +37,7 @@ function BlockView({ block }: { block: Block }) {
 
 function PostCard({ post }: { post: Post }) {
   return (
-    <a href={`/blogas/${post.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-lg border border-foreground bg-background">
+    <a href={`/blogas/${post.slug}/`} className="lift group flex h-full flex-col overflow-hidden rounded-lg border border-foreground bg-background">
       <div className="aspect-[16/9] overflow-hidden border-b border-foreground bg-secondary">
         <img src={`/img/blog/${post.slug}-800.webp`} alt={coverAlt[post.slug] ?? ""} width={800} height={450} loading="lazy" decoding="async" className="size-full object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.03]" />
       </div>

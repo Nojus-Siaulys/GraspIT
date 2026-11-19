@@ -12,7 +12,7 @@ export function draftInquiry(answers: string[], context: { example?: string; pac
   if (!completeInquiry(answers)) return ""
   const [need, preparation, timing] = answers
   const opening: Record<string, string> = {
-    website: "Sveiki, norėčiau naujos svetainės savo verslui. Joje noriu aiškiai pristatyti veiklą, paslaugas ir padėti klientams lengvai susisiekti.",
+    website: "Sveiki, norėčiau naujos svetainės savo verslui. Noriu, kad klientai matytų, ką darau, ir lengvai su manimi susisiektų.",
     shop: "Sveiki, norėčiau el. parduotuvės savo prekėms. Noriu patogaus prekių katalogo ir aiškaus pirkimo kelio. Norėčiau aptarti mokėjimo ir pristatymo galimybes.",
     redesign: "Sveiki, norėčiau atnaujinti turimą svetainę. Norėčiau kartu įvertinti jos dizainą, turinio išdėstymą bei patogumą naudotis telefonu ir sutarti, ką verta pakeisti.",
     automation: "Sveiki, norėčiau sumažinti pasikartojantį rankinį darbą. Norėčiau aptarti dabartinį procesą, naudojamus įrankius ir įvertinti, kuriuos veiksmus būtų galima automatizuoti.",

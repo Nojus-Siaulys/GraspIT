@@ -42,10 +42,10 @@ await mkdir("public/og", { recursive: true })
 
 for (const [path, page] of Object.entries(pages)) {
   const home = path === "/"
-  const heading = home ? "Svetainės vietiniam verslui, kurios aiškiai pristato paslaugas." : page.heading
+  const heading = home ? "Programos, svetainės ir automatizacija verslui." : page.heading
   const html = `<!doctype html><meta charset="utf-8"><style>${css}</style>
 <div class="brand"><img src="${logo}" alt="">GraspIT</div>
-<div><p class="eyebrow">${escape(home ? "Svetainių kūrimas ir atnaujinimas" : page.label)}</p><h1>${escape(heading)}</h1></div>
+<div><p class="eyebrow">${escape(home ? "Programos, svetainės, automatizacija" : page.label)}</p><h1>${escape(heading)}</h1></div>
 <p class="foot">Svetainės ir el. parduotuvės verslui</p>`
   const file = join(work, `${slug(path)}.html`)
   await writeFile(file, html)

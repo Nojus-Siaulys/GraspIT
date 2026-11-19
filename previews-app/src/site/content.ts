@@ -16,10 +16,10 @@ export const pages: Record<
   { title: string; heading: string; intro: string; label: string }
 > = {
   "/": {
-    title: `Svetainių kūrimas verslui nuo ${prices.website} | GraspIT`,
+    title: "Programos, svetainės, automatizacija verslui | GraspIT",
     heading: "Kuriame ir atnaujiname svetaines verslui.",
     intro:
-      `Kuriame svetaines vietiniam paslaugų verslui nuo ${prices.website}. Padedame aiškiai pristatyti jūsų veiklą ir atnaujiname esamas svetaines. Galutinę kainą sutariame pagal poreikius.`,
+      `Dviejų žmonių studija: programos, svetainės, automatizacija. Pradedame nuo pokalbio, kainą pasakome prieš darbą. Svetainės nuo ${prices.website}.`,
     label: "Svetainių studija Lietuvoje",
   },
   "/paslaugos": {
@@ -163,7 +163,7 @@ export const services = [
   {
     href: "/paslaugos/svetaines",
     title: "Verslo svetainės",
-    text: "Kai svarbu aiškiai pristatyti paslaugas ir padėti klientui kreiptis.",
+    text: "Kai paslaugos ir kontaktai išbarstyti, o klientas turi jų ieškoti.",
     price: `nuo ${prices.website}`,
     number: "01",
   },
