@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Camera, Video } from "lucide-react"
+import { Camera, Maximize2, Video } from "lucide-react"
 import { media, showPlaceholders, type MediaId, type MediaItem } from "./mediaSlots"
 
 // Animated previews live in /public/previews. The iframe is added only on the client and only near the viewport,
@@ -46,7 +46,17 @@ export function Media({ id, className = "" }: { id: MediaId; className?: string 
   const style = { aspectRatio: item.ratio }
 
   if (item.embed) return <MediaEmbed item={item} className={className} grow />
-  if (item.src && item.kind === "video") return <video ref={ref} src={item.src} poster={item.poster} aria-label={item.alt} autoPlay muted loop playsInline preload="metadata" className={frame} style={style} />
+  // Text inside the film is too small at phone width, so phones get a button that opens it full screen.
+  const enlarge = () => {
+    const v = ref.current as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null
+    if (!v) return
+    if (v.requestFullscreen) void v.requestFullscreen()
+    else v.webkitEnterFullscreen?.()
+  }
+  if (item.src && item.kind === "video") return <div className="relative">
+    <video ref={ref} src={item.src} poster={item.poster} aria-label={item.alt} autoPlay muted loop playsInline preload="none" className={frame} style={style} />
+    <button type="button" onClick={enlarge} className="absolute bottom-3 right-3 inline-flex min-h-11 items-center gap-2 rounded-md bg-background px-4 text-sm font-semibold text-foreground md:hidden"><Maximize2 className="size-4" aria-hidden="true" />Padidinti</button>
+  </div>
   if (item.src) return <img src={item.src} alt={item.alt} loading="lazy" decoding="async" className={frame} style={style} />
   if (!showPlaceholders) return null
 

@@ -10,7 +10,7 @@ function Text({ children }: { children: string }) {
 }
 
 export function Legal({ kind }: { kind: "privacy" | "cookies" }) {
-  const { sections } = documents[kind]
+  const sections = documents[kind].sections.filter(section => !section.hidden)
   return <section className="py-16 md:py-24"><div className={`${wrap} grid gap-10 lg:grid-cols-12`}>
     <aside className="lg:col-span-3">
       <div className="lg:sticky lg:top-28">

@@ -91,7 +91,7 @@ export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnsw
   function restart() { setAnswers([]); setStep(0) }
   const primary = "inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:cursor-not-allowed disabled:opacity-40"
 
-  return <div className="rounded-lg border border-foreground/25 bg-background p-6 md:p-10">
+  return <div className="rounded-lg border border-foreground/25 bg-background p-4 sm:p-6 md:p-10">
     <p className="text-sm leading-relaxed text-muted-foreground">{onComplete ? "3 trumpi klausimai · iš atsakymų paruošime jūsų projekto aprašymą" : "3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia"}</p>
     <div className="mt-5 flex items-center gap-4 text-sm text-muted-foreground"><span>{done ? "Jūsų rezultatas" : `Klausimas ${step + 1} iš 3`}</span><span aria-hidden="true" className="flex flex-1 gap-1.5">{questions.map((_, index) => <span key={index} className={`h-1.5 flex-1 rounded-full ${index <= step ? "bg-[var(--signal)]" : "bg-foreground/15"}`} />)}</span></div>
     {!done && question ? <div>
@@ -99,7 +99,7 @@ export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnsw
       <p id={`${id}-help`} className="mt-3 max-w-[65ch] leading-relaxed text-muted-foreground">{question.help}</p>
       <fieldset aria-labelledby={`${id}-heading`} aria-describedby={`${id}-help`} className="mt-6 grid gap-3 sm:grid-cols-2">
         <legend className="sr-only">Pasirinkite vieną atsakymą</legend>
-        {question.options.map(option => <label key={option.value} className={`relative flex cursor-pointer items-start gap-3 rounded-lg border p-5 motion-safe:transition-colors ${selection === option.value ? "border-foreground bg-secondary" : "border-foreground/25 hover:border-foreground hover:bg-secondary/50"}`}>
+        {question.options.map(option => <label key={option.value} className={`relative flex cursor-pointer items-start gap-3 rounded-lg border p-4 sm:p-5 motion-safe:transition-colors ${selection === option.value ? "border-foreground bg-secondary" : "border-foreground/25 hover:border-foreground hover:bg-secondary/50"}`}>
           <input type="radio" name={`${id}-${step}`} value={option.value} checked={selection === option.value} onChange={() => choose(option.value)} className="mt-1 size-4 shrink-0 accent-foreground" />
           <span><span className="block text-lg font-semibold leading-snug">{option.label}</span><span className="mt-2 block text-sm leading-relaxed text-muted-foreground">{option.detail}</span></span>
         </label>)}
@@ -114,7 +114,7 @@ export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnsw
       <p className="mt-3 text-2xl font-bold">{result.price}</p>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Tai pradinis orientyras. Tikslią kainą, darbų apimtį ir terminą pateiksime įvertinę projektą.</p>
       <p className="mt-5 max-w-[65ch] text-lg leading-relaxed">{result.detail}</p>
-      <div className="mt-6 rounded-md bg-secondary p-5">
+      <div className="mt-6 rounded-md bg-secondary p-4 sm:p-5">
         <h4 className="font-semibold">Jūsų pasirinkimai</h4>
         <dl className="mt-3 grid gap-3 text-sm">{["Tikslas", automation ? "Darbo procesas" : "Turinys", "Norima darbų pradžia"].map((label, index) => <div key={label} className="grid gap-1 sm:grid-cols-[10rem_1fr]"><dt className="text-muted-foreground">{label}</dt><dd className="font-medium">{labels[index]}</dd></div>)}</dl>
         <button type="button" onClick={() => setStep(0)} className="mt-4 min-h-11 text-sm font-semibold underline underline-offset-4">Pakeisti atsakymus</button>

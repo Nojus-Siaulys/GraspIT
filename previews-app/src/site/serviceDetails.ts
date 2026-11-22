@@ -1,11 +1,14 @@
 import { allFaq } from "./content"
 import { prices, pricingPackages } from "./pricing"
 
-export type ServiceKind = "websites" | "shop" | "redesign" | "ai" | "apps" | "seo"
+export type ServiceKind = "websites" | "shop" | "redesign" | "ai" | "apps" | "seo" | "motion" | "ads3d" | "social" | "integrations"
 
 export type Detail = {
   id: string
   service: string
+  // "Ką gausite" rows in plain words: what is delivered, what the client does, how long, what the price leaves out.
+  gets: [label: string, text: string][]
+  packages?: { name: string; price: string; text: string }[]
   fit: { eyebrow: string; heading: string; items: { title: string; text: string; example: string }[] }
   included: { items: string[]; note: string }
   faq: { heading: string; items: { q: string; a: string }[] }
@@ -19,6 +22,7 @@ export const details: Record<ServiceKind, Detail> = {
   websites: {
     id: "websites",
     service: "Svetainė",
+    gets: [["Ką gaunate", "Svetainę iki 4 puslapių, pritaikytą telefonui ir planšetei, ir visą jos kodą bei turinį."],["Ką darote jūs", "Atsiunčiate tekstus, nuotraukas ir pastabas, kai rodome peržiūrą."],["Kiek užtrunka", "Pradinį sprendimą paruošiame per 7 dienas, kai turime reikalingą turinį."],["Ko kainoje nėra", "Domeno, talpinimo, tekstų rašymo ir mokamų integracijų: jos skaičiuojamos atskirai."]],
     fit: { eyebrow: "Kam tinka", heading: "„Mūsų niekas neranda, o radęs nesupranta, ką darome.“", items: [
       { title: "Informacija išbarstyta", text: "Paslaugos, kainos ir kontaktai gyvena socialiniuose tinkluose ar žinutėse, o klientas turi jų ieškoti.", example: "Pavyzdys: meistras, specialistas, paslaugų įmonė." },
       { title: "Norite būti randami paieškoje", text: "Aiški struktūra, antraštės ir aprašymai padeda paieškos sistemoms suprasti puslapį.", example: "Techninis paruošimas savaime pozicijų negarantuoja." },
@@ -35,6 +39,7 @@ export const details: Record<ServiceKind, Detail> = {
   shop: {
     id: "shop",
     service: "El. parduotuvė",
+    gets: [["Ką gaunate", "Parduotuvę su prekių katalogu, krepšeliu ir užsakymo keliu, kurią galėsite patys papildyti."],["Ką darote jūs", "Pateikiate prekes, nuotraukas ir sakote, kaip norite priimti mokėjimus bei pristatyti."],["Kiek užtrunka", "Orientacinis terminas – 14 dienų."],["Ko kainoje nėra", "Mokėjimo ir pristatymo operatorių mokesčių bei papildomų integracijų: jos vertinamos atskirai."]],
     fit: { eyebrow: "Kam tinka", heading: "„Užsakymus renkame žinutėmis.“", items: [
       { title: "Prekes užsako žinutėmis", text: "Prekės, pasirinkimai ir užsakymo kelias vienoje vietoje, kad pirkėjui nereikėtų klausinėti.", example: "Pavyzdys: nedidelis prekių ženklas ar specializuotas katalogas." },
       { title: "Norite patys tvarkyti prekes", text: "Iš anksto sutariame, ką redaguosite savarankiškai. Valdymo funkcijas įvardijame pasiūlyme.", example: "Pavyzdys: prekių aprašymai, nuotraukos, atsargos." },
@@ -51,6 +56,7 @@ export const details: Record<ServiceKind, Detail> = {
   redesign: {
     id: "redesign",
     service: "Svetainės atnaujinimas",
+    gets: [["Ką gaunate", "Naują esamos svetainės dizainą ir struktūrą, perkeltą reikalingą turinį ir senų adresų nukreipimus."],["Ką darote jūs", "Duodate dabartinės svetainės adresą ir pasakote, kas netenkina."],["Kiek užtrunka", "Terminą pasakome, kai įvertiname dabartinę svetainę."]],
     fit: { eyebrow: "Kam tinka", heading: "„Svetainė yra, bet jau nebeatspindi, ką darome.“", items: [
       { title: "Dizainas atrodo pasenęs", text: "Aiškiau pristatome paslaugas ir sutvarkome navigaciją, išlaikydami tai, kas veikia.", example: "Pirmiausia įvertiname, ką verta palikti." },
       { title: "Telefone nepatogu", text: "Pritaikome tekstą, mygtukus ir išdėstymą mažam ekranui.", example: "Prieš paleidimą tikriname skirtingo pločio ekranuose." },
@@ -73,6 +79,7 @@ export const details: Record<ServiceKind, Detail> = {
   ai: {
     id: "ai",
     service: "AI automatizacija",
+    gets: [["Ką gaunate", "Vieną veikiantį procesą ir sutartą būdą, kaip tikrinsime rezultatą."],["Ką darote jūs", "Papasakojate, kaip darbas vyksta dabar, ir patvirtinate, kur sprendimą priima žmogus."],["Ko kainoje nėra", "Paslaugų tiekėjų mokesčių: jie vertinami atskirai."]],
     fit: { eyebrow: "Kam tinka", heading: "„Tą patį darbą darome kiekvieną dieną.“", items: [
       { title: "Tie patys laiškai", text: "Klientai klausia to paties, o atsakymus tenka ruošti rankiniu būdu.", example: "Pavyzdys: kainų užklausos, užsakymo būsena." },
       { title: "Rankiniu būdu perkeliami duomenys", text: "Informacija iš laiško ar formos kopijuojama į kitą sistemą ar lentelę.", example: "Pavyzdys: užklausos iš pašto į užsakymų lentelę." },
@@ -99,6 +106,7 @@ export const details: Record<ServiceKind, Detail> = {
   apps: {
     id: "apps",
     service: "Programa",
+    gets: [["Ką gaunate", "Pirmą veikiančią versiją su tuo, ką sutarėme pirmai daliai. Kitus norus aptariame atskirai."],["Ką darote jūs", "Žiūrite rezultatą kūrimo metu ir sakote, kas netinka."],["Kiek užtrunka", "Terminą pasakome, kai aiški pirmos versijos apimtis."]],
     fit: { eyebrow: "Kam tinka", heading: "„Mums nebeužtenka Excel ir laiškų.“", items: [
       { title: "Informacija išbarstyta", text: "Užsakymai ir užklausos gyvena laiškuose, lentelėse ir užrašuose, o bendros apžvalgos niekas neturi.", example: "Pavyzdys: užsakymų valdymas vienoje vietoje." },
       { title: "Klientai nuolat klausia, kas vyksta", text: "Klientas pats mato užsakymo ar paslaugos būseną, o jums nereikia atsakinėti.", example: "Pavyzdys: klientų portalas." },
@@ -124,6 +132,7 @@ export const details: Record<ServiceKind, Detail> = {
   seo: {
     id: "seo",
     service: "SEO ir priežiūra",
+    gets: [["Ką gaunate", "Techninės būklės patikrą ir sutartus atnaujinimus bei smulkius pakeitimus."],["Ką darote jūs", "Pasakote, kas svetainėje keičiasi, o ką atnaujinti turime mes."],["Ko kainoje nėra", "Pozicijų paieškoje negarantuojame. Trečiųjų šalių išlaidas įvardijame iš anksto."]],
     fit: { eyebrow: "Kam tinka", heading: "„Svetainę paleidome, bet niekas jos neprižiūri.“", items: [
       { title: "Užklausų mažai, o priežasties nežinote", text: "Patikriname indeksavimą, adresus, antraštes ir aprašymus, kad matytumėte, ką galima pagerinti.", example: "Pozicijų neprižadame: jas lemia ir konkurencija." },
       { title: "Informacija pasensta", text: "Kainos, kontaktai ir paslaugų aprašymai laikui bėgant keičiasi. Sutariame, kas juos atnaujina.", example: "Pavyzdys: pasikeitė darbo laikas ar kontaktai." },
@@ -141,6 +150,114 @@ export const details: Record<ServiceKind, Detail> = {
       { label: "Svetainės adresas", line: "Svetainė:", placeholder: "https://" },
       { label: "Kas šiuo metu kelia rūpestį?", line: "Kas kelia rūpestį:", long: true, placeholder: "Pvz., mažai užklausų arba reikia nuolat keisti turinį" },
       { label: "Ar svetainę kūrėte pas mus?", line: "Svetainės kūrėjas:", options: ["Taip", "Ne", "Nežinau"] },
+    ],
+  },
+  integrations: {
+    id: "integrations",
+    service: "Integracijos",
+    gets: [["Ką gaunate", "Sujungtas jūsų naudojamas sistemas, kad duomenų ir dokumentų nebereikėtų perrašyti ranka."], ["Ką darote jūs", "Pasakote, kokias sistemas naudojate ir kur duomenis tenka perrašyti ranka."], ["Ko kainoje nėra", "Paslaugų tiekėjų mokesčių: jie vertinami atskirai."]],
+    fit: { eyebrow: "Kam tinka", heading: "„Tuos pačius duomenis perrašome kelis kartus.“", items: [
+      { title: "Užsakymas iš laiško į lentelę", text: "Informacija iš laiško ar formos kopijuojama į kitą sistemą ar lentelę.", example: "Pavyzdys: užsakymas iš pašto į užsakymų lentelę." },
+      { title: "Dokumentai pildomi ranka", text: "Dokumentas pildomas iš naujo, nors visi duomenys jau yra sistemoje.", example: "Pavyzdys: sąskaita pagal gautą užsakymą." },
+      { title: "Duomenys nesutampa", text: "Kai duomenys gyvena keliose vietose, jie greitai nebesutampa.", example: "Pavyzdys: prekės likutis parduotuvėje ir lentelėje." },
+    ] },
+    included: { note: "Kainos čia nerodome: kiekviena sistemų grandinė skirtinga, todėl kainą sutariame po pokalbio. Paslaugų tiekėjų mokesčiai vertinami atskirai.", items: [
+      "Aptariame, kokias sistemas naudojate ir kur duomenys perrašomi ranka",
+      "Pradedame nuo vienos grandinės, pavyzdžiui, užsakymas, lentelė, sąskaita",
+      "Sutariame, kokie duomenys kur keliauja ir kas juos mato",
+      "Sutariame, kaip tikrinsime rezultatą",
+    ] },
+    faq: { heading: "Apie integracijas.", items: [
+      { q: "Nuo ko pradedama?", a: "Nuo pokalbio apie sistemas, kuriomis jau naudojatės, ir vietas, kur duomenis perrašote ranka. Pradedame nuo vienos grandinės." },
+      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo sistemų ir grandinės apimties. Ją sutariame po pokalbio, prieš pradėdami darbą." },
+      { q: "Ar reikės keisti sistemas, kuriomis naudojuosi?", a: "Kai įmanoma, jungiame tai, ką jau naudojate. Ar tai įmanoma jūsų atveju, išsiaiškiname pokalbyje." },
+    ] },
+    questions: [
+      { label: "Kokias sistemas naudojate?", line: "Naudojamos sistemos:", placeholder: "Pvz., Gmail, Excel, parduotuvės sistema" },
+      { label: "Kur duomenis perrašote ranka?", line: "Kur perrašau ranka:", long: true, placeholder: "Pvz., užsakymus iš laiškų į lentelę" },
+      { label: "Kiek kartų per savaitę?", line: "Kiek kartų per savaitę:", options: ["Iki 10", "10–30", "Daugiau nei 30", "Nežinau"] },
+    ],
+  },
+  motion: {
+    id: "motion",
+    service: "Judesio reklama",
+    gets: [["Ką gaunate", "Vieną trumpą reklaminį video, apie 15–30 sekundžių, 9:16 formatu (TikTok, Reels), paruoštą skelbti."], ["Ką darote jūs", "Papasakojate apie produktą ar paslaugą ir atsiunčiate logotipą bei nuotraukas, jei jų turite."], ["Ko kainoje nėra", "Reklamos biudžeto, kurį mokate TikTok ar Meta. Rezultatų (peržiūrų, klientų) nežadame."]],
+    fit: { eyebrow: "Kam tinka", heading: "„Norime, kad žmonės sustotų ir pažiūrėtų.“", items: [
+      { title: "Reikia vieno aiškaus video", text: "Vieną žinutę pasakome per kelias sekundes: kas tai, kam skirta ir ką daryti toliau.", example: "Pavyzdys: nauja paslauga ar akcija." },
+      { title: "Nuotraukų nepakanka", text: "Paprastas paveikslėlis lengvai praslysta, o judesys sulaiko žvilgsnį.", example: "Pavyzdys: prekių rinkinys, kuris turi pasirodyti ryškiai." },
+      { title: "Neturite, kas sumontuotų", text: "Video sumontuojame mes, o jūs gaunate failą, kurį belieka paskelbti.", example: "Formatas – 9:16, tinka TikTok, Reels ir Facebook." },
+    ] },
+    included: { note: "Kaina aptariama po pokalbio: ji priklauso nuo video ilgio ir sudėtingumo.", items: [
+      "Vienas trumpas reklaminis video, apie 15–30 sekundžių",
+      "9:16 formatas, paruoštas TikTok, Reels ar Facebook",
+      "Jūsų logotipas, spalvos ir sutartas tekstas",
+      "Pasakome iš anksto, kiek pataisymų įskaičiuota",
+    ] },
+    faq: { heading: "Apie judesio reklamas.", items: [
+      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo video ilgio ir sudėtingumo. Ją sutariame po pokalbio, prieš pradėdami darbą." },
+      { q: "Ar video atneš klientų?", a: "To negalime pažadėti: rezultatas priklauso ir nuo pasiūlymo, ir nuo to, kam rodoma reklama. Mūsų darbas – aiškus ir gerai atrodantis video." },
+      { q: "Ar į kainą įeina reklamos apmokėjimas?", a: "Ne. Reklamos biudžetą mokate pats TikTok ar Meta pagal pasirinktą sumą." },
+    ] },
+    questions: [
+      { label: "Ką reklamuosime?", line: "Ką reklamuoti:", long: true, placeholder: "Pvz., naują paslaugą arba produktą" },
+      { label: "Kur skelbsite?", line: "Kur skelbsiu:", options: ["TikTok", "Instagram Reels", "Facebook", "Kelis iš šių", "Nežinau"] },
+      { label: "Ar turite logotipą ir nuotraukų?", line: "Logotipas ir nuotraukos:", options: ["Taip", "Tik logotipą", "Neturiu", "Nežinau"] },
+    ],
+  },
+  ads3d: {
+    id: "ads3d",
+    service: "3D reklama",
+    gets: [["Ką gaunate", "Jūsų produkto 3D vaizdą arba trumpą video, sukurtą kompiuteriu."], ["Ką darote jūs", "Atsiunčiate produkto nuotraukas iš kelių pusių ir matmenis."], ["Ko kainoje nėra", "Reklamos biudžeto, kurį mokate TikTok ar Meta. Rezultatų nežadame."]],
+    fit: { eyebrow: "Kam tinka", heading: "„Produktas turi atrodyti geriau nei nuotraukoje.“", items: [
+      { title: "Produktas dar negaminamas", text: "Parodome, kaip jis atrodys, kol tikro dar nėra.", example: "Pavyzdys: naujas gaminys ar pakuotė." },
+      { title: "Reikia ryškaus kadro", text: "Sukame, artiname ir rodome detales, kurių nuotraukoje nesimato.", example: "Pavyzdys: kokybės ar medžiagos detalė." },
+      { title: "Norite vieno stiliaus visoms reklamoms", text: "Tas pats 3D vaizdas tinka ir video, ir paveikslėliams.", example: "Formatus aptariame prieš pradėdami." },
+    ] },
+    included: { note: "Kaina aptariama po pokalbio: ji priklauso nuo produkto sudėtingumo ir video ilgio.", items: [
+      "Produkto 3D vaizdas pagal jūsų nuotraukas ir matmenis",
+      "Trumpas video arba paveikslėliai reklamai",
+      "Jūsų spalvos ir sutarta žinutė",
+      "Iš anksto sutariame, kiek pataisymų įskaičiuota",
+    ] },
+    faq: { heading: "Apie 3D reklamas.", items: [
+      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo produkto sudėtingumo ir to, ką norite gauti. Ją sutariame po pokalbio, prieš pradėdami darbą." },
+      { q: "Ar tai bus identiška tikram produktui?", a: "Stengiamės kuo tiksliau pagal jūsų nuotraukas ir matmenis. Prieš baigdami parodome rezultatą ir pasakome, ką dar galima patikslinti." },
+      { q: "Ar į kainą įeina reklamos apmokėjimas?", a: "Ne. Reklamos biudžetą mokate pats TikTok ar Meta pagal pasirinktą sumą." },
+    ] },
+    questions: [
+      { label: "Koks tai produktas?", line: "Produktas:", long: true, placeholder: "Pvz., rankų darbo žvakė stikliniame inde" },
+      { label: "Ką norite gauti?", line: "Ką norėčiau gauti:", options: ["Trumpą video", "Paveikslėlius", "Ir video, ir paveikslėlius", "Nežinau"] },
+      { label: "Ar turite nuotraukų ir matmenis?", line: "Nuotraukos ir matmenys:", options: ["Taip", "Tik nuotraukas", "Neturiu", "Nežinau"] },
+    ],
+  },
+  social: {
+    id: "social",
+    service: "Socialinių tinklų paketas",
+    gets: [["Ką gaunate", "4 trumpus video per savaitę, 9:16 formatu, skirtus TikTok, Reels ar Facebook."], ["Ką darote jūs", "Sutariame iš anksto, apie ką kuriame ir kas skelbia."], ["Ko kainoje nėra", "Reklamos biudžeto, kurį mokate TikTok ar Meta. Rezultatų (peržiūrų, klientų) nežadame."]],
+    packages: [
+      { name: "Paprastesni įrašai", price: "€200 per savaitę", text: "4 trumpi video per savaitę, paprastesnio montažo." },
+      { name: "Sudėtingesni įrašai", price: "€300 per savaitę", text: "4 trumpi video per savaitę, daugiau judesio ir sudėtingesnių efektų." },
+    ],
+    fit: { eyebrow: "Kam tinka", heading: "„Norime skelbti kas savaitę, bet neturime kada kurti.“", items: [
+      { title: "Socialiniai tinklai užmiršti", text: "Reguliarus skelbimas laiko jus matomus, kai neturite laiko kurti patys.", example: "Pavyzdys: kavinė, salonas, treniruočių klubas." },
+      { title: "Reikia vienodo stiliaus", text: "Visi video atrodo kaip vieno prekės ženklo, ne atsitiktinai sumontuoti.", example: "Spalvas ir žinutę sutariame iš anksto." },
+      { title: "Norite aiškios savaitės kainos", text: "Žinote, kiek mokate per savaitę ir ką už tai gaunate.", example: "Du paketai: €200 ir €300 per savaitę." },
+    ] },
+    included: { note: "Kaina per savaitę. Pasirenkate paprastesnius arba sudėtingesnius įrašus.", items: [
+      "4 trumpi video per savaitę",
+      "9:16 formatas, tinka TikTok, Reels ir Facebook",
+      "Jūsų logotipas, spalvos ir sutarta žinutė",
+      "Iš anksto sutariame, kas skelbia ir kiek pataisymų įskaičiuota",
+    ] },
+    faq: { heading: "Apie socialinių tinklų paketą.", items: [
+      { q: "Kuo skiriasi du paketai?", a: "Abu apima 4 trumpus video per savaitę. €200 paketo įrašai paprastesni, €300 paketo – su daugiau judesio ir sudėtingesniais efektais." },
+      { q: "Ar į kainą įeina reklamos apmokėjimas?", a: "Ne. Reklamos biudžetą mokate pats TikTok ar Meta pagal pasirinktą sumą." },
+      { q: "Ar pažadate daugiau klientų?", a: "Ne. Rezultatas priklauso ir nuo pasiūlymo, ir nuo to, kam rodomas turinys. Mūsų darbas – reguliarūs, gerai atrodantys video." },
+    ] },
+    questions: [
+      { label: "Kokį verslą reklamuosime?", line: "Verslas:", long: true, placeholder: "Pvz., plaukų salonas Kaune" },
+      { label: "Kur skelbsite?", line: "Kur skelbsiu:", options: ["TikTok", "Instagram Reels", "Facebook", "Kelis iš šių", "Nežinau"] },
+      { label: "Kuris paketas labiau tinka?", line: "Paketas:", options: ["Paprastesni įrašai (€200 per savaitę)", "Sudėtingesni įrašai (€300 per savaitę)", "Dar nežinau"] },
     ],
   },
 }

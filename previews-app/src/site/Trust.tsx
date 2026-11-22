@@ -40,7 +40,7 @@ export function Testimonials() {
 // Phone is the strongest trust signal on mobile. The bar exists only once a real number is configured.
 export function MobileCallBar() {
   if (!contact.phone) return null
-  return <div className="fixed inset-x-0 bottom-0 z-30 border-t border-foreground/20 bg-background/95 px-4 py-2 backdrop-blur md:hidden">
+  return <div className="fixed inset-x-0 bottom-0 z-30 border-t border-foreground/20 bg-background/95 px-4 pt-2 pb-[max(.5rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
     <div className="flex gap-2">
       <a href={phoneHref} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-md bg-foreground px-4 font-semibold text-background" style={{ color: "var(--background)" }}><Phone className="size-4" aria-hidden="true" />Paskambinti</a>
       <a href="/kontaktai/" className="inline-flex min-h-12 flex-1 items-center justify-center rounded-md border border-foreground/40 px-4 font-semibold">Parašyti</a>
