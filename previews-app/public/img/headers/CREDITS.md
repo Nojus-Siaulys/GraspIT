@@ -1,12 +1,12 @@
-# Header photo credits
+# Header photos
 
-All four photos are free to use under the [Unsplash License](https://unsplash.com/license). Attribution is not required, but the sources are kept here.
+Supplied by the owner on 2026-11-22. The source and licence of these photos were not given; confirm the licence before launch.
 
-| File | Used on | Photo | Photographer |
-|---|---|---|---|
-| `services.webp` | Paslaugos | React code in an editor (https://unsplash.com/photos/mZnx9429i94) | Juanjo Jaramillo |
-| `library.webp` | Biblioteka | Oak bookshelves with colourful books (https://unsplash.com/photos/bookshelves-filled-with-colorful-books-sdD9aUgSl2U) | Zoshua Colah |
-| `process.webp` | Procesas | Hand-drawn website wireframes (https://unsplash.com/photos/website-wireframe-sketch-on-paper-4UGmm3WRUoQ) | Compagnons |
-| `about.webp` | Apie mus | Desk with laptop, keyboard and plant (https://unsplash.com/photos/a-modern-desk-setup-with-laptop-and-books-xjyHDnA93Pk) | Logan Weaver |
+| File | Used on | Photo |
+|---|---|---|
+| `services.webp` | Paslaugos | Laptop with an ad-spend chart on a wooden desk |
+| `library.webp` | Biblioteka | Desk flat lay: keyboard, mouse, colour swatches, notebook |
+| `process.webp` | Procesas | Notebook page "Marketing Strategy" next to a keyboard |
+| `about.webp` | Apie mus | White desk with laptop, plants and lamp |
 
-`*-mobile.webp` are centre crops of the same photos for phones.
+`*-mobile.webp` are portrait crops of the same photos for phones.
