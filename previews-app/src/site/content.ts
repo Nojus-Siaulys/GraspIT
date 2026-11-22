@@ -26,7 +26,7 @@ export const pages: Record<
     title: "Svetainių, el. parduotuvių kūrimas ir automatizacija | GraspIT",
     heading: "Pasakykite problemą, parinksime paslaugą",
     intro:
-      "Nuo vizitinės svetainės iki vidaus programos. Raskite situaciją, panašią į jūsų, ir pamatysite, ką darome ir kaip pradedame.",
+      "Svetainės, programos, automatizacija ir trumpi reklaminiai video. Raskite situaciją, panašią į jūsų, ir pamatysite, ką gausite ir kaip pradedame.",
     label: "Paslaugos",
   },
   "/paslaugos/svetaines": {
@@ -69,6 +69,34 @@ export const pages: Record<
     intro:
       "Po paleidimo svetainę verta prižiūrėti: stebėti indeksavimą, atnaujinti informaciją ir tvarkyti smulkius pakeitimus. Kainą pateikiame pagal reikalingus darbus.",
     label: "SEO ir priežiūra",
+  },
+  "/paslaugos/integracijos": {
+    title: "Integracijos ir dokumentų automatizavimas | GraspIT",
+    heading: "Integracijos ir dokumentų automatizavimas",
+    intro:
+      "Sujungiame jūsų naudojamas sistemas, kad duomenys ir dokumentai nereikalautų perrašymo ranka. Pradedame nuo vienos grandinės. Kaina aptariama po pokalbio.",
+    label: "Integracijos",
+  },
+  "/paslaugos/judesio-reklamos": {
+    title: "Judesio reklamos socialiniams tinklams | GraspIT",
+    heading: "Judesio reklamos",
+    intro:
+      "Kuriame trumpus reklaminius video socialiniams tinklams: apie 15–30 sekundžių, 9:16 formatu, paruoštus skelbti. Kaina aptariama po pokalbio.",
+    label: "Judesio reklamos",
+  },
+  "/paslaugos/3d-reklamos": {
+    title: "3D reklamos ir produktų vaizdai | GraspIT",
+    heading: "3D reklamos",
+    intro:
+      "Sukuriame jūsų produkto 3D vaizdą arba trumpą video, kai paprastų nuotraukų nepakanka. Kaina aptariama po pokalbio.",
+    label: "3D reklamos",
+  },
+  "/paslaugos/socialiniu-tinklu-paketas": {
+    title: "Socialinių tinklų paketas: 4 trumpi video per savaitę | GraspIT",
+    heading: "Socialinių tinklų paketas",
+    intro:
+      "Keturi trumpi video per savaitę TikTok, Reels ar Facebook: paprastesni už €200 arba sudėtingesni už €300 per savaitę. Reklamos biudžetas mokamas atskirai.",
+    label: "Socialinių tinklų paketas",
   },
   "/kainos": {
     title: `Svetainių kūrimo kainos: nuo ${prices.website} ir ${prices.shop} | GraspIT`,
@@ -164,27 +192,44 @@ export const services = [
     href: "/paslaugos/svetaines",
     title: "Verslo svetainės",
     text: "Kai paslaugos ir kontaktai išbarstyti, o klientas turi jų ieškoti.",
+    gets: "Veikiančią svetainę iki 4 puslapių, pritaikytą telefonui, ir visą jos kodą.",
     price: `nuo ${prices.website}`,
     number: "01",
+    group: "websites",
   },
   {
     href: "/paslaugos/el-parduotuves",
     title: "El. parduotuvės",
     text: "Kai norite prekiauti internetu ir patogiai valdyti turinį.",
+    gets: "Parduotuvę su prekių katalogu ir pirkimo keliu, kurią galėsite patys papildyti.",
     price: `nuo ${prices.shop}`,
     number: "02",
+    group: "websites",
   },
+  { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Kai svetainė yra, bet atrodo pasenusi arba nepatogi telefone.", gets: "Naują esamos svetainės dizainą ir struktūrą bei senų adresų nukreipimus.", price: "Kaina pagal apimtį", number: "03", group: "websites" },
+  { href: "/paslaugos/seo-prieziura", title: "SEO ir svetainės priežiūra", text: "Kai paleistos svetainės niekas neprižiūri ir nežinote, ką pagerinti.", gets: "Techninę svetainės patikrą ir sutartus atnaujinimus bei smulkius pakeitimus.", price: "Kaina pagal darbus", number: "04", group: "websites" },
+  { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", gets: "Pirmą veikiančią programos versiją, kurią galite išbandyti dar kuriant.", price: "Kaina aptariama po pokalbio", number: "05", group: "apps" },
   {
     href: "/paslaugos/ai-agentai",
     title: "AI automatizacija",
     text: "Kai pasikartojantys laiškai ar procesai atima per daug laiko.",
+    gets: "Vieną veikiantį procesą, pavyzdžiui, parengtus atsakymų į laiškus juodraščius. Ten, kur sutariame, sprendimą patvirtinate jūs.",
     price: "Kaina aptariama po pokalbio",
-    number: "03",
+    number: "06",
+    group: "apps",
   },
-  { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Esamos svetainės dizaino ir struktūros atnaujinimas pagal jūsų veiklą.", price: "Kaina pagal apimtį", number: "04" },
-  { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", price: "Kaina aptariama po pokalbio", number: "05" },
-  { href: "/paslaugos/seo-prieziura", title: "SEO ir svetainės priežiūra", text: "Kai paleistos svetainės niekas neprižiūri ir nežinote, ką pagerinti.", price: "Kaina pagal darbus", number: "06" }
+  { href: "/paslaugos/integracijos", title: "Integracijos ir dokumentų automatizavimas", text: "Kai tie patys duomenys perrašomi ranka iš vienos sistemos į kitą.", gets: "Sujungtas jūsų naudojamas sistemas, kad duomenų ir dokumentų nebereikėtų perrašyti ranka.", price: "Kaina aptariama po pokalbio", number: "07", group: "apps" },
+  { href: "/paslaugos/judesio-reklamos", title: "Judesio reklamos", text: "Kai norite trumpo video, kuris sustabdo žmogų socialiniuose tinkluose.", gets: "Trumpą reklaminį video, apie 15–30 sekundžių, 9:16 formatu, paruoštą skelbti.", price: "Kaina aptariama po pokalbio", number: "08", group: "ads" },
+  { href: "/paslaugos/3d-reklamos", title: "3D reklamos", text: "Kai produktas turi atrodyti ryškiai, o paprastų nuotraukų nepakanka.", gets: "Jūsų produkto 3D vaizdą arba trumpą video, sukurtą kompiuteriu.", price: "Kaina aptariama po pokalbio", number: "09", group: "ads" },
+  { href: "/paslaugos/socialiniu-tinklu-paketas", title: "Socialinių tinklų paketas", text: "Kai norite reguliariai skelbti TikTok, Reels ar Facebook ir neturite laiko kurti.", gets: "4 trumpus video per savaitę. Du paketai: paprastesni arba sudėtingesni įrašai.", price: "€200–€300 per savaitę", number: "10", group: "ads" },
 ]
+
+// Cards on /paslaugos are shown in these three groups; `group` on each service picks its place.
+export const serviceGroups = [
+  { id: "websites", title: "Svetainės", text: "Kad klientas jus rastų, suprastų, ką darote, ir galėtų parašyti ar nusipirkti." },
+  { id: "apps", title: "Programos ir automatizacija", text: "Kai tą patį darbą darote ranka: laiškai, lentelės, užsakymai." },
+  { id: "ads", title: "Reklama ir video", text: "Trumpi video, kurie parodo jūsų veiklą socialiniuose tinkluose." },
+] as const
 
 export const faqGroups = [
   {

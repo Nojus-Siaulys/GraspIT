@@ -1,18 +1,13 @@
 import { contact } from "./settings"
 
-// Everything marked [ĮRAŠYTI: ...] must be replaced with real details before the site goes live.
-// The pages show these markers highlighted, so a missing one is easy to spot.
+// The controller's own details are not filled in yet, so their section is hidden (`hidden: true`).
+// When the sole proprietorship is registered: replace the three [ĮRAŠYTI] values and remove `hidden` from that section.
 export const legal = {
-  company: "[ĮRAŠYTI: įmonės arba individualios veiklos pavadinimas]",
-  code: "[ĮRAŠYTI: įmonės arba veiklos kodas]",
+  company: "[ĮRAŠYTI: individualios veiklos pavadinimas]",
+  code: "[ĮRAŠYTI: veiklos kodas]",
   address: "[ĮRAŠYTI: buveinės adresas]",
   email: contact.email || "[ĮRAŠYTI: el. paštas duomenų klausimams]",
-  hosting: "[ĮRAŠYTI: svetainės talpinimo paslaugų teikėjas]",
-  mailbox: "[ĮRAŠYTI: el. pašto paslaugų teikėjas]",
-  accounting: "[ĮRAŠYTI: apskaitos paslaugų teikėjas, jei toks yra]",
-  logRetention: "[ĮRAŠYTI: techninių žurnalų saugojimo laikas pagal talpinimo teikėjo sąlygas]",
-  transferBasis: "[ĮRAŠYTI: perdavimo pagrindas, pvz., sprendimas dėl tinkamumo ar standartinės sutarčių sąlygos]",
-  updated: "2026-11-08",
+  updated: "2026-11-22",
 }
 
 export type LegalSection = {
@@ -21,6 +16,8 @@ export type LegalSection = {
   list?: string[]
   cards?: { title: string; rows: [label: string, value: string][] }[]
   link?: { text: string; href: string }
+  // Kept in the file but not shown on the page.
+  hidden?: boolean
 }
 export type LegalDoc = { sections: LegalSection[] }
 
@@ -29,6 +26,7 @@ export const documents: Record<"privacy" | "cookies", LegalDoc> = {
     sections: [
       {
         h: "Kas tvarko jūsų duomenis",
+        hidden: true,
         p: [
           `Duomenų valdytojas: ${legal.company}, kodas ${legal.code}, buveinė ${legal.address}.`,
           `Klausimus apie duomenis rašykite el. paštu ${legal.email}. Šioje politikoje „BDAR“ reiškia Reglamentą (ES) 2016/679.`,
@@ -67,10 +65,10 @@ export const documents: Record<"privacy" | "cookies", LegalDoc> = {
           {
             title: "Svetainės ir formos apsauga",
             rows: [
-              ["Duomenys", "IP adresas ir bandymų pateikti formą skaičius. Techninius žurnalus gali rinkti talpinimo paslaugų teikėjas."],
+              ["Duomenys", "IP adresas ir bandymų pateikti formą skaičius. Techninius žurnalus gali rinkti svetainės talpinimo tiekėjas Cloudflare."],
               ["Tikslas", "Apsaugoti formą nuo šlamšto ir piktnaudžiavimo, užtikrinti svetainės veikimą."],
               ["Teisinis pagrindas", "Teisėtas interesas – saugi svetainė ir forma be šlamšto (BDAR 6 str. 1 d. f p.)."],
-              ["Saugojimo laikas", `Formos apsaugai IP adresas laikomas serverio atmintyje apie minutę ir nėra įrašomas į failus ar duomenų bazę. Techniniai žurnalai: ${legal.logRetention}.`],
+              ["Saugojimo laikas", `Formos apsaugai IP adresas laikomas serverio atmintyje apie minutę ir nėra įrašomas į failus ar duomenų bazę. Techniniai žurnalai: kiek reikia saugumui ir svetainės veikimui, pagal Cloudflare sąlygas.`],
             ],
           },
         ],
@@ -83,16 +81,20 @@ export const documents: Record<"privacy" | "cookies", LegalDoc> = {
         h: "Kas gauna jūsų duomenis",
         p: ["Šie tiekėjai duomenis tvarko mūsų vardu ir tik tiek, kiek reikia jų paslaugai teikti:"],
         list: [
-          `Svetainės talpinimas: ${legal.hosting}.`,
+          "Svetainės talpinimas: Cloudflare.",
           "Užklausos formos turinio pristatymas el. paštu: Resend.",
-          `El. pašto paslauga: ${legal.mailbox}.`,
-          `Apskaita: ${legal.accounting}.`,
+          "El. pašto paslauga: Google (Gmail).",
+          "Domeno, apskaitos ir kiti pagalbiniai paslaugų teikėjai, jei jų prireikia ir tik tiek, kiek reikia jų paslaugai teikti. Apie tai pasakysime iš anksto, kai aptarsime jūsų projektą.",
           "Valstybės institucijos, kai to reikalauja teisės aktai.",
         ],
       },
       {
         h: "Duomenų perdavimas už Europos ekonominės erdvės ribų",
-        p: [`Resend yra JAV bendrovė, todėl užklausos formos turinys gali būti perduodamas į JAV. Perdavimo pagrindas: ${legal.transferBasis}.`],
+        p: [
+          "Cloudflare, Resend ir Google yra JAV bendrovės, todėl jūsų užklausos turinys ir IP adresas gali būti perduodami į JAV.",
+          "Perdavimo pagrindas: Europos Komisijos sprendimas dėl tinkamumo, susijęs su ES ir JAV duomenų privatumo programa (Įgyvendinimo sprendimas (ES) 2023/1795). Pagal šių tiekėjų skelbiamą informaciją, jie yra sertifikuoti pagal šią programą. Cloudflare ir Resend savo duomenų tvarkymo sutartyse papildomai nurodo standartines sutarčių sąlygas (Įgyvendinimo sprendimas (ES) 2021/914), kurios taikomos, jei programa nustotų galioti.",
+          `Informaciją apie šias apsaugos priemones ar jų kopiją galite gauti parašę ${legal.email}.`,
+        ],
       },
       {
         h: "Jūsų teisės",
@@ -119,7 +121,7 @@ export const documents: Record<"privacy" | "cookies", LegalDoc> = {
       },
       {
         h: "Slapukai",
-        p: ["Svetainėje slapukų nenaudojame."],
+        p: ["Svetainėje slapukų nenaudojame. Pirmą kartą atvėrus svetainę parodome trumpą pranešimą apie tai."],
         link: { text: "Apie slapukus ir naršyklės saugyklą", href: "/slapukai/" },
       },
       {
@@ -132,11 +134,11 @@ export const documents: Record<"privacy" | "cookies", LegalDoc> = {
     sections: [
       {
         h: "Trumpai",
-        p: ["Ši svetainė nenustato slapukų ir nenaudoja statistikos, reklamos ar socialinių tinklų sekimo įrankių. Todėl slapukų sutikimo juostos nerodome."],
+        p: ["Ši svetainė nenustato slapukų ir nenaudoja statistikos, reklamos ar socialinių tinklų sekimo įrankių. Todėl sutikimo ar atsisakymo pasirinkimo nerodome, tik trumpai informuojame."],
       },
       {
         h: "Ką svetainė išsaugo jūsų įrenginyje",
-        p: ["Vienintelis įrašas – trumpalaikė naršyklės sesijos saugykla. Tai ne slapukas."],
+        p: ["Du įrašai naršyklės saugykloje. Tai ne slapukai."],
         cards: [
           {
             title: "graspit-brief",
@@ -144,6 +146,15 @@ export const documents: Record<"privacy" | "cookies", LegalDoc> = {
               ["Tikslas", "Perkelti atsakymus iš paslaugos puslapio į užklausos formą, kad nereikėtų rašyti iš naujo."],
               ["Kada atsiranda", "Tik paspaudus „Tęsti į užklausą“ paslaugos puslapyje."],
               ["Kiek laiko", "Kol uždarote naršyklės skirtuką arba išsiunčiate užklausą."],
+              ["Kam siunčiama", "Niekam. Įrašas lieka jūsų naršyklėje."],
+            ],
+          },
+          {
+            title: "graspit-slapukai",
+            rows: [
+              ["Tikslas", "Atsiminti, kad matėte pranešimą apie slapukus, kad jo nerodytume kiekvieną kartą."],
+              ["Kada atsiranda", "Paspaudus „Gerai“ pranešime."],
+              ["Kiek laiko", "Kol patys išvalote naršyklės duomenis."],
               ["Kam siunčiama", "Niekam. Įrašas lieka jūsų naršyklėje."],
             ],
           },
@@ -156,7 +167,7 @@ export const documents: Record<"privacy" | "cookies", LegalDoc> = {
       {
         h: "Kodėl nereikia sutikimo",
         p: [
-          "Elektroninių ryšių įstatymo 73 str. 4 d. ir Direktyvos 2002/58/EB 5 str. 3 d. reikalauja sutikimo, kai informacija įrenginyje saugoma ne dėl paslaugos, kurią naudotojas pats užsisako. Išimtis taikoma, kai tai būtina tokiai paslaugai teikti. Čia saugykla reikalinga tik jūsų pradėtai užklausai užpildyti, todėl sutikimo neprašome.",
+          "Elektroninių ryšių įstatymo 73 str. 4 d. ir Direktyvos 2002/58/EB 5 str. 3 d. reikalauja sutikimo, kai informacija įrenginyje saugoma ne dėl paslaugos, kurią naudotojas pats užsisako. Išimtis taikoma, kai tai būtina tokiai paslaugai teikti. Čia saugykla reikalinga tik jūsų pradėtai užklausai užpildyti ir pranešimo pasirinkimui atsiminti, todėl sutikimo neprašome.",
         ],
       },
       {

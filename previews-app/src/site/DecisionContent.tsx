@@ -96,25 +96,31 @@ export function ServiceDetails({ kind }: { kind: ServiceKind }) {
     window.location.href = `/kontaktai/?paslauga=${encodeURIComponent(d.service)}`
   }
   return <>
-    <section className="py-16 md:py-24" aria-labelledby={`${d.id}-fit-heading`}><div className={wrap}>
+    <section className="py-16 md:py-24" aria-labelledby={`${d.id}-gets-heading`}><div className={wrap}>
+      <p className="ux-eyebrow">Trumpai</p>
+      <h2 id={`${d.id}-gets-heading`} className="mt-5 max-w-[22ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">Ką gausite ir ką darote jūs.</h2>
+      <dl className="mt-10 max-w-[900px] border-b border-foreground/30">{d.gets.map(([label, text], index) => <div key={label} className="grid gap-2 border-t border-foreground/30 py-5 sm:grid-cols-[14rem_1fr] sm:gap-8"><dt className="flex gap-4 font-semibold"><span className="ux-eyebrow text-[var(--signal)]">0{index + 1}</span>{label}</dt><dd className="text-lg leading-relaxed">{text}</dd></div>)}</dl>
+    </div></section>
+    <section className="bg-secondary py-16 md:py-24" aria-labelledby={`${d.id}-fit-heading`}><div className={wrap}>
       <p className="ux-eyebrow">{d.fit.eyebrow}</p>
       <h2 id={`${d.id}-fit-heading`} className="mt-5 max-w-[22ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">{d.fit.heading}</h2>
       <div className="mt-10 grid gap-4 lg:grid-cols-3">{d.fit.items.map((item, index) => <article key={item.title} className="ux-panel bg-secondary p-6 md:p-8"><p className="ux-eyebrow text-muted-foreground">0{index + 1}</p><h3 className="mt-6 text-2xl font-semibold leading-tight tracking-tight">{item.title}</h3><p className="mt-5 leading-relaxed">{item.text}</p><p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.example}</p></article>)}</div>
     </div></section>
-    <section className="bg-secondary py-16 md:py-24" aria-labelledby={`${d.id}-included-heading`}><div className={`${wrap} grid gap-10 lg:grid-cols-2`}>
+    <section className="py-16 md:py-24" aria-labelledby={`${d.id}-included-heading`}><div className={`${wrap} grid gap-10 lg:grid-cols-2`}>
       <div>
         <p className="ux-eyebrow">Kas įeina</p>
-        <h2 id={`${d.id}-included-heading`} className="mt-5 max-w-[16ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">Ką gaunate.</h2>
+        <h2 id={`${d.id}-included-heading`} className="mt-5 max-w-[16ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">{d.packages ? "Du paketai." : "Kas įskaičiuota."}</h2>
         <p className="mt-5 max-w-[45ch] text-lg leading-relaxed text-muted-foreground">{d.included.note}</p>
+        {d.packages && <div className="mt-8 grid gap-4">{d.packages.map(pack => <article key={pack.name} className="ux-panel p-6"><p className="ux-eyebrow text-muted-foreground">{pack.name}</p><p className="mt-3 text-3xl font-bold">{pack.price}</p><p className="mt-3 leading-relaxed">{pack.text}</p></article>)}</div>}
       </div>
-      <ul className="space-y-3">{d.included.items.map(text => <li key={text} className="ux-panel flex gap-3 bg-background p-4"><Check className="mt-1 size-4 shrink-0" aria-hidden="true" />{text}</li>)}</ul>
+      <ul className="space-y-3">{d.included.items.map(text => <li key={text} className="ux-panel flex gap-3 bg-secondary p-4"><Check className="mt-1 size-4 shrink-0" aria-hidden="true" />{text}</li>)}</ul>
     </div></section>
-    <section className="py-16 md:py-24" aria-labelledby={`${d.id}-faq-heading`}><div className={wrap}>
+    <section className="bg-secondary py-16 md:py-24" aria-labelledby={`${d.id}-faq-heading`}><div className={wrap}>
       <p className="ux-eyebrow">Dažni klausimai</p>
       <h2 id={`${d.id}-faq-heading`} className="mt-5 max-w-[22ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">{d.faq.heading}</h2>
       <div className="mt-10 max-w-[820px]">{d.faq.items.map(item => <details key={item.q} className="border-t border-foreground/30 last:border-b"><summary className="flex min-h-14 cursor-pointer items-center py-4 text-lg font-semibold">{item.q}</summary><p className="max-w-[60ch] pb-4 leading-relaxed text-muted-foreground">{item.a}</p></details>)}</div>
     </div></section>
-    <section className="bg-secondary py-16 md:py-24" aria-labelledby={`${d.id}-brief-heading`}><div className={`${wrap} grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]`}>
+    <section className="py-16 md:py-24" aria-labelledby={`${d.id}-brief-heading`}><div className={`${wrap} grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]`}>
       <div>
         <p className="ux-eyebrow">Pirmas žingsnis</p>
         <h2 id={`${d.id}-brief-heading`} className="mt-5 max-w-[14ch] text-3xl font-bold leading-tight tracking-tight md:text-5xl">Trys klausimai prieš pokalbį.</h2>

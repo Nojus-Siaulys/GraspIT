@@ -9,6 +9,7 @@ import { ProjectGallery } from "./ProjectGallery"
 import { MoreWorks } from "./MoreWorks"
 import { StudioScene, TrustPhoto } from "./Photography"
 import { contact, phoneHref, siteCopy } from "./settings"
+import { CookieNotice } from "./CookieNotice"
 import { MobileCallBar, Testimonials, TrustStrip } from "./Trust"
 import { BackToTop } from "./BackToTop"
 import { Footer } from "./Footer"
@@ -22,7 +23,7 @@ import { BlogIndex, BlogPost, RelatedArticles } from "./Blog"
 import { useEffect, useState, type ReactNode } from "react"
 import { ArrowDown, ArrowRight, Check, Menu, Phone, X } from "lucide-react"
 import { lt } from "@/content-lt"
-import { allFaq, faqGroups, navigation, pages, services } from "./content"
+import { allFaq, faqGroups, navigation, pages, serviceGroups, services } from "./content"
 
 const pageUrl = (path: string) =>
   path === "/" ? path : path.replace(/\/?(#.*)?$/, "/$1")
@@ -56,15 +57,17 @@ function Section({
   title,
   children,
   sand = false,
+  id,
 }: {
   number: string
   label: string
   title: string
   children: ReactNode
   sand?: boolean
+  id?: string
 }) {
   return (
-    <section className={`${band} ${sand ? "bg-secondary" : "bg-background"}`}>
+    <section id={id} className={`${band} scroll-mt-20 ${sand ? "bg-secondary" : "bg-background"}`}>
       <div className={wrap}>
         <div className="mb-10 grid gap-4 lg:grid-cols-12">
           <p className={`${eyebrow} lg:col-span-3`}>
@@ -267,6 +270,10 @@ const serviceTitles: Record<ServiceKind, string> = {
   ai: "Automatizuojame tai, ką galima apibrėžti.",
   apps: "Programa pagal jūsų darbo būdą.",
   seo: "Svetainė, kuria rūpinamasi ir po paleidimo.",
+  motion: "Vienas aiškus video, kuris pasako visą žinutę.",
+  ads3d: "Produktas, kuris atrodo geriau nei nuotraukoje.",
+  social: "Reguliarus turinys be jūsų kūrimo darbo.",
+  integrations: "Duomenys keliauja patys.",
 }
 const serviceRows: Record<ServiceKind, string[][]> = {
   websites: [
@@ -299,30 +306,53 @@ const serviceRows: Record<ServiceKind, string[][]> = {
     ["Matomumas paieškoje", "Stebime indeksavimą ir paieškos užklausas, atnaujiname pasenusią informaciją."],
     ["Priežiūra", "Talpinimas, atnaujinimai ir smulkūs pakeitimai pagal sutartą planą."],
   ],
+  motion: [
+    ["Trumpas video", "Apie 15–30 sekundžių, kad žinutė pasakyta, kol žmogus neperslinko toliau."],
+    ["Pritaikytas telefonui", "9:16 formatas tinka TikTok, Reels ir Facebook."],
+    ["Jūsų stilius", "Naudojame jūsų logotipą, spalvas ir sutartą tekstą."],
+  ],
+  ads3d: [
+    ["3D produkto vaizdas", "Kuriame pagal jūsų nuotraukas ir matmenis."],
+    ["Video arba paveikslėliai", "Sukame, artiname, rodome detales, o rezultatą gaunate paruoštą skelbti."],
+    ["Peržiūra prieš baigiant", "Parodome rezultatą ir kartu tikriname, ką dar reikia patikslinti."],
+  ],
+  social: [
+    ["4 video per savaitę", "Trumpi, 9:16 formato, skirti TikTok, Reels ar Facebook."],
+    ["Du paketai", "Paprastesni įrašai už €200 arba sudėtingesni už €300 per savaitę."],
+    ["Aiški tvarka", "Iš anksto sutariame, apie ką kuriame, kas skelbia ir kiek pataisymų įskaičiuota."],
+  ],
+  integrations: [
+    ["Sujungtos sistemos", "El. paštą, lenteles, parduotuvę ir dokumentus sujungiame į vieną grandinę."],
+    ["Dokumentai iš duomenų", "Sąskaita ar kitas dokumentas užpildomas iš gauto užsakymo duomenų."],
+    ["Aiškiai sutarti duomenys", "Iš anksto sutariame, kokie duomenys kur keliauja ir kas juos mato."],
+  ],
 }
-const kickers = ["Aiškus pristatymas", "Pardavimas internetu", "Mažiau rankinio darbo", "Svetainės dizaino atnaujinimas", "Savo sistema", "Būti randamam"]
-// Integrations are only a card: they have no page of their own, so the card opens the contact form with the service chosen.
-const integrationsCard = { href: "/kontaktai/?paslauga=Integracijos", title: "Integracijos ir dokumentų automatizavimas", text: "Sujungiame jūsų naudojamas sistemas, kad duomenys ir dokumentai nereikalautų perrašymo ranka.", price: "Kaina aptariama po pokalbio", number: "07", kicker: "Sujungtos sistemos" }
-const cards = [...services.map((service, index) => ({ ...service, kicker: kickers[index] })), integrationsCard]
+const cards = services
 
 function Services({ path }: { path: string }) {
   if (path === "/paslaugos")
     return (
       <>
-        <Section
-          number="01"
-          label="Pasirinkimas"
-          title="Pasirinkite savo atvejį"
-          sand
-        >
-          <div className="grid gap-5 md:grid-cols-2">
-{cards.map((service, index) => (
-<a key={service.href} href={service.href.includes("?") ? service.href : pageUrl(service.href)} className={`lift group flex min-h-64 flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-9${index === cards.length - 1 && cards.length % 2 ? " md:col-span-2" : ""}`}>
-<div className="flex items-center justify-between gap-5"><span className={eyebrow}>{service.number} / {service.kicker}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
-<div className="mt-9 grid gap-6 lg:grid-cols-2"><div><h3 className="text-3xl font-bold tracking-tight md:text-4xl">{service.title}</h3><p className="mt-4 max-w-[45ch] text-lg leading-relaxed">{service.text}</p></div><div className="flex flex-col justify-end lg:items-end"><span className="text-3xl font-bold">{service.price}</span><span className="mt-2 text-sm">Pagal sutartą darbų apimtį</span></div></div>
-</a>))}
-</div>
-        </Section>
+        <nav aria-label="Paslaugų grupės" className={`${wrap} flex flex-wrap gap-2 pb-2 pt-6 md:hidden`}>
+          {serviceGroups.map((group) => <a key={group.id} href={`#${group.id}`} className="inline-flex min-h-11 items-center rounded-md border border-foreground/40 px-4 text-sm font-semibold">{group.title}</a>)}
+        </nav>
+        {serviceGroups.map((group, groupIndex) => (
+          <Section key={group.id} id={group.id} number={`0${groupIndex + 1}`} label={group.title} title={group.text} sand={groupIndex % 2 === 0}>
+            <div className="grid gap-5 md:grid-cols-2">
+              {cards.filter(card => card.group === group.id).map((service, index) => (
+                <a key={service.href} href={pageUrl(service.href)} className="lift group flex flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-8">
+                  <div>
+                    <div className="flex items-center justify-between gap-5"><span className={eyebrow}>0{index + 1}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
+                    <h3 className="mt-7 text-3xl font-bold tracking-tight">{service.title}</h3>
+                    <p className="mt-3 max-w-[45ch] text-lg leading-relaxed text-muted-foreground">{service.text}</p>
+                    <div className="mt-6 border-t border-foreground/25 pt-4"><p className={`${eyebrow} text-[var(--signal)]`}>Ką gausite</p><p className="mt-2 leading-relaxed">{service.gets}</p></div>
+                  </div>
+                  <p className="mt-6 text-2xl font-bold">{service.price}</p>
+                </a>
+              ))}
+            </div>
+          </Section>
+        ))}
         <ServiceScenarios />
         <Section
           number="02"
@@ -345,8 +375,12 @@ function Services({ path }: { path: string }) {
     : path.endsWith("programos") ? "apps"
     : path.endsWith("seo-prieziura") ? "seo"
     : path.endsWith("svetainiu-atnaujinimas") ? "redesign"
+    : path.endsWith("judesio-reklamos") ? "motion"
+    : path.endsWith("3d-reklamos") ? "ads3d"
+    : path.endsWith("socialiniu-tinklu-paketas") ? "social"
+    : path.endsWith("integracijos") ? "integrations"
     : "websites"
-  const slot: MediaId | undefined = ({ ai: "serviceAutomation", apps: "serviceApps", shop: "serviceShop", websites: "serviceWebsites", redesign: "serviceRedesign" } as const)[kind as Exclude<ServiceKind, "seo">]
+  const slot: MediaId | undefined = ({ ai: "serviceAutomation", apps: "serviceApps", shop: "serviceShop", websites: "serviceWebsites", redesign: "serviceRedesign", seo: "serviceSeo", integrations: "serviceIntegrations" } as Partial<Record<ServiceKind, MediaId>>)[kind]
   const rows = serviceRows[kind]
   return (
     <>
@@ -382,7 +416,7 @@ function Contact() {
       sand
     >
       <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
-        <div className="order-1 min-w-0 rounded-lg bg-background p-5 md:p-8">
+        <div className="order-1 min-w-0 rounded-lg bg-background p-3 sm:p-5 md:p-8">
           <ContactBrief />
           {(readyPhone || readyEmail) && <div className="mt-8 border-t border-foreground/20 pt-6"><p className="mb-3 text-sm text-muted-foreground">Norite susisiekti tiesiogiai?</p>
             {readyPhone && <a href={phoneHref} className="inline-flex min-h-11 items-center gap-3 font-semibold"><Phone className="size-5" aria-hidden="true" />{contact.phone}</a>}
@@ -441,6 +475,15 @@ export function Site({ path = "/" }: { path?: string }) {
     window.addEventListener("scroll", update, { passive: true })
     return () => window.removeEventListener("scroll", update)
   }, [])
+  // While the phone menu is open the page behind it stays still, and it closes if the window grows into the desktop layout.
+  useEffect(() => {
+    if (!menu) return
+    const desktop = window.matchMedia("(min-width: 1024px)")
+    const leave = () => { if (desktop.matches) setMenu(false) }
+    document.documentElement.style.overflow = "hidden"
+    desktop.addEventListener("change", leave)
+    return () => { document.documentElement.style.overflow = ""; desktop.removeEventListener("change", leave) }
+  }, [menu])
   useEffect(() => {
     if (!menu) return
     const close = (event: KeyboardEvent) => {
@@ -464,7 +507,7 @@ export function Site({ path = "/" }: { path?: string }) {
     )
   }, [page])
   return (
-    <div data-theme="bento-swiss" className={`min-h-screen ${contact.phone ? "pb-[4.5rem] md:pb-0" : ""}`}>
+    <div data-theme="bento-swiss" className={`min-h-screen ${contact.phone ? "pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-0" : ""}`}>
       <a
         href="#turinys"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:p-4"
@@ -530,20 +573,23 @@ export function Site({ path = "/" }: { path?: string }) {
           <nav
             id="mobilus-meniu"
             aria-label="Mobilusis meniu"
-            className={`${wrap} grid border-t border-foreground pb-5 lg:hidden`}
+            className={`${wrap} grid max-h-[calc(100svh-6.5rem)] overflow-y-auto overscroll-contain border-t border-foreground pb-6 lg:hidden`}
           >
             {[...navigation, ["/kontaktai", "Kontaktai"]].map(
               ([href, text]) => (
                 <a
                   key={href}
-                  className="border-b border-foreground/20 py-3 text-lg"
+                  className="flex min-h-14 items-center justify-between border-b border-foreground/20 text-xl"
                   href={pageUrl(href)}
                   aria-current={path === href ? "page" : undefined}
                 >
                   {text}
+                  {path === href && <span aria-hidden="true" className="size-2 rounded-full bg-[var(--signal)]" />}
                 </a>
               )
             )}
+            <a href="/kontaktai/" className="mt-6 inline-flex min-h-14 items-center justify-center gap-3 rounded-md bg-foreground px-6 font-semibold" style={{ color: "var(--background)" }}>{siteCopy.ctaShort}<ArrowRight className="size-4" aria-hidden="true" /></a>
+            {contact.phone && <a href={phoneHref} className="mt-3 inline-flex min-h-14 items-center justify-center gap-3 rounded-md border border-foreground/40 px-6 font-semibold"><Phone className="size-4" aria-hidden="true" />{contact.phone}</a>}
           </nav>
         )}
       </header>
@@ -564,20 +610,20 @@ export function Site({ path = "/" }: { path?: string }) {
                   aria-label="Naršymo kelias"
                   className={`mb-6 flex flex-wrap items-center gap-2 text-sm ${photo ? "text-white/80" : "text-muted-foreground"}`}
                 >
-                  <a href="/" className="inline-flex min-h-11 items-center hover:underline">
+                  <a href="/" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:underline">
                     Pradžia
                   </a>
                   <span aria-hidden="true">/</span>
                   {path.startsWith("/paslaugos/") && (
                     <>
-                      <a href="/paslaugos/" className="inline-flex min-h-11 items-center hover:underline">
+                      <a href="/paslaugos/" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:underline">
                         Paslaugos
                       </a>
                       <span aria-hidden="true">/</span>
                     </>
                   )}
-                  {path.startsWith("/blogas/") && <><a href="/blogas/" className="inline-flex min-h-11 items-center hover:underline">Blogas</a><span aria-hidden="true">/</span></>}
-                  {path.startsWith("/darbai/") && <><a href="/darbai/" className="inline-flex min-h-11 items-center hover:underline">Darbai</a><span aria-hidden="true">/</span></>}
+                  {path.startsWith("/blogas/") && <><a href="/blogas/" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:underline">Blogas</a><span aria-hidden="true">/</span></>}
+                  {path.startsWith("/darbai/") && <><a href="/darbai/" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:underline">Darbai</a><span aria-hidden="true">/</span></>}
                   <span aria-current="page">{page.label}</span>
                 </nav>
                 <p className={`${eyebrow} ${photo ? "text-[#bfe8d8]" : "text-[var(--signal)]"}`}>
@@ -679,7 +725,8 @@ export function Site({ path = "/" }: { path?: string }) {
       </main>
       <Footer links={navigation} />
       <BackToTop />
-      {path !== "/kontaktai" && <MobileCallBar />}
+      {path !== "/kontaktai" && !menu && <MobileCallBar />}
+      <CookieNotice path={path} />
     </div>
   )
 }

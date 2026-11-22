@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 
 // Photographed header backgrounds for inner pages. They scroll slower than the page, like the home hero.
-// Photos are free Unsplash images; sources are listed in public/img/headers/CREDITS.md.
+// Photos are listed in public/img/headers/CREDITS.md.
 export const pageBackdrops: Record<string, string> = {
   "/paslaugos": "services",
   "/biblioteka": "library",

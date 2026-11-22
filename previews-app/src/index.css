@@ -288,7 +288,7 @@ html { scroll-padding-top: 7rem; }
 
 /* Decision content shares the library's Swiss grid and Forest + sand hierarchy. */
 .ux-panel { border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent); border-radius: var(--radius); }
-.ux-eyebrow { font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
+.ux-eyebrow { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
 .ux-text-link { display: inline-flex; min-height: 44px; align-items: center; gap: .75rem; font-weight: 600; text-decoration: underline; text-underline-offset: 5px; }
 .ux-text-link svg { transition: transform .2s; }
 .ux-text-link:hover svg { transform: translateX(3px); }
@@ -510,3 +510,15 @@ input:user-invalid, textarea:user-invalid { border-color: #b3261e; }
 /* Header hides while reading down and at the bottom; keyboard focus inside it always brings it back. */
 .site-header { transition: transform .25s cubic-bezier(.2, .7, .2, 1); }
 .site-header[data-hidden="true"]:not(:focus-within) { transform: translateY(-100%); }
+
+/* Phones: text over photographs needs an even scrim (the desktop one fades out to the right), taps feel instant, and no tap flash. */
+@media (max-width: 767px) {
+  .hero-readability-shade { background: linear-gradient(180deg, rgb(5 19 15 / .82), rgb(5 19 15 / .74) 50%, rgb(5 19 15 / .88)); }
+  .page-backdrop-shade { background: linear-gradient(180deg, rgb(5 19 15 / .8), rgb(5 19 15 / .7) 60%, rgb(5 19 15 / .84)); }
+  .home-hero .hero-copy > p, .home-hero .hero-price { text-shadow: 0 1px 14px rgb(5 19 15 / .55); }
+}
+a, button, summary, label, input, select, textarea { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* While the cookie notice is open, the back-to-top button would sit on top of it. */
+html[data-cookie-notice] button[aria-label="Grįžti į puslapio viršų"] { display: none; }
+@media (prefers-reduced-motion: no-preference) { .cookie-notice { animation: rise-in .35s cubic-bezier(.2, .7, .2, 1) both; } }
