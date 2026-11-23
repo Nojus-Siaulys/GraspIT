@@ -141,7 +141,7 @@ function Home() {
       <div className="mt-7"><Link href="/paslaugos/">Visos paslaugos</Link></div>
     </Section>
     <ServiceScenarios />
-    <Section number="02" label="Atlikti darbai" title="Kelios mūsų kurtos svetainės.">
+    <Section number="02" label="Atlikti darbai" title="Mūsų kurtos svetainės.">
       <ProjectGallery />
       <div className="mt-9"><Link href="/darbai/">Visi darbai</Link></div>
     </Section>
@@ -404,7 +404,7 @@ function Contact() {
   const readyEmail = contact.email.length > 0
   const readyPhone = contact.phone.length > 0
   const next = [
-    ["Pokalbis", "Pirmas 30 minučių pokalbis nemokamas. Išsiaiškiname jūsų veiklą, tikslą ir ko reikia."],
+    ["Pokalbis", "Pirmas 30 minučių pokalbis. Išsiaiškiname jūsų veiklą, tikslą ir ko reikia."],
     ["Pasiūlymas", "Per 24 val. po pokalbio atsiunčiame fiksuotos kainos pasiūlymą su apimtimi ir terminu."],
     ["Jūsų sprendimas", "Darbus pradedame tik jums patvirtinus pasiūlymą. Iki tol niekas jūsų neįpareigoja."],
   ]

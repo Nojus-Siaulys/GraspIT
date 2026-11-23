@@ -60,7 +60,7 @@ const preparationNotes: Record<string, string> = {
 const timingNotes: Record<string, string> = {
   soon: "Aptarę projektą patvirtinsime, kada galime pradėti. Šis pasirinkimas datos nerezervuoja.",
   later: "Galėsime iš anksto susiplanuoti darbų pradžią ir pasiruošimą.",
-  unsure: "Galite pradėti nuo nemokamo pokalbio ir nuspręsti vėliau. Užsakyti paslaugos neprivalote.",
+  unsure: "Galite pradėti nuo pokalbio ir nuspręsti vėliau. Užsakyti paslaugos neprivalote.",
 }
 
 export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnswers?: string[]; onComplete?: (answers: string[]) => void }) {
