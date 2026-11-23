@@ -23,7 +23,7 @@ export const pages: Record<
     label: "Svetainių studija Lietuvoje",
   },
   "/paslaugos": {
-    title: "Svetainių, el. parduotuvių kūrimas ir automatizacija | GraspIT",
+    title: "Svetainės, programos, automatizacija ir video | GraspIT",
     heading: "Pasakykite problemą, parinksime paslaugą",
     intro:
       "Svetainės, programos, automatizacija ir trumpi reklaminiai video. Raskite situaciją, panašią į jūsų, ir pamatysite, ką gausite ir kaip pradedame.",
@@ -102,7 +102,7 @@ export const pages: Record<
     title: `Svetainių kūrimo kainos: nuo ${prices.website} ir ${prices.shop} | GraspIT`,
     heading: "Kas įskaičiuota į kainą, o kas ne",
     intro:
-      `Du paketai: pradinė svetainė nuo ${prices.website}, verslo svetainė ar el. parduotuvė nuo ${prices.shop}. Čia matote, ką jie apima, kas skaičiuojama atskirai ir kaip susitariame dėl mokėjimo.`,
+      `Du paketai: pradinė svetainė nuo ${prices.website}, verslo svetainė ar el. parduotuvė nuo ${prices.shop}. Ką jie apima, kas skaičiuojama atskirai ir kaip susitariame dėl mokėjimo.`,
     label: "Kainos",
   },
   "/procesas": {
