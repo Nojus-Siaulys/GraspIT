@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs"
 import { createServer } from "node:http"
 import { test } from "node:test"
 import { createContactHandler } from "./contact.ts"
-import { briefText, completeInquiry, draftInquiry, inquiryServices } from "../src/site/inquiryDraft.ts"
+import { briefText, completeInquiry, contentNeeds, draftInquiry, inquiryFromParams, inquiryServices } from "../src/site/inquiryDraft.ts"
 
 // Every service page sends its own `service` name to the contact form. The names are read from the page data
 // so a new service cannot be added without the server and the questionnaire knowing it.
@@ -59,4 +59,13 @@ test("each questionnaire choice drafts a first message about its own service", (
 test("answers typed on any service page reach the contact form", () => {
   const missing = pageServiceNames.filter(service => !briefText(JSON.stringify({ service, answers: [["Kas jus domina?", "Pavyzdinis atsakymas"]] }), service).startsWith("Sveiki,"))
   assert.deepEqual(missing, [])
+})
+
+test("a link from the questionnaire result opens the contact form with the same service and answers", () => {
+  for (const need of Object.keys(inquiryServices)) {
+    const preparation = contentNeeds.includes(need) ? "all" : "clear"
+    const { answers, service } = inquiryFromParams(new URLSearchParams({ need, preparation, timing: "soon" }))
+    assert.deepEqual(answers, [need, preparation, "soon"], need)
+    assert.equal(service, inquiryServices[need], need)
+  }
 })

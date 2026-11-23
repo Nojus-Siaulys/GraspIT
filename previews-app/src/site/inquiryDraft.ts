@@ -1,9 +1,11 @@
-export const inquiryServices: Record<string, string> = { website: "Svetainė", shop: "El. parduotuvė", redesign: "Svetainės atnaujinimas", automation: "AI automatizacija" }
+export const inquiryServices: Record<string, string> = { website: "Svetainė", shop: "El. parduotuvė", redesign: "Svetainės atnaujinimas", automation: "AI automatizacija", apps: "Programa", integrations: "Integracijos", seo: "SEO ir priežiūra", motion: "Judesio reklama", ads3d: "3D reklama", social: "Socialinių tinklų paketas" }
+// Websites ask about content; every other service asks whether the task is already clear.
+export const contentNeeds = ["website", "shop", "redesign"]
 const preparationLabels: Record<string, string> = { all: "Turiu tekstus ir nuotraukas", some: "Turiu dalį turinio", none: "Turinio dar neturiu", clear: "Žinau konkrečią užduotį", several: "Turiu kelias idėjas", explore: "Noriu išsiaiškinti galimybes" }
 const timingLabels: Record<string, string> = { soon: "Artimiausiomis savaitėmis", later: "Per kelis mėnesius", unsure: "Datos dar neturiu" }
 export function completeInquiry(answers: string[]) {
   const [need, preparation, timing] = answers
-  return Boolean(Object.hasOwn(inquiryServices, need) && (need === "automation" ? ["clear", "several", "explore"] : ["all", "some", "none"]).includes(preparation) && Object.hasOwn(timingLabels, timing))
+  return Boolean(Object.hasOwn(inquiryServices, need) && (!contentNeeds.includes(need) ? ["clear", "several", "explore"] : ["all", "some", "none"]).includes(preparation) && Object.hasOwn(timingLabels, timing))
 }
 export function inquirySummary(answers: string[]) {
   return [inquiryServices[answers[0]], preparationLabels[answers[1]], timingLabels[answers[2]]].filter(Boolean)
@@ -16,6 +18,12 @@ export function draftInquiry(answers: string[], context: { example?: string; pac
     shop: "Sveiki, norėčiau el. parduotuvės savo prekėms. Noriu patogaus prekių katalogo ir aiškaus pirkimo kelio. Norėčiau aptarti mokėjimo ir pristatymo galimybes.",
     redesign: "Sveiki, norėčiau atnaujinti turimą svetainę. Norėčiau kartu įvertinti jos dizainą, turinio išdėstymą bei patogumą naudotis telefonu ir sutarti, ką verta pakeisti.",
     automation: "Sveiki, norėčiau sumažinti pasikartojantį rankinį darbą. Norėčiau aptarti dabartinį procesą, naudojamus įrankius ir įvertinti, kuriuos veiksmus būtų galima automatizuoti.",
+    apps: "Sveiki, norėčiau aptarti programą savo darbui. Dabar naudojame lenteles, laiškus ar užrašus ir norėčiau, kad viskas būtų vienoje vietoje.",
+    integrations: "Sveiki, norėčiau aptarti integraciją tarp mūsų naudojamų sistemų, kad duomenų nereikėtų perrašyti ranka.",
+    seo: "Sveiki, norėčiau aptarti svetainės SEO ir priežiūrą. Norėčiau sužinoti, ką verta pagerinti ir kaip tai prižiūrėti.",
+    motion: "Sveiki, norėčiau aptarti judesio reklamos video savo verslui.",
+    ads3d: "Sveiki, norėčiau aptarti 3D reklamą savo produktui.",
+    social: "Sveiki, norėčiau aptarti socialinių tinklų paketą: trumpus video, kuriuos galėtume skelbti reguliariai.",
   }
   const prep: Record<string, string> = {
     all: "Tekstus ir nuotraukas jau turiu. Norėčiau, kad įvertintumėte, ką galima panaudoti ir ką reikėtų pritaikyti.",
@@ -31,8 +39,8 @@ export function draftInquiry(answers: string[], context: { example?: string; pac
 export function inquiryFromParams(params: URLSearchParams) {
   const service = params.get("paslauga") ?? ""
   const need = params.get("need") ?? Object.keys(inquiryServices).find(key => inquiryServices[key] === service) ?? ""
-  const oldPreparation = params.get(need === "automation" ? "procesas" : "turinys") ?? ""
-  const preparation = params.get("preparation") ?? (need === "automation"
+  const oldPreparation = params.get(!contentNeeds.includes(need) ? "procesas" : "turinys") ?? ""
+  const preparation = params.get("preparation") ?? (!contentNeeds.includes(need)
     ? oldPreparation.includes("konkrečią") ? "clear" : oldPreparation.includes("kelias") ? "several" : oldPreparation ? "explore" : ""
     : oldPreparation.includes("dalį") ? "some" : /neturiu|Kol nieko/.test(oldPreparation) ? "none" : oldPreparation ? "all" : "")
   const oldTiming = params.get("terminas") ?? ""
