@@ -10,6 +10,8 @@ export const contact = {
 // Until a real number is configured the contact page shows a clearly labelled example number, still wired as a tap-to-call link.
 export const phoneLabel = contact.phone || "+370 000 00000"
 export const phoneHref = `tel:${phoneLabel.replace(/[\s()-]/g, "")}`
+// Public profiles: shown in the footer and listed as sameAs in the Organization schema.
+export const social = { instagram: "https://www.instagram.com/tograspit/", tiktok: "https://www.tiktok.com/@tograspit" }
 // One calm primary action everywhere. Wording invites a conversation; it makes no promise beyond what the FAQ and process pages already state.
 export const siteCopy = {
   cta: "Aptarkime jūsų projektą",

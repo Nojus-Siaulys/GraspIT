@@ -396,8 +396,6 @@ html { scroll-padding-top: 7rem; }
 .fm-head { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: start; padding-bottom: 44px; }
 .fm h2 { margin: 0 0 26px; max-width: 12em; font-size: clamp(30px, 4.3cqw, 54px); font-weight: 700; line-height: 1.03; letter-spacing: -.04em; text-wrap: balance; }
 .fm-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 22px; }
-.fm .fm-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 6px; font-weight: 700; white-space: nowrap; background: var(--background); color: var(--foreground); }
-.fm .fm-btn:hover { background: var(--fm-mint); }
 .fm .fm-phone { display: inline-flex; align-items: center; min-height: 44px; font-size: 17px; font-weight: 600; text-decoration: underline; text-decoration-color: rgb(243 239 230 / .5); text-underline-offset: 6px; }
 .fm .fm-phone:hover { text-decoration-color: currentColor; }
 .fm-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin: 0; padding: 0; list-style: none; }
@@ -407,6 +405,10 @@ html { scroll-padding-top: 7rem; }
 .fm-cols a:hover { padding-left: 8px; color: var(--fm-mint); }
 .fm-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; padding: 10px 0; border-top: 1px solid var(--fm-line); font-size: 13px; }
 .fm-dim { opacity: .7; }
+.fm-social { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 18px 0 14px; border-top: 1px solid var(--fm-line); font-size: 14px; }
+.fm-social span { opacity: .7; margin-right: 4px; }
+.fm-social a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; border: 1px solid var(--fm-line); border-radius: 6px; font-weight: 600; }
+.fm-social a:hover { color: var(--fm-mint); border-color: currentColor; }
 .fm-legal { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .fm-meta a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; }
 .fm-meta a:hover { color: var(--fm-mint); }

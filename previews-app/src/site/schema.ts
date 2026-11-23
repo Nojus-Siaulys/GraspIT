@@ -1,7 +1,7 @@
 import { allFaq, pages, services } from "./content"
 import { blogAuthor, postBySlug, posts } from "./posts"
 import { prices } from "./pricing"
-import { contact } from "./settings"
+import { contact, social } from "./settings"
 
 // Schema.org JSON-LD for one page, written into <head> by scripts/prerender.mjs.
 // With no SITE_URL the ids stay relative; once the domain is set they become absolute.
@@ -26,6 +26,7 @@ export function structuredData(path: string, origin = "") {
       description:
         "Dviejų žmonių svetainių studija Lietuvoje: kuriame ir atnaujiname svetaines, el. parduotuves ir AI automatizacijas vietiniam verslui.",
       areaServed: { "@type": "Country", name: "Lietuva" },
+      sameAs: Object.values(social),
       knowsLanguage: ["lt"],
       knowsAbout: ["Svetainių kūrimas", "El. parduotuvių kūrimas", "Techninis SEO", "GEO / AI paieškos optimizavimas", "WordPress svetainių atnaujinimas", "AI automatizacija"],
       ...(contact.email || contact.phone
