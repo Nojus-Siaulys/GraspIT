@@ -127,7 +127,7 @@ export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnsw
   const primary = "inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:cursor-not-allowed disabled:opacity-40"
 
   return <div className="rounded-lg border border-foreground/25 bg-background p-4 sm:p-6 md:p-10">
-    <p className="text-sm leading-relaxed text-muted-foreground">{onComplete ? "3 trumpi klausimai · iš atsakymų paruošime jūsų projekto aprašymą" : "3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia"}</p>
+    <p className={`text-sm leading-relaxed text-muted-foreground ${onComplete ? "max-md:hidden" : ""}`}>{onComplete ? "3 trumpi klausimai · iš atsakymų paruošime jūsų projekto aprašymą" : "3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia"}</p>
     <div className="mt-5 flex items-center gap-4 text-sm text-muted-foreground"><span>{done ? "Jūsų rezultatas" : `Klausimas ${step + 1} iš 3`}</span><span aria-hidden="true" className="flex flex-1 gap-1.5">{questions.map((_, index) => <span key={index} className={`h-1.5 flex-1 rounded-full ${index <= step ? "bg-[var(--signal)]" : "bg-foreground/15"}`} />)}</span></div>
     {!done && question ? <div>
       <h3 ref={heading} tabIndex={-1} id={`${id}-heading`} className="mt-6 text-2xl font-bold tracking-tight outline-none md:text-3xl">{question.title}</h3>

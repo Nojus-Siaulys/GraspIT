@@ -74,9 +74,9 @@ export function ContactBrief() {
   if (sent) return <div className="ux-panel mt-8 bg-secondary p-6" role="status"><Check className="size-6" /><h3 className="mt-4 text-2xl font-semibold">Užklausa išsiųsta.</h3><p className="mt-3 leading-relaxed">Gavome. Perskaitysime ir parašysime el. paštu, kad sutartume pokalbį.</p><a href="/procesas/" className="ux-text-link mt-5">Kas bus toliau<ArrowRight className="size-4" /></a></div>
   return <div>
     <section hidden={!wizard} aria-labelledby="contact-finder-heading">
-      <p className="ux-eyebrow">Lengvesnė užklausos pradžia</p>
-      <h2 id="contact-finder-heading" className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">Nereikia galvoti, ką parašyti.</h2>
-      <p className="mt-4 max-w-[65ch] text-lg leading-relaxed text-muted-foreground">Atsakykite į 3 trumpus klausimus, ir iš jūsų pasirinkimų paruošime projekto aprašymą. Beliks įrašyti vardą ir el. paštą. Tekstą galėsite pataisyti.</p>
+      <p className="ux-eyebrow max-md:hidden">Lengvesnė užklausos pradžia</p>
+      <h2 id="contact-finder-heading" className="mt-4 text-3xl max-md:sr-only font-bold tracking-tight md:text-4xl">Nereikia galvoti, ką parašyti.</h2>
+      <p className="mt-4 max-w-[65ch] text-lg leading-relaxed text-muted-foreground max-md:hidden">Atsakykite į 3 trumpus klausimus, ir iš jūsų pasirinkimų paruošime projekto aprašymą. Beliks įrašyti vardą ir el. paštą. Tekstą galėsite pataisyti.</p>
       <div className="mt-6">{wizard && <PackageFinder initialAnswers={answers} onComplete={finish} />}</div>
       <button type="button" onClick={() => setWizard(false)} className="mt-4 min-h-11 text-sm font-semibold underline underline-offset-4">{message ? "Grįžti į formą nekeičiant aprašymo" : "Praleisti klausimus ir pildyti pačiam"}</button>
     </section>

@@ -58,6 +58,7 @@ function Section({
   children,
   sand = false,
   id,
+  compact = false,
 }: {
   number: string
   label: string
@@ -65,16 +66,17 @@ function Section({
   children: ReactNode
   sand?: boolean
   id?: string
+  compact?: boolean
 }) {
   return (
-    <section id={id} className={`${band} scroll-mt-20 ${sand ? "bg-secondary" : "bg-background"}`}>
+    <section id={id} className={`${compact ? "py-8 md:py-24" : band} scroll-mt-20 ${sand ? "bg-secondary" : "bg-background"}`}>
       <div className={wrap}>
-        <div className="mb-10 grid gap-4 lg:grid-cols-12">
-          <p className={`${eyebrow} lg:col-span-3`}>
+        <div className={`${compact ? "mb-0 gap-0 md:mb-10 md:gap-4" : "mb-10 gap-4"} grid lg:grid-cols-12`}>
+          <p className={`${eyebrow} lg:col-span-3 ${compact ? "max-md:hidden" : ""}`}>
             <span className="mr-3 text-[var(--signal)]">{number}</span>
             {label}
           </p>
-          <h2 className={`${heading} max-w-[23ch] lg:col-span-9`}>{title}</h2>
+          <h2 className={`${heading} max-w-[23ch] lg:col-span-9 ${compact ? "max-md:sr-only" : ""}`}>{title}</h2>
         </div>
         {children}
       </div>
@@ -414,6 +416,7 @@ function Contact() {
       label="Jūsų projektas"
       title="Pradėkime nuo jūsų idėjos"
       sand
+      compact
     >
       <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
         <div className="order-1 min-w-0 rounded-lg bg-background p-3 sm:p-5 md:p-8">
@@ -603,7 +606,7 @@ export function Site({ path = "/" }: { path?: string }) {
           <Home />
         ) : (
           <>
-            <section className={photo ? `${band} relative isolate overflow-hidden bg-[#0b2219] text-white` : `${band} border-b border-foreground/20`}>
+            <section className={`${path === "/kontaktai" ? "py-9 md:py-24" : band} ${photo ? "relative isolate overflow-hidden bg-[#0b2219] text-white" : "border-b border-foreground/20"}`}>
               {photo && <PageBackdrop name={photo} />}
               <div className={`${wrap} ${photo ? "relative z-10" : ""}`}>
                 <nav
