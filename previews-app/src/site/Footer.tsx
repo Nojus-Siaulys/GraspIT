@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
-import { ArrowRight } from "lucide-react"
-import { contact, phoneHref, siteCopy } from "./settings"
+import { contact, phoneHref, social } from "./settings"
+import { InstagramIcon, TikTokIcon } from "./socialIcons"
 
 type Item = readonly [href: string, label: string]
 
@@ -73,7 +73,6 @@ export function Footer({ links }: { links: readonly Item[] }) {
           <div>
             <h2>Papasakokite, ko reikia jūsų svetainei.</h2>
             <div className="fm-acts">
-              <a href="/kontaktai/" className="fm-btn cta-glow">{siteCopy.ctaShort}<ArrowRight className="size-4" aria-hidden="true" /></a>
               {contact.phone && <a href={phoneHref} className="fm-phone">{contact.phone}</a>}
               {contact.email && <a href={`mailto:${contact.email}`} className="fm-phone">{contact.email}</a>}
             </div>
@@ -88,6 +87,7 @@ export function Footer({ links }: { links: readonly Item[] }) {
             </ul>
           </nav>
         </div>
+        <nav aria-label="Socialiniai tinklai" className="fm-social"><span>Sekite mus</span><a href={social.instagram} aria-label="GraspIT Instagram (@tograspit)"><InstagramIcon className="size-5" />Instagram</a><a href={social.tiktok} aria-label="GraspIT TikTok (@tograspit)"><TikTokIcon className="size-5" />TikTok</a></nav>
         <div className="fm-meta">
           <span className="fm-dim">© GraspIT · Svetainių kūrimas ir atnaujinimas{contact.email && ` · ${contact.email}`}</span>
           <nav aria-label="Teisinė informacija" className="fm-legal"><a href="/privatumo-politika/">Privatumo politika</a><a href="/slapukai/">Slapukai</a></nav>

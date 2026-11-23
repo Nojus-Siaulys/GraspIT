@@ -728,6 +728,7 @@ export function Site({ path = "/" }: { path?: string }) {
         )}
       </main>
       <Footer links={navigation} />
+      {path !== "/kontaktai" && contact.phone && <div aria-hidden="true" className="h-[calc(4.25rem+env(safe-area-inset-bottom))] bg-foreground md:hidden" />}
       <BackToTop />
       {path !== "/kontaktai" && !menu && <MobileCallBar />}
       <CookieNotice path={path} />
