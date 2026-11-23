@@ -17,6 +17,7 @@ import { PageBackdrop, pageBackdrops } from "./PageBackdrop"
 import { Media } from "./Media"
 import { hasMedia, type MediaId } from "./mediaSlots"
 import { PackageFinder } from "./PackageFinder"
+import { PhoneCollapse } from "./PhoneCollapse"
 import { prices, pricingPackages } from "./pricing"
 import { ContactBrief } from "./ContactBrief"
 import { BlogIndex, BlogPost, RelatedArticles } from "./Blog"
@@ -58,6 +59,7 @@ function Section({
   children,
   sand = false,
   id,
+  compact = false,
 }: {
   number: string
   label: string
@@ -65,16 +67,17 @@ function Section({
   children: ReactNode
   sand?: boolean
   id?: string
+  compact?: boolean
 }) {
   return (
-    <section id={id} className={`${band} scroll-mt-20 ${sand ? "bg-secondary" : "bg-background"}`}>
+    <section id={id} className={`${compact ? "py-8 md:py-24" : band} scroll-mt-20 ${sand ? "bg-secondary" : "bg-background"}`}>
       <div className={wrap}>
-        <div className="mb-10 grid gap-4 lg:grid-cols-12">
-          <p className={`${eyebrow} lg:col-span-3`}>
+        <div className={`${compact ? "mb-0 gap-0 md:mb-10 md:gap-4" : "mb-10 gap-4"} grid lg:grid-cols-12`}>
+          <p className={`${eyebrow} lg:col-span-3 ${compact ? "max-md:hidden" : ""}`}>
             <span className="mr-3 text-[var(--signal)]">{number}</span>
             {label}
           </p>
-          <h2 className={`${heading} max-w-[23ch] lg:col-span-9`}>{title}</h2>
+          <h2 className={`${heading} max-w-[23ch] lg:col-span-9 ${compact ? "max-md:sr-only" : ""}`}>{title}</h2>
         </div>
         {children}
       </div>
@@ -126,7 +129,7 @@ function Home() {
       </div>
     </section>
     <TrustStrip />
-    <Section number="01" label="Paslaugos" title="Šešios paslaugos. Pradėkite nuo tos, kurios labiausiai trūksta." sand>
+    <Section number="01" label="Paslaugos" title="Pradėkite nuo tos paslaugos, kurios labiausiai trūksta." sand>
       <div className="grid gap-6 md:grid-cols-2">
         {cards.map((item, i) => <article key={item.title} className="lift flex flex-col overflow-hidden rounded-lg border border-foreground/20 bg-background">
           {hasMedia(item.id) && <Media id={item.id} className="rounded-none" />}
@@ -140,8 +143,8 @@ function Home() {
       </div>
       <div className="mt-7"><Link href="/paslaugos/">Visos paslaugos</Link></div>
     </Section>
-    <ServiceScenarios />
-    <Section number="02" label="Atlikti darbai" title="Kelios mūsų kurtos svetainės.">
+    <PhoneCollapse title="Atpažįstate savo kasdienybę?"><ServiceScenarios /></PhoneCollapse>
+    <Section number="02" label="Atlikti darbai" title="Mūsų kurtos svetainės.">
       <ProjectGallery />
       <div className="mt-9"><Link href="/darbai/">Visi darbai</Link></div>
     </Section>
@@ -149,7 +152,7 @@ function Home() {
       <div className="lg:ml-[25%]"><PackageFinder /></div>
     </Section>
     <Testimonials />
-    <StructureExplorer />
+    <PhoneCollapse title="Nuo pirmo įspūdžio iki užklausos."><StructureExplorer /></PhoneCollapse>
     <StudioScene />
     <Section number="04" label="Apie mus" title="Kas kuria GraspIT?">
       <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
@@ -160,7 +163,7 @@ function Home() {
         </div>
       </div>
     </Section>
-    <RelatedArticles path="/" title="Patarimai, kaip būti randamam internete" />
+    <PhoneCollapse title="Patarimai, kaip būti randamam internete"><RelatedArticles path="/" title="Patarimai, kaip būti randamam internete" /></PhoneCollapse>
     <Section number="05" label="Klausimai" title="Prieš užsakant svetainę." sand>
       <div className="lg:ml-[25%]"><FaqItems items={[allFaq[0], allFaq[5], allFaq[19]]} /><div className="mt-6"><Link href="/duk/">Visi klausimai ir atsakymai</Link></div></div>
     </Section>
@@ -404,7 +407,7 @@ function Contact() {
   const readyEmail = contact.email.length > 0
   const readyPhone = contact.phone.length > 0
   const next = [
-    ["Pokalbis", "Pirmas 30 minučių pokalbis nemokamas. Išsiaiškiname jūsų veiklą, tikslą ir ko reikia."],
+    ["Pokalbis", "Pirmas 30 minučių pokalbis. Išsiaiškiname jūsų veiklą, tikslą ir ko reikia."],
     ["Pasiūlymas", "Per 24 val. po pokalbio atsiunčiame fiksuotos kainos pasiūlymą su apimtimi ir terminu."],
     ["Jūsų sprendimas", "Darbus pradedame tik jums patvirtinus pasiūlymą. Iki tol niekas jūsų neįpareigoja."],
   ]
@@ -414,6 +417,7 @@ function Contact() {
       label="Jūsų projektas"
       title="Pradėkime nuo jūsų idėjos"
       sand
+      compact
     >
       <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
         <div className="order-1 min-w-0 rounded-lg bg-background p-3 sm:p-5 md:p-8">
@@ -603,7 +607,7 @@ export function Site({ path = "/" }: { path?: string }) {
           <Home />
         ) : (
           <>
-            <section className={photo ? `${band} relative isolate overflow-hidden bg-[#0b2219] text-white` : `${band} border-b border-foreground/20`}>
+            <section className={`${path === "/kontaktai" ? "py-9 md:py-24" : band} ${photo ? "relative isolate overflow-hidden bg-[#0b2219] text-white" : "border-b border-foreground/20"}`}>
               {photo && <PageBackdrop name={photo} />}
               <div className={`${wrap} ${photo ? "relative z-10" : ""}`}>
                 <nav

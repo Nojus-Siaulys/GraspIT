@@ -1,20 +1,35 @@
 import { useEffect, useId, useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react"
 import { prices } from "./pricing"
+import { serviceGroups } from "./content"
+import { contentNeeds, inquiryServices } from "./inquiryDraft"
 
 type Option = { value: string; label: string; detail: string }
 type Question = { title: string; help: string; options: Option[] }
-type Need = "website" | "shop" | "redesign" | "automation"
+type Need = "website" | "shop" | "redesign" | "automation" | "apps" | "integrations" | "seo" | "motion" | "ads3d" | "social"
 
 const needQuestion: Question = {
   title: "Ką norite padaryti?",
   help: "Pasirinkite pagrindinį tikslą. Techninių žinių nereikia, viską aptarsime kartu.",
   options: [
-    { value: "website", label: "Pristatyti savo verslą internete", detail: "Reikia naujos svetainės paslaugoms, darbams ir kontaktams." },
-    { value: "shop", label: "Parduoti prekes internetu", detail: "Reikia el. parduotuvės su prekių katalogu ir pirkimo galimybe." },
-    { value: "redesign", label: "Atnaujinti turimą svetainę", detail: "Svetainė jau yra, bet netenkina jos išvaizda ar patogumas naudotis." },
-    { value: "automation", label: "Sumažinti pasikartojantį darbą", detail: "Norite mažiau laiko skirti laiškams, duomenų suvedimui ar kitoms rutininėms užduotims." },
+    { value: "website", label: "Pristatyti verslą internete", detail: "Kai paslaugos ir kontaktai išbarstyti, o klientas turi jų ieškoti." },
+    { value: "shop", label: "Parduoti prekes internetu", detail: "Kai norite prekiauti internetu ir patogiai valdyti turinį." },
+    { value: "redesign", label: "Atnaujinti turimą svetainę", detail: "Kai svetainė yra, bet atrodo pasenusi arba nepatogi telefone." },
+    { value: "automation", label: "Sumažinti pasikartojantį darbą", detail: "Kai pasikartojantys laiškai ar procesai atima per daug laiko." },
+    { value: "apps", label: "Sukurti programą savo darbui", detail: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui." },
+    { value: "integrations", label: "Sujungti sistemas", detail: "Kai tie patys duomenys perrašomi ranka iš vienos sistemos į kitą." },
+    { value: "seo", label: "SEO ir svetainės priežiūra", detail: "Kai paleistos svetainės niekas neprižiūri ir nežinote, ką pagerinti." },
+    { value: "motion", label: "Judesio reklama", detail: "Kai norite trumpo video, kuris sustabdo žmogų socialiniuose tinkluose." },
+    { value: "ads3d", label: "3D reklama", detail: "Kai produktas turi atrodyti ryškiai, o paprastų nuotraukų nepakanka." },
+    { value: "social", label: "Socialinių tinklų paketas", detail: "Kai norite reguliariai skelbti TikTok, Reels ar Facebook ir neturite laiko kurti." },
   ],
+}
+// First screen: three areas, as on /paslaugos/. The second screen shows only the choices of that area.
+const areaNeeds: Record<string, string[]> = { websites: ["website", "shop", "redesign"], apps: ["automation", "apps", "integrations", "seo"], ads: ["motion", "ads3d", "social"] }
+const areaQuestion: Question = {
+  title: "Kokia sritis jums artimiausia?",
+  help: "Pasirinkite sritį, o tada tikslesnį poreikį. Techninių žinių nereikia.",
+  options: serviceGroups.map(group => ({ value: group.id, label: group.title, detail: group.text })),
 }
 const contentQuestion: Question = {
   title: "Ką jau turite svetainei?",
@@ -34,6 +49,15 @@ const workflowQuestion: Question = {
     { value: "explore", label: "Dar noriu išsiaiškinti galimybes", detail: "Pasikartojančio darbo yra, bet nežinau, ką būtų galima automatizuoti." },
   ],
 }
+const taskQuestion: Question = {
+  title: "Ar jau žinote, ko tiksliai norite?",
+  help: "Pakanka kelių žodžių. Detales aptarsime pokalbyje.",
+  options: [
+    { value: "clear", label: "Žinau, ko noriu", detail: "Galiu paaiškinti, ką reikia padaryti ir kokio rezultato tikiuosi." },
+    { value: "several", label: "Turiu kelias idėjas", detail: "Reikia padėti pasirinkti, nuo ko pradėti." },
+    { value: "explore", label: "Dar noriu išsiaiškinti galimybes", detail: "Dar nežinau, kas man tiktų." },
+  ],
+}
 const timingQuestion: Question = {
   title: "Kada norėtumėte pradėti darbus?",
   help: "Klausiame apie darbų pradžią, o ne paleidimo datą. Tikslų grafiką suderinsime aptarę projektą.",
@@ -48,6 +72,12 @@ const results: Record<Need, { title: string; price: string; detail: string; href
   shop: { title: "El. parduotuvės kūrimas", price: `Nuo ${prices.shop}`, detail: "Aptarsime prekių katalogą, pirkimo žingsnius, mokėjimą ir pristatymą. Orientacinė projekto trukmė — 14 dienų; ji priklauso nuo sutartos apimties, integracijų ir turinio paruošimo.", href: "/paslaugos/el-parduotuves/" },
   redesign: { title: "Esamos svetainės atnaujinimas", price: "Kaina įvertinus svetainę", detail: "Pirmiausia peržiūrėsime dabartinę svetainę: kas joje trukdo lankytojui, ką verta išlaikyti ir ką pakeisti. Galite kreiptis ir dėl WordPress, ir dėl kitaip sukurtos svetainės.", href: "/paslaugos/svetainiu-atnaujinimas/" },
   automation: { title: "Darbo procesų automatizavimas", price: "Kaina aptariama po pokalbio", detail: "Pradėsime nuo vienos pasikartojančios užduoties. Aptarsime, kokius įrankius naudojate, kokio rezultato reikia ir ką turės patikrinti žmogus. Galimybę automatizuoti įvertinsime prieš siūlydami sprendimą.", href: "/paslaugos/ai-agentai/" },
+  apps: { title: "Programos kūrimas", price: "Kaina pagal apimtį", detail: "Pradėsime nuo vienos darbo eigos, kurią dabar atliekate lentelėse, laiškuose ar užrašuose. Aptarsime, kas ja naudosis ir ką programa turi parodyti.", href: "/paslaugos/programos/" },
+  integrations: { title: "Sistemų integracija", price: "Kaina pagal apimtį", detail: "Aptarsime, kurias sistemas naudojate ir kurie duomenys dabar perrašomi ranka. Pradėsime nuo vieno ryšio tarp dviejų sistemų.", href: "/paslaugos/integracijos/" },
+  seo: { title: "SEO ir svetainės priežiūra", price: "Kaina pagal apimtį", detail: "Peržiūrėsime techninę svetainės būklę ir smulkius trūkumus. Aptarsime, ar reikia vienkartinės patikros, ar nuolatinės priežiūros.", href: "/paslaugos/seo-prieziura/" },
+  motion: { title: "Judesio reklama", price: "Kaina pagal apimtį", detail: "Aptarsime, ką norite parodyti ir kur video bus rodomas: socialiniuose tinkluose ar svetainėje.", href: "/paslaugos/judesio-reklamos/" },
+  ads3d: { title: "3D reklama", price: "Kaina pagal apimtį", detail: "Aptarsime, kurį produktą reikia parodyti ir kur vaizdas bus naudojamas. Pažiūrėsime, ar pakanka esamų nuotraukų, ar reikia 3D modelio.", href: "/paslaugos/3d-reklamos/" },
+  social: { title: "Socialinių tinklų paketas", price: "Kaina pagal apimtį", detail: "Aptarsime, kuriuose tinkluose skelbiate ir kaip dažnai. Paketų apimtį ir kainas rasite paslaugos puslapyje.", href: "/paslaugos/socialiniu-tinklu-paketas/" },
 }
 const preparationNotes: Record<string, string> = {
   all: "Peržiūrėsime jūsų tekstus bei nuotraukas ir aptarsime, ką galima panaudoti.",
@@ -60,53 +90,58 @@ const preparationNotes: Record<string, string> = {
 const timingNotes: Record<string, string> = {
   soon: "Aptarę projektą patvirtinsime, kada galime pradėti. Šis pasirinkimas datos nerezervuoja.",
   later: "Galėsime iš anksto susiplanuoti darbų pradžią ir pasiruošimą.",
-  unsure: "Galite pradėti nuo nemokamo pokalbio ir nuspręsti vėliau. Užsakyti paslaugos neprivalote.",
+  unsure: "Galite pradėti nuo pokalbio ir nuspręsti vėliau. Užsakyti paslaugos neprivalote.",
 }
 
 export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnswers?: string[]; onComplete?: (answers: string[]) => void }) {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<string[]>(initialAnswers)
+  const [group, setGroup] = useState<string | null>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const id = useId()
-  const questions = [needQuestion, answers[0] === "automation" ? workflowQuestion : contentQuestion, timingQuestion]
+  const questions = [needQuestion, contentNeeds.includes(answers[0]) ? contentQuestion : answers[0] === "automation" ? workflowQuestion : taskQuestion, timingQuestion]
   const done = step === questions.length
   const [need, preparation, timing] = answers
   const result = done ? results[need as Need] : null
-  const question = questions[step]
-  const selection = answers[step]
+  const activeGroup = group ?? Object.keys(areaNeeds).find(key => areaNeeds[key].includes(need)) ?? null
+  const choosingArea = step === 0 && !activeGroup
+  const question = step === 0 ? (activeGroup ? { ...needQuestion, options: needQuestion.options.filter(option => areaNeeds[activeGroup].includes(option.value)) } : areaQuestion) : questions[step]
+  const selection = choosingArea ? undefined : answers[step]
   const labels = questions.map((item, index) => item.options.find(option => option.value === answers[index])?.label ?? "")
-  const automation = need === "automation"
+  const taskLike = !contentNeeds.includes(need)
   const inquiry = result ? "/kontaktai/?" + new URLSearchParams({
-    paslauga: ({ website: "Svetainė", shop: "El. parduotuvė", redesign: "Svetainės atnaujinimas", automation: "AI automatizacija" })[need as Need],
-    [automation ? "procesas" : "turinys"]: labels[1],
+    paslauga: inquiryServices[need],
+    [taskLike ? "procesas" : "turinys"]: labels[1],
     terminas: labels[2],
     need, preparation, timing,
   }).toString() : "/kontaktai/"
 
   useEffect(() => { if (step > 0) heading.current?.focus({ preventScroll: true }) }, [step])
   function choose(value: string) {
+    if (choosingArea) { setGroup(value); setAnswers([]); return }
     // Changing the service invalidates answers to its service-specific questions.
     setAnswers(previous => previous[step] === value ? previous : [...previous.slice(0, step), value])
   }
-  function restart() { setAnswers([]); setStep(0) }
+  function changeArea() { setGroup(null); setAnswers([]) }
+  function restart() { setAnswers([]); setGroup(null); setStep(0) }
   const primary = "inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-foreground px-6 py-3 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:cursor-not-allowed disabled:opacity-40"
 
   return <div className="rounded-lg border border-foreground/25 bg-background p-4 sm:p-6 md:p-10">
-    <p className="text-sm leading-relaxed text-muted-foreground">{onComplete ? "3 trumpi klausimai · iš atsakymų paruošime jūsų projekto aprašymą" : "3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia"}</p>
+    <p className={`text-sm leading-relaxed text-muted-foreground ${onComplete ? "max-md:hidden" : ""}`}>{onComplete ? "3 trumpi klausimai · iš atsakymų paruošime jūsų projekto aprašymą" : "3 trumpi klausimai · apie 1 minutę · kontaktų čia nereikia"}</p>
     <div className="mt-5 flex items-center gap-4 text-sm text-muted-foreground"><span>{done ? "Jūsų rezultatas" : `Klausimas ${step + 1} iš 3`}</span><span aria-hidden="true" className="flex flex-1 gap-1.5">{questions.map((_, index) => <span key={index} className={`h-1.5 flex-1 rounded-full ${index <= step ? "bg-[var(--signal)]" : "bg-foreground/15"}`} />)}</span></div>
     {!done && question ? <div>
       <h3 ref={heading} tabIndex={-1} id={`${id}-heading`} className="mt-6 text-2xl font-bold tracking-tight outline-none md:text-3xl">{question.title}</h3>
       <p id={`${id}-help`} className="mt-3 max-w-[65ch] leading-relaxed text-muted-foreground">{question.help}</p>
       <fieldset aria-labelledby={`${id}-heading`} aria-describedby={`${id}-help`} className="mt-6 grid gap-3 sm:grid-cols-2">
         <legend className="sr-only">Pasirinkite vieną atsakymą</legend>
-        {question.options.map(option => <label key={option.value} className={`relative flex cursor-pointer items-start gap-3 rounded-lg border p-4 sm:p-5 motion-safe:transition-colors ${selection === option.value ? "border-foreground bg-secondary" : "border-foreground/25 hover:border-foreground hover:bg-secondary/50"}`}>
+        {question.options.map(option => <label key={option.value} className={`relative flex cursor-pointer items-start gap-3 rounded-lg border p-3 sm:p-4 motion-safe:transition-colors ${selection === option.value ? "border-foreground bg-secondary" : "border-foreground/25 hover:border-foreground hover:bg-secondary/50"}`}>
           <input type="radio" name={`${id}-${step}`} value={option.value} checked={selection === option.value} onChange={() => choose(option.value)} className="mt-1 size-4 shrink-0 accent-foreground" />
-          <span><span className="block text-lg font-semibold leading-snug">{option.label}</span><span className="mt-2 block text-sm leading-relaxed text-muted-foreground">{option.detail}</span></span>
+          <span><span className="block text-base font-semibold leading-snug">{option.label}</span><span className="mt-1 block text-sm leading-snug text-muted-foreground">{option.detail}</span></span>
         </label>)}
       </fieldset>
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        {step > 0 ? <button type="button" onClick={() => setStep(step - 1)} className="inline-flex min-h-12 items-center gap-2 font-semibold"><ArrowLeft className="size-4" aria-hidden="true" />Ankstesnis klausimas</button> : <span className="text-sm text-muted-foreground">Pasirinkite vieną atsakymą.</span>}
-        <button type="button" disabled={!selection} onClick={() => step === 2 && onComplete ? onComplete(answers) : setStep(step + 1)} className={primary}>{step === 2 ? onComplete ? "Paruošti užklausos aprašymą" : "Rodyti rekomendaciją" : "Kitas klausimas"}<ArrowRight className="size-4" aria-hidden="true" /></button>
+        {step > 0 ? <button type="button" onClick={() => setStep(step - 1)} className="inline-flex min-h-12 items-center gap-2 font-semibold"><ArrowLeft className="size-4" aria-hidden="true" />Ankstesnis klausimas</button> : activeGroup ? <button type="button" onClick={changeArea} className="inline-flex min-h-12 items-center gap-2 font-semibold"><ArrowLeft className="size-4" aria-hidden="true" />Kita sritis</button> : <span className="text-sm text-muted-foreground">Pasirinkite vieną atsakymą.</span>}
+        {!choosingArea && <button type="button" disabled={!selection} onClick={() => step === 2 && onComplete ? onComplete(answers) : setStep(step + 1)} className={primary}>{step === 2 ? onComplete ? "Paruošti užklausos aprašymą" : "Rodyti rekomendaciją" : "Kitas klausimas"}<ArrowRight className="size-4" aria-hidden="true" /></button>}
       </div>
     </div> : result && <div>
       <p className="mt-6 text-xs font-bold uppercase tracking-[.14em] text-[var(--signal)]">Pagal jūsų atsakymus siūlome</p>
@@ -116,7 +151,7 @@ export function PackageFinder({ initialAnswers = [], onComplete }: { initialAnsw
       <p className="mt-5 max-w-[65ch] text-lg leading-relaxed">{result.detail}</p>
       <div className="mt-6 rounded-md bg-secondary p-4 sm:p-5">
         <h4 className="font-semibold">Jūsų pasirinkimai</h4>
-        <dl className="mt-3 grid gap-3 text-sm">{["Tikslas", automation ? "Darbo procesas" : "Turinys", "Norima darbų pradžia"].map((label, index) => <div key={label} className="grid gap-1 sm:grid-cols-[10rem_1fr]"><dt className="text-muted-foreground">{label}</dt><dd className="font-medium">{labels[index]}</dd></div>)}</dl>
+        <dl className="mt-3 grid gap-3 text-sm">{["Tikslas", taskLike ? "Užduotis" : "Turinys", "Norima darbų pradžia"].map((label, index) => <div key={label} className="grid gap-1 sm:grid-cols-[10rem_1fr]"><dt className="text-muted-foreground">{label}</dt><dd className="font-medium">{labels[index]}</dd></div>)}</dl>
         <button type="button" onClick={() => setStep(0)} className="mt-4 min-h-11 text-sm font-semibold underline underline-offset-4">Pakeisti atsakymus</button>
       </div>
       <h4 className="mt-6 font-semibold">Ką aptarsime toliau?</h4>

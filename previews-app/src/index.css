@@ -522,3 +522,4 @@ a, button, summary, label, input, select, textarea { touch-action: manipulation;
 /* While the cookie notice is open, the back-to-top button would sit on top of it. */
 html[data-cookie-notice] button[aria-label="Grįžti į puslapio viršų"] { display: none; }
 @media (prefers-reduced-motion: no-preference) { .cookie-notice { animation: rise-in .35s cubic-bezier(.2, .7, .2, 1) both; } }
+@media (max-width: 767px) { .phone-collapsed { display: none; } }

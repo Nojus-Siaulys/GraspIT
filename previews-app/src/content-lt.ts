@@ -14,7 +14,7 @@ export const lt = {
   sub: "Esame dviejų žmonių studija, todėl su jumis dirba tie, kurie ir kuria. Kuriame svetaines ir el. parduotuves smulkiam bei vidutiniam verslui: per 7–14 dienų ir su 30 dienų pagalba po paleidimo.",
   cta1: "Gauti pasiūlymą",
   cta2: "Žiūrėti darbus",
-  micro: "Pirmas pokalbis nemokamas. Fiksuotą pasiūlymą atsiųsime per 24 val. po jo.",
+  micro: "Fiksuotą pasiūlymą atsiųsime per 24 val. po pirmo pokalbio.",
   from: "nuo",
   days: "7 dienos",
   price: `${prices.website}`,
@@ -49,7 +49,7 @@ export const lt = {
   aiLine: `Reikia automatizuoti laiškus ar kasdienius procesus? Taip pat kuriame automatizacijas su dirbtiniu intelektu. Kainą sutariame po pokalbio.`,
   processTitle: "Kaip vyksta projektas",
   process: [
-    { t: "Pirmas pokalbis, 30 min.", d: "30 min, nemokamas." },
+    { t: "Pirmas pokalbis, 30 min.", d: "Išsiaiškiname jūsų veiklą, tikslą ir ko reikia." },
     { t: "Pasiūlymas per 24 val.", d: "Fiksuota kaina per 24 val." },
     { t: "Kūrimas, maždaug 7–14 dienų", d: "Dizainas ir kūrimas, nuoroda peržiūrai visą laiką." },
     { t: "Jūsų pastabos", d: "Peržiūrite ir pateikiate pastabas." },

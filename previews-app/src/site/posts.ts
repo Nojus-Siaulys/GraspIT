@@ -24,7 +24,7 @@ export const posts: Post[] = [
   {
     slug: "kiek-kainuoja-svetaine",
     title: "Kiek kainuoja svetainė verslui 2026 metais?",
-    metaTitle: "Kiek kainuoja svetainė verslui 2026 m.? Kainos ir išlaidos | GraspIT",
+    metaTitle: "Kiek kainuoja svetainė verslui 2026 m.? | GraspIT",
     description:
       "Kas lemia svetainės kainą, kokios išlaidos yra vienkartinės, o kokios kartojasi kasmet, ir kaip palyginti kelis pasiūlymus.",
     label: "Kainos",

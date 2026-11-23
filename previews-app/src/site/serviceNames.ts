@@ -1,0 +1,2 @@
+// The one list of service names: service pages send them, the contact form offers them, the server accepts them.
+export const serviceNames = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Programa", "SEO ir priežiūra", "Integracijos", "Judesio reklama", "3D reklama", "Socialinių tinklų paketas", "Dar nežinau"] as const

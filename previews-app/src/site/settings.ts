@@ -16,5 +16,5 @@ export const siteCopy = {
   ctaShort: "Aptarkime projektą",
   call: "Paskambinkite",
   write: "Arba parašykite",
-  note: "Pirmas pokalbis nemokamas. Fiksuotą pasiūlymą atsiųsime per 24 val. po jo.",
+  note: "Fiksuotą pasiūlymą atsiųsime per 24 val. po pirmo pokalbio.",
 }
