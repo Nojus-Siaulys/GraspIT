@@ -17,6 +17,7 @@ import { PageBackdrop, pageBackdrops } from "./PageBackdrop"
 import { Media } from "./Media"
 import { hasMedia, type MediaId } from "./mediaSlots"
 import { PackageFinder } from "./PackageFinder"
+import { PhoneCollapse } from "./PhoneCollapse"
 import { prices, pricingPackages } from "./pricing"
 import { ContactBrief } from "./ContactBrief"
 import { BlogIndex, BlogPost, RelatedArticles } from "./Blog"
@@ -128,7 +129,7 @@ function Home() {
       </div>
     </section>
     <TrustStrip />
-    <Section number="01" label="Paslaugos" title="Šešios paslaugos. Pradėkite nuo tos, kurios labiausiai trūksta." sand>
+    <Section number="01" label="Paslaugos" title="Pradėkite nuo tos paslaugos, kurios labiausiai trūksta." sand>
       <div className="grid gap-6 md:grid-cols-2">
         {cards.map((item, i) => <article key={item.title} className="lift flex flex-col overflow-hidden rounded-lg border border-foreground/20 bg-background">
           {hasMedia(item.id) && <Media id={item.id} className="rounded-none" />}
@@ -142,7 +143,7 @@ function Home() {
       </div>
       <div className="mt-7"><Link href="/paslaugos/">Visos paslaugos</Link></div>
     </Section>
-    <ServiceScenarios />
+    <PhoneCollapse title="Atpažįstate savo kasdienybę?"><ServiceScenarios /></PhoneCollapse>
     <Section number="02" label="Atlikti darbai" title="Mūsų kurtos svetainės.">
       <ProjectGallery />
       <div className="mt-9"><Link href="/darbai/">Visi darbai</Link></div>
@@ -151,7 +152,7 @@ function Home() {
       <div className="lg:ml-[25%]"><PackageFinder /></div>
     </Section>
     <Testimonials />
-    <StructureExplorer />
+    <PhoneCollapse title="Nuo pirmo įspūdžio iki užklausos."><StructureExplorer /></PhoneCollapse>
     <StudioScene />
     <Section number="04" label="Apie mus" title="Kas kuria GraspIT?">
       <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
@@ -162,7 +163,7 @@ function Home() {
         </div>
       </div>
     </Section>
-    <RelatedArticles path="/" title="Patarimai, kaip būti randamam internete" />
+    <PhoneCollapse title="Patarimai, kaip būti randamam internete"><RelatedArticles path="/" title="Patarimai, kaip būti randamam internete" /></PhoneCollapse>
     <Section number="05" label="Klausimai" title="Prieš užsakant svetainę." sand>
       <div className="lg:ml-[25%]"><FaqItems items={[allFaq[0], allFaq[5], allFaq[19]]} /><div className="mt-6"><Link href="/duk/">Visi klausimai ir atsakymai</Link></div></div>
     </Section>
