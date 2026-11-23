@@ -49,6 +49,10 @@ const briefOpenings: Record<string, string> = {
   "AI automatizacija": "Sveiki, norėčiau aptarti automatizaciją.",
   Programa: "Sveiki, norėčiau aptarti programos kūrimą.",
   "SEO ir priežiūra": "Sveiki, norėčiau aptarti svetainės SEO ir priežiūrą.",
+  Integracijos: "Sveiki, norėčiau aptarti sistemų integraciją.",
+  "Judesio reklama": "Sveiki, norėčiau aptarti judesio reklamos kūrimą.",
+  "3D reklama": "Sveiki, norėčiau aptarti 3D reklamos kūrimą.",
+  "Socialinių tinklų paketas": "Sveiki, norėčiau aptarti socialinių tinklų paketą.",
 }
 // Answers from a service page, kept in sessionStorage so free text never goes into the URL.
 export function briefText(raw: string | null, service: string) {

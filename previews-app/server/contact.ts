@@ -1,8 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "node:http"
+import { serviceNames } from "../src/site/serviceNames.ts"
 
 export type ContactConfig = { key?: string; from?: string; to?: string; origin?: string }
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const services = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Programa", "SEO ir priežiūra", "Integracijos", "Dar nežinau"]
 export function createContactHandler(config: ContactConfig, send: typeof fetch = fetch) {
   const ready = Boolean(config.key && config.from && config.to && emailPattern.test(config.to))
   const attempts = new Map<string, { count: number; until: number }>()
@@ -42,7 +42,7 @@ export function createContactHandler(config: ContactConfig, send: typeof fetch =
     const field = (key: string) => typeof data[key] === "string" ? data[key].trim() : ""
     if (field("website")) return json(400, { error: "Užklausos pateikti nepavyko." })
     const name = field("name"), email = field("email"), service = field("service"), budget = field("budget"), message = field("message")
-    if (name.length < 2 || name.length > 100 || /[\r\n]/.test(name) || !emailPattern.test(email) || email.length > 200 || !services.includes(service) || budget.length > 100 || message.length < 10 || message.length > 3000) return json(400, { error: "Patikrinkite vardą, el. paštą ir projekto aprašymą (10–3000 simbolių)." })
+    if (name.length < 2 || name.length > 100 || /[\r\n]/.test(name) || !emailPattern.test(email) || email.length > 200 || !(serviceNames as readonly string[]).includes(service) || budget.length > 100 || message.length < 10 || message.length > 3000) return json(400, { error: "Patikrinkite vardą, el. paštą ir projekto aprašymą (10–3000 simbolių)." })
     try {
       const response = await send("https://api.resend.com/emails", {
         method: "POST", signal: AbortSignal.timeout(10000),

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { ArrowRight, Check, Download } from "lucide-react"
 import { PackageFinder } from "./PackageFinder"
+import { serviceNames } from "./serviceNames"
 import { briefKey, briefText, completeInquiry, draftInquiry, inquiryFromParams, inquiryServices, inquirySummary } from "./inquiryDraft"
 
-const serviceOptions = ["Svetainė", "El. parduotuvė", "Svetainės atnaujinimas", "AI automatizacija", "Programa", "SEO ir priežiūra", "Integracijos", "Dar nežinau"]
 function initialBrief() {
   const params = new URLSearchParams(typeof window === "undefined" ? "" : window.location.search)
   const initial = inquiryFromParams(params)
@@ -92,7 +92,7 @@ export function ContactBrief() {
       <fieldset disabled={busy} className="space-y-5 disabled:opacity-60">
         <legend className="sr-only">Projekto informacija</legend>
         <div className="grid gap-5 sm:grid-cols-2"><label className="block font-medium" htmlFor="brief-name">Jūsų vardas<input id="brief-name" name="name" autoComplete="name" autoCapitalize="words" placeholder="Vardas" required minLength={2} maxLength={100} className={field} /></label><label className="block font-medium" htmlFor="brief-email">El. paštas<input id="brief-email" name="email" type="email" autoComplete="email" placeholder="jusu@pastas.lt" required maxLength={200} className={field} /></label></div>
-        {completeInquiry(answers) ? <input type="hidden" name="service" value={service} /> : <label className="block font-medium" htmlFor="brief-service">Kas domina?<select id="brief-service" name="service" value={service} onChange={event => setService(event.target.value)} className={field}>{serviceOptions.map(item => <option key={item}>{item}</option>)}</select></label>}
+        {completeInquiry(answers) ? <input type="hidden" name="service" value={service} /> : <label className="block font-medium" htmlFor="brief-service">Kas domina?<select id="brief-service" name="service" value={service} onChange={event => setService(event.target.value)} className={field}>{serviceNames.map(item => <option key={item}>{item}</option>)}</select></label>}
         <div className="rounded-md border border-foreground/25 p-4 sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">Jūsų projekto aprašymas</h3>{completeInquiry(answers) && <span className="text-xs text-muted-foreground">Paruoštas iš jūsų atsakymų</span>}</div>
           {!editing && <p className="mt-4 whitespace-pre-line text-sm leading-7">{message}</p>}
