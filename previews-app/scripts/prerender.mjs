@@ -22,7 +22,8 @@ const heroPreload = heroImage
     ? preload(heroImage, "(min-width: 640px)") + preload(mobileHero, "(max-width: 639px)")
     : preload(heroImage)
   : ""
-const configuredUrl = process.env.SITE_URL
+// trim() also drops an invisible BOM that a value piped from PowerShell into `vercel env add` carries.
+const configuredUrl = process.env.SITE_URL?.trim()
 let origin
 if (configuredUrl) {
   const url = new URL(configuredUrl)

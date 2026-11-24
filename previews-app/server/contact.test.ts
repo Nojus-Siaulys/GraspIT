@@ -64,3 +64,14 @@ test("every service offered on the contact form is accepted", async () => {
     })
   }
 })
+test("a BOM or spaces around hosting values do not reach the email service", async () => {
+  const bom = "\uFEFF"
+  await withApi(createContactHandler({ key: `${bom}${config.key}\n`, from: `${bom}${config.from}`, to: ` ${bom}${config.to}` }, async (_url, init) => {
+    assert.equal(new Headers(init?.headers).get("Authorization"), `Bearer ${config.key}`)
+    const body = JSON.parse(String(init?.body))
+    assert.equal(body.from, config.from); assert.deepEqual(body.to, [config.to])
+    return new Response("{}", { status: 200 })
+  }), async url => {
+    assert.equal((await post(url, valid)).status, 200)
+  })
+})

@@ -3,7 +3,9 @@ import { serviceNames } from "../src/site/serviceNames.ts"
 
 export type ContactConfig = { key?: string; from?: string; to?: string; origin?: string }
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-export function createContactHandler(config: ContactConfig, send: typeof fetch = fetch) {
+export function createContactHandler(rawConfig: ContactConfig, send: typeof fetch = fetch) {
+  // trim() also drops an invisible BOM that a value piped from PowerShell into `vercel env add` carries.
+  const config = { key: rawConfig.key?.trim(), from: rawConfig.from?.trim(), to: rawConfig.to?.trim(), origin: rawConfig.origin?.trim() }
   const ready = Boolean(config.key && config.from && config.to && emailPattern.test(config.to))
   const attempts = new Map<string, { count: number; until: number }>()
   return async (req: IncomingMessage & { body?: unknown }, res: ServerResponse) => {
