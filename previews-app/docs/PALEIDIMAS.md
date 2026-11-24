@@ -6,7 +6,7 @@
 2. **Siuntėjo domenas ir adresas** — pvz., `GraspIT <uzklausos@jusu-domenas.lt>` (`CONTACT_FROM`). Domeną reikės patvirtinti Resend paskyroje, įrašant jų pateiktus DNS įrašus.
 3. **Resend API raktas su siuntimo teise** (`RESEND_API_KEY`). Įrašykite jį į serverio / talpinimo paslaptis arba vietinį `.env.local`. Į pokalbį jo nesiųskite. Jis negali turėti `VITE_` prefikso ir negali patekti į Git.
 4. **Galutinis svetainės adresas** — pvz., `https://jusu-domenas.lt` (`SITE_URL`). Jis naudojamas domeno patikrai, canonical adresams ir sitemap.
-5. **Talpinimo vieta, vykdanti API**. Paruoštas `api/contact.ts` Vercel Node funkcijai; Vite dev ir preview aplinkoje veikia tas pats serverio handleris. Vien statiško failų talpinimo neužtenka laiškams siųsti. Pasirinkus kitą platformą reikės prijungti šį handlerį jos serverio aplinkoje.
+5. **Talpinimo vieta, vykdanti API**. Paruoštas `api/contact.js` Vercel Node funkcijai; Vite dev ir preview aplinkoje veikia tas pats serverio handleris. Vien statiško failų talpinimo neužtenka laiškams siųsti. Pasirinkus kitą platformą reikės prijungti šį handlerį jos serverio aplinkoje.
 
 Tuščias konfigūracijos pavyzdys yra `.env.example`. Vietiniam bandymui nukopijuokite į `.env.local`, užpildykite reikšmes ir perkraukite serverį. Vercel aplinkoje įrašykite tas pačias reikšmes kaip serverio aplinkos kintamuosius ir atlikite naują deployment.
 
