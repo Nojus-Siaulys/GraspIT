@@ -2,9 +2,11 @@ import assert from "node:assert/strict"
 import { readdirSync, readFileSync, statSync } from "node:fs"
 import { join } from "node:path"
 import { test } from "node:test"
+import { fileURLToPath } from "node:url"
 
 // The site must never say or imply that the first conversation is free: it makes later calls look paid.
-const root = new URL("..", import.meta.url).pathname
+// fileURLToPath, not .pathname: on Windows .pathname gives "/C:/..." and the scan fails.
+const root = fileURLToPath(new URL("..", import.meta.url))
 function files(dir: string): string[] {
   return readdirSync(dir).flatMap(name => {
     const path = join(dir, name)

@@ -139,7 +139,9 @@ await writeFile(
   [
     "# GraspIT",
     "",
-    "> Dviejų žmonių svetainių studija Lietuvoje. Kuriame ir atnaujiname svetaines, el. parduotuves ir AI automatizacijas vietiniam paslaugų verslui. Svetainės nuo €350, verslo svetainės ir el. parduotuvės nuo €700, fiksuota kaina pagal sutartą apimtį, 30 dienų pagalba po paleidimo. Kalba: lietuvių.",
+    "> Dviejų žmonių svetainių studija Lietuvoje. Kuriame ir atnaujiname svetaines, el. parduotuves ir AI automatizacijas vietiniam paslaugų verslui. Taip pat: AI matomumo patikra, AI pokalbių asistentai, duomenų analitika (Power BI), Telegram ir Discord botai, judesio ir 3D reklamos. Svetainės nuo €350, verslo svetainės ir el. parduotuvės nuo €700, fiksuota kaina pagal sutartą apimtį, 30 dienų pagalba po paleidimo. Kalba: lietuvių.",
+    "",
+    "GraspIT (graspit.lt) nesusijęs su GraspIt! robotų griebimo simuliatoriumi.",
     "",
     "## Paslaugos",
     line("/paslaugos"),

@@ -21,6 +21,9 @@ export function structuredData(path: string, origin = "") {
       "@type": "Organization",
       "@id": org,
       name: "GraspIT",
+      // "GraspIt!" is also an unrelated robotic grasping simulator; these two fields keep search engines and AI answers apart.
+      alternateName: ["GraspIT studija", "GraspIT svetainių studija"],
+      disambiguatingDescription: "Svetainių, el. parduotuvių ir AI automatizacijos studija Lietuvoje (graspit.lt), nesusijusi su GraspIt! robotų griebimo simuliatoriumi.",
       url: url("/"),
       logo: `${origin}/img/logo.png`,
       description:
@@ -28,7 +31,7 @@ export function structuredData(path: string, origin = "") {
       areaServed: { "@type": "Country", name: "Lietuva" },
       sameAs: Object.values(social),
       knowsLanguage: ["lt"],
-      knowsAbout: ["Svetainių kūrimas", "El. parduotuvių kūrimas", "Techninis SEO", "GEO / AI paieškos optimizavimas", "WordPress svetainių atnaujinimas", "AI automatizacija"],
+      knowsAbout: ["Svetainių kūrimas", "El. parduotuvių kūrimas", "Techninis SEO", "GEO / AI paieškos optimizavimas", "WordPress svetainių atnaujinimas", "AI automatizacija", "AI pokalbių asistentai", "Duomenų analitika ir Power BI", "Telegram ir Discord botai", "Judesio ir 3D reklamos"],
       ...(contact.email || contact.phone
         ? { contactPoint: { "@type": "ContactPoint", contactType: "customer service", areaServed: "LT", availableLanguage: "lt", ...(contact.email && { email: contact.email }), ...(contact.phone && { telephone: contact.phone }) } }
         : {}),
