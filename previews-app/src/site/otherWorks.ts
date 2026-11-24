@@ -22,4 +22,6 @@ export const designProposals = [
     text: "Zapasų, boksavimo ir BJJ klubo dizaino pasiūlymas: septynių puslapių peržiūra su naujienomis, istorija, pasiūla, tvarkaraščiu, kainomis ir kontaktais." },
   { name: "Podobaltica", type: "Podologo kabineto svetainė, Gdanskas", image: "/img/works/podobaltica.webp",
     text: "Pagrindinio puslapio maketai staliniam kompiuteriui ir telefonui, taip pat dizaino ir UX rekomendacijų ataskaita." },
+  { name: "Žaliuzės ir roletai", type: "Žaliuzių ir roletų įmonė, Kretinga", image: "/img/works/zaliuzes-roletai.webp",
+    text: "Svetainės perdarymo pasiūlymas: produktų pristatymas, pritaikymas telefonams ir konsultacijos užklausos forma su lietuviško telefono numerio patikra." },
 ] as const

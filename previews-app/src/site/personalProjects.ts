@@ -16,7 +16,7 @@ export type PersonalProject = {
 }
 
 // Curated from repository documentation and source on 2026-10-23.
-// Only app is public; private repositories intentionally have no source links.
+// Only public repositories (app, idea-radar) have source links; private ones intentionally have none.
 export const personalProjects: PersonalProject[] = [
   {
     id: "foreman", title: "Foreman", category: "AI ir LLM", kind: "Kuriamas įrankis",
@@ -71,6 +71,59 @@ export const personalProjects: PersonalProject[] = [
     technologies: ["Next.js", "TypeScript", "Supabase", "Perplexity API", "Vitest"],
     focus: "Kaip patikimai išmatuoti verslo matomumą AI atsakymuose: kiek kartų jis paminimas, kurioje vietoje ir kas paminimas vietoje jo.",
     features: ["Klausimų rinkinio generavimas pagal verslą ir pirkėjo ketinimus.", "Prekės ženklo atpažinimas atsakymuose ir šaltiniuose, įskaitant lietuviškus linksnius.", "Fone veikiantis paketinis vykdymas ir konkurentų dažnumo ataskaita."],
+  },
+  {
+    id: "uzklausu-radaras", title: "Užklausų radaras", category: "AI ir LLM", kind: "Kuriamas įrankis",
+    description: "Įrankis, kuris kas kelias minutes peržiūri viešas lietuviškas užklausas portaluose, atrenka tinkančias nišai ir paruošia atsakymo juodraštį.",
+    story: {
+      idea: "Paslaugos.lt klientai rašo, kad per kelias minutes jiems atsišaukia keli meistrai. Kilo klausimas: jei laimi greičiausias, kodėl neturėti įrankio, kuris užklausą parodo iš karto ir su paruoštu atsakymu?",
+      problem: "Užklausos išmėtytos po kelis portalus, o paslaugos.lt meistrams jau pats siunčia laiškus. Vien greičiu ten neaplenksi, todėl svarbu ir atsakymo kokybė: pirmas sakinys turi atsakyti būtent į kliento klausimą, o ne būti šablonu.",
+      direction: "Pirmiausia kuriu jį sau: vienas naudotojas, savo nišos ir regionai. Pirmiausia noriu pamatyti, kiek tinkamų užklausų iš tikrųjų būna, ir tik tada galvoti apie paslaugą kitiems. Įrankis nieko pats neišsiunčia ir nepublikuoja: jis tik paruošia juodraštį.",
+      lesson: "Duomenų rinkimą reikia riboti iš pat pradžių: ne mažiau 5 sekundžių tarp užklausų tam pačiam domenui ir pauzė gavus 403 ar 429. Šios ribos įrašytos kode, kad jų nebūtų galima netyčia padidinti.",
+    },
+    technologies: ["Next.js", "Python", "httpx", "Claude API", "Supabase", "Docker"],
+    focus: "Kaip greitai rasti tinkamą užklausą keliuose portaluose ir paruošti atsakymą, kuris atsako į kliento klausimą, o ne kartoja šabloną.",
+    features: ["Užklausų rinkimas iš kelių šaltinių su dublikatų atpažinimu ir prisitaikančiais tikrinimo intervalais.", "DI etapai: filtrai, tinkamumo įvertinimas, atsakymo juodraštis ir jo patikra.", "Tik juodraščiai: atsakymą peržiūri ir išsiunčia žmogus."],
+  },
+  {
+    id: "pitchcraft", title: "PitchCraft", category: "AI ir LLM", kind: "MVP",
+    description: "Įklijuoji svetainės adresą, o įrankis ją nuskenuoja, AI įvertina dizainą ir parašo trijų laiškų pasiūlymą perdaryti svetainę, remdamasis tikrais jos trūkumais.",
+    story: {
+      idea: "Svetainių kūrėjui siūlant perdarymą, bendras laiškas „galime jums padaryti naują svetainę“ veikia silpnai. Norėjau, kad pasiūlyme būtų paminėti konkretūs tos svetainės trūkumai, kuriuos žmogus gali pats patikrinti.",
+      problem: "Rankomis peržiūrėti svetainę, užsirašyti pastabas ir parašyti asmeninį laišką užtrunka. PitchCraft tai suskaido į etapus: ekrano nuotrauka ir svetainės duomenys, AI dizaino vertinimas, laiškų seka ir kontakto paieška.",
+      direction: "MVP veikia lokaliai, viešai dar nepaleistas. Jame jau yra nemokamas ir mokamas planas per Stripe, kelių adresų apdorojimas vienu metu ir laiškų pritaikymas prie paties naudotojo rašymo stiliaus.",
+      lesson: "AI vertinimas naudingas tik tada, kai remiasi tuo, ką galima patikrinti: ekrano nuotrauka, spalvomis, šriftais, HTTPS ar pritaikymu telefonui. Tada laiške minimi trūkumai yra tikri, o ne sugalvoti.",
+    },
+    technologies: ["Next.js", "TypeScript", "Claude API", "Puppeteer", "Stripe", "Upstash Redis"],
+    focus: "Kaip svetainės analizę paversti asmeniniu pasiūlymu, kuriame minimi tos konkrečios svetainės trūkumai.",
+    features: ["Svetainės skenavimas: ekrano nuotrauka, spalvos, šriftai, meta žymos, pritaikymas telefonui.", "AI dizaino vertinimas ir trijų laiškų seka su temos variantais, pritaikyta 8 verslo sritims.", "Kontakto paieška, pasiūlymų istorija ir laiško atidarymas Gmail vienu paspaudimu."],
+  },
+  {
+    id: "idea-radar", title: "Idea radar", category: "AI ir LLM", kind: "Veikiantis įrankis",
+    description: "Kiekvieną rytą surenka įrašus iš Hacker News, GitHub, Product Hunt ir Reddit, Claude atrenka penkias man tinkančias idėjas ir atsiunčia jas į Telegram.",
+    story: {
+      idea: "Norėjau gauti kelias įdomias projektų idėjas per dieną, užuot pats kas rytą naršęs kelias svetaines. Kiekvieną rytą GitHub Action surenka įrašus, o Claude išrenka penkis man tinkamiausius.",
+      problem: "Modelis gali sugalvoti šaltinį, kurio nebuvo, o vienas triukšmingas šaltinis gali užgožti kitus. Todėl kiekviena idėja turi rodyti į tikrą įrašą iš gautų duomenų, o kiekvienam šaltiniui yra atskira riba.",
+      direction: "Nėra nei serverio, nei duomenų bazės: darbas paleidžiamas kartą per dieną, o būsena laikoma viename JSON faile repozitorijoje. Po kiekviena idėja Telegram'e balsuoju 👍 arba 👎, ir kitą rytą atranka į tai atsižvelgia.",
+      lesson: "Modelio atsakymą reikia tikrinti pagal tai, ką jam davei. Jei grąžinto įrašo ID nebuvo pradiniuose duomenyse, tokia idėja atmetama, ir tai patikrinta testais.",
+    },
+    technologies: ["TypeScript", "Node.js", "Claude API", "Zod", "Telegram Bot API", "GitHub Actions"],
+    focus: "Kaip padaryti mažą kasdien veikiantį AI įrankį be serverio, kuris mokosi iš mano balsų ir nesugalvoja šaltinių.",
+    features: ["Įrašų rinkimas iš keturių šaltinių lygiagrečiai; nepavykęs šaltinis praleidžiamas ir pažymimas.", "Viena Claude užklausa grąžina penkias idėjas kaip patikrintą JSON su nuorodomis į šaltinius.", "Balsavimas Telegram'e ir kiekvienos dienos santrauka, išsaugota repozitorijoje."],
+    repository: "https://github.com/NojusTautavicius1/idea-radar",
+  },
+  {
+    id: "sonara", title: "Sonara", category: "Web projektai", kind: "Veikiantis prototipas",
+    description: "Muzikos klausymosi platforma su asmeninėmis rekomendacijomis, dienos mišiniais ir AI paieška paprasta kalba, pavyzdžiui, „dainos lietingam vakarui“.",
+    story: {
+      idea: "Norėjau pasistatyti didesnę platformą, kurioje susitinka keli sudėtingi dalykai: garso įkėlimas ir grojimas, paskyros, grojaraščiai ir rekomendacijos. Muzikos platforma tam tinka, nes visa tai joje reikalinga vienu metu.",
+      problem: "Rekomendacijos ir paieška pagal nuotaiką neveikia vien su pavadinimais. Todėl kiekvienai dainai išmatuojamas tempas, tonacija ir nuotaika, sukuriami embedding'ai, o „Ask Sonara“ agentas naudoja Claude su įrankiais, kad rastų tinkamas dainas.",
+      direction: "Platforma veikia Vercel'yje su Google prisijungimu ir Neon duomenų baze. Tai prototipas ir mokymosi projektas, ne viešas muzikos servisas: dainų biblioteka importuojama paties.",
+      lesson: "Rekomendacijos tiek geros, kiek geri duomenys apie pačią dainą. Todėl prieš jas atsirado atskiras žingsnis: kiekvienos importuotos dainos garso analizė.",
+    },
+    technologies: ["Next.js", "TypeScript", "PostgreSQL", "pgvector", "Prisma", "Claude API"],
+    focus: "Kaip sujungti garso analizę, semantinę paiešką ir AI agentą į vieną muzikos platformą.",
+    features: ["Dainų įkėlimas ir grojimas su garso bangos vaizdu, eilė ir išmanus maišymas.", "Automatiškai atnaujinami dienos mišiniai, „Discover Weekly“ ir „On Repeat“.", "„Ask Sonara“ paieška paprasta kalba, žodžiai, grojaraščiai ir klausymosi statistika."],
   },
   {
     id: "refernet", title: "ReferNet", category: "Web projektai", kind: "Platformos prototipas",

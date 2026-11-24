@@ -9,9 +9,9 @@ import { briefText, completeInquiry, contentNeeds, draftInquiry, inquiryFromPara
 // so a new service cannot be added without the server and the questionnaire knowing it.
 const pageServiceNames = [...readFileSync(new URL("../src/site/serviceDetails.ts", import.meta.url), "utf8").matchAll(/^\s{4}service: "([^"]+)"/gm)].map(match => match[1])
 
-test("the service pages send ten different service names", () => {
-  assert.equal(pageServiceNames.length, 10)
-  assert.equal(new Set(pageServiceNames).size, 10)
+test("the service pages send fourteen different service names", () => {
+  assert.equal(pageServiceNames.length, 14)
+  assert.equal(new Set(pageServiceNames).size, 14)
 })
 
 test("the server accepts every service name a service page sends", async () => {
@@ -42,6 +42,7 @@ test("each questionnaire choice drafts a first message about its own service", (
   const about: Record<string, RegExp> = {
     website: /svetain/i, shop: /parduotuv/i, redesign: /atnaujinti/i, automation: /automatiz|rankin/i,
     apps: /program/i, integrations: /integracij/i, seo: /SEO/, motion: /judes/i, ads3d: /3D/, social: /socialin/i,
+    geo: /ChatGPT|AI asistent/, chatbot: /asistent/i, analytics: /analitik/i, bots: /bot/i,
   }
   assert.deepEqual(Object.keys(inquiryServices).sort(), Object.keys(about).sort())
   for (const need of Object.keys(about)) {

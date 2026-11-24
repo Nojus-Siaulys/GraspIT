@@ -1,4 +1,4 @@
-export const inquiryServices: Record<string, string> = { website: "Svetainė", shop: "El. parduotuvė", redesign: "Svetainės atnaujinimas", automation: "AI automatizacija", apps: "Programa", integrations: "Integracijos", seo: "SEO ir priežiūra", motion: "Judesio reklama", ads3d: "3D reklama", social: "Socialinių tinklų paketas" }
+export const inquiryServices: Record<string, string> = { website: "Svetainė", shop: "El. parduotuvė", redesign: "Svetainės atnaujinimas", automation: "AI automatizacija", apps: "Programa", integrations: "Integracijos", seo: "SEO ir priežiūra", motion: "Judesio reklama", ads3d: "3D reklama", social: "Socialinių tinklų paketas", geo: "AI matomumas", chatbot: "AI pokalbių asistentas", analytics: "Duomenų analitika", bots: "Telegram ir Discord botai" }
 // Websites ask about content; every other service asks whether the task is already clear.
 export const contentNeeds = ["website", "shop", "redesign"]
 const preparationLabels: Record<string, string> = { all: "Turiu tekstus ir nuotraukas", some: "Turiu dalį turinio", none: "Turinio dar neturiu", clear: "Žinau konkrečią užduotį", several: "Turiu kelias idėjas", explore: "Noriu išsiaiškinti galimybes" }
@@ -24,6 +24,10 @@ export function draftInquiry(answers: string[], context: { example?: string; pac
     motion: "Sveiki, norėčiau aptarti judesio reklamos video savo verslui.",
     ads3d: "Sveiki, norėčiau aptarti 3D reklamą savo produktui.",
     social: "Sveiki, norėčiau aptarti socialinių tinklų paketą: trumpus video, kuriuos galėtume skelbti reguliariai.",
+    geo: "Sveiki, norėčiau sužinoti, ar ChatGPT ir kiti AI asistentai mini mūsų verslą, ir ką verta pakeisti, kad būtume matomi.",
+    chatbot: "Sveiki, norėčiau aptarti AI pokalbių asistentą, kuris atsakytų į dažnus klientų klausimus.",
+    analytics: "Sveiki, norėčiau aptarti duomenų analitiką: ataskaitų skydelį, kuriame svarbiausi skaičiai būtų vienoje vietoje.",
+    bots: "Sveiki, norėčiau aptarti Telegram ar Discord botą savo darbui.",
   }
   const prep: Record<string, string> = {
     all: "Tekstus ir nuotraukas jau turiu. Norėčiau, kad įvertintumėte, ką galima panaudoti ir ką reikėtų pritaikyti.",
@@ -61,6 +65,10 @@ const briefOpenings: Record<string, string> = {
   "Judesio reklama": "Sveiki, norėčiau aptarti judesio reklamos kūrimą.",
   "3D reklama": "Sveiki, norėčiau aptarti 3D reklamos kūrimą.",
   "Socialinių tinklų paketas": "Sveiki, norėčiau aptarti socialinių tinklų paketą.",
+  "AI matomumas": "Sveiki, norėčiau aptarti savo verslo matomumą AI asistentų atsakymuose.",
+  "AI pokalbių asistentas": "Sveiki, norėčiau aptarti AI pokalbių asistentą.",
+  "Duomenų analitika": "Sveiki, norėčiau aptarti duomenų analitiką ir ataskaitas.",
+  "Telegram ir Discord botai": "Sveiki, norėčiau aptarti boto kūrimą.",
 }
 // Answers from a service page, kept in sessionStorage so free text never goes into the URL.
 export function briefText(raw: string | null, service: string) {

@@ -6,7 +6,7 @@ import { contentNeeds, inquiryServices } from "./inquiryDraft"
 
 type Option = { value: string; label: string; detail: string }
 type Question = { title: string; help: string; options: Option[] }
-type Need = "website" | "shop" | "redesign" | "automation" | "apps" | "integrations" | "seo" | "motion" | "ads3d" | "social"
+type Need = "website" | "shop" | "redesign" | "automation" | "apps" | "integrations" | "seo" | "motion" | "ads3d" | "social" | "geo" | "chatbot" | "analytics" | "bots"
 
 const needQuestion: Question = {
   title: "Ką norite padaryti?",
@@ -22,10 +22,14 @@ const needQuestion: Question = {
     { value: "motion", label: "Judesio reklama", detail: "Kai norite trumpo video, kuris sustabdo žmogų socialiniuose tinkluose." },
     { value: "ads3d", label: "3D reklama", detail: "Kai produktas turi atrodyti ryškiai, o paprastų nuotraukų nepakanka." },
     { value: "social", label: "Socialinių tinklų paketas", detail: "Kai norite reguliariai skelbti TikTok, Reels ar Facebook ir neturite laiko kurti." },
+    { value: "geo", label: "Būti matomam AI atsakymuose", detail: "Kai klientai klausia ChatGPT, o jis jūsų nemini." },
+    { value: "chatbot", label: "Atsakyti klientams iš karto", detail: "Kai į tuos pačius klausimus atsakote kelis kartus per dieną." },
+    { value: "analytics", label: "Matyti skaičius vienoje vietoje", detail: "Kai ataskaitą kas savaitę dėliojate ranka iš kelių failų." },
+    { value: "bots", label: "Telegram ar Discord botas", detail: "Kai norite pranešimų apie užsakymus ar pokyčius iš karto." },
   ],
 }
 // First screen: three areas, as on /paslaugos/. The second screen shows only the choices of that area.
-const areaNeeds: Record<string, string[]> = { websites: ["website", "shop", "redesign"], apps: ["automation", "apps", "integrations", "seo"], ads: ["motion", "ads3d", "social"] }
+const areaNeeds: Record<string, string[]> = { websites: ["website", "shop", "redesign", "geo"], apps: ["automation", "chatbot", "apps", "integrations", "analytics", "bots", "seo"], ads: ["motion", "ads3d", "social"] }
 const areaQuestion: Question = {
   title: "Kokia sritis jums artimiausia?",
   help: "Pasirinkite sritį, o tada tikslesnį poreikį. Techninių žinių nereikia.",
@@ -78,6 +82,10 @@ const results: Record<Need, { title: string; price: string; detail: string; href
   motion: { title: "Judesio reklama", price: "Kaina pagal apimtį", detail: "Aptarsime, ką norite parodyti ir kur video bus rodomas: socialiniuose tinkluose ar svetainėje.", href: "/paslaugos/judesio-reklamos/" },
   ads3d: { title: "3D reklama", price: "Kaina pagal apimtį", detail: "Aptarsime, kurį produktą reikia parodyti ir kur vaizdas bus naudojamas. Pažiūrėsime, ar pakanka esamų nuotraukų, ar reikia 3D modelio.", href: "/paslaugos/3d-reklamos/" },
   social: { title: "Socialinių tinklų paketas", price: "Kaina pagal apimtį", detail: "Aptarsime, kuriuose tinkluose skelbiate ir kaip dažnai. Paketų apimtį ir kainas rasite paslaugos puslapyje.", href: "/paslaugos/socialiniu-tinklu-paketas/" },
+  geo: { title: "AI matomumo patikra", price: "Kaina pagal apimtį", detail: "Sudarysime klausimų, kuriuos užduotų jūsų pirkėjai, sąrašą ir patikrinsime, ar AI asistentai jus mini. Pažiūrėsime, ką jie siūlo vietoj jūsų.", href: "/paslaugos/ai-matomumas/" },
+  chatbot: { title: "AI pokalbių asistentas", price: "Kaina pagal apimtį", detail: "Aptarsime dažniausius klientų klausimus ir kur asistentas turi veikti: svetainėje ar Messenger'yje. Sutarsime, ką jis perduoda jums.", href: "/paslaugos/ai-asistentas/" },
+  analytics: { title: "Duomenų analitika", price: "Kaina pagal apimtį", detail: "Aptarsime, kokius skaičius norite matyti ir kur dabar laikomi duomenys. Pradėsime nuo vienos ataskaitos.", href: "/paslaugos/duomenu-analitika/" },
+  bots: { title: "Telegram ar Discord botas", price: "Kaina pagal apimtį", detail: "Aptarsime, ką botas turi daryti, kas juo naudosis ir prie kokių sistemų jį reikia prijungti.", href: "/paslaugos/telegram-discord-botai/" },
 }
 const preparationNotes: Record<string, string> = {
   all: "Peržiūrėsime jūsų tekstus bei nuotraukas ir aptarsime, ką galima panaudoti.",

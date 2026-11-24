@@ -277,6 +277,10 @@ const serviceTitles: Record<ServiceKind, string> = {
   ads3d: "Produktas, kuris atrodo geriau nei nuotraukoje.",
   social: "Reguliarus turinys be jūsų kūrimo darbo.",
   integrations: "Duomenys keliauja patys.",
+  geo: "Sužinokite, ką AI sako apie jūsų verslą.",
+  chatbot: "Atsakymas klientui iš karto, net vakare.",
+  analytics: "Svarbiausi skaičiai vienoje vietoje.",
+  bots: "Pranešimai ir užduotys ten, kur jau bendraujate.",
 }
 const serviceRows: Record<ServiceKind, string[][]> = {
   websites: [
@@ -328,6 +332,26 @@ const serviceRows: Record<ServiceKind, string[][]> = {
     ["Sujungtos sistemos", "El. paštą, lenteles, parduotuvę ir dokumentus sujungiame į vieną grandinę."],
     ["Dokumentai iš duomenų", "Sąskaita ar kitas dokumentas užpildomas iš gauto užsakymo duomenų."],
     ["Aiškiai sutarti duomenys", "Iš anksto sutariame, kokie duomenys kur keliauja ir kas juos mato."],
+  ],
+  geo: [
+    ["Pirkėjo klausimai", "AI asistentams užduodame tuos klausimus, kuriuos užduotų jūsų klientas."],
+    ["Kas paminimas", "Užsirašome, ar esate atsakyme, kurioje vietoje ir kas paminimas vietoj jūsų."],
+    ["Ką keisti", "Pateikiame darbų sąrašą svetainei ir šaltiniams, kuriais remiasi AI."],
+  ],
+  chatbot: [
+    ["Jūsų informacija", "Asistentas remiasi tik jūsų kainomis, paslaugomis ir atsakymais."],
+    ["Perdavimas žmogui", "Ko nežino, nesugalvoja: pasiūlo susisiekti ir surenka kontaktą."],
+    ["Patikra prieš paleidimą", "Kartu peržiūrime atsakymus į tikrus klientų klausimus."],
+  ],
+  analytics: [
+    ["Duomenys iš kelių vietų", "Sujungiame parduotuvę, lenteles ir kitas sistemas."],
+    ["Skydelis be rankinio darbo", "Ataskaita atsinaujina pati, nereikia jos kas savaitę dėlioti."],
+    ["Sutarti rodikliai", "Rodome tuos skaičius, pagal kuriuos priimate sprendimus."],
+  ],
+  bots: [
+    ["Pranešimai", "Nauja užklausa, užsakymas ar klaida iš karto atkeliauja į Telegram ar Discord."],
+    ["Stebėjimas ir santraukos", "Botas tikrina šaltinius ir atsiunčia tai, kas svarbu."],
+    ["Bendruomenei", "Pasitinka naujus narius, suteikia roles ir atsako į pasikartojančius klausimus."],
   ],
 }
 const cards = services
@@ -382,6 +406,10 @@ function Services({ path }: { path: string }) {
     : path.endsWith("3d-reklamos") ? "ads3d"
     : path.endsWith("socialiniu-tinklu-paketas") ? "social"
     : path.endsWith("integracijos") ? "integrations"
+    : path.endsWith("ai-matomumas") ? "geo"
+    : path.endsWith("ai-asistentas") ? "chatbot"
+    : path.endsWith("duomenu-analitika") ? "analytics"
+    : path.endsWith("botai") ? "bots"
     : "websites"
   const slot: MediaId | undefined = ({ ai: "serviceAutomation", apps: "serviceApps", shop: "serviceShop", websites: "serviceWebsites", redesign: "serviceRedesign", seo: "serviceSeo", integrations: "serviceIntegrations" } as Partial<Record<ServiceKind, MediaId>>)[kind]
   const rows = serviceRows[kind]

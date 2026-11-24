@@ -98,6 +98,34 @@ export const pages: Record<
       "Keturi trumpi video per savaitę TikTok, Reels ar Facebook: paprastesni už €200 arba sudėtingesni už €300 per savaitę. Reklamos biudžetas mokamas atskirai.",
     label: "Socialinių tinklų paketas",
   },
+  "/paslaugos/ai-matomumas": {
+    title: "AI matomumas: ar ChatGPT mini jūsų verslą | GraspIT",
+    heading: "AI matomumas",
+    intro:
+      "Patikriname, ar ChatGPT, Perplexity ir kiti AI asistentai mini jūsų verslą, kai pirkėjas klausia apie jūsų sritį, ką jie siūlo vietoj jūsų ir ką verta pakeisti. Kaina aptariama po pokalbio.",
+    label: "AI matomumas",
+  },
+  "/paslaugos/ai-asistentas": {
+    title: "AI pokalbių asistentas svetainei ir Messenger | GraspIT",
+    heading: "AI pokalbių asistentas",
+    intro:
+      "Asistentas svetainėje ar Messenger'yje atsako į dažnus klientų klausimus pagal jūsų pateiktą informaciją, o sudėtingesnius perduoda jums. Kaina aptariama po pokalbio.",
+    label: "AI pokalbių asistentas",
+  },
+  "/paslaugos/duomenu-analitika": {
+    title: "Duomenų analitika ir Power BI ataskaitos | GraspIT",
+    heading: "Duomenų analitika",
+    intro:
+      "Sujungiame duomenis iš parduotuvės, lentelių ir kitų sistemų į vieną ataskaitų skydelį, kuris atsinaujina pats. Kaina aptariama po pokalbio.",
+    label: "Duomenų analitika",
+  },
+  "/paslaugos/telegram-discord-botai": {
+    title: "Telegram ir Discord botai verslui | GraspIT",
+    heading: "Telegram ir Discord botai",
+    intro:
+      "Kuriame botus, kurie praneša apie naujus užsakymus, seka jums svarbius pokyčius ar padeda tvarkyti bendruomenę. Kaina aptariama po pokalbio.",
+    label: "Telegram ir Discord botai",
+  },
   "/kainos": {
     title: `Svetainių kūrimo kainos: nuo ${prices.website} ir ${prices.shop} | GraspIT`,
     heading: "Kas įskaičiuota į kainą, o kas ne",
@@ -208,6 +236,7 @@ export const services = [
   },
   { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Kai svetainė yra, bet atrodo pasenusi arba nepatogi telefone.", gets: "Naują esamos svetainės dizainą ir struktūrą bei senų adresų nukreipimus.", price: "Kaina pagal apimtį", number: "03", group: "websites" },
   { href: "/paslaugos/seo-prieziura", title: "SEO ir svetainės priežiūra", text: "Kai paleistos svetainės niekas neprižiūri ir nežinote, ką pagerinti.", gets: "Techninę svetainės patikrą ir sutartus atnaujinimus bei smulkius pakeitimus.", price: "Kaina pagal darbus", number: "04", group: "websites" },
+  { href: "/paslaugos/ai-matomumas", title: "AI matomumas", text: "Kai klientai klausia ChatGPT, o jis jūsų nemini.", gets: "Ataskaitą, ar AI asistentai jus mini, ką siūlo vietoj jūsų ir ką verta pakeisti.", price: "Kaina aptariama po pokalbio", number: "11", group: "websites" },
   { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", gets: "Pirmą veikiančią programos versiją, kurią galite išbandyti dar kuriant.", price: "Kaina aptariama po pokalbio", number: "05", group: "apps" },
   {
     href: "/paslaugos/ai-agentai",
@@ -219,6 +248,9 @@ export const services = [
     group: "apps",
   },
   { href: "/paslaugos/integracijos", title: "Integracijos ir dokumentų automatizavimas", text: "Kai tie patys duomenys perrašomi ranka iš vienos sistemos į kitą.", gets: "Sujungtas jūsų naudojamas sistemas, kad duomenų ir dokumentų nebereikėtų perrašyti ranka.", price: "Kaina aptariama po pokalbio", number: "07", group: "apps" },
+  { href: "/paslaugos/ai-asistentas", title: "AI pokalbių asistentas", text: "Kai į tuos pačius klientų klausimus atsakote kelis kartus per dieną.", gets: "Asistentą svetainėje ar Messenger'yje, kuris atsako pagal jūsų informaciją ir sudėtingesnius klausimus perduoda jums.", price: "Kaina aptariama po pokalbio", number: "12", group: "apps" },
+  { href: "/paslaugos/duomenu-analitika", title: "Duomenų analitika", text: "Kai ataskaitą kas savaitę dėliojate ranka iš kelių failų.", gets: "Ataskaitų skydelį, kuriame svarbiausi skaičiai matomi vienoje vietoje ir atsinaujina patys.", price: "Kaina aptariama po pokalbio", number: "13", group: "apps" },
+  { href: "/paslaugos/telegram-discord-botai", title: "Telegram ir Discord botai", text: "Kai norite žinoti iš karto, kai atsiranda užsakymas ar kažkas pasikeičia.", gets: "Veikiantį botą, kuris siunčia pranešimus, priima užsakymus arba seka pokyčius.", price: "Kaina aptariama po pokalbio", number: "14", group: "apps" },
   { href: "/paslaugos/judesio-reklamos", title: "Judesio reklamos", text: "Kai norite trumpo video, kuris sustabdo žmogų socialiniuose tinkluose.", gets: "Trumpą reklaminį video, apie 15–30 sekundžių, 9:16 formatu, paruoštą skelbti.", price: "Kaina aptariama po pokalbio", number: "08", group: "ads" },
   { href: "/paslaugos/3d-reklamos", title: "3D reklamos", text: "Kai produktas turi atrodyti ryškiai, o paprastų nuotraukų nepakanka.", gets: "Jūsų produkto 3D vaizdą arba trumpą video, sukurtą kompiuteriu.", price: "Kaina aptariama po pokalbio", number: "09", group: "ads" },
   { href: "/paslaugos/socialiniu-tinklu-paketas", title: "Socialinių tinklų paketas", text: "Kai norite reguliariai skelbti TikTok, Reels ar Facebook ir neturite laiko kurti.", gets: "4 trumpus video per savaitę. Du paketai: paprastesni arba sudėtingesni įrašai.", price: "€200–€300 per savaitę", number: "10", group: "ads" },

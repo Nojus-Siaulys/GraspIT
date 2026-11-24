@@ -1,7 +1,7 @@
 import { allFaq } from "./content"
 import { prices, pricingPackages } from "./pricing"
 
-export type ServiceKind = "websites" | "shop" | "redesign" | "ai" | "apps" | "seo" | "motion" | "ads3d" | "social" | "integrations"
+export type ServiceKind = "websites" | "shop" | "redesign" | "ai" | "apps" | "seo" | "motion" | "ads3d" | "social" | "integrations" | "geo" | "chatbot" | "analytics" | "bots"
 
 export type Detail = {
   id: string
@@ -258,6 +258,113 @@ export const details: Record<ServiceKind, Detail> = {
       { label: "Kokį verslą reklamuosime?", line: "Verslas:", long: true, placeholder: "Pvz., plaukų salonas Kaune" },
       { label: "Kur skelbsite?", line: "Kur skelbsiu:", options: ["TikTok", "Instagram Reels", "Facebook", "Kelis iš šių", "Nežinau"] },
       { label: "Kuris paketas labiau tinka?", line: "Paketas:", options: ["Paprastesni įrašai (€200 per savaitę)", "Sudėtingesni įrašai (€300 per savaitę)", "Dar nežinau"] },
+    ],
+  },
+  geo: {
+    id: "geo",
+    service: "AI matomumas",
+    gets: [["Ką gaunate", "Ataskaitą, ar ChatGPT, Perplexity ir kiti AI asistentai mini jūsų verslą, kai pirkėjas klausia apie jūsų sritį, ir ką jie siūlo vietoj jūsų."], ["Ką darote jūs", "Pasakote, ką parduodate, kur dirbate ir kokius konkurentus žinote."], ["Ko kainoje nėra", "Pažado, kad AI jus rekomenduos. Atsakymus lemia ir kiti šaltiniai, kurių nekontroliuojame."]],
+    fit: { eyebrow: "Kam tinka", heading: "„Klientai klausia ChatGPT, o mūsų jis nemini.“", items: [
+      { title: "Nežinote, ką AI sako apie jus", text: "Užduodame AI asistentams tuos klausimus, kuriuos užduotų jūsų pirkėjas, ir užsirašome, kas paminimas.", example: "Pavyzdys: „kur Klaipėdoje užsisakyti roletus?“" },
+      { title: "Vietoj jūsų minimi konkurentai", text: "Pažiūrime, iš kokių šaltinių AI ima informaciją apie konkurentus ir ko trūksta apie jus.", example: "Pavyzdys: katalogai, atsiliepimai, straipsniai." },
+      { title: "Svetainė AI neperskaitoma", text: "Patikriname, ar AI robotai gali pasiekti svetainę ir ar joje aiškiai parašyta, ką darote, kur ir už kiek.", example: "Tikriname robots.txt, struktūrinius duomenis ir turinį." },
+    ] },
+    included: { note: "Kaina aptariama po pokalbio: ji priklauso nuo to, kiek klausimų ir AI asistentų tikriname.", items: [
+      "Sudarome klausimų sąrašą, kurį užduotų jūsų pirkėjai",
+      "Tikriname atsakymus keliuose AI asistentuose",
+      "Užsirašome, kas paminimas vietoj jūsų ir kokie šaltiniai cituojami",
+      "Patikriname, ar svetainė pasiekiama AI robotams",
+      "Pateikiame darbų sąrašą: ką keisti svetainėje ir kitur",
+    ] },
+    faq: { heading: "Apie AI matomumą.", items: [
+      { q: "Ar garantuojate, kad ChatGPT mus rekomenduos?", a: "Ne. AI atsakymus lemia daug šaltinių, kurių nekontroliuojame. Galime išmatuoti, kaip yra dabar, ir pasakyti, ką verta keisti." },
+      { q: "Kuo tai skiriasi nuo SEO?", a: "SEO žiūri, kur esate Google paieškoje. Čia tikriname, ar AI asistentai jus mini savo atsakymuose ir kuo remiasi. Dalis darbų sutampa, pavyzdžiui, aiški svetainės struktūra." },
+      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo klausimų ir tikrinamų AI asistentų skaičiaus. Ją sutariame po pokalbio, prieš pradėdami darbą." },
+    ] },
+    questions: [
+      { label: "Ką parduodate ir kur?", line: "Ką parduodu ir kur:", long: true, placeholder: "Pvz., montuojame roletus Klaipėdos apskrityje" },
+      { label: "Svetainės adresas", line: "Svetainė:", placeholder: "https://" },
+      { label: "Ar žinote pagrindinius konkurentus?", line: "Konkurentai:", placeholder: "Pvz., dvi įmonės, kurias klientai mini dažniausiai" },
+    ],
+  },
+  chatbot: {
+    id: "chatbot",
+    service: "AI pokalbių asistentas",
+    gets: [["Ką gaunate", "Pokalbių asistentą svetainėje arba Messenger'yje, kuris atsako į klientų klausimus pagal jūsų pateiktą informaciją."], ["Ką darote jūs", "Atsiunčiate kainas, paslaugų aprašymus ir dažniausius klausimus, o paskui peržiūrite asistento atsakymus."], ["Ko kainoje nėra", "AI paslaugų tiekėjų mokesčių už naudojimą: jie priklauso nuo pokalbių kiekio ir vertinami atskirai."]],
+    fit: { eyebrow: "Kam tinka", heading: "„Į tuos pačius klausimus atsakome kelis kartus per dieną.“", items: [
+      { title: "Tie patys klausimai", text: "Darbo laikas, kainos, pristatymas, ar turite prekę. Asistentas atsako iš karto, net vakare.", example: "Pavyzdys: „ar dirbate šeštadienį?“" },
+      { title: "Klientas nelaukia atsakymo", text: "Jei atsakymas ateina rytoj, žmogus jau parašė kitiems. Asistentas atsako tuoj pat ir surenka kontaktą.", example: "Sudėtingesnį klausimą perduoda jums." },
+      { title: "Atsakymai turi būti tikslūs", text: "Asistentas remiasi tik jūsų pateikta informacija. Ko nežino, to nesugalvoja, o pasiūlo susisiekti su jumis.", example: "Prieš paleidimą kartu patikriname atsakymus." },
+    ] },
+    included: { note: "Kaina aptariama po pokalbio: ji priklauso nuo to, kur asistentas veiks ir kiek informacijos jam reikia.", items: [
+      "Surenkame informaciją, kuria remsis asistentas",
+      "Sutariame, į ką jis atsako pats, o ką perduoda jums",
+      "Įdiegiame svetainėje arba Messenger'yje",
+      "Prieš paleidimą patikriname atsakymus su jūsų klausimais",
+      "Paaiškiname, kaip atnaujinti informaciją",
+    ] },
+    faq: { heading: "Apie AI pokalbių asistentą.", items: [
+      { q: "Ar asistentas gali pasakyti netiesą?", a: "Riziką mažiname: asistentas remiasi tik jūsų pateikta informacija, o ko nežino, pasiūlo susisiekti su jumis. Prieš paleidimą atsakymus patikriname kartu." },
+      { q: "Ar matysiu, ką klientai klausia?", a: "Taip, jei taip sutariame. Pokalbių istorija padeda pamatyti, ko klientams trūksta svetainėje." },
+      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo apimties. Ją sutariame po pokalbio, prieš pradėdami darbą. AI tiekėjų mokesčiai už naudojimą skaičiuojami atskirai." },
+    ] },
+    questions: [
+      { label: "Kokius klausimus klientai užduoda dažniausiai?", line: "Dažniausi klientų klausimai:", long: true, placeholder: "Pvz., kainos, darbo laikas, pristatymo terminai" },
+      { label: "Kur asistentas turėtų veikti?", line: "Kur veiktų asistentas:", options: ["Svetainėje", "Messenger", "Abiejose vietose", "Nežinau"] },
+      { label: "Kiek užklausų gaunate per savaitę?", line: "Užklausų per savaitę:", options: ["Iki 20", "20–100", "Daugiau nei 100", "Nežinau"] },
+    ],
+  },
+  analytics: {
+    id: "analytics",
+    service: "Duomenų analitika",
+    gets: [["Ką gaunate", "Ataskaitų skydelį (pvz., Power BI), kuriame pagrindiniai jūsų verslo skaičiai matomi vienoje vietoje ir atsinaujina patys."], ["Ką darote jūs", "Pasakote, kokius skaičius žiūrite dabar ir iš kur juos imate, ir suteikiate prieigą prie duomenų."], ["Ko kainoje nėra", "Programų licencijų, pavyzdžiui, Power BI Pro: jos priklauso nuo naudotojų skaičiaus ir vertinamos atskirai."]],
+    fit: { eyebrow: "Kam tinka", heading: "„Ataskaitą kas savaitę dėliojame ranka.“", items: [
+      { title: "Skaičiai keliose vietose", text: "Pardavimai parduotuvėje, išlaidos lentelėje, užsakymai buhalterijoje. Sujungiame juos į vieną vaizdą.", example: "Pavyzdys: pardavimai pagal prekę ir mėnesį." },
+      { title: "Ataskaita užtrunka", text: "Tą pačią ataskaitą kas savaitę sudedate iš kelių failų. Skydelis ją parodo be rankinio darbo.", example: "Pavyzdys: savaitės pardavimų apžvalga." },
+      { title: "Sunku pamatyti tendenciją", text: "Lentelėje matote skaičius, bet ne tai, kas keičiasi. Grafikai parodo, kas auga, o kas krenta.", example: "Pavyzdys: kurios prekės parduodamos vis prasčiau." },
+    ] },
+    included: { note: "Kaina aptariama po pokalbio: ji priklauso nuo duomenų šaltinių ir ataskaitų skaičiaus.", items: [
+      "Aptariame, kokius sprendimus priimate pagal skaičius",
+      "Sujungiame duomenis iš jūsų naudojamų sistemų ir lentelių",
+      "Sukuriame skydelį su sutartais rodikliais",
+      "Sutariame, kas mato kokius duomenis",
+      "Paaiškiname, kaip skydeliu naudotis",
+    ] },
+    faq: { heading: "Apie duomenų analitiką.", items: [
+      { q: "Kokias programas naudojate?", a: "Dažniausiai Power BI, nes jis jungiasi prie Excel ir daugelio verslo sistemų. Jei jau naudojate kitą įrankį, pirmiausia pažiūrime, ar galima dirbti su juo." },
+      { q: "Ar mano duomenys turi būti tvarkingi?", a: "Nebūtinai. Dalį duomenų sutvarkymo įtraukiame į darbą. Kiek jo reikės, pasakome pamatę duomenis." },
+      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo duomenų šaltinių ir ataskaitų skaičiaus. Ją sutariame po pokalbio, prieš pradėdami darbą." },
+    ] },
+    questions: [
+      { label: "Kokius skaičius norite matyti?", line: "Norimi skaičiai:", long: true, placeholder: "Pvz., pardavimai pagal prekę ir mėnesį, marža" },
+      { label: "Kur dabar laikomi duomenys?", line: "Kur laikomi duomenys:", placeholder: "Pvz., Excel, el. parduotuvė, buhalterijos programa" },
+      { label: "Kaip dažnai ruošiate ataskaitas?", line: "Ataskaitų dažnis:", options: ["Kas savaitę", "Kas mėnesį", "Retai", "Nežinau"] },
+    ],
+  },
+  bots: {
+    id: "bots",
+    service: "Telegram ir Discord botai",
+    gets: [["Ką gaunate", "Veikiantį Telegram ar Discord botą, kuris siunčia pranešimus, priima užsakymus arba seka jums svarbius pokyčius."], ["Ką darote jūs", "Papasakojate, ką botas turi daryti ir kas juo naudosis."], ["Ko kainoje nėra", "Serverio ir išorinių paslaugų mokesčių, jei botui jų reikia: juos įvardijame iš anksto."]],
+    fit: { eyebrow: "Kam tinka", heading: "„Norime žinoti iš karto, kai kažkas nutinka.“", items: [
+      { title: "Pranešimai komandai", text: "Nauja užklausa, užsakymas ar klaida svetainėje iš karto atkeliauja į Telegram grupę.", example: "Pavyzdys: pranešimas apie naują užsakymą." },
+      { title: "Stebėjimas", text: "Botas tikrina jums svarbius šaltinius ir praneša, kai atsiranda kas nors nauja.", example: "Pavyzdys: kasdienė santrauka rytais." },
+      { title: "Bendruomenė Discord'e", text: "Botas pasitinka naujus narius, suteikia roles ir atsako į pasikartojančius klausimus.", example: "Pavyzdys: klubo ar kurso bendruomenė." },
+    ] },
+    included: { note: "Kaina aptariama po pokalbio: ji priklauso nuo to, ką botas turi daryti ir prie kokių sistemų jungtis.", items: [
+      "Sutariame, ką botas daro ir kas juo naudojasi",
+      "Sukuriame ir paleidžiame botą",
+      "Prijungiame prie jūsų sistemų, jei reikia",
+      "Iš anksto įvardijame serverio ir paslaugų mokesčius",
+    ] },
+    faq: { heading: "Apie botus.", items: [
+      { q: "Kur veiks botas?", a: "Telegram'e arba Discord'e, priklausomai nuo to, kur jūs ir jūsų komanda ar bendruomenė jau bendraujate." },
+      { q: "Ar botui reikia serverio?", a: "Priklauso nuo užduoties. Kai kuriems pakanka kartą per dieną paleidžiamo darbo, kitiems reikia nuolat veikiančio serverio. Kainą įvardijame iš anksto." },
+      { q: "Kiek tai kainuos?", a: "Kaina priklauso nuo boto užduočių ir integracijų. Ją sutariame po pokalbio, prieš pradėdami darbą." },
+    ] },
+    questions: [
+      { label: "Ką botas turėtų daryti?", line: "Ką botas turėtų daryti:", long: true, placeholder: "Pvz., pranešti grupei apie naujus užsakymus" },
+      { label: "Kur jis veiks?", line: "Kur veiks botas:", options: ["Telegram", "Discord", "Dar nežinau"] },
+      { label: "Kas juo naudosis?", line: "Kas naudosis:", options: ["Tik aš", "Mūsų komanda", "Klientai ar bendruomenė", "Nežinau"] },
     ],
   },
 }
