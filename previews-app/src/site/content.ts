@@ -1,3 +1,4 @@
+import type { MediaId } from "./mediaSlots.js"
 import { prices } from "./pricing.js"
 import { posts } from "./posts.js"
 export const navigation = [
@@ -215,7 +216,8 @@ for (const post of posts) {
   }
 }
 
-export const services = [
+export type Service = { href: string; title: string; text: string; gets: string; price: string; number: string; group: string; media?: MediaId }
+export const services: Service[] = [
   {
     href: "/paslaugos/svetaines",
     title: "Verslo svetainės",
@@ -224,6 +226,7 @@ export const services = [
     price: `nuo ${prices.website}`,
     number: "01",
     group: "websites",
+    media: "serviceWebsites",
   },
   {
     href: "/paslaugos/el-parduotuves",
@@ -233,11 +236,12 @@ export const services = [
     price: `nuo ${prices.shop}`,
     number: "02",
     group: "websites",
+    media: "serviceShop",
   },
-  { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Kai svetainė yra, bet atrodo pasenusi arba nepatogi telefone.", gets: "Naują esamos svetainės dizainą ir struktūrą bei senų adresų nukreipimus.", price: "Kaina pagal apimtį", number: "03", group: "websites" },
-  { href: "/paslaugos/seo-prieziura", title: "SEO ir svetainės priežiūra", text: "Kai paleistos svetainės niekas neprižiūri ir nežinote, ką pagerinti.", gets: "Techninę svetainės patikrą ir sutartus atnaujinimus bei smulkius pakeitimus.", price: "Kaina pagal darbus", number: "04", group: "websites" },
+  { href: "/paslaugos/svetainiu-atnaujinimas", title: "Svetainės dizaino atnaujinimas", text: "Kai svetainė yra, bet atrodo pasenusi arba nepatogi telefone.", gets: "Naują esamos svetainės dizainą ir struktūrą bei senų adresų nukreipimus.", price: "Kaina pagal apimtį", number: "03", group: "websites", media: "serviceRedesign" },
+  { href: "/paslaugos/seo-prieziura", title: "SEO ir svetainės priežiūra", text: "Kai paleistos svetainės niekas neprižiūri ir nežinote, ką pagerinti.", gets: "Techninę svetainės patikrą ir sutartus atnaujinimus bei smulkius pakeitimus.", price: "Kaina pagal darbus", number: "04", group: "websites", media: "serviceSeo" },
   { href: "/paslaugos/ai-matomumas", title: "AI matomumas", text: "Kai klientai klausia ChatGPT, o jis jūsų nemini.", gets: "Ataskaitą, ar AI asistentai jus mini, ką siūlo vietoj jūsų ir ką verta pakeisti.", price: "Kaina aptariama po pokalbio", number: "11", group: "websites" },
-  { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", gets: "Pirmą veikiančią programos versiją, kurią galite išbandyti dar kuriant.", price: "Kaina aptariama po pokalbio", number: "05", group: "apps" },
+  { href: "/paslaugos/programos", title: "Programos ir vidaus sistemos", text: "Kai Excel, laiškai ir užrašai nebeužtenka kasdieniam darbui.", gets: "Pirmą veikiančią programos versiją, kurią galite išbandyti dar kuriant.", price: "Kaina aptariama po pokalbio", number: "05", group: "apps", media: "serviceApps" },
   {
     href: "/paslaugos/ai-agentai",
     title: "AI automatizacija",
@@ -246,8 +250,9 @@ export const services = [
     price: "Kaina aptariama po pokalbio",
     number: "06",
     group: "apps",
+    media: "serviceAutomation",
   },
-  { href: "/paslaugos/integracijos", title: "Integracijos ir dokumentų automatizavimas", text: "Kai tie patys duomenys perrašomi ranka iš vienos sistemos į kitą.", gets: "Sujungtas jūsų naudojamas sistemas, kad duomenų ir dokumentų nebereikėtų perrašyti ranka.", price: "Kaina aptariama po pokalbio", number: "07", group: "apps" },
+  { href: "/paslaugos/integracijos", title: "Integracijos ir dokumentų automatizavimas", text: "Kai tie patys duomenys perrašomi ranka iš vienos sistemos į kitą.", gets: "Sujungtas jūsų naudojamas sistemas, kad duomenų ir dokumentų nebereikėtų perrašyti ranka.", price: "Kaina aptariama po pokalbio", number: "07", group: "apps", media: "serviceIntegrations" },
   { href: "/paslaugos/ai-asistentas", title: "AI pokalbių asistentas", text: "Kai į tuos pačius klientų klausimus atsakote kelis kartus per dieną.", gets: "Asistentą svetainėje ar Messenger'yje, kuris atsako pagal jūsų informaciją ir sudėtingesnius klausimus perduoda jums.", price: "Kaina aptariama po pokalbio", number: "12", group: "apps" },
   { href: "/paslaugos/duomenu-analitika", title: "Duomenų analitika", text: "Kai ataskaitą kas savaitę dėliojate ranka iš kelių failų.", gets: "Ataskaitų skydelį, kuriame svarbiausi skaičiai matomi vienoje vietoje ir atsinaujina patys.", price: "Kaina aptariama po pokalbio", number: "13", group: "apps" },
   { href: "/paslaugos/telegram-discord-botai", title: "Telegram ir Discord botai", text: "Kai norite žinoti iš karto, kai atsiranda užsakymas ar kažkas pasikeičia.", gets: "Veikiantį botą, kuris siunčia pranešimus, priima užsakymus arba seka pokyčius.", price: "Kaina aptariama po pokalbio", number: "14", group: "apps" },
