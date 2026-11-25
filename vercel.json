@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --prefix previews-app",
+  "buildCommand": "npm run build --prefix previews-app",
+  "outputDirectory": "previews-app/dist",
+  "functions": {
+    "api/contact.js": { "includeFiles": "previews-app/{package.json,server/contact.ts,src/site/serviceNames.ts}" }
+  }
+}
