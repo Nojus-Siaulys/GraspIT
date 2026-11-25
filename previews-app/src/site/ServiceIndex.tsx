@@ -45,22 +45,17 @@ export function ServiceIndex() {
   return <section className="bg-secondary py-10 md:py-16">
     <div className="mx-auto grid max-w-[1280px] gap-14 px-5 md:px-8 lg:grid-cols-2">
       <div className="space-y-8 lg:space-y-14">
-        {serviceGroups.map((group, groupIndex) => <div key={group.id} id={group.id} className="scroll-mt-24">
-          <p className="ux-eyebrow text-[var(--signal)] max-lg:hidden">0{groupIndex + 1}</p>
-          <h2 className="text-2xl font-bold tracking-tight lg:mt-2 lg:text-4xl">{group.title}</h2>
+        {serviceGroups.map((group) => <div key={group.id} id={group.id} className="scroll-mt-24">
+          <h2 className="text-2xl font-bold tracking-tight lg:text-4xl">{group.title}</h2>
           <p className="mt-3 mb-6 max-w-[48ch] text-lg leading-relaxed text-muted-foreground max-lg:hidden">{group.text}</p>
           <ul className="grid grid-cols-2 gap-2 max-lg:mt-3 max-[339px]:grid-cols-1 md:grid-cols-3 lg:block lg:border-b lg:border-foreground">
-            {services.filter((service) => service.group === group.id).map((service, index) => {
-              const number = String(index + 1).padStart(2, "0")
-              return <li key={service.href} className="lg:border-t lg:border-foreground">
-                <a href={`${service.href}/`} onMouseEnter={() => setActive(service)} onFocus={() => setActive(service)} className={`hidden min-h-16 items-center gap-4 px-3 py-3 lg:flex ${active === service ? "bg-foreground text-background!" : ""}`}>
-                  <span className="ux-eyebrow">{number}</span>
-                  <h3 className="flex-1 text-xl font-bold leading-snug">{service.title}</h3>
-                  <ArrowRight aria-hidden="true" className="size-5 shrink-0" />
-                </a>
-                <Tile service={service} />
-              </li>
-            })}
+            {services.filter((service) => service.group === group.id).map((service) => <li key={service.href} className="lg:border-t lg:border-foreground">
+              <a href={`${service.href}/`} onMouseEnter={() => setActive(service)} onFocus={() => setActive(service)} className={`hidden min-h-16 items-center gap-4 px-3 py-3 lg:flex ${active === service ? "bg-foreground text-background!" : ""}`}>
+                <h3 className="flex-1 text-xl font-bold leading-snug">{service.title}</h3>
+                <ArrowRight aria-hidden="true" className="size-5 shrink-0" />
+              </a>
+              <Tile service={service} />
+            </li>)}
           </ul>
         </div>)}
       </div>

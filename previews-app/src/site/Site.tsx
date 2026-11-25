@@ -63,7 +63,7 @@ function Section({
   id,
   compact = false,
 }: {
-  number: string
+  number?: string
   label: string
   title: string
   children: ReactNode
@@ -76,7 +76,7 @@ function Section({
       <div className={wrap}>
         <div className={`${compact ? "mb-0 gap-0 md:mb-10 md:gap-4" : "mb-10 gap-4"} grid lg:grid-cols-12`}>
           <p className={`${eyebrow} lg:col-span-3 ${compact ? "max-md:hidden" : ""}`}>
-            <span className="mr-3 text-[var(--signal)]">{number}</span>
+            {number && <span className="mr-3 text-[var(--signal)]">{number}</span>}
             {label}
           </p>
           <h2 className={`${heading} max-w-[23ch] lg:col-span-9 ${compact ? "max-md:sr-only" : ""}`}>{title}</h2>
@@ -331,7 +331,6 @@ function Services({ path }: { path: string }) {
         <ServiceIndex />
         <ServiceScenarios />
         <Section
-          number="04"
           label="Pirmas žingsnis"
           title="Nežinote, nuo ko pradėti?"
         >
