@@ -16,15 +16,17 @@ import { Footer } from "./Footer"
 import { PageBackdrop, pageBackdrops } from "./PageBackdrop"
 import { Media } from "./Media"
 import { hasMedia, type MediaId } from "./mediaSlots"
+import { ServiceIndex } from "./ServiceIndex"
 import { PackageFinder } from "./PackageFinder"
 import { PhoneCollapse } from "./PhoneCollapse"
-import { prices, pricingPackages } from "./pricing"
+import { prices } from "./pricing"
+import { PriceAnatomy } from "./PriceAnatomy"
 import { ContactBrief } from "./ContactBrief"
 import { BlogIndex, BlogPost, RelatedArticles } from "./Blog"
 import { useEffect, useState, type ReactNode } from "react"
-import { ArrowDown, ArrowRight, Check, Menu, Phone, X } from "lucide-react"
+import { ArrowDown, ArrowRight, Menu, Phone, X } from "lucide-react"
 import { lt } from "@/content-lt"
-import { allFaq, faqGroups, navigation, pages, serviceGroups, services } from "./content"
+import { allFaq, faqGroups, navigation, pages, services } from "./content"
 
 const pageUrl = (path: string) =>
   path === "/" ? path : path.replace(/\/?(#.*)?$/, "/$1")
@@ -40,7 +42,7 @@ const linkStyle =
 function Brand() {
   return (
     <span className="font-display inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight"><img src="/img/logo-96.png" alt="" width="36" height="36" className="size-9 rounded bg-background p-0.5 object-contain" />
-      <span>GraspIT</span>
+      <span>Grasp<span className="text-[var(--brand-it)]">IT</span></span>
     </span>
   )
 }
@@ -172,47 +174,14 @@ function Home() {
 function Pricing() {
   return (
     <>
-    <Section
-      number="01"
-      label="Paketai"
-      title="Du paketai"
-      sand
-    >
-      <div className="grid gap-6 md:grid-cols-2">
-        {pricingPackages.map((p, i) => (
-          <article
-            key={p.t}
-            className={`flex flex-col rounded-lg border border-foreground p-6 md:p-9 ${i ? "bg-foreground text-background" : "bg-background"}`}
-          >
-            <span className={eyebrow}>0{i + 1} / Vienkartinis kūrimas</span>
-            <h2 className="mt-8 text-2xl font-bold">{p.t}</h2>
-            <p className="mt-3 mb-5">
-              <span className="text-sm">nuo </span>
-              <span className="text-6xl font-bold tracking-tight">{p.p}</span>
-            </p>
-            <p className="mb-8 opacity-75">{p.d}</p>
-            <ul className="mb-8 space-y-4">
-              {p.features.map((f) => (
-                <li
-                  key={f}
-                  className="flex gap-3 border-t border-current/25 pt-3"
-                >
-                  <Check className="mt-1 size-4 shrink-0" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <a
-              href={"/kontaktai/?" + new URLSearchParams({ paslauga: i ? "Dar nežinau" : "Svetainė", paketas: p.t }).toString()}
-              className="mt-auto inline-flex items-center justify-between border-t border-current pt-5 font-semibold"
-            >
-              Aptarti šį paketą
-              <ArrowRight className="size-5" />
-            </a>
-          </article>
-        ))}
+    <section className={`${band} bg-secondary`} aria-labelledby="price-anatomy-heading">
+      <div className={wrap}>
+        <h2 id="price-anatomy-heading" className="ux-eyebrow mb-8"><span className="mr-3 text-[var(--signal)]">01</span>Paslaugų kainos</h2>
+        <PriceAnatomy />
       </div>
-      <div className="mt-12 grid gap-8 md:grid-cols-2">
+    </section>
+    <section className="pt-16 md:pt-24">
+      <div className={`${wrap} grid gap-8 md:grid-cols-2`}>
         <div>
           <h3 className="mb-3 text-2xl font-bold">Kas skaičiuojama atskirai?</h3>
           <p className="leading-relaxed text-muted-foreground">Domenas, talpinimas, mokamų paslaugų mokesčiai ir papildomas turinio rengimas, jei jie neįvardyti pasiūlyme.</p>
@@ -223,7 +192,7 @@ function Pricing() {
           <Link href="/duk/#prieziura">Apie pagalbą ir priežiūrą</Link>
         </div>
       </div>
-    </Section>
+    </section>
     <PackageScope />
     <Section number="02" label="Pasirinkimas" title="Nežinote, kuris variantas tinka?" sand><PackageFinder /></Section>
     </>
@@ -354,35 +323,15 @@ const serviceRows: Record<ServiceKind, string[][]> = {
     ["Bendruomenei", "Pasitinka naujus narius, suteikia roles ir atsako į pasikartojančius klausimus."],
   ],
 }
-const cards = services
 
 function Services({ path }: { path: string }) {
   if (path === "/paslaugos")
     return (
       <>
-        <nav aria-label="Paslaugų grupės" className={`${wrap} flex flex-wrap gap-2 pb-2 pt-6 md:hidden`}>
-          {serviceGroups.map((group) => <a key={group.id} href={`#${group.id}`} className="inline-flex min-h-11 items-center rounded-md border border-foreground/40 px-4 text-sm font-semibold">{group.title}</a>)}
-        </nav>
-        {serviceGroups.map((group, groupIndex) => (
-          <Section key={group.id} id={group.id} number={`0${groupIndex + 1}`} label={group.title} title={group.text} sand={groupIndex % 2 === 0}>
-            <div className="grid gap-5 md:grid-cols-2">
-              {cards.filter(card => card.group === group.id).map((service, index) => (
-                <a key={service.href} href={pageUrl(service.href)} className="lift group flex flex-col justify-between rounded-lg border border-foreground bg-background p-6 md:p-8">
-                  <div>
-                    <div className="flex items-center justify-between gap-5"><span className={eyebrow}>0{index + 1}</span><ArrowRight aria-hidden="true" className="size-6 shrink-0 motion-safe:transition-transform group-hover:translate-x-1" /></div>
-                    <h3 className="mt-7 text-3xl font-bold tracking-tight">{service.title}</h3>
-                    <p className="mt-3 max-w-[45ch] text-lg leading-relaxed text-muted-foreground">{service.text}</p>
-                    <div className="mt-6 border-t border-foreground/25 pt-4"><p className={`${eyebrow} text-[var(--signal)]`}>Ką gausite</p><p className="mt-2 leading-relaxed">{service.gets}</p></div>
-                  </div>
-                  <p className="mt-6 text-2xl font-bold">{service.price}</p>
-                </a>
-              ))}
-            </div>
-          </Section>
-        ))}
+        <ServiceIndex />
         <ServiceScenarios />
         <Section
-          number="02"
+          number="04"
           label="Pirmas žingsnis"
           title="Nežinote, nuo ko pradėti?"
         >
@@ -411,7 +360,7 @@ function Services({ path }: { path: string }) {
     : path.endsWith("duomenu-analitika") ? "analytics"
     : path.endsWith("botai") ? "bots"
     : "websites"
-  const slot: MediaId | undefined = ({ ai: "serviceAutomation", apps: "serviceApps", shop: "serviceShop", websites: "serviceWebsites", redesign: "serviceRedesign", seo: "serviceSeo", integrations: "serviceIntegrations" } as Partial<Record<ServiceKind, MediaId>>)[kind]
+  const slot = services.find((service) => service.href === path)?.media
   const rows = serviceRows[kind]
   return (
     <>

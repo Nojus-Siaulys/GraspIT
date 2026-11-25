@@ -525,3 +525,6 @@ a, button, summary, label, input, select, textarea { touch-action: manipulation;
 html[data-cookie-notice] button[aria-label="Grįžti į puslapio viršų"] { display: none; }
 @media (prefers-reduced-motion: no-preference) { .cookie-notice { animation: rise-in .35s cubic-bezier(.2, .7, .2, 1) both; } }
 @media (max-width: 767px) { .phone-collapsed { display: none; } }
+
+/* Lithuanian headings: tighter than -0.01em runs the comma into the ogonek of a, e, i and u. Unlayered, so it also beats the tracking-* utilities. */
+[data-theme="bento-swiss"] :is(h1, h2, h3) { letter-spacing: -.01em; }
